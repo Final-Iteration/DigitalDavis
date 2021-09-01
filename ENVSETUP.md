@@ -141,9 +141,8 @@ inside of a new WSL terminal
 ```minikube version```
 
 :white_check_mark:
-```> minikube version: v1.22.0
-> commit: a03fbcf166e6f74ef224d4a63be4277d017bb62e 
-``` 
+```> minikube version: v1.22.0```
+```> commit: a03fbcf166e6f74ef224d4a63be4277d017bb62e``` 
 
 ** Tools I highly Recommend **
 
