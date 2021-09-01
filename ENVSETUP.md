@@ -1,18 +1,18 @@
-#Development Environment
+# Development Environment
 
-##1 - Docker Desktop
+### Docker Desktop
 
 1. https://www.docker.com/products/docker-desktop
 1. You will need to enable WSL inside of settings.
 
 
-##2 - WSL2 - Windows Users Only
+### WSL2 - Windows Users Only
 
 1. https://docs.microsoft.com/en-us/windows/wsl/install-win10
 1. Distro Ubuntu 18.04 - Bionic Beaver
 1. https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab
 
-##3 - VSCode
+### VSCode
 
 1. https://code.visualstudio.com/download
 Extensions
@@ -22,53 +22,61 @@ Extensions
     1. https://code.visualstudio.com/docs/editor/settings-sync
 
 
-##4 - Gitlab setup in vscode
+### Git
 
 https://newbedev.com/shell-how-to-change-git-credentials-in-vscode-code-example
 
 1. Disable 2FA on Gitlab if you have it enabled 
 2. Clone using HTTPS vscode should ask for username and pw
 3. Open VSCode Terminal and navigate to the git directory /home/path_to_repo/Spring2021_Final Iteration.
-```
-    git config --global user.email "you@example.com"
-    git config --global user.name "Your Name"
-```
-4. Use the command below with your personal credentials
+4. Clone the project repo useing HTTPS 
+    1. https://gitlab.com/yang_SacState/spring2021_final-iteration.git
+5. Run the following commands
 
-```git remote set-url origin https://<USERNAME>:<PASSWORD>@gitlab.com/yang_SacState/spring2021_final-iteration.git```
+```git config --global user.email "you@example.com"```
 
-:exclamation:
+```git config --global user.name "Your Name"```
+
+6. Use the command below with your personal credentials
+    1. ```git remote set-url origin https://<USERNAME>:<PASSWORD>@gitlab.com/yang_SacState/spring2021_final-iteration.git```
+7. Checkout to the auth_test branch
+8. update the auth_test.md file to include your name
+9. save and push 
 
 
-##WSL Terminal##
+### WSL CLI - VScode
 
-In VSCode Type
+1. In VSCode Type
 
 ```ctrl+shift+p```
 
-Select
+2. Select
 
 ```New WSL Window using Distro```
 
-Choose 
+3. Choose 
 
 ```Ubuntu 18.04```
 
-Run the following command 
+4. Run the following command 
 
 ```-uname -srvo ```
 
 You need to get the following output to confirm you are in the correct env 
 
-:white_check_mark: ``` > Linux 5.4.72-microsoft-standard-WSL2 #1 SMP Wed Oct 28 23:40:43 UTC 2020 GNU/Linux``` 
+``` 
+> Linux 5.4.72-microsoft-standard-WSL2 #1 SMP Wed Oct 28 23:40:43 UTC 2020 GNU/Linux
+``` 
 
-1 - Docker 
+### Docker 
 
 ```docker -v```
 
-:white_check_mark: ``` > Docker version 20.10.8, build 3967b7d``` 
+``` 
+> Docker version 20.10.8, build 3967b7d
+``` 
 
-2 - Docker Compose
+### Docker Compose
 
 https://docs.docker.com/compose/install/
 
@@ -78,9 +86,11 @@ https://docs.docker.com/compose/install/
 
 ```docker-compose --version```
 
-:white_check_mark: ```> docker-compose version 1.29.2, build 5becea4c ```  
+```
+> docker-compose version 1.29.2, build 5becea4c 
+```  
 
-3 - Node JS 
+### Node JS 
 https://github.com/nodesource/distributions/blob/master/README.md#deb
 
 ```curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -```
@@ -90,8 +100,6 @@ https://github.com/nodesource/distributions/blob/master/README.md#deb
 ```sudo npm install -g npm```
 
 ```npm version```
-
-:white_check_mark:
 
 ```json
 {
@@ -116,7 +124,7 @@ https://github.com/nodesource/distributions/blob/master/README.md#deb
 }
 ```
 
-4 - Kubernetes install 
+### Kubernetes install 
 
 https://minikube.sigs.k8s.io/docs/start/
 
@@ -129,25 +137,17 @@ inside of a new WSL terminal
 
 ```minikube version```
 
-:white_check_mark:
-
-
 ```
 > minikube version: v1.22.0
 > commit: a03fbcf166e6f74ef224d4a63be4277d017bb62e
-
 ```
 
-** Tools I highly Recommend **
 
-Microsoft Terminal 
+### Recommended Tools
 
-Mongo DB Compass
-
-MobaXterm
-
-Sublime Text 4
-
-Greenshot
-
-Bitvise
+1. Microsoft Terminal 
+1. Mongo DB Compass
+1. MobaXterm
+1. Sublime Text 4
+1. Greenshot
+1. Bitvise
