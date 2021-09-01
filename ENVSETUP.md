@@ -1,18 +1,18 @@
-#Development Environment#
+#Development Environment
 
-##1 - Docker Desktop##
+##1 - Docker Desktop
 
 1. https://www.docker.com/products/docker-desktop
 1. You will need to enable WSL inside of settings.
 
 
-##2 - WSL2 - Windows Users Only##
+##2 - WSL2 - Windows Users Only
 
 1. https://docs.microsoft.com/en-us/windows/wsl/install-win10
 1. Distro Ubuntu 18.04 - Bionic Beaver
 1. https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab
 
-##3 - VSCode##
+##3 - VSCode
 
 1. https://code.visualstudio.com/download
 Extensions
@@ -22,7 +22,7 @@ Extensions
     1. https://code.visualstudio.com/docs/editor/settings-sync
 
 
-##4 - Gitlab setup in vscode##
+##4 - Gitlab setup in vscode
 
 https://newbedev.com/shell-how-to-change-git-credentials-in-vscode-code-example
 
