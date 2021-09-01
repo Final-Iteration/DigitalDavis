@@ -8,25 +8,19 @@
 
 2 - WSL2 - *Windows Users Only*
 
-https://docs.microsoft.com/en-us/windows/wsl/install-win10
-
-Distro Ubuntu 18.04 - Bionic Beaver
-
-https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab
-
+1. https://docs.microsoft.com/en-us/windows/wsl/install-win10
+1. Distro Ubuntu 18.04 - Bionic Beaver
+1. https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab
 
 3 - VSCode
 
-https://code.visualstudio.com/download
+1. https://code.visualstudio.com/download
+1. Extensions
+  1. https://code.visualstudio.com/docs/remote/wsl
+  1. https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
+1. Sync Settings - optional 
+  1. https://code.visualstudio.com/docs/editor/settings-sync
 
-Extensions
-https://code.visualstudio.com/docs/remote/wsl
-
-https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
-
-Sync Settings - optional 
-
-https://code.visualstudio.com/docs/editor/settings-sync
 
 4 - Gitlab setup in vscode
 
