@@ -15,29 +15,27 @@
 3 - VSCode
 
 1. https://code.visualstudio.com/download
-1. Extensions
-  1. https://code.visualstudio.com/docs/remote/wsl
-  1. https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
-1. Sync Settings - optional 
-  1. https://code.visualstudio.com/docs/editor/settings-sync
+
+Extensions
+1. https://code.visualstudio.com/docs/remote/wsl
+1. https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
+
+Sync Settings - optional 
+  1. 1. https://code.visualstudio.com/docs/editor/settings-sync
 
 
 4 - Gitlab setup in vscode
 
 https://newbedev.com/shell-how-to-change-git-credentials-in-vscode-code-example
 
-**First** - disable 2FA on Gitlab if you have it enabled 
-
-**Second** -  clone using HTTPS vscode should ask for username and pw
-
-**Third** - Open VSCode Terminal and navigate to the git directory /home/path_to_repo/Spring2021_Final Iteration.
-
+1. disable 2FA on Gitlab if you have it enabled 
+1. clone using HTTPS vscode should ask for username and pw
+1. Open VSCode Terminal and navigate to the git directory /home/path_to_repo/Spring2021_Final Iteration.
 ```
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
-
-**Fourth** - Use the command below with your personal credentials
+1. Use the command below with your personal credentials
 
 ```git remote set-url origin https://<USERNAME>:<PASSWORD>@gitlab.com/yang_SacState/spring2021_final-iteration.git```
 
