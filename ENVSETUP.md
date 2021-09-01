@@ -5,6 +5,7 @@ https://www.docker.com/products/docker-desktop
 You will need to enable WSL inside of settings.
 
 2 - WSL2 - *Windows Users Only*
+
 https://docs.microsoft.com/en-us/windows/wsl/install-win10
 Distro Ubuntu 18.04 - Bionic Beaver
 https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab
