@@ -2,9 +2,9 @@
 
 1 - Docker Desktop
 
-https://www.docker.com/products/docker-desktop
+1. https://www.docker.com/products/docker-desktop
+1. You will need to enable WSL inside of settings.
 
-You will need to enable WSL inside of settings.
 
 2 - WSL2 - *Windows Users Only*
 
