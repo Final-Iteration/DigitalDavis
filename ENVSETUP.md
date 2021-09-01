@@ -1,6 +1,7 @@
 **Development Environment**
 
 1 - Docker Desktop
+
 https://www.docker.com/products/docker-desktop
 You will need to enable WSL inside of settings.
 
@@ -11,6 +12,7 @@ Distro Ubuntu 18.04 - Bionic Beaver
 https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab
 
 3 - VSCode
+
 https://code.visualstudio.com/download
 Extensions
 https://code.visualstudio.com/docs/remote/wsl
@@ -19,6 +21,7 @@ Sync Settings - optional
 https://code.visualstudio.com/docs/editor/settings-sync
 
 4 - Gitlab setup in vscode
+
 https://newbedev.com/shell-how-to-change-git-credentials-in-vscode-code-example
 **First ** - disable 2FA on Gitlab if you have it enabled 
 **Second ** -  clone using HTTPS vscode should ask for username and pw
