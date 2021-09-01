@@ -79,9 +79,7 @@ You need to get the following output to confirm you are in the correct env
 
 ```docker -v```
 
-:white_check_mark: 
-
-``` > Docker version 20.10.8, build 3967b7d``` 
+:white_check_mark: ``` > Docker version 20.10.8, build 3967b7d``` 
 
 2 - Docker Compose
 
@@ -93,9 +91,7 @@ https://docs.docker.com/compose/install/
 
 ```docker-compose --version```
 
-:white_check_mark:
-
-```> docker-compose version 1.29.2, build 5becea4c ```  
+:white_check_mark: ```> docker-compose version 1.29.2, build 5becea4c ```  
 
 3 - Node JS 
 https://github.com/nodesource/distributions/blob/master/README.md#deb
@@ -147,7 +143,6 @@ inside of a new WSL terminal
 ```minikube version```
 
 :white_check_mark:
-
 ```> minikube version: v1.22.0
 > commit: a03fbcf166e6f74ef224d4a63be4277d017bb62e ``` 
 
