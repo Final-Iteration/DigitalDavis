@@ -1,0 +1,22 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "employee wellness application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/yang_SacState/spring2021_final-iteration.git"
+  },
+  "author": "Boyd, Gustav Alexander gustavboyd@csus.edu; Fitzpatrick, Sharon N sharonfitzpatrick@csus.edu; Olsen, Daniel Reese dolsen@csus.edu; Poe, Josh Ryan jpoe@csus.edu; Rizvi, Sahira srizvi@csus.edu; Stallworth, Akasha Kennedy astallworth@csus.edu; Sy, Manh Tu manhsy@csus.edu; Worley Jr, Dennis Michael dworley@csus.edu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/yang_SacState/spring2021_final-iteration/issues"
+  },
+  "homepage": "https://gitlab.com/yang_SacState/spring2021_final-iteration#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
