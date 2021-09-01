@@ -71,9 +71,7 @@ Run the following command
 
 You need to get the following output to confirm you are in the correct env 
 
-:white_check_mark: 
-
-``` > Linux 5.4.72-microsoft-standard-WSL2 #1 SMP Wed Oct 28 23:40:43 UTC 2020 GNU/Linux``` 
+:white_check_mark: ``` > Linux 5.4.72-microsoft-standard-WSL2 #1 SMP Wed Oct 28 23:40:43 UTC 2020 GNU/Linux``` 
 
 1 - Docker 
 
@@ -144,7 +142,8 @@ inside of a new WSL terminal
 
 :white_check_mark:
 ```> minikube version: v1.22.0
-> commit: a03fbcf166e6f74ef224d4a63be4277d017bb62e ``` 
+> commit: a03fbcf166e6f74ef224d4a63be4277d017bb62e 
+``` 
 
 ** Tools I highly Recommend **
 
