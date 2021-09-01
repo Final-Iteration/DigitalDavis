@@ -15,11 +15,11 @@
 3 - VSCode
 
 1. https://code.visualstudio.com/download
-1. Extensions
-    1.1 https://code.visualstudio.com/docs/remote/wsl
-    1.1 https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
-1. Sync Settings - optional 
-    1.1 https://code.visualstudio.com/docs/editor/settings-sync
+Extensions
+    1. https://code.visualstudio.com/docs/remote/wsl
+    1. https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
+2. Sync Settings - optional 
+    1. https://code.visualstudio.com/docs/editor/settings-sync
 
 
 4 - Gitlab setup in vscode
