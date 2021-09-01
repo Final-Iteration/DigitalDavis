@@ -32,11 +32,11 @@ https://code.visualstudio.com/docs/editor/settings-sync
 
 https://newbedev.com/shell-how-to-change-git-credentials-in-vscode-code-example
 
-**First ** - disable 2FA on Gitlab if you have it enabled 
+**First** - disable 2FA on Gitlab if you have it enabled 
 
-**Second ** -  clone using HTTPS vscode should ask for username and pw
+**Second** -  clone using HTTPS vscode should ask for username and pw
 
-**Third  ** - Open VSCode Terminal and navigate to the git directory /home/path_to_repo/Spring2021_Final Iteration.
+**Third** - Open VSCode Terminal and navigate to the git directory /home/path_to_repo/Spring2021_Final Iteration.
 
 ```
 git config --global user.email "you@example.com"
