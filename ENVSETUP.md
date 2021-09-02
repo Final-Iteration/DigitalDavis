@@ -4,7 +4,7 @@
 
 1. https://www.docker.com/products/docker-desktop
 1. You will need to enable WSL inside of settings.
-
+1. docker run -d -p 80:80 docker/getting-started
 
 ### WSL2 - Windows Users Only
 
@@ -76,6 +76,10 @@ You need to get the following output to confirm you are in the correct env
 > Docker version 20.10.8, build 3967b7d
 ``` 
 
+```docker run -d -p 80:80 docker/getting-started```
+
+Go to ```localhost:80```
+
 ### Docker Compose
 
 https://docs.docker.com/compose/install/
@@ -84,7 +88,7 @@ https://docs.docker.com/compose/install/
 
 ```sudo chmod +x /usr/local/bin/docker-compose```
 
-```docker-compose --version```
+```sudo docker-compose --version```
 
 ```
 > docker-compose version 1.29.2, build 5becea4c 
