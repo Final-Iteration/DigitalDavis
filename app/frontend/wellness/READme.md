@@ -9,5 +9,5 @@
 ### After scanning, expo should pop up and you should see a simulation of the app!
 
 # DURING DEVELOPMENT
-
+### npm install 
 ### to see the changes made in the simulation, hold on expo with three fingers to reload the simulation!
