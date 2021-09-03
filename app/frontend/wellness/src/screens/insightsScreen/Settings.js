@@ -1,14 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
-const User = () => {
+const Settings = () => {
   return (
     <View>
-      <Text>This is the User screen</Text>
+      <Text style={{ alignSelf: "center" }}>This is the Settings screen</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({});
 
-export default User;
+export default Settings;

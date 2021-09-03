@@ -1,24 +1,16 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator } from "react-navigation-stack";
 
-import CurrentChallenges from "../screens/challenges/CurrentChallenge";
-import PastChallenges from "../screens/challenges/PastChallenges";
+import CurrentChallenges from "../screens/challengesScreen/CurrentChallenge";
+import PastChallenges from "../screens/challengesScreen/PastChallenges";
 
-const Stack = createStackNavigator();
+const ChallengeStack = createStackNavigator({
+  Challenge: {
+    screen: CurrentChallenges,
+  },
+  SearchedChallenge: {
+    screen: PastChallenges,
+  },
+});
 
-function MyStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="CurrentChallenges"
-        component={CurrentChallenges}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="PastChallenges" component={PastChallenges} />
-    </Stack.Navigator>
-  );
-}
-
-export default function ChallengesNavigator() {
-  return <MyStack />;
-}
+export default ChallengeStack;

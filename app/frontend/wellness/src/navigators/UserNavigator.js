@@ -1,33 +1,20 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator } from "react-navigation-stack";
 
-import Login from "../screens/user/Login";
-import Logout from "../screens/user/Logout";
-import Signup from "../screens/user/Singup";
+import Login from "../screens/userScreen/Login";
+import Logout from "../screens/userScreen/Logout";
+import Signup from "../screens/userScreen/Singup";
 
-const Stack = createStackNavigator();
+const AuthStack = createStackNavigator({
+  Login: {
+    screen: Login,
+    // navigationOptions: {
+    //   header: null,
+    // },
+  },
+  Register: {
+    screen: Signup,
+  },
+});
 
-function MyStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Logout"
-        component={Logout}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Signup"
-        component={Signup}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-}
-export default function UserNavigator() {
-  return <MyStack />;
-}
+export default AuthStack;

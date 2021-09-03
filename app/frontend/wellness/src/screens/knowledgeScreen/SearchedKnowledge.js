@@ -1,14 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
-const Settings = () => {
+const SearchedKnowledge = () => {
   return (
     <View>
-      <Text>This is the Settings screen</Text>
+      <Text style={{ alignSelf: "center" }}>
+        This is the SearchedKnowledge screen
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({});
 
-export default Settings;
+export default SearchedKnowledge;

@@ -1,28 +1,16 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator } from "react-navigation-stack";
 
-import Knowledge from "../screens/knowledge/Knowledge";
-import SearchedKnowledge from "../screens/knowledge/SearchedKnowledge";
+import Knowledge from "../screens/knowledgeScreen/Knowledge";
+import SearchedKnowledge from "../screens/knowledgeScreen/SearchedKnowledge";
 
-const Stack = createStackNavigator();
+const KnowledgeStack = createStackNavigator({
+  Knowledge: {
+    screen: Knowledge,
+  },
+  SearchedKnowledge: {
+    screen: SearchedKnowledge,
+  },
+});
 
-function MyStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Knowledge"
-        component={Knowledge}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="SearchedKnowledge"
-        component={SearchedKnowledge}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-export default function KnowledgeNavigator() {
-  return <MyStack />;
-}
+export default KnowledgeStack;

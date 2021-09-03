@@ -1,14 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
-const Search = () => {
+const SearchedFormulary = () => {
   return (
     <View>
-      <Text>This is the Search screen</Text>
+      <Text style={{ alignSelf: "center" }}>
+        This is the SearchedFormulary screen
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({});
 
-export default Search;
+export default SearchedFormulary;

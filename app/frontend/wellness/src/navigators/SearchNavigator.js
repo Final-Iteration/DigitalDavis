@@ -1,28 +1,16 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator } from "react-navigation-stack";
 
-import Search from "../screens/search/Search";
-import SearchedSearch from "../screens/search/SearchedSearch";
+import Search from "../screens/searchScreen/Search";
+import SearchedSearch from "../screens/searchScreen/SearchedSearch";
 
-const Stack = createStackNavigator();
+const SearchStack = createStackNavigator({
+  Search: {
+    screen: Search,
+  },
+  SearchedSearch: {
+    screen: SearchedSearch,
+  },
+});
 
-function MyStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Search"
-        component={Search}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="SearchedSearch"
-        component={SearchedSearch}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-export default function SearchNavigator() {
-  return <MyStack />;
-}
+export default SearchStack;

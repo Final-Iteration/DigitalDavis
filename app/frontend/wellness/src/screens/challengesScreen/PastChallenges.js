@@ -1,14 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
-const Insights = () => {
+const PastChallenges = () => {
   return (
     <View>
-      <Text>This is the Insights screen</Text>
+      <Text style={{ alignSelf: "center" }}>
+        This is the PastChallenges screen
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({});
 
-export default Insights;
+export default PastChallenges;

@@ -1,22 +1,20 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator } from "react-navigation-stack";
 
-import Insights from "../screens/insights/Insights";
+import Insights from "../screens/insightsScreen/Insights";
+import Settings from "../screens/insightsScreen/Settings";
+import User from "../screens/insightsScreen/User";
 
-const Stack = createStackNavigator();
+const InsightStack = createStackNavigator({
+  Insight: {
+    screen: Insights,
+  },
+  Setting: {
+    screen: Settings,
+  },
+  UserProfile: {
+    screen: User,
+  },
+});
 
-function MyStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Insights"
-        component={Insights}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-export default function InsightsNavigator() {
-  return <MyStack />;
-}
+export default InsightStack;
