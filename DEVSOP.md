@@ -1,4 +1,4 @@
-# Development SOP's and Guidlines
+# Development SOP's and Guidelines
 
 ### Git
 1. https://guides.github.com/introduction/git-handbook/
