@@ -61,7 +61,9 @@ https://newbedev.com/shell-how-to-change-git-credentials-in-vscode-code-example
 4. Run the following command 
 
 ```-uname -srvo ```
+
 If this does not work run the following command instead:
+
 ```uname -srvo ```
 
 You need to get the following output to confirm you are in the correct env 
