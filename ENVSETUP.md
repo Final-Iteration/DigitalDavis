@@ -11,19 +11,6 @@
 1. https://docs.microsoft.com/en-us/windows/wsl/install-win10
 1. Distro Ubuntu 18.04 - Bionic Beaver
 1. https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab
-#### Enable Docker in VSCode wsl
-1. In base VSCode terminal (not in wsl VSCode) run the following commands:
-2.  ```wsl --list``` 
-
-    - You will see all your wsl's listed. You should see Ubuntu-18.04 if you have it installed.
-
-     ```> Ubuntu-18.04```
-
-3. ```wsl --setdefault <DistributionName>```
-
-    -  ```wsl --setdefault Ubuntu-18.04```
-
-4. Restart Docker Desktop to apply changes
 
 
 ### VSCode
@@ -62,7 +49,25 @@ https://newbedev.com/shell-how-to-change-git-credentials-in-vscode-code-example
 ``` 
 
 ### Docker 
-1. ```docker -v```
+
+#### Enable Docker in VSCode wsl (Windows Only)
+
+1. In base VSCode terminal (not in wsl VSCode) run the following commands:
+2.  ```wsl --list``` 
+
+    - You will see all your wsl's listed. You should see Ubuntu-18.04 if you have it installed.
+
+     ```> Ubuntu-18.04```
+
+3. ```wsl --setdefault <DistributionName>```
+
+    -  ```wsl --setdefault Ubuntu-18.04```
+
+4. Restart Docker Desktop to apply changes
+
+5. In your wsl instance run:
+
+6. ```docker -v```
 ``` 
 > Docker version 20.10.8, build 3967b7d
 ``` 
