@@ -65,9 +65,11 @@ https://newbedev.com/shell-how-to-change-git-credentials-in-vscode-code-example
 
 4. Restart Docker Desktop to apply changes
 
-5. In your wsl instance run:
+5. In your wsl or linux instance run:
 
-6. ```docker -v```
+#### Docker
+
+1. ```docker -v```
 ``` 
 > Docker version 20.10.8, build 3967b7d
 ``` 
