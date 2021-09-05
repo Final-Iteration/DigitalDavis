@@ -11,10 +11,19 @@
 1. https://docs.microsoft.com/en-us/windows/wsl/install-win10
 1. Distro Ubuntu 18.04 - Bionic Beaver
 1. https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab
-1. ```wsl --list```
-1. ```> Ubuntu-18.04```
-1. ```wsl --setdefault <DistributionName>``` 
-1. Restart Docker Desktop
+#### Enable Docker in VSCode wsl
+1. In base VSCode terminal (not in wsl VSCode) run the following commands:
+2.  ```wsl --list``` 
+
+    - You will see all your wsl's listed. You should see Ubuntu-18.04 if you have it installed.
+
+     ```> Ubuntu-18.04```
+
+3. ```wsl --setdefault <DistributionName>```
+
+    -  ```wsl --setdefault Ubuntu-18.04```
+
+4. Restart Docker Desktop to apply changes
 
 
 ### VSCode
