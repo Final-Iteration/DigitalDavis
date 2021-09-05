@@ -36,51 +36,24 @@ https://newbedev.com/shell-how-to-change-git-credentials-in-vscode-code-example
 3. Open VSCode Terminal and navigate to the git directory /home/path_to_repo/Spring2021_Final Iteration.
 4. Clone the project repo useing HTTPS 
     1. https://gitlab.com/yang_SacState/spring2021_final-iteration.git
-5. Run the following commands
-
-```git config --global user.email "you@example.com"```
-
-```git config --global user.name "Your Name"```
-
+5. Run the following ```git config --global user.email "you@example.com"``` & ```git config --global user.name "Your Name"```
 6. Use the command below with your personal credentials
     1. ```git remote set-url origin https://<USERNAME>:<PASSWORD>@gitlab.com/yang_SacState/spring2021_final-iteration.git```
 7. Checkout to the auth_test branch
 8. update the auth_test.md file to include your name
 9. save and push 
 
-
 ### WSL CLI - VScode
-
-1. In VSCode Type
-
-```ctrl+shift+p```
-
-2. Select
-
-```New WSL Window using Distro```
-
-3. Choose 
-
-```Ubuntu 18.04```
-
-4. Run the following command 
-
-```-uname -srvo ```
-
-If this does not work run the following command instead:
-
-```uname -srvo ```
-
-You need to get the following output to confirm you are in the correct env 
-
+1. In VSCode Type ```ctrl+shift+p```
+2. Select ```New WSL Window using Distro```
+3. Choose ```Ubuntu 18.04```
+4. Run the following command ```-uname -srvo ```
 ``` 
 > Linux 5.4.72-microsoft-standard-WSL2 #1 SMP Wed Oct 28 23:40:43 UTC 2020 GNU/Linux
 ``` 
 
 ### Docker 
-
-```docker -v```
-
+1. ```docker -v```
 ``` 
 > Docker version 20.10.8, build 3967b7d
 ``` 
@@ -88,12 +61,9 @@ You need to get the following output to confirm you are in the correct env
 ### Docker Compose
 
 https://docs.docker.com/compose/install/
-
-```sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose```
-
-```sudo chmod +x /usr/local/bin/docker-compose```
-
-```docker-compose --version```
+1. ```sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose```
+2. ```sudo chmod +x /usr/local/bin/docker-compose```
+3. ```docker-compose --version```
 
 ```
 > docker-compose version 1.29.2, build 5becea4c 
@@ -102,15 +72,13 @@ https://docs.docker.com/compose/install/
 ### Node JS 
 https://github.com/nodesource/distributions/blob/master/README.md#deb
 
-```curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -```
-
-```sudo apt-get install -y nodejs```
-
-```sudo npm install -g npm```
-
-```npm version```
+1. ```curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -```
+2. ```sudo apt-get install -y nodejs```
+3. ```sudo npm install -g npm```
+4. ```npm version```
 
 ```json
+>>>
 {
   npm: '7.21.1',
   node: '16.8.0',
@@ -136,24 +104,15 @@ https://github.com/nodesource/distributions/blob/master/README.md#deb
 ### Kubernetes install 
 
 https://minikube.sigs.k8s.io/docs/start/
-
-
-inside of a new WSL terminal 
-
-```curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64```
-
-```sudo install minikube-linux-amd64 /usr/local/bin/minikube```
-
-```minikube version```
-
+1. inside of a new WSL terminal ```curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64```
+2. ```sudo install minikube-linux-amd64 /usr/local/bin/minikube```
+3. ```minikube version```
 ```
 > minikube version: v1.22.0
 > commit: a03fbcf166e6f74ef224d4a63be4277d017bb62e
 ```
 
-
 ### Recommended Tools
-
 1. Microsoft Terminal 
 1. Mongo DB Compass
 1. MobaXterm
