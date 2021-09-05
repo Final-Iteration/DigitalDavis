@@ -11,6 +11,11 @@
 1. https://docs.microsoft.com/en-us/windows/wsl/install-win10
 1. Distro Ubuntu 18.04 - Bionic Beaver
 1. https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab
+1. ```wsl --list```
+1. ```> Ubuntu-18.04```
+1. ```wsl --setdefault <DistributionName>``` 
+1. Restart Docker Desktop
+
 
 ### VSCode
 
