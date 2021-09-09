@@ -1,20 +1,21 @@
-FROM node:16.8.0
+FROM node:14.17.6
 LABEL version=1.1.0
 
 WORKDIR /usr/src/app
 
 COPY . .
 
+
+WORKDIR /usr/src/app/app
+RUN npm install
+
 WORKDIR /usr/src/app/app/frontend/wellness
 
-ENV REACT_NATIVE_PACKAGER_HOSTNAME=192.168.1.132
-ENV EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
-
-RUN npm install \
-    npm install --global expo-cli \
-    npm install react-native \
-    npm install metro-bundler \
-    npm install react-native-screens@3.4.0
+RUN npm install 
+RUN npm install --global expo-cli 
+RUN npm install react-native
+RUN npm install metro-bundler
+RUN npm install react-native-screens
 
 EXPOSE 19000
 EXPOSE 19001
