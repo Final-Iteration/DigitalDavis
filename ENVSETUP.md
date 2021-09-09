@@ -146,6 +146,9 @@ inside of a new WSL terminal
 > commit: a03fbcf166e6f74ef224d4a63be4277d017bb62e
 ```
 
+### Versions
+
+
 
 ### Recommended Tools
 
