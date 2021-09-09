@@ -1,4 +1,4 @@
-FROM node:16.8.0
+FROM node:14.17.6
 LABEL version=1.0.0
 
 WORKDIR /usr/src/app
