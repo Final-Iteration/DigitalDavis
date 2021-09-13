@@ -2,10 +2,9 @@ import React from "react";
 import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Dimensions } from "react-native";
 
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 const ChallengeBox = () => {
-  const windowWidth = Dimensions.get("window").width;
-  const windowHeight = Dimensions.get("window").height;
-
   return (
     // data passed in should contain:
     //image uri, challenge title, description, status
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#DDDDDD",
     padding: 8,
     width: 100,
-    margin: 10,
+    left: windowWidth / 3,
   },
   description: {},
   status: {
