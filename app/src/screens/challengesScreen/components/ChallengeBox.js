@@ -11,7 +11,7 @@ const ChallengeBox = () => {
     //image uri, challenge title, description, status
     <View style={styles.container}>
       <Text style={styles.name}>Challenge Title</Text>
-      {/* <Image style={styles.image} source= {'https:\'//ichef.bbci.co.uk/news/976/cpsprodpb/106A7/production/_107093276_gettyyoga.jpg' }></Image> */}
+      <Image style={styles.image} source= {require('./img/check.png')}></Image>
       <View style={styles.button_containter}>
         <TouchableOpacity style={styles.button}>
           <Text>Particpate</Text>
