@@ -4,20 +4,25 @@ import { Dimensions } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+
 const ChallengeBox = () => {
   return (
     // data passed in should contain:
     //image uri, challenge title, description, status
     <View style={styles.container}>
-      <Text style={styles.name}>Challenge Title</Text>
-      <Image style={styles.image} source= {require('./img/check.png')}></Image>
-      <View style={styles.button_containter}>
+      <Image
+        style={styles.image}
+        // replace this hard coded image with the image uri's when we get them
+        source={require("cd ../../../../assets/yoga.png")}
+      ></Image>
+      <View style={styles.title_container}>
+        <Text style={styles.name}>Challenge Title</Text>
         <TouchableOpacity style={styles.button}>
           <Text>Particpate</Text>
         </TouchableOpacity>
       </View>
       <Text style={styles.description}>Sample Description</Text>
-      <Text status={styles.status}>In Progress</Text>
+      <Text style={styles.status_text}>In Progress</Text>
     </View>
   );
 };
@@ -27,15 +32,19 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
   },
-  button_containter: {
-    flexDirection: "column",
+  title_container: {
+    flexDirection: "row",
     alignItems: "flex-end",
+    width: windowWidth,
+    borderWidth: 2,
   },
   image: {
-    width: 250,
-    height: 120,
+    width: windowWidth,
+    height: windowHeight / 4.5,
     borderRadius: 4,
     marginBottom: 5,
+    margin: 10,
+    padding: 10,
   },
   name: {
     fontWeight: "bold",
@@ -47,11 +56,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#DDDDDD",
     padding: 8,
     width: 100,
-    left: windowWidth / 3,
+    left: windowHeight / 5.2,
   },
-  description: {},
-  status: {
+  description: {
+    fontSize: 14,
+  },
+  status_text: {
     color: "grey",
+    fontSize: 13,
   },
 });
 
