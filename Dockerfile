@@ -1,15 +1,14 @@
-FROM node:14.17.6
+FROM node:16.8.0
 LABEL version=1.1.0
 
 WORKDIR /usr/src/app
 
 COPY . .
 
-
 WORKDIR /usr/src/app/app
 RUN npm install
 
-WORKDIR /usr/src/app/app/frontend/wellness
+WORKDIR /usr/src/app/app/
 
 RUN npm install 
 RUN npm install --global expo-cli 
@@ -23,4 +22,3 @@ EXPOSE 19002
 EXPOSE 19006
 
 CMD expo start
-
