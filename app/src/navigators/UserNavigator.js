@@ -8,9 +8,9 @@ import Signup from "../screens/userScreen/Singup";
 const AuthStack = createStackNavigator({
   Login: {
     screen: Login,
-    // navigationOptions: {
-    //   header: null,
-    // },
+    navigationOptions: {
+      headerShown: false,
+    },
   },
   Register: {
     screen: Signup,
