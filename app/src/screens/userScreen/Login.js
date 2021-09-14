@@ -16,35 +16,38 @@ const imageSource = require("../../../assets/blurredDavis.jpg");
 
 const Login = (props) => {
   return (
-    <ImageBackground style={styles.imageStyle} source={imageSource}>
-      {/* this will be removed! when we have our login API set up*/}
-      <View style={styles.viewMargins}>
-        <Text style={styles.login}>Log in screen</Text>
-        <Button
-          title="Enter main flow"
-          color="white"
-          onPress={() => props.navigation.navigate("Main")}
-        />
-        <Button
-          title="Sign up"
-          color="white"
-          onPress={() => props.navigation.navigate("Register")}
-        />
-        <TextInput
-          style={styles.emailPassStyle}
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder="Email"
-        />
-        <TextInput
-          style={styles.emailPassStyle}
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder="Password"
-          secureTextEntry={true}
-        />
-      </View>
-    </ImageBackground>
+      <ImageBackground style = {styles.imageStyle}
+        source = {imageSource}> 
+        {/* this will be removed! when we have our login API set up*/}
+        <View style = {styles.viewMargins}>
+          <Text 
+            style={styles.login}>Log in screen
+          </Text>
+          <Button
+            title="Enter main flow"
+            color = "white"
+            onPress={() => props.navigation.navigate("Main")}
+          />
+          <Button 
+            title="Sign up"
+            color = "white"
+            onPress={() => props.navigation.navigate("Register")}
+          />
+          <TextInput 
+            style = {styles.emailPassStyle}
+            autoCapitalize = "none"
+            autoCorrect = {false}
+            placeholder = "Email"
+          />
+          <TextInput 
+            style = {styles.emailPassStyle}
+            autoCapitalize = "none"
+            autoCorrect = {false}
+            secureTextEntry={true}
+            placeholder = "Password"
+          />
+        </View>
+      </ImageBackground>
   );
 };
 const styles = StyleSheet.create({
