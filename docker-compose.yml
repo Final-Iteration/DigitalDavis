@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  devenv:
+  expo-frontend:
     image: final-iteration/expo:1.2.0
     hostname: final-iteration
     container_name: expo-frontend
