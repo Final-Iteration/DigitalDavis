@@ -3,8 +3,8 @@ services:
   devenv:
     image: final-iteration/expo:1.2.0
     hostname: final-iteration
-    container_name: expo
-    build: .
+    container_name: expo-frontend
+    build: ./app
     env_file: 
       - .env
     ports:
@@ -16,3 +16,7 @@ services:
     environment:
       - "REACT_NATIVE_PACKAGER_HOSTNAME=${REACT_NATIVE_PACKAGER_HOSTNAME}"
       - "EXPO_DEVTOOLS_LISTEN_ADDRESS=${EXPO_DEVTOOLS_LISTEN_ADDRESS}"
+#     volumes:
+#       - node_modules:/usr/src/app/app/node_modules
+# volumes: 
+#   {}
