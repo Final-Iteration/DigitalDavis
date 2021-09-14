@@ -30,7 +30,7 @@ const ChallengeBox = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   title_container: {
     flexDirection: "row",

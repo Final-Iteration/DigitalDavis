@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
 import ChallengeBox from "./components/ChallengeBox";
 
 const CurrentChallenges = (props) => {
@@ -11,7 +11,11 @@ const CurrentChallenges = (props) => {
           props.navigation.navigate("SearchedChallenge");
         }}
       />
-      <ChallengeBox />
+      <ScrollView>
+        <ChallengeBox />
+        <ChallengeBox />
+        <ChallengeBox />
+      </ScrollView>
     </View>
   );
 };
