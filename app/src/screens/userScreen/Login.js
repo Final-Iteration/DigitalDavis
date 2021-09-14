@@ -35,6 +35,7 @@ const Login = (props) => {
             style = {styles.emailPassStyle}
             autoCapitalize = "none"
             autoCorrect = {false}
+            secureTextEntry={true}
             placeholder = "Password"
           />
         </View>
