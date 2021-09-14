@@ -16,7 +16,7 @@ const ChallengeBox = () => {
         source={require("cd ../../../../assets/yoga.png")}
       ></Image>
       <View style={styles.title_container}>
-        <Text style={styles.name}>Challenge Title</Text>
+        <Text style={styles.title}>Challenge Title</Text>
         <TouchableOpacity style={styles.button}>
           <Text>Particpate</Text>
         </TouchableOpacity>
@@ -34,27 +34,27 @@ const styles = StyleSheet.create({
   },
   title_container: {
     flexDirection: "row",
-    alignItems: "flex-end",
+    alignItems: "center",
     width: windowWidth,
-    borderWidth: 2,
   },
   image: {
-    width: windowWidth,
+    borderRadius: 8,
+    width: windowWidth / 1.05,
     height: windowHeight / 4.5,
-    borderRadius: 4,
-    marginBottom: 5,
     margin: 10,
-    padding: 10,
   },
-  name: {
+  title: {
     fontWeight: "bold",
     fontSize: 16,
+    margin: 2,
+    marginLeft: 6,
   },
   button: {
     borderRadius: 4,
     alignItems: "center",
     backgroundColor: "#DDDDDD",
     padding: 8,
+    margin: 2,
     width: 100,
     left: windowHeight / 5.2,
   },
