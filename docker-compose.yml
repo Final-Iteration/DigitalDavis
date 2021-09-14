@@ -1,9 +1,9 @@
 version: "3.8"
 services:
   devenv:
-    image: node:14.17.6
+    image: final-iteration/expo:1.2.0
     hostname: final-iteration
-    container_name: devenv
+    container_name: expo
     build: .
     env_file: 
       - .env
