@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  expo-frontend:
+    image: final-iteration/expo:1.2.0
+    hostname: final-iteration
+    container_name: expo-frontend
+    build: ./app
+    env_file: 
+      - .env
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+      - "19006:19006"
+    restart: always
+    environment:
+      - "REACT_NATIVE_PACKAGER_HOSTNAME=${REACT_NATIVE_PACKAGER_HOSTNAME}"
+      - "EXPO_DEVTOOLS_LISTEN_ADDRESS=${EXPO_DEVTOOLS_LISTEN_ADDRESS}"
+    volumes:
+      - ./app/:/usr/src/app/
+      - node_modules:/app/node_modules
+volumes: 
+  node_modules:

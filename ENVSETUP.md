@@ -4,7 +4,7 @@
 
 1. https://www.docker.com/products/docker-desktop
 1. You will need to enable WSL inside of settings.
-
+1. docker run -d -p 80:80 docker/getting-started
 
 ### WSL2 - Windows Users Only
 
@@ -74,6 +74,10 @@ https://newbedev.com/shell-how-to-change-git-credentials-in-vscode-code-example
 > Docker version 20.10.8, build 3967b7d
 ``` 
 
+```docker run -d -p 80:80 docker/getting-started```
+
+Go to ```localhost:80```
+
 ### Docker Compose
 
 https://docs.docker.com/compose/install/
@@ -127,6 +131,10 @@ https://minikube.sigs.k8s.io/docs/start/
 > minikube version: v1.22.0
 > commit: a03fbcf166e6f74ef224d4a63be4277d017bb62e
 ```
+
+### Versions
+
+
 
 ### Recommended Tools
 1. Microsoft Terminal 
