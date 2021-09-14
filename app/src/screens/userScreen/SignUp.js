@@ -22,7 +22,6 @@ const Signup = (props) => {
   const [fillError, setFillError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const signup = () => {
-    console.log(confirmPassword);
     if (
       name.length === 0 ||
       email.length === 0 ||
@@ -56,13 +55,13 @@ const Signup = (props) => {
           style={styles.textInput}
           placeholder="Name"
           value={name}
-          onChange={(text) => setName(text)}
+          onChangeText={(text) => setName(text)}
         />
         <TextInput
           style={styles.textInput}
           placeholder="Email"
           value={email}
-          onChange={(text) => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
           autoCapitalize="none"
           autoCorrect={false}
         />
@@ -70,7 +69,7 @@ const Signup = (props) => {
           style={styles.textInput}
           placeholder="Password"
           value={password}
-          onChange={(text) => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
           autoCapitalize="none"
           autoCorrect={false}
           secureTextEntry={true}
@@ -79,7 +78,7 @@ const Signup = (props) => {
           style={styles.textInput}
           placeholder="Confirm Password"
           value={confirmPassword}
-          onChange={(text) => setConfirmPassword(text)}
+          onChangeText={(text) => setConfirmPassword(text)}
           secureTextEntry={true}
           autoCapitalize="none"
           autoCorrect={false}
@@ -88,7 +87,7 @@ const Signup = (props) => {
           style={styles.textInput}
           placeholder="Title"
           value={title}
-          onChange={(text) => setTitle(text)}
+          onChangeText={(text) => setTitle(text)}
           autoCapitalize="none"
           autoCorrect={false}
         />
@@ -96,7 +95,7 @@ const Signup = (props) => {
           style={styles.textInput}
           placeholder="Department"
           value={department}
-          onChange={(text) => setDepartment(text)}
+          onChangeText={(text) => setDepartment(text)}
           autoCapitalize="none"
           autoCorrect={false}
         />
@@ -156,7 +155,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   textInput: {
-    width: 343,
     height: 55,
     borderRadius: 10,
     backgroundColor: "#F6F6F6",
