@@ -11,3 +11,5 @@
     ```
 
 # Docker Compose
+1. ``` docker compose up --build --force-recreate --remove-orphans ```
+2. 

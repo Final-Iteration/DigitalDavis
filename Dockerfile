@@ -1,5 +1,5 @@
 FROM node:16.8.0
-LABEL version=1.1.0
+
 
 WORKDIR /usr/src/app
 
@@ -12,9 +12,9 @@ WORKDIR /usr/src/app/app/
 
 RUN npm install 
 RUN npm install --global expo-cli 
-RUN npm install react-native
-RUN npm install metro-bundler
-RUN npm install react-native-screens
+# RUN npm install react-native
+# RUN npm install metro-bundler
+# RUN npm install react-native-screens
 
 EXPOSE 19000
 EXPOSE 19001
