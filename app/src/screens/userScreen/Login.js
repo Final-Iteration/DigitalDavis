@@ -1,45 +1,61 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { View, Text, StyleSheet, Button, TextInput, Dimensions, Image } from "react-native";
+import { View, Text, StyleSheet, Button, TextInput, Dimensions, Image, ImageBackground } from "react-native";
 
 const {width, height} = Dimensions.get('window');
+const imageSource = require('../../../assets/blurredDavis.jpg');
 
 const Login = (props) => {
 
   return (
-    <View>
-      <StatusBar style="dark"/>
-      {/* this will be removed! when we have our login API set up*/}
-      <Text style={{ alignSelf: "center" }}>Log in screen</Text>
-
-      <Button
-        title="Enter main flow"
-        onPress={() => props.navigation.navigate("Main")}
-      />
-      <Button
-        title="Sign up"
-        onPress={() => props.navigation.navigate("Register")}
-      />
-      <TextInput style = {styles.emailPassStyle}
-        autoCapitalize = "none"
-        autoCorrect = {false}
-        placeholder = "Email"
-      />
-      <TextInput style = {styles.emailPassStyle}
-        autoCapitalize = "none"
-        autoCorrect = {false}
-        placeholder = "Password"
-      />
-    </View>
+      <ImageBackground style = {styles.imageStyle}
+        source = {imageSource}> 
+        {/* this will be removed! when we have our login API set up*/}
+        <View style = {styles.viewMargins}>
+          <Text style={styles.login}>Log in screen</Text>
+          <Button
+            title="Enter main flow"
+            onPress={() => props.navigation.navigate("Main")}
+          />
+          <Button 
+            title="Sign up"
+            onPress={() => props.navigation.navigate("Register")}
+          />
+          <TextInput style = {styles.emailPassStyle}
+            autoCapitalize = "none"
+            autoCorrect = {false}
+            placeholder = "Email"
+          />
+          <TextInput style = {styles.emailPassStyle}
+            autoCapitalize = "none"
+            autoCorrect = {false}
+            placeholder = "Password"
+          />
+        </View>
+      </ImageBackground>
   );
 };
 const styles = StyleSheet.create({
+  viewMargins: {
+    marginTop: height / 10
+  },
   emailPassStyle: {
     height: 50,
     borderRadius: 5,
-    backgroundColor: '#D3D3D3',
+    backgroundColor: '#F6F6F6',
     marginHorizontal: width / 10,
     marginBottom: height / 40
+  },
+  imageStyle:{
+    height: height,
+    width: width
+  },
+  login:{
+    alignSelf: 'center',
+    color: 'white'
+  },
+  buttonsStyle:{
+    color: 'white'
   }
 });
 
