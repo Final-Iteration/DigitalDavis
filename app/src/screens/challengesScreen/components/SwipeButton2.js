@@ -21,6 +21,14 @@ const H_WAVE_RANGE = SWIPEABLE_DIMENSIONS + 2 * BUTTON_PADDING;
 const H_SWIPE_RANGE = BUTTON_WIDTH - 2 * BUTTON_PADDING - SWIPEABLE_DIMENSIONS;
 
 const SwipeButton = ({ onToggle }) => {
+  const ActiveBold = useSharedValue("bold");
+  const ActiveColor = useSharedValue("black");
+  const ActiveZIndex = useSharedValue(4);
+
+  const RecentBold = useSharedValue("normal");
+  const RecentColor = useSharedValue("grey");
+  const RecentZIndex = useSharedValue(2);
+
   const X = useSharedValue(0);
   // Toggled State
   const [toggled, setToggled] = useState(false);
@@ -62,9 +70,23 @@ const SwipeButton = ({ onToggle }) => {
     onEnd: (e) => {
       if (X.value < BUTTON_WIDTH / 2 - SWIPEABLE_DIMENSIONS / 2) {
         X.value = withSpring(0); // if  X (the button) is moved < halfway across the screen snap back to origin
+        RecentBold.value = "normal";
+        RecentColor.value = "grey";
+        ActiveZIndex.value = 4;
+
+        ActiveColor.value = "black";
+        ActiveBold.value = "bold";
+        RecentZIndex.value = 2;
         runOnJS(handleComplete)(false);
       } else {
         X.value = withSpring(H_SWIPE_RANGE);
+        RecentBold.value = "bold";
+        RecentColor.value = "black";
+        RecentZIndex.value = 4;
+
+        ActiveZIndex.value = 2;
+        ActiveBold.value = "normal";
+        ActiveColor.value = "grey";
         runOnJS(handleComplete)(true);
       }
     },
@@ -75,11 +97,25 @@ const SwipeButton = ({ onToggle }) => {
 
   const AnimatedStyles = {
     swipeCont: useAnimatedStyle(() => {
-        return {};
-      }),
+      return {};
+    }),
     swipeable: useAnimatedStyle(() => {
       return {
         transform: [{ translateX: X.value }],
+      };
+    }),
+    ActiveText: useAnimatedStyle(() => {
+      return {
+        fontWeight: ActiveBold.value,
+        color: ActiveColor.value,
+        zIndex: ActiveZIndex.value,
+      };
+    }),
+    RecentText: useAnimatedStyle(() => {
+      return {
+        fontWeight: RecentBold.value,
+        color: RecentColor.value,
+        zIndex: RecentZIndex.value,
       };
     }),
     swipeText: useAnimatedStyle(() => {
@@ -106,14 +142,20 @@ const SwipeButton = ({ onToggle }) => {
 
   return (
     <Animated.View style={[styles.swipeCont, AnimatedStyles.swipeCont]}>
-      <Text style={[styles.swipeTextButton]}>Current</Text>
+      <Animated.Text
+        style={[styles.swipeTextButton, AnimatedStyles.ActiveText]}
+      >
+        Active
+      </Animated.Text>
       <PanGestureHandler onGestureEvent={AnimatedGestureHandler}>
         <Animated.View
           style={[styles.swipeable, AnimatedStyles.swipeable]}
         ></Animated.View>
       </PanGestureHandler>
-      <Animated.Text style={[styles.swipeTextBack]}>Recent</Animated.Text>
-      </Animated.View>
+      <Animated.Text style={[styles.swipeTextBack, AnimatedStyles.RecentText]}>
+        Recent
+      </Animated.Text>
+    </Animated.View>
   );
 };
 
@@ -144,18 +186,14 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     right: 60,
     fontSize: 20,
-    fontWeight: "bold",
-    zIndex: 4,
-    color: "black",
+    // zIndex: 4,
   },
   swipeTextBack: {
     alignSelf: "center",
     alignItems: "flex-start",
     left: 60,
     fontSize: 20,
-    fontWeight: "bold",
-    zIndex: 2,
-    color: "grey",
+    // zIndex: 2,
   },
 });
 
