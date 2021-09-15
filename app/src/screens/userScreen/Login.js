@@ -9,6 +9,7 @@ import {
   Dimensions,
   Image,
   ImageBackground,
+  TouchableOpacity
 } from "react-native";
 
 const { width, height } = Dimensions.get("window");
@@ -46,6 +47,11 @@ const Login = (props) => {
             secureTextEntry={true}
             placeholder = "Password"
           />
+          <View style={styles.signInView}>
+            <TouchableOpacity onPress={() => props.navigation.navigate("Main")}>
+              <Text style={styles.signUpButton}>Sign In</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ImageBackground>
   );
@@ -55,7 +61,7 @@ const styles = StyleSheet.create({
     marginTop: height / 5,
   },
   emailPassStyle: {
-    height: 50,
+    height: height / 17,
     borderRadius: 5,
     backgroundColor: "#F6F6F6",
     marginHorizontal: width / 10,
@@ -70,6 +76,19 @@ const styles = StyleSheet.create({
   login: {
     alignSelf: "center",
     color: "white",
+  },
+  signUpButton: {
+    color: "white",
+    alignSelf: "center",
+    fontSize: 20,
+    marginVertical: 10,
+  },
+  signInView: {
+    alignSelf: "center",
+    height: height / 17,
+    width: width / 1.24,
+    backgroundColor: "#142A4F",
+    borderRadius: 10,
   },
 });
 
