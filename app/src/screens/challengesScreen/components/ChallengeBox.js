@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     margin: 2,
     width: 100,
     left: windowHeight / 5.2,
+    color: "red",
   },
   description: {
     fontSize: 14,

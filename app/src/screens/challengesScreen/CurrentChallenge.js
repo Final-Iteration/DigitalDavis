@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
 import ChallengeBox from "./components/ChallengeBox";
+import SwipeButton from "./components/SwipeButton";
 
 const CurrentChallenges = (props) => {
   return (
@@ -11,6 +12,7 @@ const CurrentChallenges = (props) => {
           props.navigation.navigate("SearchedChallenge");
         }}
       />
+      <SwipeButton/>
       <ScrollView>
         <ChallengeBox />
         <ChallengeBox />
@@ -20,6 +22,7 @@ const CurrentChallenges = (props) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+});
 
 export default CurrentChallenges;
