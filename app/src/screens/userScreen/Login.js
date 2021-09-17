@@ -101,13 +101,13 @@ const styles = StyleSheet.create({
     color: "white",
     alignSelf: "center",
     fontSize: 20,
-    marginVertical: 10,
+    marginVertical: height / 70,
   },
   signUpButtonBad:{
     color: "grey",
     alignSelf: "center",
     fontSize: 20,
-    marginVertical: 10,
+    marginVertical: height / 70,
   },
   signInView: {
     alignSelf: "center",
