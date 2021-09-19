@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Button, ScrollView, TouchableOpacity } from "react-native";
 import ChallengeBox from "./components/ChallengeBox";
 // import SwipeButton from "./components/SwipeButton";
 
@@ -29,7 +29,9 @@ const CurrentChallenges = (props) => {
       /> */}
       {/* <SwipeButton onToggle={handleToggle} /> */}
       <ScrollView>
-        <ChallengeBox />
+        <TouchableOpacity onPress={() => props.navigation.navigate("ChallengeInformation")}>
+          <ChallengeBox />
+        </TouchableOpacity>
         <ChallengeBox />
         <ChallengeBox />
       </ScrollView>
