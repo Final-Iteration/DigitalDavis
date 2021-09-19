@@ -13,7 +13,10 @@ const ChallengeStack = createStackNavigator({
     screen: PastChallenges,
   },
   ChallengeInformation:{
-    screen: ChallengeInfo
+    screen: ChallengeInfo,
+    navigationOptions: {
+      headerShown: false,
+    },
   }
 });
 
