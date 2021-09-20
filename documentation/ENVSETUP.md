@@ -9,8 +9,24 @@
 ### WSL2 - Windows Users Only
 
 1. https://docs.microsoft.com/en-us/windows/wsl/install-win10
-1. Distro Ubuntu 18.04 - Bionic Beaver
-1. https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab
+2. Distro Ubuntu 18.04 - Bionic Beaver
+3. https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q?activetab=pivot:overviewtab
+
+4. 
+``` 
+wsl --shutdown
+```
+5. 
+```
+notepad "$env:USERPROFILE/.wslconfig"
+```
+6. 
+```
+[wsl2]
+memory=3GB   # Limits VM memory in WSL 2 up to 3GB
+processors=4 # Makes the WSL 2 VM use two virtual processors
+```
+7. Save and exit notepad
 
 ### VSCode
 
@@ -48,19 +64,27 @@ https://newbedev.com/shell-how-to-change-git-credentials-in-vscode-code-example
 
 1. In VSCode Type
 
-```ctrl+shift+p```
+```
+ctrl+shift+p
+```
 
 2. Select
 
-```New WSL Window using Distro```
+```
+New WSL Window using Distro
+```
 
 3. Choose 
 
-```Ubuntu 18.04```
+```
+Ubuntu 18.04
+```
 
 4. Run the following command 
 
-```-uname -srvo ```
+```
+-uname -srvo
+ ```
 
 You need to get the following output to confirm you are in the correct env 
 

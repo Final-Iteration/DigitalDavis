@@ -1,5 +1,0 @@
-#bin/bash!
-
-touch .testenv 
-echo REACT_NATIVE_PACKAGER_HOSTNAME=LOCAL_IPV4_ADDRESS >> .env
-echo EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0 >> .env
