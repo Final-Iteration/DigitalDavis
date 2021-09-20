@@ -103,3 +103,7 @@ web-build/
 
 # macOS
 .DS_Store
+
+#dynamodb
+docker/dynamodb/**
+
