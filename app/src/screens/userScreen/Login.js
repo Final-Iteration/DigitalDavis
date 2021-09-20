@@ -18,11 +18,12 @@ const Login = (props) => {
     }
   };
 
+  // a function that validates an email to the format of name@domain.com
   function validateEmail (email) {
     const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regexp.test(email);
   }
-
+  // const apiCall = function --- function will call our database to validate user email and password
   return (
       <ImageBackground style = {styles.imageStyle}
         source = {imageSource}> 
