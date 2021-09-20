@@ -8,6 +8,9 @@ import ChallengeInfo from "../screens/challengesScreen/ChallengeInfo";
 const ChallengeStack = createStackNavigator({
   Challenge: {
     screen: CurrentChallenges,
+    navigationOptions: {
+      headerShown: false,
+    },
   },
   SearchedChallenge: {
     screen: PastChallenges,
