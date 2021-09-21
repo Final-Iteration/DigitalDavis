@@ -28,6 +28,9 @@ const ChallengeStack = createStackNavigator({
   },
   SearchedChallenge: {
     screen: PastChallenges,
+    navigationOptions: {
+      headerShown: false,
+    },
   },
   ChallengeInformation: {
     screen: ChallengeInfo,
@@ -37,6 +40,9 @@ const ChallengeStack = createStackNavigator({
   },
   CreateChallenge: {
     screen: CreateChallengeScreen,
+    navigationOptions: {
+      headerShown: false,
+    },
   },
 });
 

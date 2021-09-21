@@ -26,6 +26,9 @@ const SearchStack = createStackNavigator({
   },
   SearchedSearch: {
     screen: SearchedSearch,
+    navigationOptions: {
+      headerShown: false,
+    },
   },
 });
 

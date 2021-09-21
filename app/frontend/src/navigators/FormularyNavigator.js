@@ -26,6 +26,9 @@ const FormularyStack = createStackNavigator({
   },
   SearchedFormulary: {
     screen: SearchedFormulary,
+    navigationOptions: {
+      headerShown: false,
+    },
   },
 });
 

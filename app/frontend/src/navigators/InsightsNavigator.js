@@ -27,9 +27,15 @@ const InsightStack = createStackNavigator({
   },
   Setting: {
     screen: Settings,
+    navigationOptions: {
+      headerShown: false,
+    },
   },
   UserProfile: {
     screen: User,
+    navigationOptions: {
+      headerShown: false,
+    },
   },
 });
 

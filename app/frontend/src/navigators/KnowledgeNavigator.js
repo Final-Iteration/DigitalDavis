@@ -26,6 +26,9 @@ const KnowledgeStack = createStackNavigator({
   },
   SearchedKnowledge: {
     screen: SearchedKnowledge,
+    navigationOptions: {
+      headerShown: false,
+    },
   },
 });
 
