@@ -1,10 +1,13 @@
 {
   "expo": {
-    "name": "wellness",
-    "slug": "wellness",
+    "name": "vibe",
+    "slug": "vibe",
+    "owner": "final-iteration",
+    "privacy": "public",
+    "description": "UCD employee wellness application",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/lotus.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
