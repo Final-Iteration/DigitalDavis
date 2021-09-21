@@ -20,26 +20,5 @@ services:
       - "REACT_NATIVE_PACKAGER_HOSTNAME=${REACT_NATIVE_PACKAGER_HOSTNAME}"
       - "EXPO_DEVTOOLS_LISTEN_ADDRESS=${EXPO_DEVTOOLS_LISTEN_ADDRESS}"
     command: /usr/src/app/docker-entrypoint.sh
-  # dynamodb-local:
-  #   command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
-  #   image: "amazon/dynamodb-local:latest"
-  #   container_name: dynamodb-local
-  #   ports:
-  #     - "8000:9876"
-  #   volumes:
-  #     - "./docker/dynamodb:/home/dynamodblocal/data"
-  #   working_dir: /home/dynamodblocal
-  # app-node:
-  #   depends_on:
-  #     - dynamodb-local
-  #   image: banst/awscli
-  #   container_name: app-node
-  #   ports:
-  #    - "8080:6789"
-  #   environment:
-  #     AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
-  #     AWS_SECRET_ACCESS_KEY: 'DUMMYEXAMPLEKEY'
-  #   command:
-  #     dynamodb describe-limits --endpoint-url http://dynamodb-local:8000 --region us-west-2
 volumes: 
   node_modules:
