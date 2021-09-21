@@ -10,7 +10,9 @@ const KnowledgeStack = createStackNavigator({
   Knowledge: {
     screen: Knowledge,
     navigationOptions: {
-      header: () => <Header title="Knowledge" />,
+      header: ({ scene, previous, navigation }) => (
+        <Header title="Knowledge" navigation={navigation} />
+      ),
       headerStyle: {
         backgroundColor: "#142A4F",
       },

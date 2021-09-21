@@ -3,10 +3,19 @@ import { Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 
 import { Appbar, Avatar } from "react-native-paper";
 const { height, width } = Dimensions.get("window");
-const CustomHeader = ({ title }) => {
+const CustomHeader = ({ navigation, title }) => {
   return (
-    <Appbar.Header>
-      <TouchableOpacity style={{ left: 22 }}>
+    <Appbar.Header
+      style={{
+        backgroundColor: "#fff",
+
+        elevation: 0,
+      }}
+    >
+      <TouchableOpacity
+        style={{ left: 22 }}
+        onPress={() => navigation.navigate("User")}
+      >
         <Avatar.Image
           size={40}
           source={{

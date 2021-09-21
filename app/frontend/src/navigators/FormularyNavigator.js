@@ -10,7 +10,9 @@ const FormularyStack = createStackNavigator({
   Formulary: {
     screen: Formulary,
     navigationOptions: {
-      header: () => <Header title="Formulary" />,
+      header: ({ scene, previous, navigation }) => (
+        <Header title="Formulary" navigation={navigation} />
+      ),
       headerStyle: {
         backgroundColor: "#142A4F",
       },

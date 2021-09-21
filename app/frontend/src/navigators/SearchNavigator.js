@@ -10,7 +10,9 @@ const SearchStack = createStackNavigator({
   Search: {
     screen: Search,
     navigationOptions: {
-      header: () => <Header title="Search" />,
+      header: ({ scene, previous, navigation }) => (
+        <Header title="Search" navigation={navigation} />
+      ),
       headerStyle: {
         backgroundColor: "#142A4F",
       },

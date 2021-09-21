@@ -12,20 +12,31 @@ const ChallengeStack = createStackNavigator({
   Challenge: {
     screen: CurrentChallenges,
     navigationOptions: {
-      headerShown: false,
+      header: ({ scene, previous, navigation }) => (
+        <Header title="Challenges" navigation={navigation} />
+      ),
+      headerStyle: {
+        backgroundColor: "#142A4F",
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        fontWeight: "semi-bold",
+        fontSize: 32,
+        fontFamily: "Helvetica",
+      },
     },
   },
   SearchedChallenge: {
     screen: PastChallenges,
   },
-  ChallengeInformation:{
+  ChallengeInformation: {
     screen: ChallengeInfo,
     navigationOptions: {
       headerShown: false,
     },
   },
-  CreateChallenge:{
-    screen: CreateChallengeScreen
+  CreateChallenge: {
+    screen: CreateChallengeScreen,
   },
 });
 

@@ -11,9 +11,11 @@ const InsightStack = createStackNavigator({
   Insight: {
     screen: Insights,
     navigationOptions: {
-      header: () => <Header title="Insights" />,
+      header: ({ scene, previous, navigation }) => (
+        <Header title="Insights" navigation={navigation} />
+      ),
       headerStyle: {
-        backgroundColor: "#142A4F",
+        backgroundColor: null,
       },
       headerTintColor: "#fff",
       headerTitleStyle: {
