@@ -7,30 +7,36 @@ import User from "../screens/insightsScreen/User";
 
 import Header from "../sharedComponent/Header";
 
-const InsightStack = createStackNavigator({
-  Insight: {
-    screen: Insights,
-    navigationOptions: {
-      header: ({ scene, previous, navigation }) => (
-        <Header title="Insights" navigation={navigation} />
-      ),
-      headerStyle: {
-        backgroundColor: null,
-      },
-      headerTintColor: "#fff",
-      headerTitleStyle: {
-        fontWeight: "semi-bold",
-        fontSize: 32,
-        fontFamily: "Helvetica",
+const InsightStack = createStackNavigator(
+  {
+    Insight: {
+      screen: Insights,
+      navigationOptions: {
+        header: ({ scene, previous, navigation }) => (
+          <Header title="Insights" navigation={navigation} />
+        ),
+        headerStyle: {
+          backgroundColor: null,
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "semi-bold",
+          fontSize: 32,
+          fontFamily: "Helvetica",
+        },
       },
     },
+    Setting: {
+      screen: Settings,
+    },
+    UserProfile: {
+      screen: User,
+    },
   },
-  Setting: {
-    screen: Settings,
-  },
-  UserProfile: {
-    screen: User,
-  },
-});
+  {
+    initialRouteName: "Insight",
+    headerMode: "screen",
+  }
+);
 
 export default InsightStack;
