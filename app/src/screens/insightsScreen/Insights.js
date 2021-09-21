@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
+import CustomerHeader from "../../sharedComponent/Header";
 
 const Insights = (props) => {
   return (
     <View>
-      <Text style={{ alignSelf: "center" }}> This is the Insights screen</Text>
+      <Text style={{ alignSelf: "center" }}>This is the Insights screen</Text>
       <Button
         title="logout"
         onPress={() => {
