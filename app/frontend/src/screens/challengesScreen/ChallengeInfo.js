@@ -13,16 +13,6 @@ const ChallengeInfo = (props) => {
     return (
         <View style = {styles.container}>
             <StatusBar style = "dark"/>
-            <View style = {styles.header}>
-                <Text style = {styles.headerText}>
-                    Yoga For Beginners!
-                </Text>
-                <TouchableOpacity onPress={() => props.navigation.navigate("Challenge")}>
-                    <Text style = {styles.backButton}>
-                        Back
-                    </Text>
-                </TouchableOpacity>
-            </View>
             <Image 
                 style = {styles.image}   
                 //replace this hard coded image with the image uri's when we get them
@@ -63,11 +53,8 @@ const ChallengeInfo = (props) => {
 };
 
 const styles = StyleSheet.create({
-    header:{
-        flexDirection: 'row-reverse',
-    },
     container:{
-        marginTop: height / 15,
+        marginTop: height / 8,
         flex: 1
     },
     image: {
@@ -75,13 +62,6 @@ const styles = StyleSheet.create({
         width: width / 1.05,
         height: height / 4.5,
         margin: width / 40,
-    },
-    headerText:{
-        fontWeight: 'bold',
-        fontSize: 25,
-        alignSelf: 'center',
-        color: 'black',
-        paddingRight: width / 5.5
     },
     mainDescription:{
         fontSize: 18,
@@ -100,12 +80,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginHorizontal: width / 20
-    },
-    backButton:{
-        top: height / 200,
-        fontSize: 20,
-        color:'#147efb',
-        marginHorizontal: width / 13
     },
     middleHeader:{
         fontSize: 18,
