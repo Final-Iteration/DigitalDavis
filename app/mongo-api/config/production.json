@@ -1,0 +1,6 @@
+{
+    "name": "Mongo Express API - Production",
+    "database":{
+        "host": "configuration not configured"
+    }
+}

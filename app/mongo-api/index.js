@@ -1,5 +1,6 @@
 
 const dotenv = require('dotenv').config();
+const config = require('config');
 const Joi = require('joi'); 
 const express = require('express');
 const helmet = require('helmet');
@@ -8,18 +9,22 @@ const app = express();
 // const logger = require('./logger');
 // const authenticator = require('./authenticator');
 
-
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static('public'));
 
 app.use(helmet());
 
+// Configuration 
+
+console.log('Application Name: ' + config.get('name'))
+console.log('Database: ' + config.get('database.host'))
+console.log('Database: ' + config.get('database.collection'))
+console.log('Database: ' + config.get('database.host'))
 
 const env = process.env.NODE_ENV || 'development'
-console.log(`Starting server in ${env} mode`);
 if (env === 'development'){
-    console.log(`Morgan enabled`);
+    console.log(`Morgan: enabled`);
     app.use(morgan('dev'));
 }; 
 

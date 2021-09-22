@@ -1,0 +1,11 @@
+{
+  "database": {
+    "host": "MONGODB_HOST",
+    "database": "MONGO_DB_DATABASE",
+    "collection": "MONGODB_COLLECTION",
+    "user": "MONGODB_USER",
+    "password": "MONGODB_PW"
+  }
+}
+
+
