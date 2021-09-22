@@ -1,0 +1,6 @@
+{
+    "name": "Mongo Express API - Development",
+    "database":{
+        "host": "Development database server"
+    }
+}
