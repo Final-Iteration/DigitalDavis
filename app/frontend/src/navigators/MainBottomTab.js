@@ -56,20 +56,6 @@ const MainBottomTab = createBottomTabNavigator(
         ),
       },
     },
-    KnowledgeStack: {
-      screen: KnowledgeStack,
-      navigationOptions: {
-        tabBarLabel: "Knowledge",
-        tabBarIcon: ({}) => (
-          <View>
-            <Image
-              source={require("../../assets/KnowledgeLogo.png")}
-              style={styles.image}
-            />
-          </View>
-        ),
-      },
-    },
     Challenge: {
       screen: ChallengeStack,
       navigationOptions: {
@@ -78,6 +64,20 @@ const MainBottomTab = createBottomTabNavigator(
           <View>
             <Image
               source={require("../../assets/ChallengeLogo.png")}
+              style={styles.image}
+            />
+          </View>
+        ),
+      },
+    },
+    KnowledgeStack: {
+      screen: KnowledgeStack,
+      navigationOptions: {
+        tabBarLabel: "Knowledge",
+        tabBarIcon: ({}) => (
+          <View>
+            <Image
+              source={require("../../assets/KnowledgeLogo.png")}
               style={styles.image}
             />
           </View>

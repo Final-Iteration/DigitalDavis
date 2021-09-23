@@ -3,7 +3,7 @@ import { createStackNavigator } from "react-navigation-stack";
 
 //user Profile
 import ProfileStack from "./ProfileNavigator";
-//botto, tab
+//bottom tab
 import TabStack from "./MainBottomTab";
 import Header from "../sharedComponent/Header";
 const mainFlowWithProfile = createStackNavigator(
