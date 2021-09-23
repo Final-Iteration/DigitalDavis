@@ -27,11 +27,9 @@ const ChallengeBox = () => {
     if (buttonPressed) {
       setButtonPressed(false);
       setparticipateText("Participate")
-
     } else {
       setButtonPressed(true);
       setparticipateText("Particpating")
-
     }
   };
 
