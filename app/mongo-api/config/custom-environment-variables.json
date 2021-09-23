@@ -1,5 +1,5 @@
 {
-  "database": {
+  "mongodb": {
     "host": "MONGODB_HOST",
     "database": "MONGO_DB_DATABASE",
     "collection": "MONGODB_COLLECTION",

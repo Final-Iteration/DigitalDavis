@@ -1,6 +1,8 @@
 
 const dotenv = require('dotenv').config();
 const config = require('config');
+const startupDebugger = require('debug')('app:startup');
+const mongodbDebugger = require('debug')('app:mongodb');
 const Joi = require('joi'); 
 const express = require('express');
 const helmet = require('helmet');
@@ -17,14 +19,22 @@ app.use(helmet());
 
 // Configuration 
 
-console.log('Application Name: ' + config.get('name'))
-console.log('Database: ' + config.get('database.host'))
-console.log('Database: ' + config.get('database.collection'))
-console.log('Database: ' + config.get('database.host'))
+
 
 const env = process.env.NODE_ENV || 'development'
+
 if (env === 'development'){
-    console.log(`Morgan: enabled`);
+
+    startupDebugger('Application Name: ' + config.get('name'))
+    startupDebugger(`Morgan: enabled`);
+    startupDebugger(`Helmet: enabled`);
+    startupDebugger(`JOI: enabled`);
+    
+    mongodbDebugger('Database.Host: ' + config.get('mongodb.host'))
+    mongodbDebugger('Database.Name: ' + config.get('mongodb.database'))
+    mongodbDebugger('Database.Collection: ' + config.get('mongodb.collection'))
+
+
     app.use(morgan('dev'));
 }; 
 
