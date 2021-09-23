@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
-import CustomerHeader from "../../sharedComponent/Header";
 
 const Insights = (props) => {
   return (
@@ -16,12 +15,6 @@ const Insights = (props) => {
         title="setting"
         onPress={() => {
           props.navigation.navigate("Setting");
-        }}
-      />
-      <Button
-        title="user"
-        onPress={() => {
-          props.navigation.navigate("UserProfile");
         }}
       />
     </View>

@@ -6,25 +6,36 @@ import SearchedFormulary from "../screens/formularyScreen/SearchedFormulary";
 
 import Header from "../sharedComponent/Header";
 
-const FormularyStack = createStackNavigator({
-  Formulary: {
-    screen: Formulary,
-    navigationOptions: {
-      header: () => <Header title="Formulary" />,
-      headerStyle: {
-        backgroundColor: "#142A4F",
+const FormularyStack = createStackNavigator(
+  {
+    Formulary: {
+      screen: Formulary,
+      navigationOptions: {
+        header: ({ scene, previous, navigation }) => (
+          <Header title="Formulary" navigation={navigation} />
+        ),
+        headerStyle: {
+          backgroundColor: "#142A4F",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "semi-bold",
+          fontSize: 32,
+          fontFamily: "Helvetica",
+        },
       },
-      headerTintColor: "#fff",
-      headerTitleStyle: {
-        fontWeight: "semi-bold",
-        fontSize: 32,
-        fontFamily: "Helvetica",
+    },
+    SearchedFormulary: {
+      screen: SearchedFormulary,
+      navigationOptions: {
+        headerShown: false,
       },
     },
   },
-  SearchedFormulary: {
-    screen: SearchedFormulary,
-  },
-});
+  {
+    initialRouteName: "Formulary",
+    headerMode: "screen",
+  }
+);
 
 export default FormularyStack;
