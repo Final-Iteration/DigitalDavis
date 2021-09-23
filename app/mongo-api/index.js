@@ -4,6 +4,7 @@ const config = require('config');
 
 // Routes
 const challenges = require('./routes/challenges.js')
+const users = require('./routes/users.js')
 
 // Debugger 
 const startupDebugger = require('debug')('app:startup');
@@ -27,8 +28,7 @@ app.use(helmet());
 
 //Router
 app.use('/api/challenges',challenges)
-
-
+app.use('/api/users',users)
 
 // NODE_ENV
 const env = process.env.NODE_ENV || 'development'
