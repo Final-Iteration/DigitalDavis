@@ -4,7 +4,7 @@
     "slug": "vibe",
     "owner": "final-iteration",
     "privacy": "public",
-    "description": "UCD employee wellness application",
+    "description": "",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/lotus.png",
@@ -30,7 +30,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "description": ""
+    }
   }
 }
