@@ -23,73 +23,76 @@ import Header from "../sharedComponent/Header";
 const {height, width} = Dimensions.get("window");
 
 
-const TabStack = createBottomTabNavigator({
-  InsightStack: {
-    screen: InsightStack,
-    navigationOptions:{
-      tabBarLabel:() => {return null},
-      tabBarIcon: ({}) => (
-        <Image 
-          source={require('../../assets/InsightsLogo.png')}
-          style={styles.image}
-        ></Image>
-      )
+const TabStack = createBottomTabNavigator(
+  {
+    InsightStack: {
+      screen: InsightStack,
+      navigationOptions:{
+        tabBarLabel:() => {return null},
+        tabBarIcon: ({}) => (
+          <Image 
+            source={require('../../assets/InsightsLogo.png')}
+            style={styles.image}
+          ></Image>
+        )
+      },
+    },
+    Formulary: {
+      screen: FormularyStack,
+      navigationOptions:{
+        tabBarLabel:() => {return null},
+        tabBarIcon: ({}) => (
+          <Image 
+            source={require('../../assets/FormularyLogo.png')}
+            style={styles.image}
+          ></Image>
+        )
+      },
+    },
+    SearchStack: {
+      screen: SearchStack,
+      navigationOptions:{
+        tabBarLabel:() => {return null},
+        tabBarIcon: ({}) => (
+          <Image 
+            source={require('../../assets/SearchLogo.png')}
+            style={styles.image}
+          ></Image>
+        )
+      },
+    },
+    Challenge: {
+      screen: ChallengeStack,
+      navigationOptions:{
+        tabBarLabel:() => {return null},
+        tabBarIcon: ({}) => (
+          <Image 
+            source={require('../../assets/ChallengeLogo.png')}
+            style={styles.image}
+          ></Image>
+        )
+      },
+    },
+    KnowledgeStack: {
+      screen: KnowledgeStack,
+      navigationOptions:{
+        tabBarLabel:() => {return null},
+        tabBarIcon: ({}) => (
+          <Image 
+            source={require('../../assets/KnowledgeLogo.png')}
+            style={styles.image}
+          ></Image>
+        )
+      },
     },
   },
-  Formulary: {
-    screen: FormularyStack,
-    navigationOptions:{
-      tabBarLabel:() => {return null},
-      tabBarIcon: ({}) => (
-        <Image 
-          source={require('../../assets/FormularyLogo.png')}
-          style={styles.image}
-        ></Image>
-      )
-    },
-  },
-  SearchStack: {
-    screen: SearchStack,
-    navigationOptions:{
-      tabBarLabel:() => {return null},
-      tabBarIcon: ({}) => (
-        <Image 
-          source={require('../../assets/SearchLogo.png')}
-          style={styles.image}
-        ></Image>
-      )
-    },
-  },
-  Challenge: {
-    screen: ChallengeStack,
-    navigationOptions:{
-      tabBarLabel:() => {return null},
-      tabBarIcon: ({}) => (
-        <Image 
-          source={require('../../assets/ChallengeLogo.png')}
-          style={styles.image}
-        ></Image>
-      )
-    },
-  },
-  KnowledgeStack: {
-    screen: KnowledgeStack,
-    navigationOptions:{
-      tabBarLabel:() => {return null},
-      tabBarIcon: ({}) => (
-        <Image 
-          source={require('../../assets/KnowledgeLogo.png')}
-          style={styles.image}
-        ></Image>
-      )
-    },
-  },
-}); 
+); 
 
 const styles = StyleSheet.create({
   image: {
-    width: isNaN(width) ? 32 : width / 9,
-    height: isNaN(width) ? 32 : width / 9,
+    width: isNaN(width) ? 32 : width / 11,
+    height: isNaN(width) ? 32 : width / 11,
+    padding: height / 40
   },
 });
 
