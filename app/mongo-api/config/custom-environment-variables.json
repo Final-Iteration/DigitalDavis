@@ -1,11 +1,18 @@
 {
-  "mongodb": {
+  "mongodb-dev": {
+    "protocol": "MONGODB_PROTOCOL",
     "host": "MONGODB_HOST",
-    "database": "MONGO_DB_DATABASE",
+    "database": "MONGODB_DATABASE",
     "collection": "MONGODB_COLLECTION",
     "user": "MONGODB_USER",
     "password": "MONGODB_PW"
+  },
+  
+  "mongodb-local-dev": {
+    "protocol": "MONGODB_PROTOCOL",
+    "host": "MONGODB_LOCAL",
+    "port": "MONGODB_PORT",
+    "database": "MONGODB_DATABASE",
+    "collection": "MONGODB_COLLECTION"
   }
 }
-
-

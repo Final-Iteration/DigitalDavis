@@ -1,0 +1,9 @@
+{
+  "name": "Mongo Express API - Local",
+  "mongodb-local-dev":{
+      "protocol": "",
+      "host": "",
+      "database": "",
+      "collection": ""
+  }
+}

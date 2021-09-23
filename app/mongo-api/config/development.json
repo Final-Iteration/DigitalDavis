@@ -1,6 +1,6 @@
 {
-    "name": "Mongo Express API - Development",
-    "database":{
+    "name": "Mongo Express API - Dev",
+    "mongodb-dev":{
         "host": "",
         "database" : "",
         "collection" : "",
