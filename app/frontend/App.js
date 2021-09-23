@@ -1,15 +1,8 @@
 import React from "react";
-import { StatusBar } from "react-native";
 import { createAppContainer } from "react-navigation";
 import MainNavigator from "./src/navigators/ParentNavigator";
-import { Provider as PaperProvider } from "react-native-paper";
 
 const App = createAppContainer(MainNavigator);
 export default () => {
-  StatusBar.setBarStyle("dark-content");
-  return (
-    <PaperProvider>
-      <App />
-    </PaperProvider>
-  );
+  return <App />;
 };

@@ -8,49 +8,25 @@ import CreateChallengeScreen from "../screens/challengesScreen/CreateChallengeSc
 
 import Header from "../sharedComponent/Header";
 
-const ChallengeStack = createStackNavigator(
-  {
-    Challenge: {
-      screen: CurrentChallenges,
-      navigationOptions: {
-        header: ({ scene, previous, navigation }) => (
-          <Header title="Challenges" navigation={navigation} />
-        ),
-        headerStyle: {
-          backgroundColor: "#142A4F",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "semi-bold",
-          fontSize: 32,
-          fontFamily: "Helvetica",
-        },
-      },
-    },
-    SearchedChallenge: {
-      screen: PastChallenges,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    ChallengeInformation: {
-      screen: ChallengeInfo,
-      navigationOptions: {
-        headerMode: "screen",
-        header: ({ scene, previous, navigation }) => null,
-      },
-    },
-    CreateChallenge: {
-      screen: CreateChallengeScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
+const ChallengeStack = createStackNavigator({
+  Challenge: {
+    screen: CurrentChallenges,
+    navigationOptions: {
+      headerShown: false,
     },
   },
-  {
-    initialRouteName: "Challenge",
-    headerMode: "screen",
-  }
-);
+  SearchedChallenge: {
+    screen: PastChallenges,
+  },
+  ChallengeInformation:{
+    screen: ChallengeInfo,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  CreateChallenge:{
+    screen: CreateChallengeScreen
+  },
+});
 
 export default ChallengeStack;

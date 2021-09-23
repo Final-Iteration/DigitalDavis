@@ -18,7 +18,7 @@ const ChallengeBox = () => {
       <View style={styles.title_container}>
         <Text style={styles.title}>Challenge Title</Text>
         <TouchableOpacity style={styles.button}>
-          <Text>Participate</Text>
+          <Text>Particpate</Text>
         </TouchableOpacity>
       </View>
       <Text style={styles.description}>Sample Description</Text>
