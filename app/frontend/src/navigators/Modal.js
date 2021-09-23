@@ -18,12 +18,13 @@ const mainFlowWithProfile = createStackNavigator(
       screen: ProfileStack,
       navigationOptions: {
         headerShown: false,
+         gesturesEnabled: true,
       },
     },
   },
   {
     initialRouteName: "mainFlow",
-    mode: "modal",
+    mode: "modal",                      // top to bottom instead of left to right
     headerMode: "screen",
   }
 );
