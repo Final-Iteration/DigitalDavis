@@ -2,8 +2,6 @@ import React from "react";
 import { createStackNavigator } from "react-navigation-stack";
 
 import Insights from "../screens/insightsScreen/Insights";
-import Settings from "../screens/insightsScreen/Settings";
-import User from "../screens/insightsScreen/User";
 
 import Header from "../sharedComponent/Header";
 
@@ -25,12 +23,6 @@ const InsightStack = createStackNavigator(
           fontFamily: "Helvetica",
         },
       },
-    },
-    Setting: {
-      screen: Settings,
-    },
-    UserProfile: {
-      screen: User,
     },
   },
   {
