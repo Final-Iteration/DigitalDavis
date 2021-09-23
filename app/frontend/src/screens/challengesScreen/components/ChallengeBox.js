@@ -25,11 +25,15 @@ const ChallengeBox = () => {
   //Changes text and color of the participate button
   const setButtonState = () => {
     if (buttonPressed) {
+      console.log("Button has been pressed. ");
       setButtonPressed(false);
       setparticipateText("Participate")
+
     } else {
+      console.log("Button has been not pressed");
       setButtonPressed(true);
       setparticipateText("Particpating")
+
     }
   };
 

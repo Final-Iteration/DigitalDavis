@@ -30,7 +30,7 @@ const Login = (props) => {
         {/* this will be removed! when we have our login API set up*/}
         <View style = {styles.viewMargins}>
           <Text style={styles.login}>
-            Log In
+            Welcome
           </Text>
           <TextInput 
             style = {styles.emailPassStyle}

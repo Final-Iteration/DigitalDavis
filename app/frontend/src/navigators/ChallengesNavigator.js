@@ -33,24 +33,24 @@ const ChallengeStack = createStackNavigator(
         headerShown: false,
       },
     },
-    ChallengeInformation: {
-      screen: ChallengeInfo,
-      navigationOptions: {
-        headerMode: "screen",
-        header: ({ scene, previous, navigation }) => null,
-      },
-    },
-    CreateChallenge: {
-      screen: CreateChallengeScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
+  SearchedChallenge: {
+    screen: PastChallenges,
+    navigationOptions: {
+      headerShown: false,
     },
   },
-  {
-    initialRouteName: "Challenge",
-    headerMode: "screen",
-  }
-);
+  ChallengeInformation: {
+    screen: ChallengeInfo,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  CreateChallenge: {
+    screen: CreateChallengeScreen,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+});
 
 export default ChallengeStack;
