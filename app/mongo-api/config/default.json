@@ -1,3 +1,10 @@
 {
-    "name": "Mongo Express API - Default"
+    "name": "Mongo Express API - Default",
+    "mongodb-prod":{
+        "host": "",
+        "database" : "",
+        "collection" : "",
+        "user" : "",
+        "password": ""
+    }
 }

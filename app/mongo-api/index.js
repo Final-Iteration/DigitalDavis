@@ -61,13 +61,11 @@ mongoose
   )
   .then(() => mongodbDebugger("Status: connected"));
 
+// Schema
 const challengeSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
-  },
-  id: {
-    type: Number,
+    unique: true,
     required: true,
   },
   creator: {
@@ -98,30 +96,42 @@ const challengeSchema = new mongoose.Schema({
   end_date: {
     type: Date,
     required: false,
-    default: Date.now,
-  }
+  },
+  participants: {
+    type: [String],
+    required: true,
+  },
 });
 
+// Model
+const Challenge = mongoose.model(
+  config.get("mongodb-local-dev.collection"),
+  challengeSchema
+);
 
-async function createChallenge(){
-    try {
-        const Challenge = mongoose.model("Challenge", challengeSchema);
-        const challenge = new Challenge({
-        name: "Test Challenge",
-        id: await makeid(16),
-        creator: "Josh Poe",  
-        });
-        const result = await challenge.save();
-        mongodbDebugger(result + 'added to database');
-    } catch (err) {
-        mongodbDebugger('err' + err);
-    }
+// Functions
+async function createChallenge() {
+  try {
+    const Challenge = mongoose.model(
+      config.get("mongodb-local-dev.collection"),
+      challengeSchema
+    );
+    const challenge = new Challenge({
+      name: "Simple Challenge 2",
+      id: await makeUniqueID(16),
+      creator: "Josh Poe",
+      participants: "Josh Poe",
+    });
+    const result = await challenge.save();
+    mongodbDebugger(result + "added to database");
+  } catch (error) {
+    mongodbDebugger("error" + error);
+  }
 }
 
-async function makeid(length) {
+async function makeUniqueID(length) {
   var result = "";
-  var characters =
-    "0123456789";
+  var characters = "0123456789";
   var charactersLength = characters.length;
   for (var i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -129,7 +139,20 @@ async function makeid(length) {
   return result;
 }
 
-// createChallenge();
+async function getChallenges() {
+  try {
+    const challenge = await Challenge.find()
+      .limit(10)
+      .sort({ name: 1 })
+      .select({ name: 1, tags: 1 });
+    mongodbDebugger(challenge);
+  } catch (error) {
+    mongodbDebugger("error" + error);
+  }
+}
+
+createChallenge();
+getChallenges();
 
 // Server
 const port = process.env.PORT || 3000;
