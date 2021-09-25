@@ -1,5 +1,5 @@
 {
-  "Development": {
+  "development": {
     "database": {
       "user": "DATABASE_USER",
       "password": "DATABASE_PW",
@@ -12,4 +12,4 @@
       "certificate": "DATABASE_CAPATH"
     }
   }
-}
+} 
