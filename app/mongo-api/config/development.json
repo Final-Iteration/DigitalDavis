@@ -1,10 +1,16 @@
 {
-    "name": "Mongo Express API - Dev",
-    "mongodb-dev":{
-        "host": "",
-        "database" : "",
-        "collection" : "",
-        "user" : "",
-        "password": ""
+  "Development": {
+    "name": "Mongo Express API - Development",
+    "DigitalOcean": {
+      "user": "",
+      "password": "",
+      "protocol": "",
+      "host": "",
+      "port": "",
+      "database": "",
+      "collection": "",
+      "authsource": "",
+      "certificate": ""
     }
+  }
 }

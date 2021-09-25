@@ -1,9 +1,12 @@
 {
-  "name": "Mongo Express API - Local",
-  "mongodb-local-dev":{
-      "protocol": "",
-      "host": "",
+  "Local": {
+    "name": "Mongo Express API - Local",
+    "dbConfig": {
+      "host": "localhost",
       "database": "",
-      "collection": ""
+      "collection": "",
+      "user": "",
+      "password": ""
+    }
   }
 }

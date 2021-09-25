@@ -1,18 +1,15 @@
 {
-  "mongodb-dev": {
-    "protocol": "MONGODB_PROTOCOL",
-    "host": "MONGODB_HOST",
-    "database": "MONGODB_DATABASE",
-    "collection": "MONGODB_COLLECTION",
-    "user": "MONGODB_USER",
-    "password": "MONGODB_PW"
-  },
-  
-  "mongodb-local-dev": {
-    "protocol": "MONGODB_PROTOCOL",
-    "host": "MONGODB_LOCAL",
-    "port": "MONGODB_PORT",
-    "database": "MONGODB_DATABASE",
-    "collection": "MONGODB_COLLECTION"
+  "Development": {
+    "DigitalOcean": {
+      "user": "DIGITAL_OCEAN_USER",
+      "password": "DIGITAL_OCEAN_PW",
+      "protocol": "DIGITAL_OCEAN_PROTOCOL",
+      "host": "DIGITAL_OCEAN_HOST",
+      "port": "DIGITAL_OCEAN_PORT",
+      "database": "DIGITAL_OCEAN_DATABASE",
+      "collection": "DIGITAL_OCEAN_COLLECTION",
+      "authsource": "DIGITAL_OCEAN_AUTHSOURCE",
+      "certificate": "DIGITAL_OCEAN_CAPATH"
+    }
   }
 }
