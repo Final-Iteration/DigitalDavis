@@ -45,18 +45,10 @@ app.use(mongoSanitize());
 // api routes
 // app.use(routes);
 
-try {
-    const port = process.env.EXPRESS_API_PORT || 3000;
-    if (process.env.NODE_ENV === "development") {
-        appDebugger("Application:" + config.get("development.name"));
-        app.use(morgan("dev"));
-        app.listen(port, () => appDebugger(`API listening on port ${port}`));
-      }
-     else {
-         app.listen(port);
-     } 
-} catch (error) {
-    appDebugger(error.message)
+const port = process.env.EXPRESS_API_PORT || 3000;
+if (process.env.NODE_ENV === "development") {
+    appDebugger("Application:" + config.get("development.name"));
+    app.use(morgan("dev"));
 }
 
 module.exports = app;
