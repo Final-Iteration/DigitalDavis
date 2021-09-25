@@ -1,67 +1,105 @@
-// Config
+/**
+ * Config
+ */
 const dotenv = require("dotenv").config();
 const config = require("config");
 
-// Routes
+/**
+ * Routes
+ */
 const challenges = require("./routes/challenges.js");
 const users = require("./routes/users.js");
 
-// Debugger
+/**
+ * Logger
+ */
 const startupDebugger = require("debug")("app:startup");
 const mongodbDebugger = require("debug")("app:mongodb");
 
-//Middleware
+/**
+ * Middleware
+ */
 const helmet = require("helmet");
 const morgan = require("morgan");
 
-// Express
+/**
+ * Express
+ */
 const express = require("express");
 const app = express();
 
-// Start
+/**
+ * API
+ */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(helmet());
 
-//Router
+/**
+ * Router
+ */
 app.use("/api/challenges", challenges);
 app.use("/api/users", users);
 
 // Debugger
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || "Development";
 
-if (env === "development") {
-  startupDebugger("Application Name: " + config.get("name"));
+if (env === "Development") {
+  startupDebugger("Application Name: " + config.get("Development.name"));
   startupDebugger(`Morgan: enabled`);
 
   mongodbDebugger(
     "Database.Host: " +
-      config.get("mongodb-local-dev.protocol") +
-      config.get("mongodb-local-dev.host")
+      config.get("Development.DigitalOcean.protocol") +
+      config.get("Development.DigitalOcean.host")
   );
-  mongodbDebugger("Database.Name: " + config.get("mongodb-local-dev.database"));
   mongodbDebugger(
-    "Database.Collection: " + config.get("mongodb-local-dev.collection")
+    "Database.Name: " + config.get("Development.DigitalOcean.database")
+  );
+  mongodbDebugger(
+    "Database.Collection: " + config.get("Development.DigitalOcean.collection")
   );
   app.use(morgan("dev"));
 }
 
 // Mongoose
 const mongoose = require("mongoose");
-const { object } = require("joi");
-mongoose
-  .connect(
-    config.get("mongodb-local-dev.protocol") +
-      config.get("mongodb-local-dev.host") +
-      ":" +
-      config.get("mongodb-local-dev.port") +
-      "/" +
-      config.get("mongodb-local-dev.database")
-  )
-  .then(() => mongodbDebugger("Status: connected"));
 
-// Schema
+function uriBuilder() {
+  const path = require("path");
+  try {
+    const uri = (
+      config.get("Development.DigitalOcean.protocol") +
+      config.get("Development.DigitalOcean.user") +
+      ":" +
+      config.get("Development.DigitalOcean.password") +
+      "@" +
+      config.get("Development.DigitalOcean.host") +
+      "/" +
+      config.get("Development.DigitalOcean.database") +
+      "?" +
+      config.get("Development.DigitalOcean.authsource")
+    );
+    return uri;
+  } catch (error) {
+    mongodbDebugger(error);
+  }
+}
+
+async function connectMongoose() {
+  try {
+    await mongoose
+      .connect(uriBuilder(), { sslCA: config.get("Development.DigitalOcean.certificate")})
+      .then(() => mongodbDebugger("Status: connected"));
+  } catch (error) {
+    mongodbDebugger("Error " + error);
+  }
+}
+
+/**
+ * Schema
+ */
 const challengeSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -103,17 +141,13 @@ const challengeSchema = new mongoose.Schema({
   },
 });
 
-// Model
-const Challenge = mongoose.model(
-  config.get("mongodb-local-dev.collection"),
-  challengeSchema
-);
-
-// Functions
+/**
+ * Challenge Functions
+ */
 async function createChallenge() {
   try {
     const Challenge = mongoose.model(
-      config.get("mongodb-local-dev.collection"),
+      config.get("Development.DigitalOcean.collection"),
       challengeSchema
     );
     const challenge = new Challenge({
@@ -141,19 +175,50 @@ async function makeUniqueID(length) {
 
 async function getChallenges() {
   try {
-    const challenge = await Challenge.find()
-      .limit(10)
-      .sort({ name: 1 })
-      .select({ name: 1, tags: 1 });
+    const challenge = await Challenge.find().limit(10).sort({ name: 1 });
     mongodbDebugger(challenge);
   } catch (error) {
     mongodbDebugger("error" + error);
   }
 }
 
-createChallenge();
-getChallenges();
+/**
+ *
+ * @param {string} id
+ * @param {object} updatedChallenge
+ * @returns
+ */
+async function updateChallenge_Client(id, updatedChallenge) {
+  try {
+    const challenge = await Challenge.findById(id);
+    if (!challenge) return;
+
+    for (const [key, value] of Object.entries(updatedChallenge)) {
+      challenge.set({
+        key: value,
+      });
+    }
+
+    const result = await challenge.save();
+    mongodbDebugger("challenge " + id + " updated.");
+    mongodbDebugger(result);
+  } catch (error) {
+    mongodbDebugger("error" + error);
+  }
+}
+
+const updatedChallenge = {
+  name: "somestring",
+  creator: "somestring else",
+  tags: ["mmm", "abbs"],
+};
+
+// const uri = uriBuilder(); 
+// createChallenge();
+// getChallenges();
+// updateChallenge("614e1844ad88983c9574e3c8", updatedChallenge);
+connectMongoose()
 
 // Server
-const port = process.env.PORT || 3000;
+const port = process.env.EXPRESS_API_PORT || 3000;
 app.listen(port, () => startupDebugger(`listening on port ${port}`));

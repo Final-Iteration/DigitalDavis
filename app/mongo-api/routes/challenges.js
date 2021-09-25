@@ -85,7 +85,7 @@ function validate_challenge(challenge) {
         name: Joi.string()
             .min(3)
             .max(30)
-            // .pattern(new RegExp('^[a-zA-Z0-9_ ]$'))
+            .pattern(new RegExp('^[a-zA-Z0-9_ ]$'))
             .required(),
     })
 
