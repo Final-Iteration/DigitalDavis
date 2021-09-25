@@ -1,7 +1,7 @@
 {
   "Development": {
     "name": "Mongo Express API - Development",
-    "DigitalOcean": {
+    "database": {
       "user": "",
       "password": "",
       "protocol": "",

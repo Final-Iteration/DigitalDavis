@@ -51,14 +51,14 @@ if (env === "Development") {
 
   mongodbDebugger(
     "Database.Host: " +
-      config.get("Development.DigitalOcean.protocol") +
-      config.get("Development.DigitalOcean.host")
+      config.get("Development.database.protocol") +
+      config.get("Development.database.host")
   );
   mongodbDebugger(
-    "Database.Name: " + config.get("Development.DigitalOcean.database")
+    "Database.Name: " + config.get("Development.database.database")
   );
   mongodbDebugger(
-    "Database.Collection: " + config.get("Development.DigitalOcean.collection")
+    "Database.Collection: " + config.get("Development.database.collection")
   );
   app.use(morgan("dev"));
 }
@@ -70,16 +70,16 @@ function uriBuilder() {
   const path = require("path");
   try {
     const uri = (
-      config.get("Development.DigitalOcean.protocol") +
-      config.get("Development.DigitalOcean.user") +
+      config.get("Development.database.protocol") +
+      config.get("Development.database.user") +
       ":" +
-      config.get("Development.DigitalOcean.password") +
+      config.get("Development.database.password") +
       "@" +
-      config.get("Development.DigitalOcean.host") +
+      config.get("Development.database.host") +
       "/" +
-      config.get("Development.DigitalOcean.database") +
+      config.get("Development.database.database") +
       "?" +
-      config.get("Development.DigitalOcean.authsource")
+      config.get("Development.database.authsource")
     );
     return uri;
   } catch (error) {
@@ -90,7 +90,7 @@ function uriBuilder() {
 async function connectMongoose() {
   try {
     await mongoose
-      .connect(uriBuilder(), { sslCA: config.get("Development.DigitalOcean.certificate")})
+      .connect(uriBuilder(), { sslCA: config.get("Development.database.certificate")})
       .then(() => mongodbDebugger("Status: connected"));
   } catch (error) {
     mongodbDebugger("Error " + error);
@@ -147,7 +147,7 @@ const challengeSchema = new mongoose.Schema({
 async function createChallenge() {
   try {
     const Challenge = mongoose.model(
-      config.get("Development.DigitalOcean.collection"),
+      config.get("Development.database.collection"),
       challengeSchema
     );
     const challenge = new Challenge({

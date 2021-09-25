@@ -1,15 +1,15 @@
 {
   "Development": {
-    "DigitalOcean": {
-      "user": "DIGITAL_OCEAN_USER",
-      "password": "DIGITAL_OCEAN_PW",
-      "protocol": "DIGITAL_OCEAN_PROTOCOL",
-      "host": "DIGITAL_OCEAN_HOST",
-      "port": "DIGITAL_OCEAN_PORT",
-      "database": "DIGITAL_OCEAN_DATABASE",
-      "collection": "DIGITAL_OCEAN_COLLECTION",
-      "authsource": "DIGITAL_OCEAN_AUTHSOURCE",
-      "certificate": "DIGITAL_OCEAN_CAPATH"
+    "database": {
+      "user": "DATABASE_USER",
+      "password": "DATABASE_PW",
+      "protocol": "DATABASE_PROTOCOL",
+      "host": "DATABASE_HOST",
+      "port": "DATABASE_PORT",
+      "database": "DATABASE_NAME",
+      "collection": "DATABASE_COLLECTION",
+      "authsource": "DATABASE_AUTHSOURCE",
+      "certificate": "DATABASE_CAPATH"
     }
   }
 }
