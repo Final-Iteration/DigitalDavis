@@ -43,22 +43,22 @@ app.use("/api/challenges", challenges);
 app.use("/api/users", users);
 
 // Debugger
-const env = process.env.NODE_ENV || "Development";
+const env = process.env.NODE_ENV || "development";
 
-if (env === "Development") {
-  startupDebugger("Application Name: " + config.get("Development.name"));
+if (env === "development") {
+  startupDebugger("Application:" + config.get("development.name"));
   startupDebugger(`Morgan: enabled`);
 
   mongodbDebugger(
-    "Database.Host: " +
-      config.get("Development.database.protocol") +
-      config.get("Development.database.host")
+    "Host: " +
+      config.get("development.database.protocol") +
+      config.get("development.database.host")
   );
   mongodbDebugger(
-    "Database.Name: " + config.get("Development.database.database")
+    "Name: " + config.get("development.database.database")
   );
   mongodbDebugger(
-    "Database.Collection: " + config.get("Development.database.collection")
+    "Collection: " + config.get("development.database.collection")
   );
   app.use(morgan("dev"));
 }
@@ -66,34 +66,38 @@ if (env === "Development") {
 // Mongoose
 const mongoose = require("mongoose");
 
+/**
+ * 
+ * @returns uri
+ */
 function uriBuilder() {
   const path = require("path");
   try {
     const uri = (
-      config.get("Development.database.protocol") +
-      config.get("Development.database.user") +
+      config.get("development.database.protocol") +
+      config.get("development.database.user") +
       ":" +
-      config.get("Development.database.password") +
+      config.get("development.database.password") +
       "@" +
-      config.get("Development.database.host") +
+      config.get("development.database.host") +
       "/" +
-      config.get("Development.database.database") +
+      config.get("development.database.database") +
       "?" +
-      config.get("Development.database.authsource")
+      config.get("development.database.authsource")
     );
     return uri;
   } catch (error) {
-    mongodbDebugger(error);
+    mongodbDebugger(error.message);
   }
 }
 
 async function connectMongoose() {
   try {
     await mongoose
-      .connect(uriBuilder(), { sslCA: config.get("Development.database.certificate")})
+      .connect(uriBuilder(), { sslCA: config.get("development.database.certificate")})
       .then(() => mongodbDebugger("Status: connected"));
   } catch (error) {
-    mongodbDebugger("Error " + error);
+    mongodbDebugger(error.message);
   }
 }
 
@@ -147,19 +151,19 @@ const challengeSchema = new mongoose.Schema({
 async function createChallenge() {
   try {
     const Challenge = mongoose.model(
-      config.get("Development.database.collection"),
+      config.get("development.database.collection"),
       challengeSchema
     );
     const challenge = new Challenge({
-      name: "Simple Challenge 2",
+      name: "Simple Challenge 1",
       id: await makeUniqueID(16),
       creator: "Josh Poe",
       participants: "Josh Poe",
     });
     const result = await challenge.save();
-    mongodbDebugger(result + "added to database");
+    mongodbDebugger(result + "\n challenge added");
   } catch (error) {
-    mongodbDebugger("error" + error);
+    mongodbDebugger(error.message);
   }
 }
 
@@ -178,7 +182,7 @@ async function getChallenges() {
     const challenge = await Challenge.find().limit(10).sort({ name: 1 });
     mongodbDebugger(challenge);
   } catch (error) {
-    mongodbDebugger("error" + error);
+    mongodbDebugger(error.message);
   }
 }
 
@@ -203,7 +207,31 @@ async function updateChallenge_Client(id, updatedChallenge) {
     mongodbDebugger("challenge " + id + " updated.");
     mongodbDebugger(result);
   } catch (error) {
-    mongodbDebugger("error" + error);
+    mongodbDebugger(error.message);
+  }
+}
+
+/**
+ * @todo add support for iteration over key value pairs with $set operator
+ * @param {string} id
+ * @param {object} updatedChallenge
+ * @returns
+ */
+ async function updateChallenge_Server(id, updatedChallenge) {
+  try {
+    const challenge = await Challenge.findByIdAndUpdate(id, {
+      $set: {
+        key : "value"
+      }
+    }, {new : true});
+
+    if (!challenge) return;
+
+    const result = await challenge.save();
+    mongodbDebugger("challenge " + id + " updated.");
+    mongodbDebugger(result);
+  } catch (error) {
+    mongodbDebugger(error);
   }
 }
 
@@ -214,11 +242,11 @@ const updatedChallenge = {
 };
 
 // const uri = uriBuilder(); 
-// createChallenge();
+createChallenge();
 // getChallenges();
 // updateChallenge("614e1844ad88983c9574e3c8", updatedChallenge);
 connectMongoose()
 
 // Server
 const port = process.env.EXPRESS_API_PORT || 3000;
-app.listen(port, () => startupDebugger(`listening on port ${port}`));
+app.listen(port, () => startupDebugger(`API listening on port ${port}`));
