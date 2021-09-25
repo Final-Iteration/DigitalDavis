@@ -1,79 +1,30 @@
-/**
- * Config
- */
+const app = require("./app");
 const dotenv = require("dotenv").config();
 const config = require("config");
+const mongoose = require("mongoose");
+const dbDebugger = require("debug")("app:mongodb");
 
-/**
- * Routes
- */
-const challenges = require("./routes/challenges.js");
-const users = require("./routes/users.js");
 
-/**
- * Logger
- */
-const startupDebugger = require("debug")("app:startup");
-const mongodbDebugger = require("debug")("app:mongodb");
-
-/**
- * Middleware
- */
-const helmet = require("helmet");
-const morgan = require("morgan");
-
-/**
- * Express
- */
-const express = require("express");
-const app = express();
-
-/**
- * API
- */
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
-app.use(helmet());
-
-/**
- * Router
- */
-app.use("/api/challenges", challenges);
-app.use("/api/users", users);
-
-// Debugger
-const env = process.env.NODE_ENV || "development";
-
-if (env === "development") {
-  startupDebugger("Application:" + config.get("development.name"));
-  startupDebugger(`Morgan: enabled`);
-
-  mongodbDebugger(
+if (process.env.NODE_ENV === "development") {
+  dbDebugger(
     "Host: " +
       config.get("development.database.protocol") +
       config.get("development.database.host")
   );
-  mongodbDebugger(
-    "Name: " + config.get("development.database.database")
-  );
-  mongodbDebugger(
+  dbDebugger("Name: " + config.get("development.database.database"));
+  dbDebugger(
     "Collection: " + config.get("development.database.collection")
   );
-  app.use(morgan("dev"));
 }
 
-// Mongoose
-const mongoose = require("mongoose");
-
 /**
- * 
+ *
  * @returns uri
  */
 function uriBuilder() {
   const path = require("path");
   try {
-    const uri = (
+    const uri =
       config.get("development.database.protocol") +
       config.get("development.database.user") +
       ":" +
@@ -83,23 +34,24 @@ function uriBuilder() {
       "/" +
       config.get("development.database.database") +
       "?" +
-      config.get("development.database.authsource")
-    );
+      config.get("development.database.authsource");
     return uri;
   } catch (error) {
-    mongodbDebugger(error.message);
+    dbDebugger(error.message);
   }
 }
 
 async function connectMongoose() {
   try {
     await mongoose
-      .connect(uriBuilder(), { sslCA: config.get("development.database.certificate")})
-      .then(() => mongodbDebugger("Status: connected"));
+      .connect(uriBuilder(), {
+        sslCA: config.get("development.database.certificate"),
+      })
+      .then(() => dbDebugger("Status: connected"));
   } catch (error) {
-    mongodbDebugger(error.message);
+    dbDebugger(error.message);
   }
-}
+};
 
 /**
  * Schema
@@ -155,15 +107,15 @@ async function createChallenge() {
       challengeSchema
     );
     const challenge = new Challenge({
-      name: "Simple Challenge 1",
+      name: "Simple Challenge 4",
       id: await makeUniqueID(16),
       creator: "Josh Poe",
       participants: "Josh Poe",
     });
     const result = await challenge.save();
-    mongodbDebugger(result + "\n challenge added");
+    dbDebugger(result + "\n challenge added");
   } catch (error) {
-    mongodbDebugger(error.message);
+    dbDebugger(error.message);
   }
 }
 
@@ -180,9 +132,9 @@ async function makeUniqueID(length) {
 async function getChallenges() {
   try {
     const challenge = await Challenge.find().limit(10).sort({ name: 1 });
-    mongodbDebugger(challenge);
+    dbDebugger(challenge);
   } catch (error) {
-    mongodbDebugger(error.message);
+    dbDebugger(error.message);
   }
 }
 
@@ -204,10 +156,10 @@ async function updateChallenge_Client(id, updatedChallenge) {
     }
 
     const result = await challenge.save();
-    mongodbDebugger("challenge " + id + " updated.");
-    mongodbDebugger(result);
+    dbDebugger("challenge " + id + " updated.");
+    dbDebugger(result);
   } catch (error) {
-    mongodbDebugger(error.message);
+    dbDebugger(error.message);
   }
 }
 
@@ -217,21 +169,25 @@ async function updateChallenge_Client(id, updatedChallenge) {
  * @param {object} updatedChallenge
  * @returns
  */
- async function updateChallenge_Server(id, updatedChallenge) {
+async function updateChallenge_Server(id, updatedChallenge) {
   try {
-    const challenge = await Challenge.findByIdAndUpdate(id, {
-      $set: {
-        key : "value"
-      }
-    }, {new : true});
+    const challenge = await Challenge.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          key: "value",
+        },
+      },
+      { new: true }
+    );
 
     if (!challenge) return;
 
     const result = await challenge.save();
-    mongodbDebugger("challenge " + id + " updated.");
-    mongodbDebugger(result);
+    dbDebugger("challenge " + id + " updated.");
+    dbDebugger(result);
   } catch (error) {
-    mongodbDebugger(error);
+    dbDebugger(error);
   }
 }
 
@@ -241,12 +197,8 @@ const updatedChallenge = {
   tags: ["mmm", "abbs"],
 };
 
-// const uri = uriBuilder(); 
+// const uri = uriBuilder();
 createChallenge();
 // getChallenges();
 // updateChallenge("614e1844ad88983c9574e3c8", updatedChallenge);
-connectMongoose()
-
-// Server
-const port = process.env.EXPRESS_API_PORT || 3000;
-app.listen(port, () => startupDebugger(`API listening on port ${port}`));
+connectMongoose();
