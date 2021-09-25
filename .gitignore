@@ -107,3 +107,8 @@ web-build/
 # expo 
 app/.expo-shared
 app/.expo-shared/**
+
+# 
+app/mongo-api/ca-certificate.crt
+certificates/**
+certificates
