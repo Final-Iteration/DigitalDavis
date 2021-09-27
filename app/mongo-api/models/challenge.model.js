@@ -25,7 +25,7 @@ const challengeSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  timestamps: {
+  timestamp: {
     type: Date,
     required: true,
     default: Date.now,
@@ -37,11 +37,7 @@ const challengeSchema = new mongoose.Schema({
   end_date: {
     type: Date,
     required: false,
-  },
-  participants: {
-    type: [String],
-    required: true,
-  },
+  }
 });
 
 /**
