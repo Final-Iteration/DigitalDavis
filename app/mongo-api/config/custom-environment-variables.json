@@ -1,0 +1,15 @@
+{
+  "development": {
+    "database": {
+      "user": "DATABASE_USER",
+      "password": "DATABASE_PW",
+      "protocol": "DATABASE_PROTOCOL",
+      "host": "DATABASE_HOST",
+      "port": "DATABASE_PORT",
+      "database": "DATABASE_NAME",
+      "collection": "DATABASE_COLLECTION",
+      "authsource": "DATABASE_AUTHSOURCE",
+      "certificate": "DATABASE_CAPATH"
+    }
+  }
+} 
