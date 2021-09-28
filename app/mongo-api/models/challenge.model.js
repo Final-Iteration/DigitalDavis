@@ -25,7 +25,7 @@ const challengeSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  timestamps: {
+  timestamp: {
     type: Date,
     required: true,
     default: Date.now,
