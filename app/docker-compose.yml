@@ -4,7 +4,7 @@ services:
     image: final-iteration/expo:1.2.0
     hostname: final-iteration
     container_name: expo-frontend
-    build: ./app/frontend/
+    build: ./frontend/
     env_file: 
       - .env
     ports:
