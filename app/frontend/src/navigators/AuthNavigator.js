@@ -3,7 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Login from '../screens/userScreen/Login';
 import Signup from '../screens/userScreen/SignUp';
-import ForgotPassword from '../screens/userScreen/forgotPassword';
+import ForgotPassword from '../screens/userScreen/ForgotPassword';
 
 const AuthStack = createStackNavigator({
   Login: {
@@ -18,7 +18,7 @@ const AuthStack = createStackNavigator({
       headerShown: false,
     },
   },
-  ForgotPassword: {
+  ForgotPass: {
     screen: ForgotPassword,
   },
 });
