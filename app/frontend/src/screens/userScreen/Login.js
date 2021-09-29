@@ -70,7 +70,11 @@ const Login = (props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bottomHeader}>
-          <Button title="Forgot Password?" color="white" />
+          <Button 
+            title="Forgot Password?" 
+            color="white" 
+            onPress={() => props.navigation.navigate('ForgotPass')}
+          />
           <Button
             title="Sign up"
             color="white"
