@@ -1,0 +1,34 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "react-native/react-native": true
+    },
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "plugins": ["react", "react-native", "prettier"],
+    "rules": {
+      "max-len": ["error", { "code": 100 }],
+      "prefer-promise-reject-errors": ["off"],
+      "react/jsx-filename-extension": ["off"],
+      "react/prop-types": ["warn"],
+      "no-return-assign": ["off"],
+      "react-native/no-unused-styles": 2,
+      "react-native/split-platform-components": 2,
+      "react-native/no-inline-styles": 2,
+      "react-native/no-color-literals": 2,
+      "react-native/no-raw-text": 2,
+      "react-native/no-single-element-style-arrays": 2,
+      "prettier/prettier": ["warn", { "singleQuote": true, "semi": true}],
+      "arrow-body-style": "off",
+      "prefer-arrow-callback": "off"
+    }
+  }
+  

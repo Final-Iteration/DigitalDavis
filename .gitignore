@@ -107,3 +107,5 @@ web-build/
 # expo 
 app/.expo-shared
 app/.expo-shared/**
+app/mongo-api/certificates/ca-certificate.crt
+.vscode/settings.json

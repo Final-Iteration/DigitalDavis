@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,11 +6,11 @@ import {
   ScrollView,
   TouchableOpacity,
   Dimensions,
-} from "react-native";
-import ChallengeBox from "./components/ChallengeBox";
+} from 'react-native';
+import ChallengeBox from './components/ChallengeBox';
 // import SwipeButton from "./components/SwipeButton";
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 
 const CurrentChallenges = (props) => {
   //Toggles the active and recent challenges
@@ -40,7 +40,7 @@ const CurrentChallenges = (props) => {
 
       <ScrollView>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate("ChallengeInformation")}
+          onPress={() => props.navigation.navigate('ChallengeInformation')}
         >
           <ChallengeBox />
         </TouchableOpacity>
@@ -48,7 +48,7 @@ const CurrentChallenges = (props) => {
         <ChallengeBox />
         <TouchableOpacity
           style={styles.createButton}
-          onPress={() => props.navigation.navigate("CreateChallenge")}
+          onPress={() => props.navigation.navigate('CreateChallenge')}
         >
           <Text style={styles.createButtonText}>Create</Text>
         </TouchableOpacity>
@@ -62,23 +62,23 @@ const styles = StyleSheet.create({
     paddingBottom: height / 9,
   },
   headerContainer: {
-    flexDirection: "row",
-    alignSelf: "center",
+    flexDirection: 'row',
+    alignSelf: 'center',
   },
   headerText: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 25,
-    color: "black",
+    color: 'black',
     marginLeft: width / 3.5,
   },
   createButton: {
-    backgroundColor: "#DDDDDD",
+    backgroundColor: '#DDDDDD',
     borderRadius: 10,
-    alignItems: "center",
+    alignItems: 'center',
     padding: 6,
   },
   createButtonText: {
-    fontWeight: "600",
+    fontWeight: '600',
   },
 });
 

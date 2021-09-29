@@ -1,12 +1,12 @@
-import React from "react";
-import { createStackNavigator } from "react-navigation-stack";
+import React from 'react';
+import { createStackNavigator } from 'react-navigation-stack';
 
-import CurrentChallenges from "../screens/challengesScreen/CurrentChallenge";
-import PastChallenges from "../screens/challengesScreen/PastChallenges";
-import ChallengeInfo from "../screens/challengesScreen/ChallengeInfo";
-import CreateChallengeScreen from "../screens/challengesScreen/CreateChallengeScreen";
+import CurrentChallenges from '../screens/challengesScreen/CurrentChallenge';
+import PastChallenges from '../screens/challengesScreen/PastChallenges';
+import ChallengeInfo from '../screens/challengesScreen/ChallengeInfo';
+import CreateChallengeScreen from '../screens/challengesScreen/CreateChallengeScreen';
 
-import Header from "../sharedComponent/Header";
+import Header from '../sharedComponent/Header';
 
 const ChallengeStack = createStackNavigator({
   Challenge: {
@@ -16,14 +16,20 @@ const ChallengeStack = createStackNavigator({
         <Header title="Challenges" navigation={navigation} />
       ),
       headerStyle: {
-        backgroundColor: "#142A4F",
+        backgroundColor: '#142A4F',
       },
-      headerTintColor: "#fff",
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        fontWeight: "semi-bold",
+        fontWeight: 'semi-bold',
         fontSize: 32,
-        fontFamily: "Helvetica",
+        fontFamily: 'Helvetica',
       },
+    },
+  },
+  SearchedChallenge: {
+    screen: PastChallenges,
+    navigationOptions: {
+      headerShown: false,
     },
   },
   SearchedChallenge: {

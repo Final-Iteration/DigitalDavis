@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
-const Settings = () => {
+const Settings = (props) => {
   return (
     <View>
-      <Text style={{ alignSelf: 'center' }}>This is the Settings screen</Text>
+      <Text>Setting</Text>
     </View>
   );
 };
