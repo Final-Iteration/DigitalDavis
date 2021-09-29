@@ -1,8 +1,8 @@
-import React from "react";
-import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Dimensions } from "react-native";
+import React from 'react';
+import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Dimensions } from 'react-native';
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 
 const ChallengeBox = () => {
   return (
@@ -12,14 +12,16 @@ const ChallengeBox = () => {
       <Image
         style={styles.image}
         // replace this hard coded image with the image uri's when we get them
-        source={require("cd ../../../../assets/yoga.png")}
+        source={require('cd ../../../../assets/yoga.png')}
       ></Image>
-      <View style = {styles.titleDescriptionContainer}>
+      <View style={styles.titleDescriptionContainer}>
         <Text style={styles.title}>30 Days of Yoga!</Text>
         {/* <TouchableOpacity style={styles.button}>
           <Text>Participate</Text>
         </TouchableOpacity> */}
-        <Text style={styles.description}>The best place to start your yoga journey.</Text>
+        <Text style={styles.description}>
+          The best place to start your yoga journey.
+        </Text>
         {/* <Text style={styles.status_text}>In Progress</Text> */}
       </View>
     </View>
@@ -28,18 +30,18 @@ const ChallengeBox = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
-    alignItems: "flex-start",
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
   image: {
     borderRadius: 8,
-    width: width / 1.10,
+    width: width / 1.1,
     height: height / 3,
     margin: 17,
-    top: height / 300
+    top: height / 300,
   },
   title: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 25,
     marginLeft: 17,
   },
@@ -63,8 +65,8 @@ const styles = StyleSheet.create({
   //   marginLeft: 17,
   // },
   titleDescriptionContainer: {
-    bottom: height / 100
-  }
+    bottom: height / 100,
+  },
 });
 
 export default ChallengeBox;

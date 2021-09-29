@@ -28,7 +28,7 @@ const CurrentChallenges = (props) => {
   // }, [toggleState]);
 
   return (
-    <View style = {styles.viewContainer}>
+    <View style={styles.viewContainer}>
       {/* This Button is no longer needed as its done by the swipe button */}
       {/* <Button
         title="past challenge"
