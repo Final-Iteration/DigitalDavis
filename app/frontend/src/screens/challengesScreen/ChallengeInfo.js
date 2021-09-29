@@ -55,7 +55,8 @@ const ChallengeInfo = (props) => {
 const styles = StyleSheet.create({
     container:{
         marginTop: height / 8,
-        flex: 1
+        flex: 1,
+        paddingBottom: height / 9,
     },
     image: {
         borderRadius: 8,

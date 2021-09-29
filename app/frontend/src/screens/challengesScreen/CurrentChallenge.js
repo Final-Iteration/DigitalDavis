@@ -28,7 +28,7 @@ const CurrentChallenges = (props) => {
   // }, [toggleState]);
 
   return (
-    <View>
+    <View style = {styles.viewContainer}>
       {/* This Button is no longer needed as its done by the swipe button */}
       {/* <Button
         title="past challenge"
@@ -59,7 +59,6 @@ const CurrentChallenges = (props) => {
 
 const styles = StyleSheet.create({
   viewContainer: {
-    top: height / 15,
     paddingBottom: height / 9,
   },
   headerContainer: {
