@@ -73,7 +73,7 @@ const Login = (props) => {
           <Button 
             title="Forgot Password?" 
             color="white" 
-            onPress={() => props.navigation.navigate('ForgotPass')}
+            onPress={() => props.navigation.navigate('ResetPassword')}
           />
           <Button
             title="Sign up"
