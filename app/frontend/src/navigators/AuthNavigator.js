@@ -18,7 +18,7 @@ const AuthStack = createStackNavigator({
       headerShown: false,
     },
   },
-  ForgotPass: {
+  ResetPassword: {
     screen: ForgotPassword,
   },
 });
