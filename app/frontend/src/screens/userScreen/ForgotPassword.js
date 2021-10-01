@@ -45,7 +45,7 @@ const ForgotPassword = (props) => {
                 value={email}
                 onChangeText={(text) => {setEmail(text); setInputValidate(validateEmail(text))}}
             />
-            <TouchableOpacity style = {inputValidate ? styles.invalidEmail : styles.resetPasswordButton} onPress={resetPasswordAlert}>
+            <TouchableOpacity style = {inputValidate ? styles.invalidEmail : styles.resetPasswordButton} onPress={validateEmail(email) ? resetPasswordAlert : null}>
                 <Text style = {inputValidate ? styles.validEmailText : styles.resetPasswordText}>
                     Reset Password
                 </Text>
