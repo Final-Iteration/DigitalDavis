@@ -5,26 +5,20 @@ const { width, height } = Dimensions.get('window');
 
 const ForgotPassword = (props) => {
     const [email, setEmail] = useState('');
-
-    const blankEmailCheck = () => {
-        if (email.length === 0) {
-            return null;
-        } else if (validateEmail(email)) {
-            return false;
-        }
-      };
+    const [inputValidate, setInputValidate] = useState(false);
 
     // a function that validates an email to the format of name@domain.com
     function validateEmail(email) {
         const regexp =
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            const test = regexp.test(email);
         return regexp.test(email);
     }
 
     const resetPasswordAlert = () => {
         Alert.alert(
             "Reset Password",
-            "An email has been sent to {email goes here}. Click the link included in that message to reset your password.",
+            `An email has been sent to ${email}. Click the link included in that message to reset your password.`,
             [
                 {
                     text: 'OK',
@@ -49,10 +43,10 @@ const ForgotPassword = (props) => {
                 autoCorrect={false}
                 placeholder="Email Address"
                 value={email}
-                onChangeText={(text) => setEmail(text)}
+                onChangeText={(text) => {setEmail(text); setInputValidate(validateEmail(text))}}
             />
-            <TouchableOpacity style = {styles.resetPasswordButton} onPress={resetPasswordAlert}>
-                <Text style = {styles.resetPasswordText}>
+            <TouchableOpacity style = {inputValidate ? styles.invalidEmail : styles.resetPasswordButton} onPress={resetPasswordAlert}>
+                <Text style = {inputValidate ? styles.validEmailText : styles.resetPasswordText}>
                     Reset Password
                 </Text>
             </TouchableOpacity>
@@ -81,19 +75,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         elevation: 1,
     },
-    invalidEmailBox:{
-        height: height / 16,
-        borderRadius: 5,
-        backgroundColor: '#F6F6F6', 
-        marginHorizontal: width / 20,
-        fontSize: 17,
-        padding: height / 50,
-        top: height / 50,
-        shadowColor: 'red',
-        shadowOffset: {width: 0, height: 1},
-        shadowOpacity: 1,
-        elevation: 1,
-    },
     resetPasswordButton:{
         height: height / 16,
         borderRadius: 5,
@@ -102,10 +83,24 @@ const styles = StyleSheet.create({
         padding: height / 50,
         top: height / 30,
     },
+    invalidEmail:{
+        height: height / 16,
+        borderRadius: 5,
+        backgroundColor: '#142A4F', 
+        marginHorizontal: width / 20,
+        padding: height / 50,
+        top: height / 30,
+    },
     resetPasswordText:{
         fontWeight: '300',
         alignSelf: 'center',
         fontSize: 17,
+    },
+    validEmailText: {
+        fontWeight: '300',
+        alignSelf: 'center',
+        fontSize: 17,
+        color: 'white'
     }
 });
 
