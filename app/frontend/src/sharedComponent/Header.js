@@ -3,7 +3,7 @@ import { Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { Appbar, Avatar } from "react-native-paper";
 const { height, width } = Dimensions.get("window");
-const CustomHeader = ({ navigation, title, profile }) => {
+const CustomHeader = ({ navigation, title, profile, setting }) => {
   const logout = () => {
     //remove token from async storage
     navigation.navigate("Auth");
@@ -11,7 +11,7 @@ const CustomHeader = ({ navigation, title, profile }) => {
   if (profile) {
     return (
       <Appbar.Header
-        statusBarHeight={50}
+        statusBarHeight={45}
         style={{
           backgroundColor: "#142A4F",
           elevation: 0,
@@ -19,9 +19,24 @@ const CustomHeader = ({ navigation, title, profile }) => {
       >
         <TouchableOpacity
           style={{ left: 22 }}
-          onPress={() => navigation.navigate("Setting")}
+          onPress={() => {
+            if (profile && setting) {
+              navigation.navigate("User");
+            } else {
+              navigation.navigate("Setting");
+            }
+          }}
         >
-          <Icon name="setting" size={30} style={{ color: "#2F80ED" }} />
+          {setting ? (
+            <Avatar.Image
+              size={40}
+              source={{
+                uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+              }}
+            />
+          ) : (
+            <Icon name="setting" size={30} style={{ color: "#2F80ED" }} />
+          )}
         </TouchableOpacity>
         <Appbar.Content title={<Text style={styles.title}>{title}</Text>} />
         <TouchableOpacity style={{ right: 22 }} onPress={() => logout()}>
@@ -32,7 +47,7 @@ const CustomHeader = ({ navigation, title, profile }) => {
   } else {
     return (
       <Appbar.Header
-        statusBarHeight={50}
+        statusBarHeight={45}
         style={{
           backgroundColor: "#fff",
           elevation: 0,
