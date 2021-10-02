@@ -15,33 +15,28 @@ const { width, height } = Dimensions.get('window');
 const CurrentChallenges = (props) => {
   //Toggles the active and recent challenges
   const [toggleState, setToggleState] = useState(false);
-
   const handleToggle = (value) => setToggleState(value);
-
-  // useEffect(() => {
-  //   if (toggleState) {
-  //     // console.log("Toggle is true. Go to on Recent Challenges Screen");
-  //     props.navigation.navigate("SearchedChallenge");
-  //   } else {
-  //     // console.log("Toggle is FALSE.Stay Active Challenges Screen");
-  //   }
-  // }, [toggleState]);
 
   return (
     <View style={styles.viewContainer}>
-      {/* This Button is no longer needed as its done by the swipe button */}
-      {/* <Button
-        title="past challenge"
-        onPress={() => {
-          props.navigation.navigate("SearchedChallenge");
-        }}
-      /> */}
-      {/* <SwipeButton onToggle={handleToggle} /> */}
 
+      <View style = {styles.headerButtonsContainer}>
+        <TouchableOpacity>
+          <Text style = {styles.headerText}>
+            Active
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style = {styles.headerText}>
+            Past
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.longLine} />
+      <View style={styles.activeLine} />
+      {/* <View style={styles.pastLine} /> */}
       <ScrollView>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('ChallengeInformation')}
-        >
+        <TouchableOpacity onPress={() => props.navigation.navigate('ChallengeInformation')}>
           <ChallengeBox />
         </TouchableOpacity>
         <ChallengeBox />
@@ -59,17 +54,11 @@ const CurrentChallenges = (props) => {
 
 const styles = StyleSheet.create({
   viewContainer: {
-    paddingBottom: height / 9,
+    paddingBottom: height / 5.5,
   },
   headerContainer: {
     flexDirection: 'row',
     alignSelf: 'center',
-  },
-  headerText: {
-    fontWeight: 'bold',
-    fontSize: 25,
-    color: 'black',
-    marginLeft: width / 3.5,
   },
   createButton: {
     backgroundColor: '#DDDDDD',
@@ -80,6 +69,38 @@ const styles = StyleSheet.create({
   createButtonText: {
     fontWeight: '600',
   },
+  headerButtonsContainer:{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: height / 70
+  },
+  headerText:{
+    fontSize: 26,
+    fontWeight: '300'
+  },
+  longLine:{
+    alignSelf: 'stretch',
+    borderBottomWidth: 1,
+    borderBottomColor: 'black',
+    opacity: 0.05,
+    marginTop: height / 80
+  },
+  activeLine: {
+    alignSelf: 'stretch',
+    borderBottomWidth: 2,
+    borderBottomColor: 'red',
+    width: width / 2.5,
+    marginHorizontal: width / 15,
+    bottom: height / 400
+  },
+  pastLine:{
+    alignSelf: 'flex-end',
+    borderBottomWidth: 2,
+    borderBottomColor: 'red',
+    marginRight: width / 25,
+    width: width / 2.5,
+    bottom: height / 200
+  }
 });
 
 export default CurrentChallenges;
