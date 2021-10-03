@@ -105,25 +105,25 @@ const UserProfile = (props) => {
           title="Age"
           text={age}
           setting={true}
-          callback={setProfilePicture}
+          callback={setAge}
         />
         <Field
           title="Department"
           text={department}
           setting={true}
-          callback={setFullName}
+          callback={setDepartment}
         />
         <Field
           title="Birth Date"
           text={birthday}
           setting={true}
-          callback={setAge}
+          callback={setBirthday}
         />
         <Field
           title="Title"
           text={title}
           setting={true}
-          callback={setBirthday}
+          callback={setTitle}
         />
         <Field
           title="Department"
@@ -136,7 +136,7 @@ const UserProfile = (props) => {
           title="Gender"
           text={gender}
           setting={true}
-          callback={setEmail}
+          callback={setGender}
         />
       </View>
     </KeyboardAwareScrollView>
