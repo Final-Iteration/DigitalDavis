@@ -13,7 +13,7 @@ const ChallengeStack = createStackNavigator({
     screen: CurrentChallenges,
     navigationOptions: {
       header: ({ scene, previous, navigation }) => (
-        <Header title="Challenges" navigation={navigation} />
+        <Header title="Challenges" navigation={navigation} challenge = {true}/>
       ),
       headerStyle: {
         backgroundColor: '#142A4F',

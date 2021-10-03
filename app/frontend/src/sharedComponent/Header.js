@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, Dimensions, TouchableOpacityBase } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { Appbar, Avatar } from 'react-native-paper';
+import { Feather } from '@expo/vector-icons'; 
 const { height, width } = Dimensions.get('window');
-const CustomHeader = ({ navigation, title, profile }) => {
+const CustomHeader = ({ navigation, title, profile, challenge }) => {
   const logout = () => {
     //remove token from async storage
     navigation.navigate('Auth');
@@ -18,13 +19,13 @@ const CustomHeader = ({ navigation, title, profile }) => {
         }}
       >
         <TouchableOpacity
-          style={{ left: 22 }}
+          style={{ left: width / 20 }}
           onPress={() => navigation.navigate('Setting')}
         >
           <Icon name="setting" size={30} style={{ color: '#2F80ED' }} />
         </TouchableOpacity>
         <Appbar.Content title={<Text style={styles.title}>{title}</Text>} />
-        <TouchableOpacity style={{ right: 22 }} onPress={() => logout()}>
+        <TouchableOpacity style={{ right: width / 20 }} onPress={() => logout()}>
           <Text style={styles.logOutButton}>Logout</Text>
         </TouchableOpacity>
       </Appbar.Header>
@@ -39,7 +40,7 @@ const CustomHeader = ({ navigation, title, profile }) => {
         }}
       >
         <TouchableOpacity
-          style={{ left: 22 }}
+          style={{ left: width / 20 }}
           onPress={() => navigation.navigate('User')}
         >
           <Avatar.Image
@@ -50,6 +51,7 @@ const CustomHeader = ({ navigation, title, profile }) => {
           />
         </TouchableOpacity>
         <Appbar.Content title={<Text style={styles.title}>{title}</Text>} />
+        {challenge ? <TouchableOpacity onPress={() => navigation.navigate('CreateChallenge')} style = {styles.plusButton}><Feather name="plus-circle" size={30} color="black" /></TouchableOpacity> : null}
       </Appbar.Header>
     );
   }
@@ -66,6 +68,9 @@ const styles = StyleSheet.create({
     color: '#2F80ED',
     fontWeight: '500',
   },
+  plusButton: {
+    right: width / 20,
+  }
 });
 
 export default CustomHeader;
