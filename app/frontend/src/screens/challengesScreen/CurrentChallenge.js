@@ -41,12 +41,6 @@ const CurrentChallenges = (props) => {
         </TouchableOpacity>
         <ChallengeBox />
         <ChallengeBox />
-        <TouchableOpacity
-          style={styles.createButton}
-          onPress={() => props.navigation.navigate('CreateChallenge')}
-        >
-          <Text style={styles.createButtonText}>Create</Text>
-        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -54,20 +48,11 @@ const CurrentChallenges = (props) => {
 
 const styles = StyleSheet.create({
   viewContainer: {
-    paddingBottom: height / 5.5,
+    paddingBottom: height / 6,
   },
   headerContainer: {
     flexDirection: 'row',
     alignSelf: 'center',
-  },
-  createButton: {
-    backgroundColor: '#DDDDDD',
-    borderRadius: 10,
-    alignItems: 'center',
-    padding: 6,
-  },
-  createButtonText: {
-    fontWeight: '600',
   },
   headerButtonsContainer:{
     flexDirection: 'row',
