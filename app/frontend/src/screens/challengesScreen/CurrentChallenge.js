@@ -13,72 +13,89 @@ import ChallengeBox from './components/ChallengeBox';
 const { width, height } = Dimensions.get('window');
 
 const CurrentChallenges = (props) => {
-  //Toggles the active and recent challenges
-  const [toggleState, setToggleState] = useState(false);
-
-  const handleToggle = (value) => setToggleState(value);
-
-  // useEffect(() => {
-  //   if (toggleState) {
-  //     // console.log("Toggle is true. Go to on Recent Challenges Screen");
-  //     props.navigation.navigate("SearchedChallenge");
-  //   } else {
-  //     // console.log("Toggle is FALSE.Stay Active Challenges Screen");
-  //   }
-  // }, [toggleState]);
+  const [active, setActive] = useState(true)
+  const [recent, setRecent] = useState(true)
+  const [past, setPast] = useState(false)
 
   return (
     <View style={styles.viewContainer}>
-      {/* This Button is no longer needed as its done by the swipe button */}
-      {/* <Button
-        title="past challenge"
-        onPress={() => {
-          props.navigation.navigate("SearchedChallenge");
-        }}
-      /> */}
-      {/* <SwipeButton onToggle={handleToggle} /> */}
 
+      <View style = {styles.backgroundPillContainer}>
+        <TouchableOpacity style = {recent ? styles.activePill : null} onPress = {() => {setRecent(true); setActive(true)}}>
+          <Text style = {active ? styles.inUseText : styles.notInUseText}>
+            Active
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style = {recent ? null : styles.pastPill} onPress = {() => {setRecent(false); setActive(false);}}>
+          <Text style = {active ? styles.notInUseText : styles.inUseText} >
+            Past
+          </Text>
+        </TouchableOpacity>
+      </View>
+      {recent ? 
       <ScrollView>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate('ChallengeInformation')}
-        >
-          <ChallengeBox />
+        <TouchableOpacity onPress={() => props.navigation.navigate('ChallengeInformation')}>
+          <ChallengeBox current = {true}/>
         </TouchableOpacity>
-        <ChallengeBox />
-        <ChallengeBox />
-        <TouchableOpacity
-          style={styles.createButton}
-          onPress={() => props.navigation.navigate('CreateChallenge')}
-        >
-          <Text style={styles.createButtonText}>Create</Text>
-        </TouchableOpacity>
+        <ChallengeBox current = {true}/>
+        <ChallengeBox current = {true}/>
       </ScrollView>
+      :
+      <ScrollView>
+        <TouchableOpacity onPress={() => props.navigation.navigate('ChallengeInformation')}>
+          <ChallengeBox current = {false}/>
+        </TouchableOpacity>
+        <ChallengeBox current = {false}/>
+        <ChallengeBox current = {false}/>
+      </ScrollView>
+    }
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   viewContainer: {
-    paddingBottom: height / 9,
+    paddingBottom: height / 5,
   },
-  headerContainer: {
+  backgroundPillContainer:{
     flexDirection: 'row',
-    alignSelf: 'center',
+    justifyContent: 'space-evenly',
+    marginTop: height / 70,
+    height: height / 16,
+    borderRadius: 30,
+    backgroundColor: '#f2f2f2', 
+    marginHorizontal: width / 5.5,
+    shadowColor: '#470000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.5,
+    elevation: 1,
+    marginBottom: 10
   },
-  headerText: {
-    fontWeight: 'bold',
-    fontSize: 25,
-    color: 'black',
-    marginLeft: width / 3.5,
+  notInUseText:{
+    fontSize: 24,
+    fontWeight: '200',
+    marginVertical: 11,
   },
-  createButton: {
-    backgroundColor: '#DDDDDD',
-    borderRadius: 10,
-    alignItems: 'center',
-    padding: 6,
+  inUseText:{
+    fontSize: 24,
+    color: '#142A4F',
+    marginVertical: 11,
   },
-  createButtonText: {
-    fontWeight: '600',
+  activePill: {
+    height: height / 16,
+    width: width / 3.1,
+    borderRadius: 30,
+    backgroundColor: 'white',
+    right: width / 16,
+    alignItems: 'center'
+  },
+  pastPill: {
+    height: height / 16,
+    width: width / 3.1566,
+    borderRadius: 30,
+    backgroundColor: 'white',
+    left: width / 20,
+    alignItems: 'center'
   },
 });
 
