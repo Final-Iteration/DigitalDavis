@@ -50,9 +50,9 @@ const UserProfile = (props) => {
     setBirthday(profile.birthDate);
   }, []);
   //API CALL TO SAVE UPDATED INFO TO DATA BASE
-  const saveChange =  ()=>{
-    props.navigation.navigate('User')
-  }
+  const saveChange = () => {
+    props.navigation.navigate("User");
+  };
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -106,12 +106,7 @@ const UserProfile = (props) => {
           setting={true}
           callback={setUsername}
         />
-        <Field
-          title="Age"
-          text={age}
-          setting={true}
-          callback={setAge}
-        />
+        <Field title="Age" text={age} setting={true} callback={setAge} />
         <Field
           title="Department"
           text={department}
@@ -119,25 +114,20 @@ const UserProfile = (props) => {
           callback={setDepartment}
         />
         <Field
-          dob = {true}
+          dob={true}
           title="Birth Date"
           text={birthday}
           setting={true}
           callback={setBirthday}
         />
-        <Field
-          title="Title"
-          text={title}
-          setting={true}
-          callback={setTitle}
-        />
+        <Field title="Title" text={title} setting={true} callback={setTitle} />
         <Field
           title="Department"
           text={department}
           setting={true}
           callback={setDepartment}
         />
-        <Field title="Email" text={email} setting={true} callback={setGender} />
+        <Field title="Email" text={email} setting={true} callback={setEmail} />
         <Field
           title="Gender"
           text={gender}
@@ -145,26 +135,29 @@ const UserProfile = (props) => {
           callback={setGender}
         />
       </View>
-      <TouchableOpacity style = {styles.saveChangeButton} onPress = {()=>saveChange()}>
-        <Text style = {styles.saveChangeText}>Save Changes</Text>
+      <TouchableOpacity
+        style={styles.saveChangeButton}
+        onPress={() => saveChange()}
+      >
+        <Text style={styles.saveChangeText}>Save Changes</Text>
       </TouchableOpacity>
     </KeyboardAwareScrollView>
   );
 };
 const styles = StyleSheet.create({
-  saveChangeButton:{
-    alignSelf: 'center',
+  saveChangeButton: {
+    alignSelf: "center",
     height: 51,
     width: 343,
-    backgroundColor: '#142A4F',
-    alignItems: 'center',
+    backgroundColor: "#142A4F",
+    alignItems: "center",
     borderRadius: 10,
   },
-  saveChangeText:{
+  saveChangeText: {
     marginVertical: 12,
-    color: 'white',
-    fontWeight: '500',
-    fontSize: 18
+    color: "white",
+    fontWeight: "500",
+    fontSize: 18,
   },
   cameraIconView: {
     alignItems: "center",
