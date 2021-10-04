@@ -26,13 +26,7 @@ const ChallengeStack = createStackNavigator({
       },
     },
   },
-  SearchedChallenge: {
-    screen: PastChallenges,
-    navigationOptions: {
-      headerShown: false,
-    },
-  },
-  SearchedChallenge: {
+  PastChallenge: {
     screen: PastChallenges,
     navigationOptions: {
       headerShown: false,
