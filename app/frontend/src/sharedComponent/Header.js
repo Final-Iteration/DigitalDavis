@@ -1,11 +1,12 @@
 import React from "react";
 import { Text, StyleSheet, TouchableOpacity, Dimensions, Platform } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
+import { Feather } from '@expo/vector-icons'; 
 import { Appbar, Avatar } from "react-native-paper";
 const { height, width } = Dimensions.get("window");
 
 const headerMargin = Platform.OS === 'ios' ? null: '50%'
-const CustomHeader = ({ navigation, title, profile, setting, signup }) => {
+const CustomHeader = ({ navigation, title, profile, setting, signup, challenge }) => {
   const logout = () => {
     //remove token from async storage
     navigation.navigate('Auth');
@@ -74,7 +75,7 @@ const CustomHeader = ({ navigation, title, profile, setting, signup }) => {
         }}
       >
         <TouchableOpacity
-          style={{ left: 22 }}
+          style={{ left: width / 20 }}
           onPress={() => navigation.navigate('User')}
         >
           <Avatar.Image
@@ -84,7 +85,8 @@ const CustomHeader = ({ navigation, title, profile, setting, signup }) => {
             }}
           />
         </TouchableOpacity>
-        <Appbar.Content style = {styles.headerStyle} title={<Text style={styles.title}>{title}</Text>} />
+        <Appbar.Content title={<Text style={styles.title}>{title}</Text>} />
+        {challenge ? <TouchableOpacity onPress={() => navigation.navigate('CreateChallenge')} style = {styles.plusButton}><Feather name="plus-circle" size={30} color="black" /></TouchableOpacity> : null}
       </Appbar.Header>
     );
   }
@@ -103,6 +105,9 @@ const styles = StyleSheet.create({
     color: '#2F80ED',
     fontWeight: '500',
   },
+  plusButton: {
+    right: width / 20,
+  }
 });
 
 export default CustomHeader;

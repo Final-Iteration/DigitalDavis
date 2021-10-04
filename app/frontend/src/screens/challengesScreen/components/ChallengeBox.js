@@ -4,7 +4,7 @@ import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-const ChallengeBox = () => {
+const ChallengeBox = ({current}) => {
   return (
     // data passed in should contain:
     //image uri, challenge title, description, status
@@ -12,7 +12,7 @@ const ChallengeBox = () => {
       <Image
         style={styles.image}
         // replace this hard coded image with the image uri's when we get them
-        source={require('cd ../../../../assets/yoga.png')}
+        source={current ? require('cd ../../../../assets/yoga.png') : require('cd ../../../../assets/blurredDavis.jpg')}
       ></Image>
       <View style={styles.titleDescriptionContainer}>
         <Text style={styles.title}>30 Days of Yoga!</Text>
