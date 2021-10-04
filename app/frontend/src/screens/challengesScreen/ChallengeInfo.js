@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,11 +7,11 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-} from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+} from "react-native";
+import { StatusBar } from "expo-status-bar";
 
-const { width, height } = Dimensions.get('window');
-const imageSource = require('cd ../../../../assets/yoga.png');
+const { width, height } = Dimensions.get("window");
+const imageSource = require("cd ../../../../assets/yoga.png");
 
 const ChallengeInfo = (props) => {
   // this needs to be changed when we are importing data, should not be set to false
@@ -67,7 +67,7 @@ const ChallengeInfo = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: height / 8,
+    // marginTop: height / 8,
     flex: 1,
     paddingBottom: height / 9,
   },
@@ -79,58 +79,58 @@ const styles = StyleSheet.create({
   },
   mainDescription: {
     fontSize: 18,
-    fontWeight: '300',
+    fontWeight: "300",
     marginHorizontal: width / 30,
   },
   drawnLine: {
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
     borderBottomWidth: 1,
-    borderBottomColor: 'black',
+    borderBottomColor: "black",
     marginTop: height / 80,
     marginBottom: height / 80,
   },
   lineContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginHorizontal: width / 20,
   },
   middleHeader: {
     fontSize: 18,
-    fontWeight: '400',
-    alignSelf: 'center',
+    fontWeight: "400",
+    alignSelf: "center",
   },
   middleText: {
     fontSize: 18,
-    fontWeight: '300',
+    fontWeight: "300",
     marginHorizontal: width / 30,
   },
   durationContainer: {
-    flexDirection: 'row-reverse',
-    justifyContent: 'space-between',
+    flexDirection: "row-reverse",
+    justifyContent: "space-between",
     marginHorizontal: width / 30,
   },
   duration: {
     fontSize: 18,
-    fontStyle: 'italic',
+    fontStyle: "italic",
     top: height / 150,
   },
   notParticipatingButton: {
-    backgroundColor: '#DDDDDD',
+    backgroundColor: "#DDDDDD",
     borderRadius: 4,
-    alignItems: 'center',
+    alignItems: "center",
     padding: 8,
     width: width / 4,
   },
   participatingButton: {
-    backgroundColor: '#90ee90',
+    backgroundColor: "#90ee90",
     borderRadius: 4,
-    alignItems: 'center',
+    alignItems: "center",
     padding: 8,
     width: width / 4,
   },
   participate: {
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
 
