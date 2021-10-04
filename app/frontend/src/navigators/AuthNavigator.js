@@ -4,6 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../screens/userScreen/Login';
 import Signup from '../screens/userScreen/SignUp';
 import ForgotPassword from '../screens/userScreen/ForgotPassword';
+import Header from '../sharedComponent/Header';
 
 const AuthStack = createStackNavigator({
   Login: {
@@ -15,7 +16,9 @@ const AuthStack = createStackNavigator({
   Register: {
     screen: Signup,
     navigationOptions: {
-      headerShown: false,
+      header: ({ scene, previous, navigation }) => (
+        <Header title="Sign Up" navigation={navigation} signup = {true}/>
+      ),
     },
   },
   ResetPassword: {

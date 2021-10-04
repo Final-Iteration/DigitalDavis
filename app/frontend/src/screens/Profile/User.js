@@ -11,7 +11,7 @@ const profile = {
   userName: "Keisuka N.",
   title: "Software Engineer",
   age: "26",
-  birthDate: "01/12/1999",
+  birthDate: new Date(),
   department: "Psychiatry and Behavioral Sciences",
   gender: "Male",
   email: "drknakagawa@ucdavis.edu",
@@ -29,6 +29,7 @@ const UserProfile = (props) => {
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
 
+  const dob = profile.birthDate.toString().split(" ")
   useEffect(() => {
     setUsername(profile.userName);
     setProfilePicture(profile.profilePicture);
@@ -38,11 +39,11 @@ const UserProfile = (props) => {
     setDepartment(profile.department);
     setGender(profile.gender);
     setEmail(profile.email);
-    setBirthday(profile.birthDate);
+    setBirthday(`${dob[1]} ${dob[2]} ${dob[3]}`);
   }, []);
 
   return (
-    <ScrollView stickyHeaderIndices={[0]} contentContainerStyle={{}}>
+    <ScrollView stickyHeaderIndices={[0]} bounces={false} showsVerticalScrollIndicator={false}>
       <View style={styles.imageView}>
         <View style={styles.halfImageView}></View>
         <Avatar.Image

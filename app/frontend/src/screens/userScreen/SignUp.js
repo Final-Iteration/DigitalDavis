@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,16 +8,19 @@ import {
   Dimensions,
   Button,
   ImageBackground,
-} from 'react-native';
-const { height, width } = Dimensions.get('window');
-const imageSource = require('../../../assets/blurredDavis.jpg');
+} from "react-native";
+import DatePicker from "@react-native-community/datetimepicker";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+const { height, width } = Dimensions.get("window");
+const imageSource = require("../../../assets/blurredDavis.jpg");
 const Signup = (props) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [title, setTitle] = useState('');
-  const [department, setDepartment] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [title, setTitle] = useState("");
+  const [department, setDepartment] = useState("");
+  const [date, setDate] = useState(new Date());
 
   const [fillError, setFillError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -36,19 +39,20 @@ const Signup = (props) => {
       setPasswordError(true);
     } else {
       //post request to database
-      props.navigation.navigate('Main');
+      props.navigation.navigate("Main");
     }
   };
   return (
     <ImageBackground style={styles.imageStyle} source={imageSource}>
-      <View style={styles.parent}>
-        <View style={styles.titleButton}>
-          <Text style={styles.title}>Sign Up</Text>
-          <Button
-            title="Login"
-            onPress={() => props.navigation.navigate('Login')}
-          />
-        </View>
+      <KeyboardAwareScrollView
+        enableOnAndroid={true}
+        extraHeight={50}
+        showsVerticalScrollIndicator={false}
+        enableOnAndroid={true}
+        scrollEnabled={true}
+        keyboardShouldPersistTaps={"always"}
+        style={styles.parent}
+      >
         <TextInput
           autoCapitalize="none"
           autoCorrect={false}
@@ -83,6 +87,7 @@ const Signup = (props) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
+
         <TextInput
           style={styles.textInput}
           placeholder="Title"
@@ -99,6 +104,21 @@ const Signup = (props) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
+        <View style={styles.dateInput}>
+          <Text style={styles.DOBText}>Date of Birth</Text>
+          <DatePicker
+            style={styles.datePickerStyle}
+            mode="date" //The enum of date, datetime and time
+            value={date} //initial date from state
+            format="MM-DD-YYYY"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            onDateChange={(date) => {
+              setDate(date);
+            }}
+          />
+        </View>
+
         {fillError ? (
           <Text style={styles.errorText}>Fill out all info</Text>
         ) : null}
@@ -110,54 +130,71 @@ const Signup = (props) => {
             <Text style={styles.signUpButton}>Sign Up</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  dateInput: {
+    height: 55,
+    borderRadius: 10,
+    backgroundColor: "#F6F6F6",
+    marginHorizontal: width / 25,
+    marginBottom: height / 40,
+    padding: height / 70,
+    fontSize: 18,
+    flexDirection: "row",
+    alignItems: "flex-start",
+  },
+  DOBText: {
+    fontSize: 18,
+    top: 2,
+    color: "#A9A9A9",
+  },
+  datePickerStyle: {
+    height: 45,
+    width: 120,
+    right: 5,
+    top: 5,
+    position: "absolute",
+  },
   errorText: {
-    color: 'red',
-    alignSelf: 'center',
+    color: "red",
+    alignSelf: "center",
     fontSize: 15,
     bottom: 5,
   },
   titleButton: {
-    alignSelf: 'center',
+    alignSelf: "center",
     width: 343,
-    flexDirection: 'row',
+    flexDirection: "row",
     bottom: 20,
   },
   parent: {
-    top: height / 10,
+    top: height / 20,
     marginHorizontal: width / 19,
   },
   signUpButton: {
-    color: 'white',
-    alignSelf: 'center',
+    color: "white",
+    alignSelf: "center",
     fontSize: 20,
     marginVertical: 10,
-  },
-  title: {
-    fontSize: 35,
-    fontWeight: 'bold',
-    flex: 2,
-    left: (width - 57) / 3,
   },
   login: {
     right: 0,
   },
   signUpView: {
-    alignSelf: 'center',
+    alignSelf: "center",
     height: 51,
     width: 343,
-    backgroundColor: '#142A4F',
+    backgroundColor: "#142A4F",
     borderRadius: 10,
   },
   textInput: {
     height: 55,
     borderRadius: 10,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: "#F6F6F6",
     marginHorizontal: width / 25,
     marginBottom: height / 40,
     padding: height / 70,

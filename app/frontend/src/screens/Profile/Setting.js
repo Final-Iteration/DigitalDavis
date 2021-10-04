@@ -11,6 +11,7 @@ import Field from "./components/Field";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/AntDesign";
+
 //expect API call return
 const profile = {
   profilePicture:
@@ -19,7 +20,7 @@ const profile = {
   userName: "Keisuka N.",
   title: "Software Engineer",
   age: "26",
-  birthDate: "01/12/1999",
+  birthDate: new Date(),
   department: "Psychiatry and Behavioral Sciences",
   gender: "Male",
   email: "drknakagawa@ucdavis.edu",
@@ -32,7 +33,7 @@ const UserProfile = (props) => {
   const [fullName, setFullName] = useState("");
   const [title, setTitle] = useState("");
   const [age, setAge] = useState("");
-  const [birthday, setBirthday] = useState("");
+  const [birthday, setBirthday] = useState(new Date());
   const [department, setDepartment] = useState("");
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
@@ -48,7 +49,10 @@ const UserProfile = (props) => {
     setEmail(profile.email);
     setBirthday(profile.birthDate);
   }, []);
-
+  //API CALL TO SAVE UPDATED INFO TO DATA BASE
+  const saveChange =  ()=>{
+    props.navigation.navigate('User')
+  }
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -71,7 +75,8 @@ const UserProfile = (props) => {
       keyboardShouldPersistTaps={"always"}
       stickyHeaderIndices={[0]}
       style={styles.scrollView}
-      bounce={false}
+      bounces={false}
+      showsVerticalScrollIndicator={false}
     >
       <View style={styles.imageView}>
         <View style={styles.halfImageView}></View>
@@ -114,6 +119,7 @@ const UserProfile = (props) => {
           callback={setDepartment}
         />
         <Field
+          dob = {true}
           title="Birth Date"
           text={birthday}
           setting={true}
@@ -139,10 +145,27 @@ const UserProfile = (props) => {
           callback={setGender}
         />
       </View>
+      <TouchableOpacity style = {styles.saveChangeButton} onPress = {()=>saveChange()}>
+        <Text style = {styles.saveChangeText}>Save Changes</Text>
+      </TouchableOpacity>
     </KeyboardAwareScrollView>
   );
 };
 const styles = StyleSheet.create({
+  saveChangeButton:{
+    alignSelf: 'center',
+    height: 51,
+    width: 343,
+    backgroundColor: '#142A4F',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  saveChangeText:{
+    marginVertical: 12,
+    color: 'white',
+    fontWeight: '500',
+    fontSize: 18
+  },
   cameraIconView: {
     alignItems: "center",
     position: "absolute",

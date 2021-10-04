@@ -1,14 +1,34 @@
 import React from "react";
-import { Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, Dimensions, Platform } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { Appbar, Avatar } from "react-native-paper";
 const { height, width } = Dimensions.get("window");
-const CustomHeader = ({ navigation, title, profile, setting }) => {
+
+const headerMargin = Platform.OS === 'ios' ? null: '50%'
+const CustomHeader = ({ navigation, title, profile, setting, signup }) => {
   const logout = () => {
     //remove token from async storage
     navigation.navigate('Auth');
   };
-  if (profile) {
+  if(signup){
+    return (
+      <Appbar.Header
+      statusBarHeight={45}
+      style={{
+        backgroundColor: '#1d3679',
+        elevation: -1,
+      }}
+    >
+      <Appbar.Content style = {styles.headerStyle} title={<Text style={styles.title}>{title}</Text>} />
+      <TouchableOpacity
+          style={{ right: 22 }}
+          onPress={() => {navigation.navigate("Login")}}
+        >
+          <Text>Login</Text>
+      </ TouchableOpacity>
+    </Appbar.Header>
+    )
+  }else if (profile) {
     return (
       <Appbar.Header
         statusBarHeight={45}
@@ -38,7 +58,7 @@ const CustomHeader = ({ navigation, title, profile, setting }) => {
             <Icon name="setting" size={30} style={{ color: "#2F80ED" }} />
           )}
         </TouchableOpacity>
-        <Appbar.Content title={<Text style={styles.title}>{title}</Text>} />
+        <Appbar.Content style = {styles.headerStyle} title={<Text style={styles.title}>{title}</Text>} />
         <TouchableOpacity style={{ right: 22 }} onPress={() => logout()}>
           <Text style={styles.logOutButton}>Logout</Text>
         </TouchableOpacity>
@@ -64,16 +84,18 @@ const CustomHeader = ({ navigation, title, profile, setting }) => {
             }}
           />
         </TouchableOpacity>
-        <Appbar.Content title={<Text style={styles.title}>{title}</Text>} />
+        <Appbar.Content style = {styles.headerStyle} title={<Text style={styles.title}>{title}</Text>} />
       </Appbar.Header>
     );
   }
 };
 const styles = StyleSheet.create({
+  headerStyle:{
+    left:headerMargin
+  },
   title: {
     fontSize: 30,
     fontWeight: 'bold',
-    paddingHorizontal: '30%',
     fontFamily: 'Helvetica',
   },
   logOutButton: {
