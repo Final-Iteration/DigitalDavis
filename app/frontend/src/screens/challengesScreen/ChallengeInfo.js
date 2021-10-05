@@ -68,7 +68,9 @@ const ChallengeInfo = (props) => {
             setStatus(!status);
           }}
         >
-          <Text style={styles.participate}>Participate</Text>
+          <Text style={styles.participate}>
+            {status ? "Participating" : "Participate"}
+          </Text>
         </TouchableOpacity>
         <View style={{ marginVertical: 12, bottom: 10 }}>
           <Text style={styles.about}>About</Text>
