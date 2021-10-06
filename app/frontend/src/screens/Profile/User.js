@@ -29,7 +29,7 @@ const UserProfile = (props) => {
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
 
-  const dob = profile.birthDate.toString().split(" ")
+  const dob = profile.birthDate.toString().split(" ");
   useEffect(() => {
     setUsername(profile.userName);
     setProfilePicture(profile.profilePicture);
@@ -43,7 +43,7 @@ const UserProfile = (props) => {
   }, []);
 
   return (
-    <ScrollView stickyHeaderIndices={[0]} bounces={false} showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.imageView}>
         <View style={styles.halfImageView}></View>
         <Avatar.Image
@@ -58,7 +58,13 @@ const UserProfile = (props) => {
           <Text style={styles.title}>{title}</Text>
         </View>
       </View>
-      <View style={{ alignSelf: "center" }}>
+      <View
+        style={{
+          alignSelf: "center",
+          backgroundColor: "#f2f2f2",
+          width: width,
+        }}
+      >
         <Field title="Username" text={username} />
         <Field title="Age" text={age} />
         <Field title="Department" text={department} />

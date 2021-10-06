@@ -73,9 +73,7 @@ const UserProfile = (props) => {
       enableOnAndroid={true}
       scrollEnabled={true}
       keyboardShouldPersistTaps={"always"}
-      stickyHeaderIndices={[0]}
       style={styles.scrollView}
-      bounces={false}
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.imageView}>
@@ -99,7 +97,7 @@ const UserProfile = (props) => {
         </View>
       </View>
 
-      <View>
+      <View style={{ backgroundColor: "#f2f2f2" }}>
         <Field
           title="Username"
           text={username}
