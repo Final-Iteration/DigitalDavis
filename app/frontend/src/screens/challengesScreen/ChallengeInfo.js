@@ -12,10 +12,11 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import TagPill from "./components/TagPill";
+import { showMessage } from "react-native-flash-message";
+import JoinBanner from "./components/JoinBanner";
+import UnjoinedBanner from "./components/UnjoinedBanner";
 
 const { width, height } = Dimensions.get("window");
-const imageSource = require("cd ../../../../assets/yoga.png");
-
 const ChallengeInfo = (props) => {
   // this needs to be changed when we are importing data, should not be set to false
   const [status, setStatus] = useState(false);
@@ -66,6 +67,16 @@ const ChallengeInfo = (props) => {
           ]}
           onPress={() => {
             setStatus(!status);
+            showMessage({
+              icon: "success",
+              position: "top",
+              message: null,
+              type: status ? "warning" : "success",
+              renderFlashMessageIcon: status ? UnjoinedBanner : JoinBanner,
+              style: { borderRadius: 15, top: 35, height: 50 },
+              statusBarHeight: 0,
+              floating: true,
+            });
           }}
         >
           <Text style={styles.participate}>
