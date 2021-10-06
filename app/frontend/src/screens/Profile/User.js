@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import { Avatar } from "react-native-paper";
 import Field from "./components/Field";
+import { Feather } from "@expo/vector-icons";
 
 //expect API call return
 const profile = {
