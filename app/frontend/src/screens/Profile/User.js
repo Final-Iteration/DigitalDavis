@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import { Avatar } from "react-native-paper";
 import Field from "./components/Field";
+import { Feather } from "@expo/vector-icons";
 
 //expect API call return
 const profile = {
@@ -29,7 +37,7 @@ const UserProfile = (props) => {
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
 
-  const dob = profile.birthDate.toString().split(" ")
+  const dob = profile.birthDate.toString().split(" ");
   useEffect(() => {
     setUsername(profile.userName);
     setProfilePicture(profile.profilePicture);
@@ -42,8 +50,13 @@ const UserProfile = (props) => {
     setBirthday(`${dob[1]} ${dob[2]} ${dob[3]}`);
   }, []);
 
+  const logout = () => {
+    //remove token from async storage
+    props.navigation.navigate("Auth");
+  };
+
   return (
-    <ScrollView stickyHeaderIndices={[0]} bounces={false} showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.imageView}>
         <View style={styles.halfImageView}></View>
         <Avatar.Image
@@ -58,7 +71,13 @@ const UserProfile = (props) => {
           <Text style={styles.title}>{title}</Text>
         </View>
       </View>
-      <View style={{ alignSelf: "center" }}>
+      <View
+        style={{
+          alignSelf: "center",
+          backgroundColor: "#f2f2f2",
+          width: width,
+        }}
+      >
         <Field title="Username" text={username} />
         <Field title="Age" text={age} />
         <Field title="Department" text={department} />
@@ -68,6 +87,9 @@ const UserProfile = (props) => {
         <Field title="Email" text={email} />
         <Field title="Gender" text={gender} />
       </View>
+      <TouchableOpacity style={styles.logOutButton} onPress={() => logout()}>
+        <Text style={styles.logOutText}>Log out</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -96,6 +118,20 @@ const styles = StyleSheet.create({
     width: width,
     height: 163 / 2,
     backgroundColor: "#142A4F",
+  },
+  logOutButton: {
+    textAlign: "center",
+    height: 75,
+    width: "100%",
+    backgroundColor: "#142A4F",
+    borderRadius: 10,
+  },
+  logOutText: {
+    marginVertical: 12,
+    color: "white",
+    fontWeight: "500",
+    fontSize: 18,
+    alignSelf: "center",
   },
 });
 export default UserProfile;

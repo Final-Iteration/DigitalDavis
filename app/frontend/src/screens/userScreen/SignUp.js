@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   TextInput,
   Dimensions,
-  Button,
   ImageBackground,
 } from "react-native";
+import NumberPlease from "react-native-number-please";
 import DatePicker from "@react-native-community/datetimepicker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 const { height, width } = Dimensions.get("window");
@@ -21,9 +21,9 @@ const Signup = (props) => {
   const [title, setTitle] = useState("");
   const [department, setDepartment] = useState("");
   const [date, setDate] = useState(new Date());
-
   const [fillError, setFillError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+
   const signup = () => {
     if (
       name.length === 0 ||

@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   FlatList,
 } from "react-native";
+import Pill from "./components/Pill";
 
 import ChallengeBox from "./components/ChallengeBox";
 
@@ -183,28 +184,11 @@ const CurrentChallenges = (props) => {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.backgroundPillContainer}>
-          <TouchableOpacity
-            style={recent ? styles.activePill : null}
-            onPress={() => {
-              setRecent(true);
-              setActive(true);
-            }}
-          >
-            <Text style={active ? styles.inUseText : styles.notInUseText}>
-              Active
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={recent ? null : styles.pastPill}
-            onPress={() => {
-              setRecent(false);
-              setActive(false);
-            }}
-          >
-            <Text style={active ? styles.notInUseText : styles.inUseText}>
-              Past
-            </Text>
-          </TouchableOpacity>
+          <Pill
+            options={["Active", "Past"]}
+            callback={setRecent}
+            recent={recent}
+          />
         </View>
         {recent ? (
           <FlatList
@@ -304,3 +288,28 @@ const styles = StyleSheet.create({
 });
 
 export default CurrentChallenges;
+
+{
+  /* <TouchableOpacity
+            style={recent ? styles.activePill : null}
+            onPress={() => {
+              setRecent(true);
+              setActive(true);
+            }}
+          >
+            <Text style={active ? styles.inUseText : styles.notInUseText}>
+              Active
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={recent ? null : styles.pastPill}
+            onPress={() => {
+              setRecent(false);
+              setActive(false);
+            }}
+          >
+            <Text style={active ? styles.notInUseText : styles.inUseText}>
+              Past
+            </Text>
+          </TouchableOpacity> */
+}
