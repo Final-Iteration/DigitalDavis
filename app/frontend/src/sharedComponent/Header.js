@@ -5,12 +5,13 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
-  Button,
 } from "react-native";
+
 import Icon from "react-native-vector-icons/AntDesign";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import { Feather } from "@expo/vector-icons";
 import { Appbar, Avatar } from "react-native-paper";
+import { NavigationActions } from "react-navigation";
 const { height, width } = Dimensions.get("window");
 const barHeight = 37;
 const headerMargin = Platform.OS === "ios" ? null : "50%";
@@ -23,11 +24,6 @@ const CustomHeader = ({
   challenge,
   challengeInfo,
 }) => {
-  const logout = () => {
-    //remove token from async storage
-    navigation.navigate("Auth");
-  };
-
   if (challengeInfo) {
     return (
       <Appbar.Header
@@ -90,6 +86,49 @@ const CustomHeader = ({
       >
         <TouchableOpacity
           style={{ left: 22 }}
+          onPress={() => navigation.navigate("Setting")}
+        >
+          <Icon name="setting" size={30} style={{ color: "white" }} />
+        </TouchableOpacity>
+
+        <Appbar.Content
+          style={styles.headerStyle}
+          title={<Text style={styles.title}>{title}</Text>}
+        />
+        <TouchableOpacity
+          style={{ right: 22 }}
+          onPress={() => navigation.goBack(null)}
+        >
+          <Feather name="chevron-down" size={30} color="white" />
+        </TouchableOpacity>
+      </Appbar.Header>
+    );
+  } else if (setting) {
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#142A4F",
+          elevation: 0,
+        }}
+      >
+        <TouchableOpacity
+          style={{ left: 22 }}
+          onPress={() => navigation.navigate("User")}
+        >
+          <Avatar.Image
+            size={40}
+            source={{
+              uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+            }}
+          />
+        </TouchableOpacity>
+        <Appbar.Content
+          style={styles.headerStyle}
+          title={<Text style={styles.title}>{title}</Text>}
+        />
+        <TouchableOpacity
+          style={{ right: 22 }}
           onPress={() => navigation.goBack(null)}
         >
           <Feather name="chevron-down" size={30} color="white" />
