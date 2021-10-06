@@ -9,7 +9,7 @@ const JoinBanner = (icon = "unjoined", style = {}, customProps = {}) => {
       style={{
         width: width - 65,
         alignItems: "center",
-        top: 2,
+        top: 4,
       }}
     >
       <View style={styles.container}>

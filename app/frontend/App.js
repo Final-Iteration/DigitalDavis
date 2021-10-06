@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar, View } from "react-native";
+import { StatusBar } from "react-native";
 import { createAppContainer } from "react-navigation";
 import MainNavigator from "./src/navigators/ParentNavigator";
 import { Provider as PaperProvider } from "react-native-paper";
