@@ -50,6 +50,11 @@ const UserProfile = (props) => {
     setBirthday(`${dob[1]} ${dob[2]} ${dob[3]}`);
   }, []);
 
+  const logout = () => {
+    //remove token from async storage
+    props.navigation.navigate("Auth");
+  };
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.imageView}>
@@ -82,6 +87,9 @@ const UserProfile = (props) => {
         <Field title="Email" text={email} />
         <Field title="Gender" text={gender} />
       </View>
+      <TouchableOpacity style={styles.logOutButton} onPress={() => logout()}>
+        <Text style={styles.logOutText}>Log out</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -110,6 +118,20 @@ const styles = StyleSheet.create({
     width: width,
     height: 163 / 2,
     backgroundColor: "#142A4F",
+  },
+  logOutButton: {
+    textAlign: "center",
+    height: 75,
+    width: "100%",
+    backgroundColor: "#142A4F",
+    borderRadius: 10,
+  },
+  logOutText: {
+    marginVertical: 12,
+    color: "white",
+    fontWeight: "500",
+    fontSize: 18,
+    alignSelf: "center",
   },
 });
 export default UserProfile;

@@ -71,10 +71,7 @@ const UserProfile = (props) => {
       extraHeight={50}
       showsVerticalScrollIndicator={false}
       enableOnAndroid={true}
-      scrollEnabled={true}
-      keyboardShouldPersistTaps={"always"}
       style={styles.scrollView}
-      showsVerticalScrollIndicator={false}
     >
       <View style={styles.imageView}>
         <View style={styles.halfImageView}></View>
@@ -90,13 +87,11 @@ const UserProfile = (props) => {
             <Icon name="camera" size={40} style={styles.cameraIcon} />
           </View>
         </TouchableOpacity>
-
         <View style={{ top: -50 }}>
           <Text style={styles.fullName}>{fullName}</Text>
           <Text style={styles.title}>{title}</Text>
         </View>
       </View>
-
       <View style={{ backgroundColor: "#f2f2f2" }}>
         <Field
           title="Username"
@@ -144,18 +139,18 @@ const UserProfile = (props) => {
 };
 const styles = StyleSheet.create({
   saveChangeButton: {
-    alignSelf: "center",
-    height: 51,
-    width: 343,
+    textAlign: "center",
+    height: 75,
+    width: "100%",
     backgroundColor: "#142A4F",
-    alignItems: "center",
     borderRadius: 10,
   },
   saveChangeText: {
-    marginVertical: 12,
+    marginVertical: 15,
     color: "white",
     fontWeight: "500",
     fontSize: 18,
+    alignSelf: "center",
   },
   cameraIconView: {
     alignItems: "center",
@@ -179,9 +174,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignSelf: "center",
   },
-  scrollView: {
-    marginBottom: "7%",
-  },
+
   fullName: {
     fontSize: 27,
     fontWeight: "500",
