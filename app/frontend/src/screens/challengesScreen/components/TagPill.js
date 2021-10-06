@@ -13,8 +13,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     margin: 5,
     backgroundColor: "#142A4F",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.5,
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowColor: "#142A4F",
   },
   tagText: {
     fontSize: 17,
