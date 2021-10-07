@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   View,
   useWindowDimensions,
@@ -20,7 +20,7 @@ const TopSwipe = ({ props }) => {
         return (
           <TouchableOpacity
             onLongPress={() => {
-              null;
+              console.log("pressed");
             }}
             onPress={() =>
               props.navigation.navigate("ChallengeInformation", {
@@ -48,9 +48,7 @@ const TopSwipe = ({ props }) => {
       renderItem={({ item }) => {
         return (
           <TouchableOpacity
-            onLongPress={() => {
-              null;
-            }}
+            activeOpacity={1}
             onPress={() =>
               props.navigation.navigate("ChallengeInformation", {
                 challenge: item,
@@ -76,9 +74,6 @@ const TopSwipe = ({ props }) => {
       renderItem={({ item }) => {
         return (
           <TouchableOpacity
-            onLongPress={() => {
-              null;
-            }}
             onPress={() =>
               props.navigation.navigate("ChallengeInformation", {
                 challenge: item,
@@ -115,7 +110,7 @@ const TopSwipe = ({ props }) => {
   return (
     <TabView
       tabStyle={{ backgroundColor: "red" }}
-      swipeEnabled={true}
+      swipeEnabled={false}
       style={styles.container}
       navigationState={{ index, routes }}
       renderScene={renderScene}
@@ -123,7 +118,7 @@ const TopSwipe = ({ props }) => {
       renderTabBar={(props) => (
         <TabBar
           {...props}
-          style={{ backgroundColor: "#f2f2f2" }}
+          style={{ backgroundColor: "#f2f2f2", flex: 0.09 }}
           indicatorStyle={{ backgroundColor: "#142A4F" }}
           renderLabel={({ route, focused, color }) => (
             <Text style={{ color: "black", margin: 8, fontSize: 15 }}>
