@@ -46,12 +46,9 @@ const Signup = (props) => {
     <ImageBackground style={styles.imageStyle} source={imageSource}>
       <KeyboardAwareScrollView
         enableOnAndroid={true}
-        extraHeight={50}
+        extraHeight={100}
         showsVerticalScrollIndicator={false}
-        enableOnAndroid={true}
-        scrollEnabled={true}
         keyboardShouldPersistTaps={"always"}
-        style={styles.parent}
       >
         <TextInput
           autoCapitalize="none"
@@ -140,7 +137,7 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 10,
     backgroundColor: "#F6F6F6",
-    marginHorizontal: width / 25,
+    marginHorizontal: width / 15,
     marginBottom: height / 40,
     padding: height / 70,
     fontSize: 18,
@@ -171,10 +168,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     bottom: 20,
   },
-  parent: {
-    top: height / 20,
-    marginHorizontal: width / 19,
-  },
+
   signUpButton: {
     color: "white",
     alignSelf: "center",
@@ -195,7 +189,7 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 10,
     backgroundColor: "#F6F6F6",
-    marginHorizontal: width / 25,
+    marginHorizontal: width / 15,
     marginBottom: height / 40,
     padding: height / 70,
     fontSize: 18,
