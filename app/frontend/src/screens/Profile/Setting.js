@@ -68,10 +68,9 @@ const UserProfile = (props) => {
   return (
     <KeyboardAwareScrollView
       enableOnAndroid={true}
-      extraHeight={50}
+      extraHeight={120}
       showsVerticalScrollIndicator={false}
-      enableOnAndroid={true}
-      style={styles.scrollView}
+      keyboardShouldPersistTaps={"always"}
     >
       <View style={styles.imageView}>
         <View style={styles.halfImageView}></View>
