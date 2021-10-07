@@ -20,7 +20,7 @@ const TopSwipe = ({ props }) => {
         return (
           <TouchableOpacity
             onLongPress={() => {
-              null;
+              console.log("pressed");
             }}
             onPress={() =>
               props.navigation.navigate("ChallengeInformation", {
@@ -123,7 +123,7 @@ const TopSwipe = ({ props }) => {
       renderTabBar={(props) => (
         <TabBar
           {...props}
-          style={{ backgroundColor: "#f2f2f2" }}
+          style={{ backgroundColor: "#f2f2f2", flex: 0.09 }}
           indicatorStyle={{ backgroundColor: "#142A4F" }}
           renderLabel={({ route, focused, color }) => (
             <Text style={{ color: "black", margin: 8, fontSize: 15 }}>
