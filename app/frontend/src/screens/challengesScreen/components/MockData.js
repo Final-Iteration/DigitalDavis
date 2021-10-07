@@ -17,6 +17,7 @@ export const curChallenge = [
       "Tantra",
       "namaste",
       "Pranayama",
+      "Sleep",
     ],
     location: "Davis, CA",
     date: new Date(),
