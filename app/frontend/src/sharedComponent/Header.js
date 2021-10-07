@@ -135,48 +135,7 @@ const CustomHeader = ({
         </TouchableOpacity>
       </Appbar.Header>
     );
-  }
-  //else if (profile) {
-  //   return (
-  //     <Appbar.Header
-  //       statusBarHeight={barHeight}
-  //       style={{
-  //         backgroundColor: "#142A4F",
-  //         elevation: 0,
-  //       }}
-  //     >
-  //       <TouchableOpacity
-  //         style={{ left: 22 }}
-  //         onPress={() => {
-  //           if (profile && setting) {
-  //             navigation.navigate("User");
-  //           } else {
-  //             navigation.navigate("Setting");
-  //           }
-  //         }}
-  //       >
-  //         {setting ? (
-  //           <Avatar.Image
-  //             size={40}
-  //             source={{
-  //               uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
-  //             }}
-  //           />
-  //         ) : (
-  //           <Icon name="setting" size={30} style={{ color: "#2F80ED" }} />
-  //         )}
-  //       </TouchableOpacity>
-  //       <Appbar.Content
-  //         style={styles.headerStyle}
-  //         title={<Text style={styles.title}>{title}</Text>}
-  //       />
-  // <TouchableOpacity style={{ right: 22 }} onPress={() => logout()}>
-  //   <Text style={styles.logOutButton}>Logout</Text>
-  // </TouchableOpacity>
-  //     </Appbar.Header>
-  //   );
-  // }
-  else {
+  } else {
     return (
       <Appbar.Header
         statusBarHeight={barHeight}
