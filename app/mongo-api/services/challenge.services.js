@@ -1,5 +1,5 @@
-const { Challenges } = require("../models");
-const serviceDebugger = require("debug")("app:service");
+const { Challenges } = require('../models');
+const serviceDebugger = require('debug')('app:service');
 
 /**
  *
@@ -8,17 +8,17 @@ const serviceDebugger = require("debug")("app:service");
 async function createChallenge(challengeBody) {
   try {
     const Challenge = mongoose.model(
-      config.get("development.database.collection"),
+      config.get('development.database.collection'),
       challengeSchema
     );
     const challenge = new Challenge({
-      name: "Simple Challenge 4",
+      name: 'Simple Challenge 4',
       id: await makeUniqueID(16),
-      creator: "Josh Poe",
-      participants: "Josh Poe",
+      creator: 'Josh Poe',
+      participants: 'Josh Poe',
     });
     const result = await challenge.save();
-    serviceDebugger(result + "\n challenge added");
+    serviceDebugger(result + '\n challenge added');
   } catch (error) {
     serviceDebugger(error.message);
   }
@@ -84,14 +84,17 @@ async function updateChallengeById_Client(id, challengeBody) {
     const challenge = await Challenge.findById(id);
     if (!challenge) return;
 
+    //Code code be modified to use challenge.set({})
     for (const [key, value] of Object.entries(updatedChallenge)) {
       challenge.set({
         key: value,
       });
     }
 
+    //save the challenge to db
     const result = await challenge.save();
-    serviceDebugger("challenge " + id + " updated.");
+    //log the results to the debugger
+    serviceDebugger('challenge ' + id + ' updated.');
     serviceDebugger(result);
   } catch (error) {
     serviceDebugger(error.message);
@@ -110,7 +113,7 @@ async function updateChallengeById_Server(id, challengeBody) {
       id,
       {
         $set: {
-          key: "value",
+          key: 'value',
         },
       },
       { new: true }
@@ -119,7 +122,7 @@ async function updateChallengeById_Server(id, challengeBody) {
     if (!challenge) return;
 
     const result = await challenge.save();
-    serviceDebugger("challenge " + id + " updated.");
+    serviceDebugger('challenge ' + id + ' updated.');
     serviceDebugger(result);
   } catch (error) {
     serviceDebugger(error);

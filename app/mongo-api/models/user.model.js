@@ -8,20 +8,28 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
+    minlength: 1,
+    maxlength: 150,
   },
   last_name: {
     type: String,
     unique: true,
     required: true,
+    minlength: 1,
+    maxlength: 150,
   },
   email: {
     type: String,
     unique: true,
     required: true,
+    validate: [validateEmail, "Please fill a valid email address"],
+    trim: true,
+    minlength: 1,
+    maxlength: 250,
   },
   dob: {
     type: Date,
-    required: true,
+    required: false,
   },
   job_title: {
     type: [String],
@@ -30,29 +38,29 @@ const userSchema = new mongoose.Schema({
   department: {
     type: String,
     required: false,
-  }
+  },
 });
 
-/**
- * @TODO data validation
+/**validateEmail
+ * validate the email with a regex expression.
+ * Returns:
+ *  true: if email meets regex
+ *  false: if email fails regex
  */
-data_validation = async function () {
-
+var validateEmail = async function (email) {
+  var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return re.test(email);
 };
 
 /**
  * @TODO data validation
  */
- data_validation1 = async function () {
-
-};
+data_validation1 = async function () {};
 
 /**
  * @TODO data validation
  */
- data_validation2 = async function () {
-
-};
+data_validation2 = async function () {};
 
 /**
  * @typedef User

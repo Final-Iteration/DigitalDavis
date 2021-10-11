@@ -6,10 +6,20 @@
       "protocol": "DATABASE_PROTOCOL",
       "host": "DATABASE_HOST",
       "port": "DATABASE_PORT",
-      "database": "DATABASE_NAME",
+      "name": "DATABASE_NAME",
       "collection": "DATABASE_COLLECTION",
       "authsource": "DATABASE_AUTHSOURCE",
       "certificate": "DATABASE_CAPATH"
+    }
+  },
+  "local": {
+    "name": "Mongo Express API - Local",
+    "database": {
+      "host": "LOCAL_DATABASE_HOST",
+      "port": "LOCAL_DATABASE_PORT",
+      "name": "LOCAL_DATABASE_NAME",
+      "protocol" : "LOCAL_DATABASE_PROTOCOL",
+      "collection": "LOCAL_DATABASE_COLLECTION"
     }
   }
 } 

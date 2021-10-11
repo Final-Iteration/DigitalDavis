@@ -5,12 +5,10 @@ const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const express = require("express");
-// const routes = require('./routes');
+const routes = require("./routes/challenges");
 const appDebugger = require("debug")("app:startup");
 
-
 const app = express();
-
 
 // set security HTTP headers
 app.use(helmet());
@@ -24,7 +22,6 @@ app.use(express.urlencoded({ extended: true }));
 // sanitize request data
 app.use(xss());
 app.use(mongoSanitize());
-
 
 // gzip compression
 // app.use(compression());
@@ -43,12 +40,12 @@ app.use(mongoSanitize());
 // }
 
 // api routes
-// app.use(routes);
+app.use(routes);
 
 const port = process.env.EXPRESS_API_PORT || 3000;
 if (process.env.NODE_ENV === "development") {
-    appDebugger("Application:" + config.get("development.name"));
-    app.use(morgan("dev"));
+  appDebugger("Application:" + config.get("development.name"));
+  app.use(morgan("dev"));
 }
 
 module.exports = app;

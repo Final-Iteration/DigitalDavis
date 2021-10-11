@@ -1,9 +1,9 @@
-import React from "react";
-import { createStackNavigator } from "react-navigation-stack";
+import React from 'react';
+import { createStackNavigator } from 'react-navigation-stack';
 
-import Insights from "../screens/insightsScreen/Insights";
+import Insights from '../screens/insightsScreen/Insights';
 
-import Header from "../sharedComponent/Header";
+import Header from '../sharedComponent/Header';
 
 const InsightStack = createStackNavigator(
   {
@@ -16,18 +16,18 @@ const InsightStack = createStackNavigator(
         headerStyle: {
           backgroundColor: null,
         },
-        headerTintColor: "#fff",
+        headerTintColor: '#fff',
         headerTitleStyle: {
-          fontWeight: "semi-bold",
+          fontWeight: 'semi-bold',
           fontSize: 32,
-          fontFamily: "Helvetica",
+          fontFamily: 'Helvetica',
         },
       },
     },
   },
   {
-    initialRouteName: "Insight",
-    headerMode: "screen",
+    initialRouteName: 'Insight',
+    headerMode: 'screen',
   }
 );
 

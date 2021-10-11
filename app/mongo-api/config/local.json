@@ -1,8 +1,8 @@
 {
-  "Local": {
+  "local": {
     "name": "Mongo Express API - Local",
     "dbConfig": {
-      "host": "localhost",
+      "host": "",
       "database": "",
       "collection": "",
       "user": "",
