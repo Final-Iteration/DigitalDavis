@@ -79,6 +79,8 @@ jspm_packages/
 
 # dotenv environment variables file
 .env
+.env.docker
+.env.api
 
 # next.js build output
 .next
@@ -107,6 +109,5 @@ web-build/
 # expo 
 app/.expo-shared
 app/.expo-shared/**
-
-#SSL certificates 
 app/mongo-api/certificates/ca-certificate.crt
+.vscode/settings.json
