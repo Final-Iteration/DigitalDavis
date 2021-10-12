@@ -1,11 +1,11 @@
 //https://reactnavigation.org/docs/auth-flow/
-import React from 'react';
-import { createSwitchNavigator } from 'react-navigation';
+import React from "react";
+import { createSwitchNavigator } from "react-navigation";
 
 //auth stack
-import AuthStack from './AuthNavigator';
+import AuthStack from "./AuthNavigator";
 //main stack
-import MainStack from './Modal';
+import MainStack from "./Modal";
 
 const MainNavigator = createSwitchNavigator(
   {
@@ -13,7 +13,7 @@ const MainNavigator = createSwitchNavigator(
     Main: MainStack,
   },
   {
-    initialRouteName: 'Auth',
+    initialRouteName: "Auth",
   }
 );
 

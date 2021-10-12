@@ -1,27 +1,27 @@
-import React from 'react';
-import { Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
-import { Appbar, Avatar } from 'react-native-paper';
-const { height, width } = Dimensions.get('window');
+import React from "react";
+import { Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import Icon from "react-native-vector-icons/AntDesign";
+import { Appbar, Avatar } from "react-native-paper";
+const { height, width } = Dimensions.get("window");
 const CustomHeader = ({ navigation, title, profile }) => {
   const logout = () => {
     //remove token from async storage
-    navigation.navigate('Auth');
+    navigation.navigate("Auth");
   };
   if (profile) {
     return (
       <Appbar.Header
         statusBarHeight={50}
         style={{
-          backgroundColor: '#142A4F',
+          backgroundColor: "#142A4F",
           elevation: 0,
         }}
       >
         <TouchableOpacity
           style={{ left: 22 }}
-          onPress={() => navigation.navigate('Setting')}
+          onPress={() => navigation.navigate("Setting")}
         >
-          <Icon name="setting" size={30} style={{ color: '#2F80ED' }} />
+          <Icon name="setting" size={30} style={{ color: "#2F80ED" }} />
         </TouchableOpacity>
         <Appbar.Content title={<Text style={styles.title}>{title}</Text>} />
         <TouchableOpacity style={{ right: 22 }} onPress={() => logout()}>
@@ -34,18 +34,18 @@ const CustomHeader = ({ navigation, title, profile }) => {
       <Appbar.Header
         statusBarHeight={50}
         style={{
-          backgroundColor: '#fff',
+          backgroundColor: "#fff",
           elevation: 0,
         }}
       >
         <TouchableOpacity
           style={{ left: 22 }}
-          onPress={() => navigation.navigate('User')}
+          onPress={() => navigation.navigate("User")}
         >
           <Avatar.Image
             size={40}
             source={{
-              uri: 'https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg',
+              uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
             }}
           />
         </TouchableOpacity>
@@ -57,14 +57,14 @@ const CustomHeader = ({ navigation, title, profile }) => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 30,
-    fontWeight: 'bold',
-    paddingHorizontal: '30%',
-    fontFamily: 'Helvetica',
+    fontWeight: "bold",
+    paddingHorizontal: "30%",
+    fontFamily: "Helvetica",
   },
   logOutButton: {
     fontSize: 17,
-    color: '#2F80ED',
-    fontWeight: '500',
+    color: "#2F80ED",
+    fontWeight: "500",
   },
 });
 

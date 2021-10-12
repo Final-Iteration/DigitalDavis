@@ -1,7 +1,7 @@
-import React from 'react';
-import { useState, useRef } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import React from "react";
+import { useState, useRef } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -10,7 +10,7 @@ import Animated, {
   interpolate,
   Extrapolate,
   useAnimatedGestureHandler,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
 const BUTTON_WIDTH = 350;
 const BUTTON_HEIGHT = 80;
@@ -23,12 +23,12 @@ const H_SWIPE_RANGE =
   BUTTON_WIDTH - 2 * BUTTON_PADDING - SWIPEABLE_DIMENSIONS_WIDTH;
 
 const SwipeButton = ({ onToggle }) => {
-  const ActiveBold = useSharedValue('bold');
-  const ActiveColor = useSharedValue('black');
+  const ActiveBold = useSharedValue("bold");
+  const ActiveColor = useSharedValue("black");
   const ActiveZIndex = useSharedValue(4);
 
-  const RecentBold = useSharedValue('normal');
-  const RecentColor = useSharedValue('grey');
+  const RecentBold = useSharedValue("normal");
+  const RecentColor = useSharedValue("grey");
   const RecentZIndex = useSharedValue(2);
 
   const X = useSharedValue(0);
@@ -72,23 +72,23 @@ const SwipeButton = ({ onToggle }) => {
     onEnd: (e) => {
       if (X.value < BUTTON_WIDTH / 2 - SWIPEABLE_DIMENSIONS / 2) {
         X.value = withSpring(0); // if  X (the button) is moved < halfway across the screen snap back to origin
-        RecentBold.value = 'normal';
-        RecentColor.value = 'grey';
+        RecentBold.value = "normal";
+        RecentColor.value = "grey";
         ActiveZIndex.value = 4;
 
-        ActiveColor.value = 'black';
-        ActiveBold.value = 'bold';
+        ActiveColor.value = "black";
+        ActiveBold.value = "bold";
         RecentZIndex.value = 2;
         runOnJS(handleComplete)(false);
       } else {
         X.value = withSpring(H_SWIPE_RANGE);
-        RecentBold.value = 'bold';
-        RecentColor.value = 'black';
+        RecentBold.value = "bold";
+        RecentColor.value = "black";
         RecentZIndex.value = 4;
 
         ActiveZIndex.value = 2;
-        ActiveBold.value = 'normal';
-        ActiveColor.value = 'grey';
+        ActiveBold.value = "normal";
+        ActiveColor.value = "grey";
         runOnJS(handleComplete)(true);
       }
     },
@@ -163,33 +163,33 @@ const styles = StyleSheet.create({
   swipeCont: {
     height: BUTTON_HEIGHT,
     width: BUTTON_WIDTH,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: BUTTON_HEIGHT,
     padding: BUTTON_PADDING,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: '#DDDDDD',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "#DDDDDD",
   },
   swipeable: {
-    position: 'absolute',
+    position: "absolute",
     left: BUTTON_PADDING,
     height: SWIPEABLE_DIMENSIONS,
     width: SWIPEABLE_DIMENSIONS_WIDTH, //160
     borderRadius: SWIPEABLE_DIMENSIONS,
     zIndex: 3,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   ActiveText: {
-    alignSelf: 'center',
-    alignItems: 'flex-start',
+    alignSelf: "center",
+    alignItems: "flex-start",
     right: 70,
     fontSize: 20,
   },
   RecentText: {
-    alignSelf: 'center',
-    alignItems: 'flex-start',
+    alignSelf: "center",
+    alignItems: "flex-start",
     left: 70,
     fontSize: 20,
   },
