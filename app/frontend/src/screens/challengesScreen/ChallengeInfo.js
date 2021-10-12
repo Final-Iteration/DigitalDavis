@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,130 +7,143 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-} from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+  SafeAreaView,
+  FlatList,
+} from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import TagPill from "./components/TagPill";
+import { showMessage } from "react-native-flash-message";
+import JoinBanner from "./components/JoinBanner";
+import UnjoinedBanner from "./components/UnjoinedBanner";
 
-const { width, height } = Dimensions.get('window');
-const imageSource = require('cd ../../../../assets/yoga.png');
-
+const { width, height } = Dimensions.get("window");
 const ChallengeInfo = (props) => {
   // this needs to be changed when we are importing data, should not be set to false
-  const [isPress, setIsPress] = useState(false);
+  const [status, setStatus] = useState(false);
+  const challenge = props.navigation.state.params.challenge;
+  useEffect(() => {
+    setStatus(challenge.status);
+  }, []);
+  const day = challenge.date.toString().split(" ");
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="dark" />
-      <Image
-        style={styles.image}
-        //replace this hard coded image with the image uri's when we get them
-        source={imageSource}
-      />
-      <View style={styles.durationContainer}>
-        <Text style={styles.duration}>Duration: 4 Weeks</Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Image style={styles.image} source={{ uri: challenge.image }} />
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <FlatList
+            contentContainerStyle={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+            data={challenge.tags}
+            renderItem={({ item }) => <TagPill tag={item} />}
+            keyExtractor={(item) => item}
+          />
+        </ScrollView>
+        <View style={styles.locationTime}>
+          <Icon
+            name="ios-location-outline"
+            size={30}
+            style={{ color: "blue" }}
+          />
+          <Text style={styles.locationText}>{challenge.location}</Text>
+          <View style={styles.dateBox}>
+            <Icon
+              name="calendar-outline"
+              size={30}
+              style={{ color: "red", right: 7 }}
+            />
+            <Text
+              style={styles.date}
+            >{`${day[0]} ${day[1]} ${day[2]} ${day[3]}`}</Text>
+          </View>
+        </View>
+        {/* API CALL TO UPDATE PARTICIPATION */}
         <TouchableOpacity
-          style={
-            isPress ? styles.participatingButton : styles.notParticipatingButton
-          }
+          style={[
+            styles.participatingButton,
+            { backgroundColor: status ? "#90ee90" : "#DDDDDD" },
+          ]}
           onPress={() => {
-            setIsPress(!isPress);
+            setStatus(!status);
+            showMessage({
+              icon: "success",
+              position: "top",
+              message: null,
+              type: status ? "warning" : "success",
+              renderFlashMessageIcon: status ? UnjoinedBanner : JoinBanner,
+              style: { borderRadius: 15, top: 35, height: 50 },
+              statusBarHeight: 0,
+              floating: true,
+            });
           }}
         >
-          <Text style={styles.participate}>Participate</Text>
+          <Text style={styles.participate}>
+            {status ? "Participating" : "Participate"}
+          </Text>
         </TouchableOpacity>
-      </View>
-      <ScrollView>
-        <Text style={styles.mainDescription}>
-          Are you new to yoga? You've found the best place to start your yoga
-          journey. The benefits of yoga are there for you: You can develop a
-          strong, healthy body. You can enjoy a clear, calm mind. You can live
-          with a sense of purpose, love, and connection.
-        </Text>
-        <View style={styles.lineContainer}>
-          <View style={styles.drawnLine} />
+        <View style={{ marginVertical: 12, bottom: 10 }}>
+          <Text style={styles.about}>About</Text>
+          <Text style={styles.mainDescription}>{challenge.longDescr}</Text>
         </View>
-        <Text style={styles.middleHeader}>The Five Key Aspects of Yoga</Text>
-        <Text style={styles.middleText}>
-          Concentration: You will learn to focus and concentrate on the
-          teacher's words and practice mindful breathing. Consistency: Plan to
-          take a class 2 to 3 times per week so you will see and feel the
-          benefits of your work. Determination: No problem if you fall out of a
-          posture. Keep getting back in to build up your will power and stamina.
-          You will get better each day. Patience: Notice not only the changes in
-          your postures. Confidence and faith in yourself will serve you a
-          lifetime! Intensity: Every day is a new chance to try your best. It's
-          never to late to begin again.
-        </Text>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: height / 8,
-    flex: 1,
-    paddingBottom: height / 9,
+  dateBox: {
+    position: "absolute",
+    right: 0,
+    justifyContent: "space-between",
+    flexDirection: "row",
   },
+  date: {
+    fontSize: 16,
+    marginVertical: 8,
+    textDecorationLine: "underline",
+  },
+  locationText: {
+    left: 7,
+    fontSize: 16,
+    marginVertical: 8,
+    textDecorationLine: "underline",
+  },
+  locationTime: {
+    top: 10,
+    flexDirection: "row",
+    marginHorizontal: 17,
+    marginVertical: 11,
+  },
+
   image: {
-    borderRadius: 8,
-    width: width / 1.05,
-    height: height / 3,
-    margin: width / 40,
+    width: width,
+    height: height / 2,
   },
   mainDescription: {
+    top: 10,
     fontSize: 18,
-    fontWeight: '300',
-    marginHorizontal: width / 30,
-  },
-  drawnLine: {
-    alignSelf: 'stretch',
-    borderBottomWidth: 1,
-    borderBottomColor: 'black',
-    marginTop: height / 80,
-    marginBottom: height / 80,
-  },
-  lineContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: width / 20,
-  },
-  middleHeader: {
-    fontSize: 18,
-    fontWeight: '400',
-    alignSelf: 'center',
-  },
-  middleText: {
-    fontSize: 18,
-    fontWeight: '300',
-    marginHorizontal: width / 30,
-  },
-  durationContainer: {
-    flexDirection: 'row-reverse',
-    justifyContent: 'space-between',
-    marginHorizontal: width / 30,
-  },
-  duration: {
-    fontSize: 18,
-    fontStyle: 'italic',
-    top: height / 150,
-  },
-  notParticipatingButton: {
-    backgroundColor: '#DDDDDD',
-    borderRadius: 4,
-    alignItems: 'center',
-    padding: 8,
-    width: width / 4,
+    fontWeight: "300",
+    marginHorizontal: 17,
   },
   participatingButton: {
-    backgroundColor: '#90ee90',
-    borderRadius: 4,
-    alignItems: 'center',
-    padding: 8,
-    width: width / 4,
+    borderRadius: 8,
+    width: width - 30,
+    marginVertical: 11,
+    borderRadius: 3,
+    alignSelf: "center",
+  },
+  about: {
+    fontWeight: "600",
+    fontSize: 25,
+    left: 17,
+    marginVertical: 7,
   },
   participate: {
-    fontWeight: '600',
+    fontWeight: "500",
+    margin: 15,
+    alignSelf: "center",
   },
 });
 
