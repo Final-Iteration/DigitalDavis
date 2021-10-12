@@ -1,98 +1,84 @@
 const dotenv = require('dotenv').config();
-const config = require('config');
-const app = require('./app');
-const mongoose = require('mongoose');
-const dbDebugger = require('debug')('app:mongodb');
-const appDebugger = require('debug')('app:startup');
+const Joi = require('joi');
+const express = require('express');
 
+const app = express();
 
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-function initServer(){
-  const port = process.env.EXPRESS_API_PORT;
-  const server = app.listen(port, () => appDebugger(`API listening on port ${port}`));
-  appDebugger()
-}
+const challenges = [
+  { id: 1, name: 'challenge demo 1' },
+  { id: 2, name: 'challenge demo 2' },
+  { id: 3, name: 'challenge demo 3' },
+];
 
-/**
- *
- * @param {*} nodeEnv
- * @returns
- */
-function uriBuilder(nodeEnv) {
-  var uri = '';
-  try {
-    if (nodeEnv === 'production') {
-      uri =
-        config.get(`${nodeEnv}.database.protocol`) +
-        config.get(`${nodeEnv}.database.user`) +
-        ':' +
-        config.get(`${nodeEnv}.database.password`) +
-        '@' +
-        config.get(`${nodeEnv}.database.host`) +
-        '/' +
-        config.get(`${nodeEnv}.database.name`) +
-        '?' +
-        config.get(`${nodeEnv}.database.authsource`);
-    } else if (nodeEnv === 'development') {
-      uri =
-        config.get(`${nodeEnv}.database.protocol`) +
-        config.get(`${nodeEnv}.database.host`) +
-        ':' +
-        config.get(`${nodeEnv}.database.port`) +
-        '/' +
-        config.get(`${nodeEnv}.database.name`);
-    }
-    return uri;
-  } catch (error) {
-    dbDebugger('uriBuilder: ' + error.message);
-  }
-}
+app.get('/api', (req, res) => {
+  res.send('Hello World');
+});
+
+app.get('/api/challenges', (req, res) => {
+  res.send(challenges);
+});
+
+app.get('/api/challenge/:id', (req, res) => {
+  const challenge = challenges.find((c) => c.id === parseInt(req.params.id));
+  if (!challenge)
+    res.status(404).send('ERROR 404 Given Challenge ID was not found');
+  res.send(challenge);
+});
 
 /**
- * @TODO - find how to use default env vars for certificate passing
- * @param {*} uri
+ * @todo move to asyn post methods for schema validation
  */
-async function connectMongoose(uri) {
-  try {
-    await mongoose
-      .connect(uri, {
-        sslCA: config.get('production.database.certificate'),
-      })
-      .then(() => dbDebugger('Status: connected'));
-    mongoose.connection.db.listCollections().toArray(function (err, names) {
-      names.forEach((Element) =>
-        dbDebugger('Local DB Collections: ' + Element.name)
-      );
-    });
-  } catch (error) {
-    dbDebugger(error.message);
+app.post('/api/challenges', (req, res) => {
+  const { error } = validate_challenge(req.body);
+
+  if (error) {
+    res.status(400).send(error.details[0].message);
+    return;
   }
+
+  const challenge = {
+    id: challenges.length + 1,
+    name: req.body.name,
+  };
+
+  challenges.push(challenge);
+  res.send(challenge);
+});
+
+app.put('/api/challenges/:id', (req, res) => {
+  const challenge = challenges.find((c) => c.id === parseInt(req.params.id));
+  if (!challenge)
+    res.status(404).send('ERROR 404 Given challenge ID was not found');
+
+  const { error } = validate_challenge(req.body);
+
+  if (error) {
+    res.status(400).send(error.details[0].message);
+    return;
+  }
+
+  challenge.name = req.body.name;
+  res.send(challenge);
+});
+
+function validate_challenge(challenge) {
+  const challenges_schema = Joi.object({
+    name: Joi.string()
+      .min(3)
+      .max(30)
+      .pattern(new RegExp('^[a-zA-Z0-9_ ]*$'))
+      .required(),
+  });
+
+  const result = challenges_schema.validate({
+    name: challenge.name,
+  });
+
+  return result;
 }
 
-/**
- *
- */
-async function initMongoose() {
-  try {
-    const nodeEnv = process.env.NODE_ENV;
-    if (nodeEnv === 'development') {
-      dbDebugger('Host: ' + config.get(`${nodeEnv}.database.host`));
-      dbDebugger('Name: ' + config.get(`${nodeEnv}.database.name`));
-      dbDebugger('Collection: ' + config.get(`${nodeEnv}.database.collection`));
-    } else if (nodeEnv === 'common') {
-      dbDebugger('Host: ' + config.get(`${nodeEnv}.database.host`));
-      dbDebugger('Name: ' + config.get(`${nodeEnv}.database.name`));
-      dbDebugger(
-        'Collection : ' + config.get(`${nodeEnv}.database.collection`)
-      );
-    }
-    const uri = uriBuilder(nodeEnv);
-    dbDebugger(`Connection to Mongoose on ${uri}`);
-    connectMongoose(uri);
-  } catch (error) {
-    dbDebugger(error.message);
-  }
-}
-
-initServer();
-initMongoose();
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`listening on port ${port}`));
