@@ -1,11 +1,11 @@
-import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
+import React from "react";
+import { createStackNavigator } from "react-navigation-stack";
 
 //user Profile
-import ProfileStack from './ProfileNavigator';
+import ProfileStack from "./ProfileNavigator";
 //bottom tab
-import TabStack from './MainBottomTab';
-import Header from '../sharedComponent/Header';
+import TabStack from "./MainBottomTab";
+import Header from "../sharedComponent/Header";
 const mainFlowWithProfile = createStackNavigator(
   {
     mainFlow: {
@@ -18,14 +18,14 @@ const mainFlowWithProfile = createStackNavigator(
       screen: ProfileStack,
       navigationOptions: {
         headerShown: false,
-        gesturesEnabled: true,
+         gesturesEnabled: true,
       },
     },
   },
   {
-    initialRouteName: 'mainFlow',
-    mode: 'modal', // top to bottom instead of left to right
-    headerMode: 'screen',
+    initialRouteName: "mainFlow",
+    mode: "modal",                      // top to bottom instead of left to right
+    headerMode: "screen",
   }
 );
 

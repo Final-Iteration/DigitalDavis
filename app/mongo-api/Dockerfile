@@ -1,9 +1,0 @@
-FROM node:14.17.6-alpine3.13
-WORKDIR /usr/src/cache
-
-COPY ./package*.json /app/
-RUN npm i --also=dev
-
-WORKDIR /usr/src/app
-
-CMD node ./index.js 
