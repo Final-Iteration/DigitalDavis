@@ -5,7 +5,8 @@ WORKDIR /usr/src/cache
 
 # Install the application's dependencies into the node_modules's cache directory.
 COPY package*.json ./
-RUN npm install --also=dev
+RUN npm install
+RUN npm install --global expo-cli --save-dev
 
 # Create and define the application's working directory.
 WORKDIR /usr/src/app
