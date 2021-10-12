@@ -1,0 +1,36 @@
+{
+  "post samples": [
+    {
+      "name": "Guard the Bifrost",
+      "creator": "Heimdall",
+      "tags": [
+        "Emotional",
+        "Environmental",
+        "Intellectual",
+        "Physical",
+        "Social",
+        "Spiritual"
+      ],
+      "description": "Ensured that no enemies are able to get past your watch and enter Asgard",
+      "start_date": "2021-10-05T00:00:00.000Z",
+      "end_date": "2021-10-05T00:00:00.000Z",
+      "participants": ["Heimdall"]
+    },
+    {
+      "name": "Protect the Nine Realms",
+      "creator": "Odin Borson",
+      "tags": [
+        "Emotional",
+        "Environmental",
+        "Intellectual",
+        "Physical",
+        "Social",
+        "Spiritual"
+      ],
+      "description": "Battled great beasts, invaded other realms, destroyed demons and monsters, devastate whole worlds, and lay waste to mighty kingdoms.",
+      "start_date": "2021-10-05T00:00:00.000Z",
+      "end_date": "2021-10-05T00:00:00.000Z",
+      "participants": ["Odin Borson", "Hela Odinsdottir"]
+    }
+  ]
+}

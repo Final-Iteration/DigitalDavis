@@ -1,10 +1,10 @@
-import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import React from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
 const Insights = (props) => {
   return (
     <View>
-      <Text style={{ alignSelf: "center" }}>This is the Insights screen</Text>
+      <Text style={{ alignSelf: 'center' }}>This is the Insights screen</Text>
     </View>
   );
 };
