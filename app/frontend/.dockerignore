@@ -1,3 +1,5 @@
 node_modules
 .expo-shared
 .expo
+certificates
+certificates/**

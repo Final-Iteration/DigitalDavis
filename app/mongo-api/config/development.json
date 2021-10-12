@@ -1,0 +1,12 @@
+{
+  "development": {
+    "name": "Mongo Express API - Development",
+    "dbConfig": {
+      "host": "",
+      "database": "",
+      "collection": "",
+      "user": "",
+      "password": ""
+    }
+  }
+}
