@@ -1,10 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
 
 const PastChallenges = () => {
   return (
     <View>
-      <Text style={{ alignSelf: 'center' }}>
+      <Text style={{ alignSelf: "center" }}>
         This is the PastChallenges screen
       </Text>
     </View>
