@@ -1,151 +1,89 @@
-const { Challenges } = require("../models");
-const serviceDebugger = require("debug")("app:service");
+const httpStatus = require('http-status');
+const Challenge = require('../models/challenge.model');
+const ApiError = require('../utils/ApiError');
 
 /**
- *
- * @param {*} challengeBody
+ * Create a challenge
+ * @param {Object} challengeBody
+ * @returns {Promise<Challenge>}
  */
-async function createChallenge(challengeBody) {
-  try {
-    const Challenge = mongoose.model(
-      config.get("development.database.collection"),
-      challengeSchema
-    );
-    const challenge = new Challenge({
-      name: "Simple Challenge 4",
-      id: await makeUniqueID(16),
-      creator: "Josh Poe",
-      participants: "Josh Poe",
-    });
-    const result = await challenge.save();
-    serviceDebugger(result + "\n challenge added");
-  } catch (error) {
-    serviceDebugger(error.message);
+const createChallenge = async (challengeBody) => {
+  if (await Challenge.isNameTaken(challengeBody.name)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
   }
-}
+  return Challenge.create(challengeBody);
+};
 
 /**
- *
+ * Query for challenges
+ * @param {Object} filter - Mongo filter
+ * @param {Object} options - Query options
+ * @param {string} [options.sortBy] - Sort option in the format: sortField:(desc|asc)
+ * @param {number} [options.limit] - Maximum number of results per page (default = 10)
+ * @param {number} [options.page] - Current page (default = 1)
+ * @returns {Promise<QueryResult>}
  */
-async function queryChallenges() {
-  try {
-    const challenge = await Challenge.find().limit(10).sort({ name: 1 });
-    serviceDebugger(challenge);
-  } catch (error) {
-    serviceDebugger(error.message);
-  }
-}
+const queryChallenges = async (filter, options) => {
+  const challenges = await Challenge.paginate(filter, options);
+  return challenges;
+};
 
 /**
- *
- * @param {*} id
+ * Get challenge by email
+ * @param {string} email
+ * @returns {Promise<Challenge>}
  */
-async function getChallengeById(id) {
-  try {
-    const challenge = await Challenge.find().limit(10).sort({ name: 1 });
-    serviceDebugger(challenge);
-  } catch (error) {
-    serviceDebugger(error.message);
-  }
-}
+const getChallengeById = async (challengeId) => {
+  return Challenge.findOne({ _id : challengeId});
+};
 
 /**
- *
- * @param {*} name
+ * Get challenge by email
+ * @param {string} email
+ * @returns {Promise<Challenge>}
  */
-async function getChallengeByName(name) {
-  try {
-    const challenge = await Challenge.find().limit(10).sort({ name: 1 });
-    serviceDebugger(challenge);
-  } catch (error) {
-    serviceDebugger(error.message);
-  }
-}
+ const getChallengeByName = async (name) => {
+  return Challenge.findOne({ name });
+};
 
 /**
- * @todo
- * @param {*} date
+ * Update challenge by id
+ * @param {ObjectId} id
+ * @param {Object} updateBody
+ * @returns {Promise<Challenge>}
  */
-async function getChallengeByDate(date) {
-  try {
-  } catch (error) {
-    serviceDebugger(error.message);
+const updateChallengeById = async (id, updateBody) => {
+  const challenge = await getChallengeById({ _id : id});
+  if (!challenge) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
   }
-}
+  if (updateBody.email && (await Challenge.isEmailTaken(updateBody.email, id))) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+  }
+  Object.assign(challenge, updateBody);
+  await challenge.save();
+  return challenge;
+};
 
 /**
- * @todo
- * @param {string} id
- * @param {object} updatedChallenge
- * @returns
+ * Delete challenge by id
+ * @param {ObjectId} Id
+ * @returns {Promise<Challenge>}
  */
-async function updateChallengeById_Client(id, challengeBody) {
-  try {
-    const challenge = await Challenge.findById(id);
-    if (!challenge) return;
-
-    for (const [key, value] of Object.entries(updatedChallenge)) {
-      challenge.set({
-        key: value,
-      });
-    }
-
-    const result = await challenge.save();
-    serviceDebugger("challenge " + id + " updated.");
-    serviceDebugger(result);
-  } catch (error) {
-    serviceDebugger(error.message);
+const deleteChallengeById = async (id) => {
+  const challenge = await getChallengeById({ _id : id});
+  if (!challenge) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
   }
-}
-
-/**
- * @todo
- * @param {string} id
- * @param {object} updatedChallenge
- * @returns
- */
-async function updateChallengeById_Server(id, challengeBody) {
-  try {
-    const challenge = await Challenge.findByIdAndUpdate(
-      id,
-      {
-        $set: {
-          key: "value",
-        },
-      },
-      { new: true }
-    );
-
-    if (!challenge) return;
-
-    const result = await challenge.save();
-    serviceDebugger("challenge " + id + " updated.");
-    serviceDebugger(result);
-  } catch (error) {
-    serviceDebugger(error);
-  }
-}
-
-/**
- * @todo
- * @param {string} id
- * @returns
- */
-async function deleteChallengeById(id) {
-  try {
-  } catch (error) {
-    serviceDebugger(error);
-  }
-  await user.remove();
-  return user;
-}
+  await challenge.remove();
+  return challenge;
+};
 
 module.exports = {
   createChallenge,
   queryChallenges,
   getChallengeById,
-  getChallengeByDate,
-  updateChallengeById_Client,
-  updateChallengeById_Server,
+  getChallengeByName,
+  updateChallengeById,
   deleteChallengeById,
 };
