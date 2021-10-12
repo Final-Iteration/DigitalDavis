@@ -1,47 +1,52 @@
-import React from 'react';
-import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Dimensions } from 'react-native';
+import React from "react";
+import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Dimensions } from "react-native";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
-const ChallengeBox = () => {
+const ChallengeBox = ({ image, title, description, status, past }) => {
   return (
     // data passed in should contain:
     //image uri, challenge title, description, status
     <View style={styles.container}>
       <Image
         style={styles.image}
-        // replace this hard coded image with the image uri's when we get them
-        source={require('cd ../../../../assets/yoga.png')}
+        source={{
+          uri: image,
+        }}
       ></Image>
       <View style={styles.titleDescriptionContainer}>
-        <Text style={styles.title}>30 Days of Yoga!</Text>
-        {/* <TouchableOpacity style={styles.button}>
-          <Text>Participate</Text>
-        </TouchableOpacity> */}
-        <Text style={styles.description}>
-          The best place to start your yoga journey.
-        </Text>
-        {/* <Text style={styles.status_text}>In Progress</Text> */}
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.description}>{description}</Text>
+        {past ? (
+          <Text style={styles.status_text}>Completed</Text>
+        ) : (
+          <Text style={styles.status_text}>
+            {status ? "In Progress" : "Not Participating"}
+          </Text>
+        )}
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  status_text: {
+    opacity: 0.5,
+    marginLeft: 17,
+  },
   container: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    flexDirection: "column",
+    alignItems: "flex-start",
   },
   image: {
     borderRadius: 8,
     width: width / 1.1,
-    height: height / 3,
+    height: height / 4,
     margin: 17,
-    top: height / 300,
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: "300",
     fontSize: 25,
     marginLeft: 17,
   },
@@ -58,12 +63,8 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     marginLeft: 17,
+    opacity: 0.8,
   },
-  // status_text: {
-  //   color: "grey",
-  //   fontSize: 13,
-  //   marginLeft: 17,
-  // },
   titleDescriptionContainer: {
     bottom: height / 100,
   },

@@ -14,15 +14,6 @@ const KnowledgeStack = createStackNavigator(
         header: ({ scene, previous, navigation }) => (
           <Header title="Knowledge" navigation={navigation} />
         ),
-        headerStyle: {
-          backgroundColor: '#142A4F',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'semi-bold',
-          fontSize: 32,
-          fontFamily: 'Helvetica',
-        },
       },
     },
     SearchedKnowledge: {

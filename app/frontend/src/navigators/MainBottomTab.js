@@ -88,9 +88,6 @@ const MainBottomTab = createBottomTabNavigator(
   {
     tabBarOptions: {
       showLabel: false,
-      style: {
-        position: 'absolute',
-      },
     },
   }
 );
