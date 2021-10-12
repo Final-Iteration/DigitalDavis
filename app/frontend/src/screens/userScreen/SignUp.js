@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,16 +8,16 @@ import {
   Dimensions,
   Button,
   ImageBackground,
-} from 'react-native';
-const { height, width } = Dimensions.get('window');
-const imageSource = require('../../../assets/blurredDavis.jpg');
+} from "react-native";
+const { height, width } = Dimensions.get("window");
+const imageSource = require("../../../assets/blurredDavis.jpg");
 const Signup = (props) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [title, setTitle] = useState('');
-  const [department, setDepartment] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [title, setTitle] = useState("");
+  const [department, setDepartment] = useState("");
 
   const [fillError, setFillError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -36,7 +36,7 @@ const Signup = (props) => {
       setPasswordError(true);
     } else {
       //post request to database
-      props.navigation.navigate('Main');
+      props.navigation.navigate("Main");
     }
   };
   return (
@@ -46,7 +46,7 @@ const Signup = (props) => {
           <Text style={styles.title}>Sign Up</Text>
           <Button
             title="Login"
-            onPress={() => props.navigation.navigate('Login')}
+            onPress={() => props.navigation.navigate("Login")}
           />
         </View>
         <TextInput
@@ -117,15 +117,15 @@ const Signup = (props) => {
 
 const styles = StyleSheet.create({
   errorText: {
-    color: 'red',
-    alignSelf: 'center',
+    color: "red",
+    alignSelf: "center",
     fontSize: 15,
     bottom: 5,
   },
   titleButton: {
-    alignSelf: 'center',
+    alignSelf: "center",
     width: 343,
-    flexDirection: 'row',
+    flexDirection: "row",
     bottom: 20,
   },
   parent: {
@@ -133,14 +133,14 @@ const styles = StyleSheet.create({
     marginHorizontal: width / 19,
   },
   signUpButton: {
-    color: 'white',
-    alignSelf: 'center',
+    color: "white",
+    alignSelf: "center",
     fontSize: 20,
     marginVertical: 10,
   },
   title: {
     fontSize: 35,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     flex: 2,
     left: (width - 57) / 3,
   },
@@ -148,16 +148,16 @@ const styles = StyleSheet.create({
     right: 0,
   },
   signUpView: {
-    alignSelf: 'center',
+    alignSelf: "center",
     height: 51,
     width: 343,
-    backgroundColor: '#142A4F',
+    backgroundColor: "#142A4F",
     borderRadius: 10,
   },
   textInput: {
     height: 55,
     borderRadius: 10,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: "#F6F6F6",
     marginHorizontal: width / 25,
     marginBottom: height / 40,
     padding: height / 70,
