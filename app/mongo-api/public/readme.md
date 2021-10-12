@@ -1,1 +1,0 @@
-# This is the static public folder
