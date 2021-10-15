@@ -9,6 +9,7 @@ const morgan = require('morgan');
 const express = require('express');
 const { errorConverter, errorHandler } = require('./middleware/error');
 const challengesRoute = require('./routes/challenge.route');
+const usersRoute = require('./routes/user.route');
 const appDebugger = require('debug')('app:startup');
 
 const app = express();
@@ -49,6 +50,7 @@ app.use(mongoSanitize());
 
 // api routes
 app.use('/api/challenges', challengesRoute);
+app.use('/api/users', usersRoute);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
