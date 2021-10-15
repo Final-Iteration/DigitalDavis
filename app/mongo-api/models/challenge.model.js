@@ -101,7 +101,7 @@ challengeSchema.plugin(toJSON);
 challengeSchema.plugin(paginate);
 
 /**
- * Check if email is taken
+ * Check if challenge name is taken
  * @param {string} challengeName - The challenges name
  * @param {ObjectId} [excludeChallengeId] - The id of the challengeto be excluded
  * @returns {Promise<boolean>}
