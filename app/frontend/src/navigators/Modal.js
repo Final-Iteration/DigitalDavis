@@ -1,5 +1,5 @@
-import React from "react";
-import { createStackNavigator } from "react-navigation-stack";
+import React from 'react';
+import { createStackNavigator } from 'react-navigation-stack';
 //user Profile
 import ProfileStack from './ProfileNavigator';
 //bottom tab
@@ -22,9 +22,9 @@ const mainFlowWithProfile = createStackNavigator(
     },
   },
   {
-    initialRouteName: "mainFlow",
-    mode: "modal", // top to bottom instead of left to right
-    headerMode: "screen",
+    initialRouteName: 'mainFlow',
+    mode: 'modal', // top to bottom instead of left to right
+    headerMode: 'screen',
   }
 );
 

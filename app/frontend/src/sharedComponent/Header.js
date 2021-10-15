@@ -1,20 +1,20 @@
-import React from "react";
+import React from 'react';
 import {
   Text,
   StyleSheet,
   TouchableOpacity,
   Dimensions,
   Platform,
-} from "react-native";
+} from 'react-native';
 
-import Icon from "react-native-vector-icons/AntDesign";
-import Ionicon from "react-native-vector-icons/Ionicons";
-import { Feather } from "@expo/vector-icons";
-import { Appbar, Avatar } from "react-native-paper";
-import { NavigationActions } from "react-navigation";
-const { height, width } = Dimensions.get("window");
+import Icon from 'react-native-vector-icons/AntDesign';
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import { Feather } from '@expo/vector-icons';
+import { Appbar, Avatar } from 'react-native-paper';
+import { NavigationActions } from 'react-navigation';
+const { height, width } = Dimensions.get('window');
 const barHeight = 37;
-const headerMargin = Platform.OS === "ios" ? null : "50%";
+const headerMargin = Platform.OS === 'ios' ? null : '50%';
 const CustomHeader = ({
   navigation,
   title,
@@ -29,20 +29,20 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: "#fff",
+          backgroundColor: '#fff',
           elevation: 0,
         }}
       >
         <TouchableOpacity
-          style={{ left: 5, flexDirection: "row", alignSelf: "center" }}
+          style={{ left: 5, flexDirection: 'row', alignSelf: 'center' }}
           onPress={() => {
-            navigation.navigate("Challenge");
+            navigation.navigate('Challenge');
           }}
         >
           <Ionicon
             name="ios-chevron-back-outline"
             size={30}
-            style={{ color: "#2F80ED" }}
+            style={{ color: '#2F80ED' }}
           />
           <Text style={styles.challengeInfoBack}>Back</Text>
         </TouchableOpacity>
@@ -57,7 +57,7 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: "#1d3679",
+          backgroundColor: '#1d3679',
           elevation: -1,
         }}
       >
@@ -68,7 +68,7 @@ const CustomHeader = ({
         <TouchableOpacity
           style={{ right: 22 }}
           onPress={() => {
-            navigation.navigate("Login");
+            navigation.navigate('Login');
           }}
         >
           <Text>Login</Text>
@@ -88,7 +88,7 @@ const CustomHeader = ({
           style={{ left: 22 }}
           onPress={() => navigation.navigate('Setting')}
         >
-          <Icon name="setting" size={30} style={{ color: "white" }} />
+          <Icon name="setting" size={30} style={{ color: 'white' }} />
         </TouchableOpacity>
 
         <Appbar.Content
@@ -108,18 +108,18 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: "#142A4F",
+          backgroundColor: '#142A4F',
           elevation: 0,
         }}
       >
         <TouchableOpacity
           style={{ left: 22 }}
-          onPress={() => navigation.navigate("User")}
+          onPress={() => navigation.navigate('User')}
         >
           <Avatar.Image
             size={40}
             source={{
-              uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+              uri: 'https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg',
             }}
           />
         </TouchableOpacity>
@@ -146,7 +146,7 @@ const CustomHeader = ({
       >
         <TouchableOpacity
           style={{ left: width / 20 }}
-          onPress={() => navigation.navigate("User")}
+          onPress={() => navigation.navigate('User')}
         >
           <Avatar.Image
             size={40}
@@ -158,7 +158,7 @@ const CustomHeader = ({
         <Appbar.Content title={<Text style={styles.title}>{title}</Text>} />
         {challenge ? (
           <TouchableOpacity
-            onPress={() => navigation.navigate("CreateChallenge")}
+            onPress={() => navigation.navigate('CreateChallenge')}
             style={styles.plusButton}
           >
             <Feather name="plus-circle" size={30} color="black" />
@@ -171,8 +171,8 @@ const CustomHeader = ({
 const styles = StyleSheet.create({
   challengeInfoBack: {
     fontSize: 17,
-    color: "#2F80ED",
-    fontWeight: "500",
+    color: '#2F80ED',
+    fontWeight: '500',
     marginVertical: 5,
   },
   headerStyle: {
@@ -180,8 +180,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    fontWeight: "300",
-    fontFamily: "Helvetica",
+    fontWeight: '300',
+    fontFamily: 'Helvetica',
   },
   logOutButton: {
     fontSize: 17,

@@ -16,7 +16,7 @@ const app = express();
 // set Morgan
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
-};
+}
 
 // set security HTTP headers
 app.use(helmet());

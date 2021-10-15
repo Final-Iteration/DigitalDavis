@@ -65,6 +65,6 @@ data_validation2 = async function () {};
 /**
  * @typedef User
  */
-const User = mongoose.model("user",userSchema);
+const User = mongoose.model('user', userSchema);
 
 module.exports = User;
