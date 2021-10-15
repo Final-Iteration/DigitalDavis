@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   View,
   useWindowDimensions,
@@ -6,11 +6,11 @@ import {
   TouchableOpacity,
   FlatList,
   Text,
-} from "react-native";
-import ChallengeBox from "./ChallengeBox";
-import { TabView, SceneMap } from "react-native-tab-view";
-import { curChallenge, pastChallenge, allChallenge } from "./MockData";
-import { TabBar } from "react-native-tab-view";
+} from 'react-native';
+import ChallengeBox from './ChallengeBox';
+import { TabView, SceneMap } from 'react-native-tab-view';
+import { curChallenge, pastChallenge, allChallenge } from './MockData';
+import { TabBar } from 'react-native-tab-view';
 
 const TopSwipe = ({ props }) => {
   const FirstRoute = () => (
@@ -20,10 +20,10 @@ const TopSwipe = ({ props }) => {
         return (
           <TouchableOpacity
             onLongPress={() => {
-              console.log("pressed");
+              console.log('pressed');
             }}
             onPress={() =>
-              props.navigation.navigate("ChallengeInformation", {
+              props.navigation.navigate('ChallengeInformation', {
                 challenge: item,
               })
             }
@@ -50,7 +50,7 @@ const TopSwipe = ({ props }) => {
           <TouchableOpacity
             activeOpacity={1}
             onPress={() =>
-              props.navigation.navigate("ChallengeInformation", {
+              props.navigation.navigate('ChallengeInformation', {
                 challenge: item,
               })
             }
@@ -75,7 +75,7 @@ const TopSwipe = ({ props }) => {
         return (
           <TouchableOpacity
             onPress={() =>
-              props.navigation.navigate("ChallengeInformation", {
+              props.navigation.navigate('ChallengeInformation', {
                 challenge: item,
               })
             }
@@ -102,14 +102,14 @@ const TopSwipe = ({ props }) => {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "first", title: "ALL" },
-    { key: "second", title: "CURRENT" },
-    { key: "third", title: "PAST" },
+    { key: 'first', title: 'ALL' },
+    { key: 'second', title: 'CURRENT' },
+    { key: 'third', title: 'PAST' },
   ]);
 
   return (
     <TabView
-      tabStyle={{ backgroundColor: "red" }}
+      tabStyle={{ backgroundColor: 'red' }}
       swipeEnabled={false}
       style={styles.container}
       navigationState={{ index, routes }}
@@ -118,10 +118,10 @@ const TopSwipe = ({ props }) => {
       renderTabBar={(props) => (
         <TabBar
           {...props}
-          style={{ backgroundColor: "#f2f2f2", flex: 0.09 }}
-          indicatorStyle={{ backgroundColor: "#142A4F" }}
+          style={{ backgroundColor: '#f2f2f2', flex: 0.09 }}
+          indicatorStyle={{ backgroundColor: '#142A4F' }}
           renderLabel={({ route, focused, color }) => (
-            <Text style={{ color: "black", margin: 8, fontSize: 15 }}>
+            <Text style={{ color: 'black', margin: 8, fontSize: 15 }}>
               {route.title}
             </Text>
           )}
@@ -132,7 +132,7 @@ const TopSwipe = ({ props }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f2f2f2",
+    backgroundColor: '#f2f2f2',
   },
 });
 export default TopSwipe;

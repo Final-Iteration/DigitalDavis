@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 const TagPill = ({ tag }) => {
   return (
@@ -12,17 +12,17 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     margin: 5,
-    backgroundColor: "#142A4F",
+    backgroundColor: '#142A4F',
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
-    shadowColor: "#142A4F",
+    shadowColor: '#142A4F',
   },
   tagText: {
     fontSize: 17,
     margin: 9,
-    color: "white",
-    alignSelf: "center",
+    color: 'white',
+    alignSelf: 'center',
   },
 });
 
