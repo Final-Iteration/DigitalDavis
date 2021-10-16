@@ -1,8 +1,8 @@
-const dotenv = require("dotenv").config();
-const config = require("config");
-const { toJSON, paginate } = require("./plugins");
-const mongoose = require("mongoose");
-const modelDebugger = require("debug")("app:model");
+const dotenv = require('dotenv').config();
+const config = require('config');
+const { toJSON, paginate } = require('./plugins');
+const mongoose = require('mongoose');
+const modelDebugger = require('debug')('app:model');
 
 // schema
 const userSchema = new mongoose.Schema({
@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
   dob: {
     type: Date,
     required: false,
-   // validate: [validateDOB, 'Please enter a correct date'],
+    // validate: [validateDOB, 'Please enter a correct date'],
   },
   job_title: {
     type: [String],
@@ -42,7 +42,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-
 // add plugin that converts mongoose to json
 userSchema.plugin(toJSON);
 userSchema.plugin(paginate);
@@ -53,17 +52,13 @@ userSchema.plugin(paginate);
  * @param {ObjectId} [excludeuserId] - The id of the user to be excluded
  * @returns {Promise<boolean>}
  */
- userSchema.statics.isEmailTaken = async function (
-  email,
-  excludeUserId
-) {
+userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
   const user = await this.findOne({
-   email,
+    email,
     _id: { $ne: excludeUserId },
   });
   return !!user;
 };
-
 
 //@TODO Fix this function @Daniel
 /**validateEmail
@@ -83,8 +78,6 @@ var validateEmail = async function (email) {
 //validateDOB = async function (dob) {
 
 //};
-
-
 
 /**
  * @typedef User
