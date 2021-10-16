@@ -73,6 +73,10 @@ describe('User model', () => {
     });
 
 
+    //@TODO
+    //Add validation for DOB
+
+
   describe('User toJSON()', () => {
     test('should not return user password when toJSON is called', () => {
       const newUser = {
