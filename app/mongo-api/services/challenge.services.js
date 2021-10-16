@@ -29,8 +29,8 @@ const queryChallenges = async (filter, options) => {
 };
 
 /**
- * Get challenge by email
- * @param {string} email
+ * Get challenge by id
+ * @param {string} Id
  * @returns {Promise<Challenge>}
  */
 const getChallengeById = async (challengeId) => {
@@ -38,8 +38,8 @@ const getChallengeById = async (challengeId) => {
 };
 
 /**
- * Get challenge by email
- * @param {string} email
+ * Get challenge by challenge name
+ * @param {string} name
  * @returns {Promise<Challenge>}
  */
 const getChallengeByName = async (name) => {
@@ -62,11 +62,13 @@ const updateChallengeById = async (id, updateBody) => {
     (await Challenge.isEmailTaken(updateBody.email, id))
   ) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+  if (await Challenge.isNameTaken(updateBody.name)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
   }
   Object.assign(challenge, updateBody);
   await challenge.save();
   return challenge;
-};
+}};
 
 /**
  * Delete challenge by id
