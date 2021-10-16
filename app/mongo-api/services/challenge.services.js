@@ -62,13 +62,14 @@ const updateChallengeById = async (id, updateBody) => {
     (await Challenge.isEmailTaken(updateBody.email, id))
   ) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
-  if (await Challenge.isNameTaken(updateBody.name)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
+    if (await Challenge.isNameTaken(updateBody.name)) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
+    }
+    Object.assign(challenge, updateBody);
+    await challenge.save();
+    return challenge;
   }
-  Object.assign(challenge, updateBody);
-  await challenge.save();
-  return challenge;
-}};
+};
 
 /**
  * Delete challenge by id
