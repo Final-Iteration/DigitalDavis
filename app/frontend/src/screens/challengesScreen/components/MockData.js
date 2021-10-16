@@ -10,7 +10,7 @@ const getChallenges = () => {
   axios.get(baseUrl).then((res) => {
     //We would recieve a array of all the challenges data here. 
     res.data;
-    // this.setState({ courses: res.data })
+    // this.setState({ courses: res.data });;
   });
 };
 
