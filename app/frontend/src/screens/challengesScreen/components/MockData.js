@@ -1,3 +1,19 @@
+import axios from 'axios';
+//will need to move the main axios code elsewhere.
+//Starting implementation here for now as its easier 
+//  to see how 'mock data' is being used in the app currently
+
+const baseUrl = 'http://localhost:3005/api/challenges/';
+//Will need to turn this into a constructor where our components can use
+//use this later on to allow it run everytime the component mounts
+const getChallenges = () => {
+  axios.get(baseUrl).then((res) => {
+    //We would recieve a array of all the challenges data here. 
+    res.data;
+    // this.setState({ courses: res.data })
+  });
+};
+
 export const curChallenge = [
   {
     id: '1',
