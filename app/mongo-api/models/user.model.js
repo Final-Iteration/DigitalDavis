@@ -88,7 +88,11 @@ var validateEmail = async function (email) {
 
 /**
  * @typedef User
+ * determines collection name to be "user"
  */
 const User = mongoose.model("user",userSchema);
+const UserTest = mongoose.model("user_test",userSchema);
 
-module.exports = User;
+//@TODO
+//Test if this works
+module.exports = [User,UserTest];
