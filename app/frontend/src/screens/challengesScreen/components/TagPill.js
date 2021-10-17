@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-color-literals */
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
