@@ -1,4 +1,5 @@
 const dotenv = require('dotenv').config();
+const validator = require('validator');
 const config = require('config');
 const { toJSON, paginate } = require('./plugins');
 const mongoose = require('mongoose');
@@ -20,12 +21,16 @@ const userSchema = mongoose.Schema({
   },
   email: {
     type: String,
-    unique: true,
     required: true,
-    //validate: [validateEmail, 'Please fill a valid email address'],
+    unique: true,
     trim: true,
-    minlength: 1,
-    maxlength: 250,
+    lowercase: true,
+    maxlength: 255,
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw new Error('Invalid email');
+      }
+    },
   },
   dob: {
     type: Date,
