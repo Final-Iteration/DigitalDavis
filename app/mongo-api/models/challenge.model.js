@@ -51,6 +51,13 @@ const challengeSchema = new mongoose.Schema({
     trim: true,
     // match: /^([A-Za-z0-9_\\-\\.\\s\\!])+$/,
   },
+  summary: {
+    type: String,
+    required: false,
+    maxlength: 150,
+    trim: true,
+    // match: /^([A-Za-z0-9_\\-\\.\\s\\!])+$/,
+  },
   location: {
     type: String,
     minlength: 1,
@@ -85,7 +92,7 @@ const challengeSchema = new mongoose.Schema({
   },
   participants: {
     type: [String],
-    required: true,
+    required: false,
   },
   participants: {
     type: [String],
