@@ -1,8 +1,5 @@
-const dotenv = require('dotenv').config();
-const config = require('config');
 const { toJSON, paginate } = require('./plugins');
 const mongoose = require('mongoose');
-const modelDebugger = require('debug')('app:model');
 
 /**
  * @function challengeSchema

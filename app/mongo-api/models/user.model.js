@@ -1,9 +1,6 @@
-const dotenv = require('dotenv').config();
 const validator = require('validator');
-const config = require('config');
 const { toJSON, paginate } = require('./plugins');
 const mongoose = require('mongoose');
-const modelDebugger = require('debug')('app:model');
 
 // schema
 const userSchema = mongoose.Schema({
