@@ -1,8 +1,8 @@
-const dotenv = require('dotenv').config();
-const config = require('config');
-const { toJSON, paginate } = require('./plugins');
-const mongoose = require('mongoose');
-const modelDebugger = require('debug')('app:model');
+const dotenv = require("dotenv").config();
+const config = require("config");
+const { toJSON, paginate } = require("./plugins");
+const mongoose = require("mongoose");
+const modelDebugger = require("debug")("app:model");
 
 /**
  * @function challengeSchema
@@ -34,20 +34,19 @@ const challengeSchema = mongoose.Schema({
   tags: {
     type: [String],
     enum: [
-      'Emotional',
-      'Environmental',
-      'Intellectual',
-      'Physical',
-      'Social',
-      'Spiritual',
+      "Emotional",
+      "Environmental",
+      "Intellectual",
+      "Physical",
+      "Social",
+      "Spiritual",
     ],
     required: false,
   },
   description: {
     type: String,
     required: false,
-    minlength: 3,
-    maxlength: 150,
+    maxlength: 150
     trim: true,
     // match: /^([A-Za-z0-9_\\-\\.\\s\\!])+$/,
   },
@@ -77,7 +76,7 @@ const challengeSchema = mongoose.Schema({
       validator: function (date) {
         return validateStartDate(date);
       },
-      message: 'Start Date cannot be in the past',
+      message: "Start Date cannot be in the past",
     },
   },
   end_date: {
@@ -87,7 +86,7 @@ const challengeSchema = mongoose.Schema({
       validator: function (date) {
         return validateEndDate(this.start_date, date);
       },
-      message: 'End Date must be after start date within 1 year.',
+      message: "End Date must be after start date within 1 year.",
     },
   },
   participants: {
@@ -96,7 +95,7 @@ const challengeSchema = mongoose.Schema({
   },
   participants: {
     type: [String],
-    required: true,
+    required: false,
     default: function () {
       return this.creator;
     },
@@ -172,11 +171,11 @@ const validateStartDate = (startDate) => {
  */
 const dateFormater = (date, currentDate) => {
   return parseInt(
-    '' +
+    "" +
       date.getFullYear() +
-      (date.getMonth() + 1 > 9 ? '' : 0) +
+      (date.getMonth() + 1 > 9 ? "" : 0) +
       (date.getMonth() + 1) +
-      (date.getUTCDate() > 9 ? '' : 0) +
+      (date.getUTCDate() > 9 ? "" : 0) +
       (currentDate ? date.getDate() : date.getUTCDate()),
     10
   );
@@ -185,6 +184,6 @@ const dateFormater = (date, currentDate) => {
 /**
  * @typedef Challenge
  */
-const Challenge = mongoose.model('challenge', challengeSchema);
+const Challenge = mongoose.model("challenge", challengeSchema);
 
 module.exports = Challenge;
