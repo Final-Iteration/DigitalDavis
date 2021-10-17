@@ -14,7 +14,7 @@ const modelDebugger = require("debug")("app:model");
  * @participants a list of names of valid users
  * @tags can only be the following strings  ['Emotional', 'Environmental', 'Intellectual', 'Physical', 'Social', 'Spiritual']
  */
-const challengeSchema = new mongoose.Schema({
+const challengeSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
