@@ -1,0 +1,40 @@
+{
+  "name": "spring2021_final-iteration",
+  "version": "1.0.0",
+  "description": "UCD wellness app",
+  "main": "index.js",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.15.7",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-react-native": "^4.1.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-react-native": "^3.11.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.4.1",
+    "pretty-quick": "^3.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/yang_SacState/spring2021_final-iteration.git"
+  },
+  "author": "Final_Iteration",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/yang_SacState/spring2021_final-iteration/issues"
+  },
+  "homepage": "https://gitlab.com/yang_SacState/spring2021_final-iteration#readme"
+}

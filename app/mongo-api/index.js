@@ -1,63 +1,98 @@
-const dotenv = require("dotenv").config();
-const config = require("config");
-const app = require("./app");
-const mongoose = require("mongoose");
-const dbDebugger = require("debug")("app:mongodb");
-const appDebugger = require("debug")("app:startup");
+const dotenv = require('dotenv').config();
+const config = require('config');
+const app = require('./app');
+const mongoose = require('mongoose');
+const dbDebugger = require('debug')('app:mongodb');
+const appDebugger = require('debug')('app:startup');
 
-const server = app.listen(port, () =>
-  appDebugger(`API listening on port ${port}`)
-);
 
-if (process.env.NODE_ENV === "development") {
-  dbDebugger("Host: " + config.get("development.database.host"));
-  dbDebugger("Name: " + config.get("development.database.database"));
-  dbDebugger("Collection: " + config.get("development.database.collection"));
+
+function initServer(){
+  const port = process.env.EXPRESS_API_PORT;
+  const server = app.listen(port, () => appDebugger(`API listening on port ${port}`));
+  appDebugger()
 }
 
 /**
  *
- * @returns uri
+ * @param {*} nodeEnv
+ * @returns
  */
-function uriBuilder() {
-  const path = require("path");
+function uriBuilder(nodeEnv) {
+  var uri = '';
   try {
-    const uri =
-      config.get("development.database.protocol") +
-      config.get("development.database.user") +
-      ":" +
-      config.get("development.database.password") +
-      "@" +
-      config.get("development.database.host") +
-      "/" +
-      config.get("development.database.database") +
-      "?" +
-      config.get("development.database.authsource");
+    if (nodeEnv === 'production') {
+      uri =
+        config.get(`${nodeEnv}.database.protocol`) +
+        config.get(`${nodeEnv}.database.user`) +
+        ':' +
+        config.get(`${nodeEnv}.database.password`) +
+        '@' +
+        config.get(`${nodeEnv}.database.host`) +
+        '/' +
+        config.get(`${nodeEnv}.database.name`) +
+        '?' +
+        config.get(`${nodeEnv}.database.authsource`);
+    } else if (nodeEnv === 'development') {
+      uri =
+        config.get(`${nodeEnv}.database.protocol`) +
+        config.get(`${nodeEnv}.database.host`) +
+        ':' +
+        config.get(`${nodeEnv}.database.port`) +
+        '/' +
+        config.get(`${nodeEnv}.database.name`);
+    }
     return uri;
   } catch (error) {
-    dbDebugger(error.message);
+    dbDebugger('uriBuilder: ' + error.message);
   }
 }
 
-async function connectMongoose() {
+/**
+ * @TODO - find how to use default env vars for certificate passing
+ * @param {*} uri
+ */
+async function connectMongoose(uri) {
   try {
     await mongoose
-      .connect(uriBuilder(), {
-        sslCA: config.get("development.database.certificate"),
+      .connect(uri, {
+        sslCA: config.get('production.database.certificate'),
       })
-      .then(() => dbDebugger("Status: connected"));
+      .then(() => dbDebugger('Status: connected'));
+    mongoose.connection.db.listCollections().toArray(function (err, names) {
+      names.forEach((Element) =>
+        dbDebugger('Local DB Collections: ' + Element.name)
+      );
+    });
   } catch (error) {
     dbDebugger(error.message);
   }
 }
 
-const updatedChallenge = {
-  name: "somestring",
-  creator: "somestring else",
-  tags: ["mmm", "abbs"],
-};
+/**
+ *
+ */
+async function initMongoose() {
+  try {
+    const nodeEnv = process.env.NODE_ENV;
+    if (nodeEnv === 'development') {
+      dbDebugger('Host: ' + config.get(`${nodeEnv}.database.host`));
+      dbDebugger('Name: ' + config.get(`${nodeEnv}.database.name`));
+      dbDebugger('Collection: ' + config.get(`${nodeEnv}.database.collection`));
+    } else if (nodeEnv === 'common') {
+      dbDebugger('Host: ' + config.get(`${nodeEnv}.database.host`));
+      dbDebugger('Name: ' + config.get(`${nodeEnv}.database.name`));
+      dbDebugger(
+        'Collection : ' + config.get(`${nodeEnv}.database.collection`)
+      );
+    }
+    const uri = uriBuilder(nodeEnv);
+    dbDebugger(`Connection to Mongoose on ${uri}`);
+    connectMongoose(uri);
+  } catch (error) {
+    dbDebugger(error.message);
+  }
+}
 
-// createChallenge();
-// getChallenges();
-// updateChallenge("614e1844ad88983c9574e3c8", updatedChallenge);
-connectMongoose();
+initServer();
+initMongoose();
