@@ -5,12 +5,12 @@ const mongoose = require('mongoose');
 const dbDebugger = require('debug')('app:mongodb');
 const appDebugger = require('debug')('app:startup');
 
-
-
-function initServer(){
+function initServer() {
   const port = process.env.EXPRESS_API_PORT;
-  const server = app.listen(port, () => appDebugger(`API listening on port ${port}`));
-  appDebugger()
+  const server = app.listen(port, () =>
+    appDebugger(`API listening on port ${port}`)
+  );
+  appDebugger();
 }
 
 /**
