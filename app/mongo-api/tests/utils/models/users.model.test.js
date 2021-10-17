@@ -33,7 +33,7 @@ describe("User model", () => {
      *
      */
     test("should throw a validation error if email is invalid", async () => {
-      newUser.email = "invalidEmail";
+      newUser.email = "invalidemail";
       await expect(new User(newUser).validate()).rejects.toThrow();
     });
 
