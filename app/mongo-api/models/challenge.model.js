@@ -46,7 +46,7 @@ const challengeSchema = mongoose.Schema({
   description: {
     type: String,
     required: false,
-    maxlength: 150
+    maxlength: 150,
     trim: true,
     // match: /^([A-Za-z0-9_\\-\\.\\s\\!])+$/,
   },
