@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+
 import {
-  View,
   useWindowDimensions,
   StyleSheet,
   TouchableOpacity,
@@ -12,26 +11,30 @@ import ChallengeBox from './ChallengeBox';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { curChallenge, pastChallenge, allChallenge } from './MockData';
 import { TabBar } from 'react-native-tab-view';
-
+import axios from 'axios';
 const baseURL = 'http://localhost:3005/api/challenges/';
 
 const TopSwipe = ({ props }) => {
   const [allChallenges, setAllChallenge] = useState([]);
-
-  
-  async function getChallengesListNoId() {
-    try {
-      const res = await axios.get('http://localhost:3005/api/challenges/');
-      console.log(res.data);
-      setAllChallenge(res.data);
-    } catch (error) {
-      console.log(error);
+  const [pastChallenges, setPastChallenges] = useState([]);
+  const [currentChallenges, setCurrentChallenged] = useState([]);
+  useEffect(() => {
+    async function fetchAPI() {
+      try {
+        const res = await axios.get(baseURL);
+        setAllChallenge(res.data); //set allChallenges to whatever is returned from the API call
+        //we will also do this for setPastChallenges and setCurrentChallenges
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
-  getChallengesListNoId();
+
+    fetchAPI();
+  }, []);
+
   const FirstRoute = () => (
     <FlatList
-      data={allChallenge}
+      data={allChallenges}
       renderItem={({ item }) => {
         return (
           <TouchableOpacity
