@@ -16,28 +16,28 @@ const errorConverter = (err, req, res, next) => {
   next(error);
 };
 
-// eslint-disable-next-line no-unused-vars
-const errorHandler = (err, req, res, next) => {
-  let { statusCode, message } = err;
-  if (process.env.NODE_ENV === 'production' && !err.isOperational) {
-    statusCode = httpStatus.INTERNAL_SERVER_ERROR;
-    message = httpStatus[httpStatus.INTERNAL_SERVER_ERROR];
-  }
+// // eslint-disable-next-line no-unused-vars
+// const errorHandler = (err, req, res, next) => {
+//   let { statusCode, message } = err;
+//   if (process.env.NODE_ENV === 'production' && !err.isOperational) {
+//     statusCode = httpStatus.INTERNAL_SERVER_ERROR;
+//     message = httpStatus[httpStatus.INTERNAL_SERVER_ERROR];
+//   }
 
-  res.locals.errorMessage = err.message;
+//   res.locals.errorMessage = err.message;
 
-  const response = {
-    code: statusCode,
-    message,
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
-  };
+//   const response = {
+//     code: statusCode,
+//     message,
+//     ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+//   };
 
-  if (process.env.NODE_ENV === 'development') {
-    errorDebugger(err);
-  }
+//   if (process.env.NODE_ENV === 'development') {
+//     errorDebugger(err);
+//   }
 
-  res.status(statusCode).send(response);
-};
+//   res.status(statusCode).send(response);
+// };
 
 module.exports = {
   errorConverter,
