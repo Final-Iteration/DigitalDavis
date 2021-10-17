@@ -1,6 +1,6 @@
-const httpStatus = require('http-status');
-const Challenge = require('../models/challenge.model');
-const ApiError = require('../utils/ApiError');
+const httpStatus = require("http-status");
+const Challenge = require("../models/challenge.model");
+const ApiError = require("../utils/ApiError");
 
 /**
  * Create a challenge
@@ -9,7 +9,7 @@ const ApiError = require('../utils/ApiError');
  */
 const createChallenge = async (challengeBody) => {
   if (await Challenge.isNameTaken(challengeBody.name)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
+    throw new ApiError(httpStatus.BAD_REQUEST, "Name already taken");
   }
   return Challenge.create(challengeBody);
 };
@@ -34,7 +34,7 @@ const queryChallenges = async (filter, options) => {
  * @returns {Promise<Challenge>}
  */
 const getChallengeById = async (challengeId) => {
-  return Challenge.findOne({ _id : challengeId});
+  return Challenge.findOne({ _id: challengeId });
 };
 
 /**
@@ -42,7 +42,7 @@ const getChallengeById = async (challengeId) => {
  * @param {string} name
  * @returns {Promise<Challenge>}
  */
- const getChallengeByName = async (name) => {
+const getChallengeByName = async (name) => {
   return Challenge.findOne({ name });
 };
 
@@ -53,12 +53,12 @@ const getChallengeById = async (challengeId) => {
  * @returns {Promise<Challenge>}
  */
 const updateChallengeById = async (id, updateBody) => {
-  const challenge = await getChallengeById({ _id : id});
+  const challenge = await getChallengeById({ _id: id });
   if (!challenge) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
+    throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
   }
   if (await Challenge.isNameTaken(updateBody.name)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
+    throw new ApiError(httpStatus.BAD_REQUEST, "Name already taken");
   }
   Object.assign(challenge, updateBody);
   await challenge.save();
@@ -71,9 +71,9 @@ const updateChallengeById = async (id, updateBody) => {
  * @returns {Promise<Challenge>}
  */
 const deleteChallengeById = async (id) => {
-  const challenge = await getChallengeById({ _id : id});
+  const challenge = await getChallengeById({ _id: id });
   if (!challenge) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
+    throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
   }
   await challenge.remove();
   return challenge;

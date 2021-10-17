@@ -1,1 +1,1 @@
-module.exports.challengeValidation = require('./challenge.validation');
+module.exports.challengeValidation = require("./challenge.validation");

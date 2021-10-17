@@ -1,6 +1,5 @@
 const faker = require("faker");
 const { Challenge } = require("../../../models");
-// import Challenge from "../../../models/challenge.model";
 
 const challengeTags = [
   "Emotional",
@@ -56,16 +55,20 @@ describe("Challenge model", () => {
       };
     });
 
-    //Create basic inital challenge
+    /**
+     * Create basic inital challenge
+     */
     test("should correctly validate a valid challenge", async () => {
       await expect(
         new Challenge(newChallenge).validate()
       ).resolves.toBeUndefined();
     });
 
-    //name tests
-    //1. name length < 30
-    //2. name length > 5
+    /**
+     * name tests
+     * 1. name length < 30
+     * 2. name length > 5
+     */
     test("should throw a validation error if name length is > 30 characters", async () => {
       newChallenge.name = "Lorem ipsum dolor sit amethdubj con";
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
@@ -76,37 +79,39 @@ describe("Challenge model", () => {
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
-    //creator tests
-    //1. creator length < 30
-    //2. creator length > 3
+    /**
+     * creator tests
+     * creator length < 30
+     * creator length > 3
+     */
     test("should throw a validation error if creator length is > 30 characters", async () => {
       newChallenge.creator = "Lorem ipsum dolor sit amethdubj con";
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
+    /**
+     *
+     */
     test("should throw a validation error if creator length is < 3 characters", async () => {
       newChallenge.creator = "hk";
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
-    //tags tests
-    //@TODO
-    //1. tags must only be of the following [
-    //   "Emotional",
-    //   "Environmental",
-    //   "Intellectual",
-    //   "Physical",
-    //   "Social",
-    //   "Spiritual",
-    // ]
+    /**
+     * tags tests
+     * @TODO
+     * 1. tags must only be of the following ["Emotional", "Environmental", "Intellectual", "Physical", "Social", "Spiritual"]
+     */
     test("should throw a validation error if tags length is > 30 characters", async () => {
       newChallenge.tags = ["NOT CORRECT", "SOCIAL"];
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
-    //description tests
-    //1. description length > 3
-    //2. description length < 150
+    /**
+     * description tests
+     * 1. description length > 3
+     * 2. description length < 150
+     */
     test("should throw a validation error if description length is > 150 characters", async () => {
       newUser.description =
         "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis pa";
@@ -118,9 +123,11 @@ describe("Challenge model", () => {
       await expect(new User(newUser).validate()).rejects.toThrow();
     });
 
-    //location tests
-    //1. location length > 50
-    //2. location length < 1
+    /**
+     * location tests
+     * 1. location length > 50
+     * 2. location length < 1
+     */
     test("should throw a validation error if location length is > 50 characters", async () => {
       newUser.location = "Lorem ipsum dolor sit amet, consectetuer adipiscing";
       await expect(new User(newUser).validate()).rejects.toThrow();
@@ -131,23 +138,28 @@ describe("Challenge model", () => {
       await expect(new User(newUser).validate()).rejects.toThrow();
     });
 
-    //start_date tests
-    //1. start_date >=today's date
+    /**
+     * start_date tests
+     * 1. start_date >=today's date
+     */
     test("should throw a validation error if start_date is < today's date", async () => {
       newUser.start_date = faker.date.past;
       await expect(new User(newUser).validate()).rejects.toThrow();
     });
 
-    //end_date tests
-    //1. end_date >=today's date
+    /**
+     * end_date tests
+     * 1. end_date >=today's date
+     */
     test("should throw a validation error if end_date is < today's date", async () => {
       newUser.end_date = faker.date.past;
       await expect(new User(newUser).validate()).rejects.toThrow();
     });
 
-    //@TODO
-    //Validation(participants)
-
+    /**
+     * @TODO
+     * Validation(participants)
+     */
     // test("should correctly validate a valid challenge", async () => {
     //   await expect(
     //     new Challenge(newChallenge).validate());

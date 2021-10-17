@@ -10,14 +10,12 @@ const createUser = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(user);
 });
 
-
 const getUsers = catchAsync(async (req, res) => {
   const filter = pick(req.query, ["name"]); //add filter by start date later
   const options = pick(req.query, ["sortBy", "limit", "page"]);
   const result = await userService.queryUsers(filter, options);
   res.send(result);
-}); 
-
+});
 
 const getUser = catchAsync(async (req, res) => {
   const user = await userService.getUserById(req.params.Id);
@@ -25,13 +23,10 @@ const getUser = catchAsync(async (req, res) => {
     throw new ApiError(httpStatus.NOT_FOUND, "invalid user");
   }
   res.send(user);
-}); 
+});
 
 const updateUser = catchAsync(async (req, res) => {
-  const user = await userService.updateUserById(
-    req.params.Id,
-    req.body
-  );
+  const user = await userService.updateUserById(req.params.Id, req.body);
   res.send(user);
 });
 
