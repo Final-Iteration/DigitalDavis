@@ -7,6 +7,7 @@ import axios from 'axios';
 const baseURL = 'http://localhost:3005/api/challenges/';
 
 export default class ChallengeList {
+
   getChallengesListNoId = () => {
     //Will need to turn this into a constructor where our components can use
     // use this later on to allow it run everytime the component mounts
