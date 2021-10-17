@@ -1,10 +1,10 @@
-import React from "react";
-import { createStackNavigator } from "react-navigation-stack";
+import React from 'react';
+import { createStackNavigator } from 'react-navigation-stack';
 
-import Search from "../screens/searchScreen/Search";
-import SearchedSearch from "../screens/searchScreen/SearchedSearch";
+import Search from '../screens/searchScreen/Search';
+import SearchedSearch from '../screens/searchScreen/SearchedSearch';
 
-import Header from "../sharedComponent/Header";
+import Header from '../sharedComponent/Header';
 
 const SearchStack = createStackNavigator(
   {
@@ -14,15 +14,6 @@ const SearchStack = createStackNavigator(
         header: ({ scene, previous, navigation }) => (
           <Header title="Search" navigation={navigation} />
         ),
-        headerStyle: {
-          backgroundColor: "#142A4F",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "semi-bold",
-          fontSize: 32,
-          fontFamily: "Helvetica",
-        },
       },
     },
     SearchedSearch: {
@@ -30,8 +21,8 @@ const SearchStack = createStackNavigator(
     },
   },
   {
-    initialRouteName: "Search",
-    headerMode: "screen",
+    initialRouteName: 'Search',
+    headerMode: 'screen',
   }
 );
 
