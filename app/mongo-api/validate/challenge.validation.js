@@ -1,5 +1,5 @@
-const Joi = require('joi');
-const { password, objectId } = require('./custom.validation');
+const Joi = require("joi");
+const { password, objectId } = require("./custom.validation");
 
 const createChallenge = {
   body: Joi.object().keys({
@@ -8,12 +8,12 @@ const createChallenge = {
     tags: Joi.array()
       .items(
         Joi.string().valid(
-          'Emotional',
-          'Environmental',
-          'Intellectual',
-          'Physical',
-          'Social',
-          'Spiritual'
+          "Emotional",
+          "Environmental",
+          "Intellectual",
+          "Physical",
+          "Social",
+          "Spiritual"
         )
       )
       .required(),
@@ -53,12 +53,12 @@ const updateChallenge = {
       creator: Joi.string().min(3).max(30).trim(),
       tags: Joi.array().items(
         Joi.string().valid(
-          'Emotional',
-          'Environmental',
-          'Intellectual',
-          'Physical',
-          'Social',
-          'Spiritual'
+          "Emotional",
+          "Environmental",
+          "Intellectual",
+          "Physical",
+          "Social",
+          "Spiritual"
         )
       ),
       description: Joi.string().min(3).max(150).trim(),

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest -i --colors --verbose --detectOpenHandles",
+    "test:dev": "jest -i",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check **/*.js",
