@@ -66,7 +66,7 @@ const CustomHeader = ({
           title={<Text style={styles.title}>{title}</Text>}
         />
         <TouchableOpacity
-          style={{ right: 22 }}
+          style={{ right: width/30 }}
           onPress={() => {
             navigation.navigate('Login');
           }}
@@ -85,7 +85,7 @@ const CustomHeader = ({
         }}
       >
         <TouchableOpacity
-          style={{ left: 22 }}
+          style={{ left: width/30 }}
           onPress={() => navigation.navigate('Setting')}
         >
           <Icon name="setting" size={30} style={{ color: 'white' }} />
@@ -96,7 +96,7 @@ const CustomHeader = ({
           title={<Text style={styles.title}>{title}</Text>}
         />
         <TouchableOpacity
-          style={{ right: 22 }}
+          style={{ right: width/30 }}
           onPress={() => navigation.goBack(null)}
         >
           <Feather name="chevron-down" size={30} color="white" />
@@ -113,8 +113,8 @@ const CustomHeader = ({
         }}
       >
         <TouchableOpacity
-          style={{ left: 22 }}
-          onPress={() => navigation.navigate('User')}
+          style={{ left: width/30 }}
+          onPress={() => navigation.navigate("User")}
         >
           <Avatar.Image
             size={40}
@@ -128,7 +128,7 @@ const CustomHeader = ({
           title={<Text style={styles.title}>{title}</Text>}
         />
         <TouchableOpacity
-          style={{ right: 22 }}
+          style={{ right: width/30 }}
           onPress={() => navigation.goBack(null)}
         >
           <Feather name="chevron-down" size={30} color="white" />
@@ -145,8 +145,8 @@ const CustomHeader = ({
         }}
       >
         <TouchableOpacity
-          style={{ left: width / 20 }}
-          onPress={() => navigation.navigate('User')}
+          style={{ left: width/30}}
+          onPress={() => navigation.navigate("User")}
         >
           <Avatar.Image
             size={40}
