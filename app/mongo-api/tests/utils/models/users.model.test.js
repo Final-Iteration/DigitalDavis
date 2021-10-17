@@ -30,14 +30,6 @@ describe("User model", () => {
     });
 
     /**
-     *
-     */
-    test("should throw a validation error if email is invalid", async () => {
-      newUser.email = "invalidemail";
-      await expect(new User(newUser).validate()).rejects.toThrow();
-    });
-
-    /**
      * first_name tests
      * 1. first_name length > 30
      * 2. first_name length < 1
@@ -77,19 +69,16 @@ describe("User model", () => {
     /**
      * email tests
      * 1. email length > 50
-     * 2. email length < 1
+     * 2. invalid email
      */
-    test("should throw a validation error if last name length is > 50 characters", async () => {
+    test("should throw a validation error if email length is > 50 characters", async () => {
       newUser.email = "Lorem ipsum dolor sit amet, consectetuer adipiscing";
       ("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium q");
       await expect(new User(newUser).validate()).rejects.toThrow();
     });
 
-    /**
-     *
-     */
-    test("should throw a validation error if last name length is < 1 characters", async () => {
-      newUser.email = "";
+    test("should throw a validation error if email is invalid", async () => {
+      newUser.email = "invalidemail";
       await expect(new User(newUser).validate()).rejects.toThrow();
     });
 
