@@ -1,9 +1,9 @@
-const dotenv = require('dotenv').config();
-const validator = require('validator');
-const config = require('config');
-const { toJSON, paginate } = require('./plugins');
-const mongoose = require('mongoose');
-const modelDebugger = require('debug')('app:model');
+const dotenv = require("dotenv").config();
+const validator = require("validator");
+const config = require("config");
+const { toJSON, paginate } = require("./plugins");
+const mongoose = require("mongoose");
+const modelDebugger = require("debug")("app:model");
 
 // schema
 const userSchema = mongoose.Schema({
@@ -11,13 +11,13 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 150,
+    maxlength: 30,
   },
   last_name: {
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 150,
+    maxlength: 30,
   },
   email: {
     type: String,
@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema({
     maxlength: 255,
     validate(value) {
       if (!validator.isEmail(value)) {
-        throw new Error('Invalid email');
+        throw new Error("Invalid email");
       }
     },
   },
@@ -88,7 +88,7 @@ var validateEmail = async function (email) {
  * @typedef User
  * determines collection name to be "user"
  */
-const User = mongoose.model('user', userSchema);
+const User = mongoose.model("user", userSchema);
 // const UserTest = mongoose.model("user_test", userSchema);
 
 /**
