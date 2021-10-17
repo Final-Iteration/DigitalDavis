@@ -12,7 +12,7 @@ describe("User model", () => {
         first_name: faker.name.findName(),
         last_name: faker.name.findName(),
         email: faker.internet.email().toLowerCase(),
-        dob: faker.date(), // May have to modify date format passed by faker
+        dob: faker.date.past(), // May have to modify date format passed by faker
         job_title: [
           `${faker.name.jobTitle()}`,
           `${faker.name.jobTitle()}`,
