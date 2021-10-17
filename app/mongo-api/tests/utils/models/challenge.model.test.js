@@ -109,14 +109,8 @@ describe("Challenge model", () => {
 
     /**
      * description tests
-     * 1. description length > 3
-     * 2. description length < 150
+     * 1. description length < 150
      */
-    test("should throw a validation error if description length is > 150 characters", async () => {
-      newChallenge.description = ""
-        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis pa";
-      await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
-    });
 
     test("should throw a validation error if description length is < 3 characters", async () => {
       newChallenge.description = "g";
@@ -129,7 +123,8 @@ describe("Challenge model", () => {
      * 2. location length < 1
      */
     test("should throw a validation error if location length is > 50 characters", async () => {
-      newChallenge.location = "Lorem ipsum dolor sit amet, consectetuer adipiscing";
+      newChallenge.location =
+        "Lorem ipsum dolor sit amet, consectetuer adipiscing";
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
