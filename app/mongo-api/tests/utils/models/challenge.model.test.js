@@ -113,14 +113,14 @@ describe("Challenge model", () => {
      * 2. description length < 150
      */
     test("should throw a validation error if description length is > 150 characters", async () => {
-      newUser.description =
+      newChallenge.description = ""
         "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis pa";
-      await expect(new User(newUser).validate()).rejects.toThrow();
+      await expect(new User(newChallenge).validate()).rejects.toThrow();
     });
 
     test("should throw a validation error if description length is < 3 characters", async () => {
-      newUser.description = "g";
-      await expect(new User(newUser).validate()).rejects.toThrow();
+      newChallenge.description = "g";
+      await expect(new User(newChallenge).validate()).rejects.toThrow();
     });
 
     /**
@@ -129,13 +129,13 @@ describe("Challenge model", () => {
      * 2. location length < 1
      */
     test("should throw a validation error if location length is > 50 characters", async () => {
-      newUser.location = "Lorem ipsum dolor sit amet, consectetuer adipiscing";
-      await expect(new User(newUser).validate()).rejects.toThrow();
+      newChallenge.location = "Lorem ipsum dolor sit amet, consectetuer adipiscing";
+      await expect(new User(newChallenge).validate()).rejects.toThrow();
     });
 
     test("should throw a validation error if location length is < 1 characters", async () => {
-      newUser.location = "";
-      await expect(new User(newUser).validate()).rejects.toThrow();
+      newChallenge.location = "";
+      await expect(new User(newChallenge).validate()).rejects.toThrow();
     });
 
     /**
@@ -143,8 +143,8 @@ describe("Challenge model", () => {
      * 1. start_date >=today's date
      */
     test("should throw a validation error if start_date is < today's date", async () => {
-      newUser.start_date = faker.date.past;
-      await expect(new User(newUser).validate()).rejects.toThrow();
+      newChallenge.start_date = faker.date.past;
+      await expect(new User(newChallenge).validate()).rejects.toThrow();
     });
 
     /**
@@ -152,8 +152,8 @@ describe("Challenge model", () => {
      * 1. end_date >=today's date
      */
     test("should throw a validation error if end_date is < today's date", async () => {
-      newUser.end_date = faker.date.past;
-      await expect(new User(newUser).validate()).rejects.toThrow();
+      newChallenge.end_date = faker.date.past;
+      await expect(new User(newChallenge).validate()).rejects.toThrow();
     });
 
     /**
