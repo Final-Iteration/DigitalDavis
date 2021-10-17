@@ -1,8 +1,8 @@
-const dotenv = require("dotenv").config();
-const config = require("config");
-const { toJSON, paginate } = require("./plugins");
-const mongoose = require("mongoose");
-const modelDebugger = require("debug")("app:model");
+const dotenv = require('dotenv').config();
+const config = require('config');
+const { toJSON, paginate } = require('./plugins');
+const mongoose = require('mongoose');
+const modelDebugger = require('debug')('app:model');
 
 // schema
 const userSchema = mongoose.Schema({
@@ -83,7 +83,7 @@ var validateEmail = async function (email) {
  * @typedef User
  * determines collection name to be "user"
  */
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model('user', userSchema);
 // const UserTest = mongoose.model("user_test", userSchema);
 
 /**

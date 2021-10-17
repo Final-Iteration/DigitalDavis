@@ -1,6 +1,6 @@
-const httpStatus = require("http-status");
-const Challenge = require("../models/challenge.model");
-const ApiError = require("../utils/ApiError");
+const httpStatus = require('http-status');
+const Challenge = require('../models/challenge.model');
+const ApiError = require('../utils/ApiError');
 
 /**
  * Create a challenge
@@ -9,7 +9,7 @@ const ApiError = require("../utils/ApiError");
  */
 const createChallenge = async (challengeBody) => {
   if (await Challenge.isNameTaken(challengeBody.name)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, "Name already taken");
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
   }
   return Challenge.create(challengeBody);
 };
@@ -55,10 +55,10 @@ const getChallengeByName = async (name) => {
 const updateChallengeById = async (id, updateBody) => {
   const challenge = await getChallengeById({ _id: id });
   if (!challenge) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
+    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
   }
   if (await Challenge.isNameTaken(updateBody.name)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, "Name already taken");
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
   }
   Object.assign(challenge, updateBody);
   await challenge.save();
@@ -73,7 +73,7 @@ const updateChallengeById = async (id, updateBody) => {
 const deleteChallengeById = async (id) => {
   const challenge = await getChallengeById({ _id: id });
   if (!challenge) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
+    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
   }
   await challenge.remove();
   return challenge;
