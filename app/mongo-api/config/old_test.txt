@@ -1,0 +1,12 @@
+// {
+//     "test": {
+//       "name": "Mongo Express API - Test",
+//       "database": {
+//         "host": "",
+//         "port": "",
+//         "name": "",
+//         "protocol" : "",
+//         "collection": ""
+//       }
+//     }
+// }
