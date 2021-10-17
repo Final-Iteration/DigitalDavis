@@ -2,6 +2,37 @@ const faker = require("faker");
 const { Challenge } = require("../../../models");
 // import Challenge from "../../../models/challenge.model";
 
+const challengeTags = [
+  "Emotional",
+  "Environmental",
+  "Intellectual",
+  "Physical",
+  "Social",
+  "Spiritual",
+];
+
+/**
+ * Returns the first element in the challengeTags array after the array has been shuffled
+ * @param {*} array
+ * @returns
+ */
+function shuffle(array) {
+  let currentIndex = array.length,
+    randomIndex;
+
+  while (currentIndex != 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array[0];
+}
+
 describe("Challenge model", () => {
   describe("Challenge validation", () => {
     let newChallenge;
@@ -9,7 +40,7 @@ describe("Challenge model", () => {
       newChallenge = {
         name: faker.random.words(),
         creator: faker.name.findName(),
-        tags: faker.random.arrayElements(),
+        tags: shuffle(challengeTags),
         description: faker.random.words(),
         location: faker.address.city(),
         timestamp: faker.date.recent(),
