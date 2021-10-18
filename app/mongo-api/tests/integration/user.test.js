@@ -70,7 +70,7 @@ describe("User routes", () => {
     //   newUser.email = userOne.email;
 
     //   await request(app)
-    //     .post('/v1/users')
+    //     .post("/api/users")
     //     .set('Authorization', `Bearer ${adminAccessToken}`)
     //     .send(newUser)
     //     .expect(httpStatus.BAD_REQUEST);
@@ -133,114 +133,92 @@ describe("User routes", () => {
       expect(res.body.results[0].id).toBe(userOne._id.toHexString());
     });
 
-    // test('should correctly apply filter on role field', async () => {
-    //   await insertUsers([userOne, userTwo, admin]);
+    /**
+     * @TODO add a check for date sorting
+     */
 
-    //   const res = await request(app)
-    //     .get('/v1/users')
-    //     .set('Authorization', `Bearer ${adminAccessToken}`)
-    //     .query({ role: 'user' })
-    //     .send()
-    //     .expect(httpStatus.OK);
+    // eslint-disable-next-line max-len
+    test("should correctly sort the returned array if descending sort param  by first_name is specified", async () => {
+      await insertUsers([userOne, userTwo]);
 
-    //   expect(res.body).toEqual({
-    //     results: expect.any(Array),
-    //     page: 1,
-    //     limit: 10,
-    //     totalPages: 1,
-    //     totalResults: 2,
-    //   });
-    //   expect(res.body.results).toHaveLength(2);
-    //   expect(res.body.results[0].id).toBe(userOne._id.toHexString());
-    //   expect(res.body.results[1].id).toBe(userTwo._id.toHexString());
-    // });
+      const res = await request(app)
+        .get("/api/users")
+        .query({ sortBy: "first_name:desc" })
+        .send()
+        .expect(httpStatus.OK);
 
-    // test('should correctly sort the returned array if descending sort param is specified', async () => {
-    //   await insertUsers([userOne, userTwo, admin]);
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 2,
+      });
+      expect(res.body.results).toHaveLength(2);
+      expect(res.body.results[0].id).toBe(userTwo._id.toHexString());
+      expect(res.body.results[1].id).toBe(userOne._id.toHexString());
+    });
 
-    //   const res = await request(app)
-    //     .get('/v1/users')
-    //     .set('Authorization', `Bearer ${adminAccessToken}`)
-    //     .query({ sortBy: 'role:desc' })
-    //     .send()
-    //     .expect(httpStatus.OK);
+    test("should sort returned array if ascending sort param by first_name specified", async () => {
+      await insertUsers([userOne, userTwo]);
 
-    //   expect(res.body).toEqual({
-    //     results: expect.any(Array),
-    //     page: 1,
-    //     limit: 10,
-    //     totalPages: 1,
-    //     totalResults: 3,
-    //   });
-    //   expect(res.body.results).toHaveLength(3);
-    //   expect(res.body.results[0].id).toBe(userOne._id.toHexString());
-    //   expect(res.body.results[1].id).toBe(userTwo._id.toHexString());
-    //   expect(res.body.results[2].id).toBe(admin._id.toHexString());
-    // });
+      const res = await request(app)
+        .get("/api/users")
+        .query({ sortBy: "first_name:asc" })
+        .send()
+        .expect(httpStatus.OK);
 
-    // test('should correctly sort the returned array if ascending sort param is specified', async () => {
-    //   await insertUsers([userOne, userTwo, admin]);
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 2,
+      });
+      expect(res.body.results).toHaveLength(2);
+      expect(res.body.results[0].id).toBe(userOne._id.toHexString());
+      expect(res.body.results[1].id).toBe(userTwo._id.toHexString());
+    });
 
-    //   const res = await request(app)
-    //     .get('/v1/users')
-    //     .set('Authorization', `Bearer ${adminAccessToken}`)
-    //     .query({ sortBy: 'role:asc' })
-    //     .send()
-    //     .expect(httpStatus.OK);
+    test("should correctly sort the returned array if multiple sorting criteria are specified", async () => {
+      await insertUsers([userOne, userTwo]);
 
-    //   expect(res.body).toEqual({
-    //     results: expect.any(Array),
-    //     page: 1,
-    //     limit: 10,
-    //     totalPages: 1,
-    //     totalResults: 3,
-    //   });
-    //   expect(res.body.results).toHaveLength(3);
-    //   expect(res.body.results[0].id).toBe(admin._id.toHexString());
-    //   expect(res.body.results[1].id).toBe(userOne._id.toHexString());
-    //   expect(res.body.results[2].id).toBe(userTwo._id.toHexString());
-    // });
+      const res = await request(app)
+        .get("/api/users")
+        .query({ sortBy: "email:desc,first_name:asc" })
+        .send()
+        .expect(httpStatus.OK);
 
-    // test('should correctly sort the returned array if multiple sorting criteria are specified', async () => {
-    //   await insertUsers([userOne, userTwo, admin]);
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 2,
+      });
+      expect(res.body.results).toHaveLength(2);
 
-    //   const res = await request(app)
-    //     .get('/v1/users')
-    //     .set('Authorization', `Bearer ${adminAccessToken}`)
-    //     .query({ sortBy: 'role:desc,name:asc' })
-    //     .send()
-    //     .expect(httpStatus.OK);
+      const expectedOrder = [userOne, userTwo].sort((a, b) => {
+        if (a.email < b.email) {
+          return 1;
+        }
+        if (a.email > b.email) {
+          return -1;
+        }
+        return a.first_name < b.first_name ? -1 : 1;
+      });
 
-    //   expect(res.body).toEqual({
-    //     results: expect.any(Array),
-    //     page: 1,
-    //     limit: 10,
-    //     totalPages: 1,
-    //     totalResults: 3,
-    //   });
-    //   expect(res.body.results).toHaveLength(3);
-
-    //   const expectedOrder = [userOne, userTwo, admin].sort((a, b) => {
-    //     if (a.role < b.role) {
-    //       return 1;
-    //     }
-    //     if (a.role > b.role) {
-    //       return -1;
-    //     }
-    //     return a.name < b.name ? -1 : 1;
-    //   });
-
-    //   expectedOrder.forEach((user, index) => {
-    //     expect(res.body.results[index].id).toBe(user._id.toHexString());
-    //   });
-    // });
+      expectedOrder.forEach((user, index) => {
+        expect(res.body.results[index].id).toBe(user._id.toHexString());
+      });
+    });
 
     // test('should limit returned array if limit param is specified', async () => {
     //   await insertUsers([userOne, userTwo, admin]);
 
     //   const res = await request(app)
-    //     .get('/v1/users')
-    //     .set('Authorization', `Bearer ${adminAccessToken}`)
+    //     .get("/api/users")
+    //
     //     .query({ limit: 2 })
     //     .send()
     //     .expect(httpStatus.OK);
@@ -261,8 +239,7 @@ describe("User routes", () => {
     //   await insertUsers([userOne, userTwo, admin]);
 
     //   const res = await request(app)
-    //     .get('/v1/users')
-    //     .set('Authorization', `Bearer ${adminAccessToken}`)
+    //     .get("/api/users")
     //     .query({ page: 2, limit: 2 })
     //     .send()
     //     .expect(httpStatus.OK);
