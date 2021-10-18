@@ -5,17 +5,18 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
+  View,
 } from "react-native";
 
 import Icon from "react-native-vector-icons/AntDesign";
 import Ionicon from "react-native-vector-icons/Ionicons";
-import { Feather } from "@expo/vector-icons";
+
+import { Feather, AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Appbar, Avatar } from "react-native-paper";
-import { AntDesign } from '@expo/vector-icons'; 
 import { NavigationActions } from "react-navigation";
 const { height, width } = Dimensions.get("window");
 const barHeight = 37;
-const headerMargin = Platform.OS === "ios" ? null : "50%";
+const platform = Platform.OS === "ios" ? true : "50%";
 const CustomHeader = ({
   navigation,
   title,
@@ -81,13 +82,13 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: '#142A4F',
+          backgroundColor: "#142A4F",
           elevation: 0,
         }}
       >
         <TouchableOpacity
           style={{ left: 22 }}
-          onPress={() => navigation.navigate('Setting')}
+          onPress={() => navigation.navigate("Setting")}
         >
           <Icon name="setting" size={30} style={{ color: "white" }} />
         </TouchableOpacity>
@@ -141,7 +142,7 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: '#fff',
+          backgroundColor: "#fff",
           elevation: 0,
         }}
       >
@@ -152,20 +153,28 @@ const CustomHeader = ({
           <Avatar.Image
             size={40}
             source={{
-              uri: 'https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg',
+              uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
             }}
           />
         </TouchableOpacity>
-        <Appbar.Content title={<Text style={styles.title}>{title}</Text>} />
+        <Appbar.Content
+          style={styles.headerStyle}
+          title={<Text style={styles.title}>{title}</Text>}
+        />
         {challenge ? (
           <TouchableOpacity
             onPress={() => navigation.navigate("CreateChallenge")}
             style={styles.plusButton}
           >
-            {/* <Feather name="plus-circle" size={30} color="black" /> */}
             <AntDesign name="plus" size={28} color="black" />
           </TouchableOpacity>
-        ) : null}
+        ) : (
+          <TouchableOpacity
+            style={styles.plusButton}
+          >
+            <AntDesign name="plus" size={28} color="black" style = {{opacity: 0}}/>
+          </TouchableOpacity>
+        )}
       </Appbar.Header>
     );
   }
@@ -178,20 +187,16 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   headerStyle: {
-    left: headerMargin,
+    alignItems: "center",
   },
   title: {
     fontSize: 25,
     fontWeight: "300",
-    // fontFamily: "Helvetica",
   },
   logOutButton: {
     fontSize: 17,
-    color: '#2F80ED',
-    fontWeight: '500',
-  },
-  plusButton: {
-    right: width / 20,
+    color: "#2F80ED",
+    fontWeight: "500",
   },
   plusButton: {
     right: width / 20,
