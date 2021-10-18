@@ -1,9 +1,9 @@
-const dotenv = require("dotenv").config();
-const config = require("config");
-const app = require("./app");
+// const dotenv = require("dotenv").config();
+const config = require('config');
+// const app = require("./app");
 const mongoose = require("mongoose");
 const dbDebugger = require("debug")("app:mongodb");
-const appDebugger = require("debug")("app:startup");
+// const appDebugger = require("debug")("app:startup");
 
 const setupTestDB = () => {
   beforeAll(async () => {
@@ -94,21 +94,23 @@ async function initMongoose() {
   try {
     const nodeEnv = process.env.NODE_ENV;
     if (nodeEnv === "development") {
-      dbDebugger("Host: " + config.get(`${nodeEnv}.database.host`));
-      dbDebugger("Name: " + config.get(`${nodeEnv}.database.name`));
-      dbDebugger("Collection: " + config.get(`${nodeEnv}.database.collection`));
+      console.log("Host: " + config.get(`${nodeEnv}.database.host`));
+      console.log("Name: " + config.get(`${nodeEnv}.database.name`));
+      console.log(
+        "Collection: " + config.get(`${nodeEnv}.database.collection`)
+      );
     } else if (nodeEnv === "common") {
-      dbDebugger("Host: " + config.get(`${nodeEnv}.database.host`));
-      dbDebugger("Name: " + config.get(`${nodeEnv}.database.name`));
-      dbDebugger(
+      console.log("Host: " + config.get(`${nodeEnv}.database.host`));
+      console.log("Name: " + config.get(`${nodeEnv}.database.name`));
+      console.log(
         "Collection : " + config.get(`${nodeEnv}.database.collection`)
       );
     }
     const uri = uriBuilder(nodeEnv);
-    dbDebugger(`Connection to Mongoose on ${uri}`);
+    console.log(`Connection to Mongoose on ${uri}`);
     connectMongoose(uri);
   } catch (error) {
-    dbDebugger(error.message);
+    console.log(error.message);
   }
 }
 
