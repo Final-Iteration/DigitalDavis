@@ -14,6 +14,7 @@ const ChallengeStack = createStackNavigator({
       header: ({ scene, previous, navigation }) => (
         <Header title="Challenges" navigation={navigation} challenge={true} />
       ),
+      headerTitleAlign: 'center'
     },
   },
 
@@ -28,6 +29,7 @@ const ChallengeStack = createStackNavigator({
           challenge={true}
         />
       ),
+      headerTitleAlign: 'center'
     },
   },
   CreateChallenge: {
@@ -35,6 +37,7 @@ const ChallengeStack = createStackNavigator({
     navigationOptions: {
       headerShown: false,
     },
+    headerTitleAlign: 'center'
   },
 });
 
