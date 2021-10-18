@@ -20,6 +20,15 @@ const userTwo = {
   department: faker.commerce.department(),
 };
 
+const userThree = {
+  _id: mongoose.Types.ObjectId(),
+  first_name: faker.name.findName(),
+  last_name: faker.name.findName(),
+  email: faker.internet.email().toLowerCase(),
+  job_title: [`${faker.name.jobTitle()}`],
+  department: faker.commerce.department(),
+};
+
 const insertUsers = async (users) => {
   await User.insertMany(users.map((user) => ({ ...user })));
 };
@@ -27,5 +36,6 @@ const insertUsers = async (users) => {
 module.exports = {
   userOne,
   userTwo,
+  userThree,
   insertUsers,
 };
