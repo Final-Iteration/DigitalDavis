@@ -25,6 +25,7 @@ describe("User routes", () => {
         last_name: faker.name.findName(),
         email: faker.internet.email().toLowerCase(),
         job_title: [`${faker.name.jobTitle()}`],
+        department: faker.commerce.department(),
       };
     });
 
@@ -40,6 +41,7 @@ describe("User routes", () => {
         last_name: newUser.last_name,
         email: newUser.email,
         job_title: newUser.job_title,
+        department: newUser.department,
       });
 
       const dbUser = await User.findById(res.body.id);
@@ -49,6 +51,7 @@ describe("User routes", () => {
         last_name: newUser.last_name,
         email: newUser.email,
         job_title: newUser.job_title,
+        department: newUser.department,
       });
     });
 
@@ -72,46 +75,15 @@ describe("User routes", () => {
     //     .expect(httpStatus.BAD_REQUEST);
     // });
 
-    // test('should return 400 error if password length is less than 8 characters', async () => {
-    //   await insertUsers([admin]);
-    //   newUser.password = 'passwo1';
+    test("should return 400 error if first name length is more than 30 characters", async () => {
+      newUser.first_name = "Lorem ipsum dolor sit amet, con";
 
-    //   await request(app)
-    //     .post('/v1/users')
-    //     .set('Authorization', `Bearer ${adminAccessToken}`)
-    //     .send(newUser)
-    //     .expect(httpStatus.BAD_REQUEST);
-    // });
+      await request(app)
+        .post("/api/users")
+        .send(newUser)
+        .expect(httpStatus.BAD_REQUEST);
+    });
 
-    // test('should return 400 error if password does not contain both letters and numbers', async () => {
-    //   await insertUsers([admin]);
-    //   newUser.password = 'password';
-
-    //   await request(app)
-    //     .post('/v1/users')
-    //     .set('Authorization', `Bearer ${adminAccessToken}`)
-    //     .send(newUser)
-    //     .expect(httpStatus.BAD_REQUEST);
-
-    //   newUser.password = '1111111';
-
-    //   await request(app)
-    //     .post('/v1/users')
-    //     .set('Authorization', `Bearer ${adminAccessToken}`)
-    //     .send(newUser)
-    //     .expect(httpStatus.BAD_REQUEST);
-    // });
-
-    // test('should return 400 error if role is neither user nor admin', async () => {
-    //   await insertUsers([admin]);
-    //   newUser.role = 'invalid';
-
-    //   await request(app)
-    //     .post('/v1/users')
-    //     .set('Authorization', `Bearer ${adminAccessToken}`)
-    //     .send(newUser)
-    //     .expect(httpStatus.BAD_REQUEST);
-    // });
   });
 
   // describe('GET /v1/users', () => {
