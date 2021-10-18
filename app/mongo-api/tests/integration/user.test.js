@@ -24,6 +24,7 @@ describe("User routes", () => {
         first_name: faker.name.findName(),
         last_name: faker.name.findName(),
         email: faker.internet.email().toLowerCase(),
+        job_title: ["IT"],
       };
     });
 
@@ -38,6 +39,7 @@ describe("User routes", () => {
         first_name: newUser.first_name,
         last_name: newUser.last_name,
         email: newUser.email,
+        job_title: ["IT"],
       });
 
       const dbUser = await User.findById(res.body.id);
@@ -46,6 +48,7 @@ describe("User routes", () => {
         first_name: newUser.first_name,
         last_name: newUser.last_name,
         email: newUser.email,
+        job_title: newUser.job_title,
       });
     });
 

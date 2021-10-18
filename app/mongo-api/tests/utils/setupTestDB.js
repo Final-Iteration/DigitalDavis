@@ -1,5 +1,5 @@
 // const dotenv = require("dotenv").config();
-const config = require('config');
+const config = require("config");
 // const app = require("./app");
 const mongoose = require("mongoose");
 const dbDebugger = require("debug")("app:mongodb");
@@ -8,7 +8,7 @@ const dbDebugger = require("debug")("app:mongodb");
 const setupTestDB = () => {
   beforeAll(async () => {
     //Make the connection to mongoose before running any tests
-    await initMongoose();
+    initMongoose();
   });
 
   // before running each of the test delete all the items in the collections
@@ -26,9 +26,9 @@ const setupTestDB = () => {
    * How to disconnect from our mongoDB
    */
   //After all the tests have run disconnect from db
-  //   afterAll(async () => {
-  //     await mongoose.disconnect();
-  //   });
+  afterAll(async () => {
+    await mongoose.disconnect();
+  });
 };
 
 /**
@@ -92,7 +92,7 @@ async function connectMongoose(uri) {
  */
 async function initMongoose() {
   try {
-    const nodeEnv = process.env.NODE_ENV;
+    const nodeEnv = "development";
     if (nodeEnv === "development") {
       console.log("Host: " + config.get(`${nodeEnv}.database.host`));
       console.log("Name: " + config.get(`${nodeEnv}.database.name`));
