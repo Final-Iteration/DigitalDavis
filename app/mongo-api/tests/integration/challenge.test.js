@@ -134,192 +134,190 @@ describe("Challenge routes", () => {
     //     .send(newChallenge)
     //     .expect(httpStatus.BAD_REQUEST);
     // });
+
+    test("should return 400 error if  name length is more than 30 characters", async () => {
+      newChallenge.name = "Lorem ipsum dolor sit amet, con";
+
+      await request(app)
+        .post("/api/challenges")
+        .send(newChallenge)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+  });
+  describe("GET /api/challenges", () => {
+    test("should return 200 and apply the default query options", async () => {
+      await insertChallenges([challengeOne, challengeTwo]);
+
+      const res = await request(app)
+        .get("/api/challenges")
+        .send()
+        .expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 2,
+      });
+      expect(res.body.results).toHaveLength(2);
+      expect(res.body.results[0]).toEqual({
+        id: challengeOne._id.toHexString(),
+        name: challengeOne.name,
+        creator: challengeOne.creator,
+        tags: challengeOne.tags,
+        description: challengeOne.description,
+        location: challengeOne.location,
+        timestamp: expect.anything(),
+        start_date: expect.anything(),
+        end_date: expect.anything(),
+        participants: challengeOne.participants,
+      });
+    });
+
+    test("should correctly apply filter on name field", async () => {
+      await insertChallenges([challengeOne, challengeTwo]);
+
+      const res = await request(app)
+        .get("/api/challenges")
+        .query({ name: challengeOne.name })
+        .send()
+        .expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 2,
+      });
+      expect(res.body.results).toHaveLength(2);
+      expect(res.body.results[0].id).toBe(challengeOne._id.toHexString());
+    });
+
+    /**
+     * @TODO add a check for date sorting
+     */
+
+    // eslint-disable-next-line max-len
+    test("should correctly sort the returned array if descending sort param  by name is specified", async () => {
+      await insertChallenges([challengeOne, challengeTwo]);
+
+      const res = await request(app)
+        .get("/api/challenges")
+        .query({ sortBy: "name:desc" })
+        .send()
+        .expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 2,
+      });
+      expect(res.body.results).toHaveLength(2);
+      expect(res.body.results[0].id).toBe(challengeTwo._id.toHexString());
+      expect(res.body.results[1].id).toBe(challengeOne._id.toHexString());
+    });
+
+    test("should sort returned array if ascending sort param by name specified", async () => {
+      await insertChallenges([challengeOne, challengeTwo]);
+
+      const res = await request(app)
+        .get("/api/challenges")
+        .query({ sortBy: "name:asc" })
+        .send()
+        .expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 2,
+      });
+      expect(res.body.results).toHaveLength(2);
+      expect(res.body.results[0].id).toBe(challengeOne._id.toHexString());
+      expect(res.body.results[1].id).toBe(challengeTwo._id.toHexString());
+    });
+
+    // eslint-disable-next-line max-len
+    test("should correctly sort the returned array if multiple sorting criteria are specified", async () => {
+      await insertChallenges([challengeOne, challengeTwo]);
+
+      const res = await request(app)
+        .get("/api/challenges")
+        .query({ sortBy: "location:desc,name:asc" })
+        .send()
+        .expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 2,
+      });
+      expect(res.body.results).toHaveLength(2);
+
+      const expectedOrder = [challengeOne, challengeTwo].sort((a, b) => {
+        if (a.location < b.location) {
+          return 1;
+        }
+        if (a.location > b.location) {
+          return -1;
+        }
+        return a.name < b.name ? -1 : 1;
+      });
+
+      expectedOrder.forEach((challenge, index) => {
+        expect(res.body.results[index].id).toBe(challenge._id.toHexString());
+      });
+    });
+
+    test("should limit returned array if limit param is specified", async () => {
+      await insertChallenges([challengeOne, challengeTwo, challengeThree]);
+
+      const res = await request(app)
+        .get("/api/challenges")
+        .query({ limit: 2 })
+        .send()
+        .expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 2,
+        totalPages: 2,
+        totalResults: 3,
+      });
+      expect(res.body.results).toHaveLength(2);
+      expect(res.body.results[0].id).toBe(challengeOne._id.toHexString());
+      expect(res.body.results[1].id).toBe(challengeTwo._id.toHexString());
+    });
+
+    test("should return the correct page if page and limit params are specified", async () => {
+      await insertChallenges([challengeOne, challengeTwo, challengeThree]);
+
+      const res = await request(app)
+        .get("/api/challenges")
+        .query({ page: 2, limit: 2 })
+        .send()
+        .expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 2,
+        limit: 2,
+        totalPages: 2,
+        totalResults: 3,
+      });
+      expect(res.body.results).toHaveLength(1);
+      expect(res.body.results[0].id).toBe(challengeThree._id.toHexString());
+    });
   });
 });
-
-//   test("should return 400 error if  name length is more than 30 characters", async () => {
-//     newChallenge.name = "Lorem ipsum dolor sit amet, con";
-
-//     await request(app)
-//       .post("/api/challenges")
-//       .send(newChallenge)
-//       .expect(httpStatus.BAD_REQUEST);
-//   });
-// });
-
-// describe("GET /api/challenges", () => {
-//   test("should return 200 and apply the default query options", async () => {
-//     await insertChallenges([challengeOne, challengeTwo]);
-
-//     const res = await request(app)
-//       .get("/api/challenges")
-//       .send()
-//       .expect(httpStatus.OK);
-
-//     expect(res.body).toEqual({
-//       results: expect.any(Array),
-//       page: 1,
-//       limit: 10,
-//       totalPages: 1,
-//       totalResults: 2,
-//     });
-//     expect(res.body.results).toHaveLength(2);
-//     expect(res.body.results[0]).toEqual({
-//       id: challengeOne._id.toHexString(),
-//       name: challengeOne.name,
-//       creator: challengeOne.creator,
-//       tags: challengeOne.tags,
-//       description: challengeOne.description,
-//       location: challengeOne.location,
-//       timestamp: challengeOne.timestamp,
-//       start_date: challengeOne.start_date,
-//       end_date: challengeOne.end_date,
-//       participants: challengeOne.participants,
-//     });
-//   });
-
-//   test("should correctly apply filter on first name field", async () => {
-//     await insertChallenges([challengeOne, challengeTwo]);
-
-//     const res = await request(app)
-//       .get("/api/challenges")
-//       .query({ name: challengeOne.name })
-//       .send()
-//       .expect(httpStatus.OK);
-
-//     expect(res.body).toEqual({
-//       results: expect.any(Array),
-//       page: 1,
-//       limit: 10,
-//       totalPages: 1,
-//       totalResults: 2,
-//     });
-//     expect(res.body.results).toHaveLength(2);
-//     expect(res.body.results[0].id).toBe(challengeOne._id.toHexString());
-//   });
-
-//   /**
-//    * @TODO add a check for date sorting
-//    */
-
-//   // eslint-disable-next-line max-len
-//   test("should correctly sort the returned array if descending sort param  by name is specified", async () => {
-//     await insertChallenges([challengeOne, challengeTwo]);
-
-//     const res = await request(app)
-//       .get("/api/challenges")
-//       .query({ sortBy: "name:desc" })
-//       .send()
-//       .expect(httpStatus.OK);
-
-//     expect(res.body).toEqual({
-//       results: expect.any(Array),
-//       page: 1,
-//       limit: 10,
-//       totalPages: 1,
-//       totalResults: 2,
-//     });
-//     expect(res.body.results).toHaveLength(2);
-//     expect(res.body.results[0].id).toBe(challengeTwo._id.toHexString());
-//     expect(res.body.results[1].id).toBe(challengeOne._id.toHexString());
-//   });
-
-//   test("should sort returned array if ascending sort param by name specified", async () => {
-//     await insertChallenges([challengeOne, challengeTwo]);
-
-//     const res = await request(app)
-//       .get("/api/challenges")
-//       .query({ sortBy: "name:asc" })
-//       .send()
-//       .expect(httpStatus.OK);
-
-//     expect(res.body).toEqual({
-//       results: expect.any(Array),
-//       page: 1,
-//       limit: 10,
-//       totalPages: 1,
-//       totalResults: 2,
-//     });
-//     expect(res.body.results).toHaveLength(2);
-//     expect(res.body.results[0].id).toBe(challengeOne._id.toHexString());
-//     expect(res.body.results[1].id).toBe(challengeTwo._id.toHexString());
-//   });
-
-//   test("should correctly sort the returned array if multiple sorting criteria are specified", async () => {
-//     await insertChallenges([challengeOne, challengeTwo]);
-
-//     const res = await request(app)
-//       .get("/api/challenges")
-//       .query({ sortBy: "email:desc,name:asc" })
-//       .send()
-//       .expect(httpStatus.OK);
-
-//     expect(res.body).toEqual({
-//       results: expect.any(Array),
-//       page: 1,
-//       limit: 10,
-//       totalPages: 1,
-//       totalResults: 2,
-//     });
-//     expect(res.body.results).toHaveLength(2);
-
-//     const expectedOrder = [challengeOne, challengeTwo].sort((a, b) => {
-//       if (a.email < b.email) {
-//         return 1;
-//       }
-//       if (a.email > b.email) {
-//         return -1;
-//       }
-//       return a.name < b.name ? -1 : 1;
-//     });
-
-//     expectedOrder.forEach((challenge, index) => {
-//       expect(res.body.results[index].id).toBe(challenge._id.toHexString());
-//     });
-//   });
-
-//   test("should limit returned array if limit param is specified", async () => {
-//     await insertChallenges([challengeOne, challengeTwo, challengeThree]);
-
-//     const res = await request(app)
-//       .get("/api/challenges")
-//       .query({ limit: 2 })
-//       .send()
-//       .expect(httpStatus.OK);
-
-//     expect(res.body).toEqual({
-//       results: expect.any(Array),
-//       page: 1,
-//       limit: 2,
-//       totalPages: 2,
-//       totalResults: 3,
-//     });
-//     expect(res.body.results).toHaveLength(2);
-//     expect(res.body.results[0].id).toBe(challengeOne._id.toHexString());
-//     expect(res.body.results[1].id).toBe(challengeTwo._id.toHexString());
-//   });
-
-//   test("should return the correct page if page and limit params are specified", async () => {
-//     await insertChallenges([challengeOne, challengeTwo, challengeThree]);
-
-//     const res = await request(app)
-//       .get("/api/challenges")
-//       .query({ page: 2, limit: 2 })
-//       .send()
-//       .expect(httpStatus.OK);
-
-//     expect(res.body).toEqual({
-//       results: expect.any(Array),
-//       page: 2,
-//       limit: 2,
-//       totalPages: 2,
-//       totalResults: 3,
-//     });
-//     expect(res.body.results).toHaveLength(1);
-//     expect(res.body.results[0].id).toBe(challengeThree._id.toHexString());
-//   });
-// });
-
 // describe("GET /api/challenges/:challengeId", () => {
 //   test("should return 200 and the challenge object if data is ok", async () => {
 //     await insertChallenges([challengeOne]);
