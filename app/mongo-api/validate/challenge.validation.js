@@ -20,8 +20,6 @@ const createChallenge = {
     description: Joi.string().max(150).trim(),
     location: Joi.string().min(1).max(50).trim(),
     timestamp: Joi.date().raw(),
-    start_date: Joi.date().raw(),
-    end_date: Joi.date().raw(),
     start_date: Joi.date().raw().required(),
     end_date: Joi.date().raw().required(),
     participants: Joi.array().items(Joi.string()),

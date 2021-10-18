@@ -24,7 +24,7 @@ describe("User routes", () => {
         first_name: faker.name.findName(),
         last_name: faker.name.findName(),
         email: faker.internet.email().toLowerCase(),
-        job_title: ["IT"],
+        job_title: [`${faker.name.jobTitle()}`],
       };
     });
 
@@ -39,7 +39,7 @@ describe("User routes", () => {
         first_name: newUser.first_name,
         last_name: newUser.last_name,
         email: newUser.email,
-        job_title: ["IT"],
+        job_title: newUser.job_title,
       });
 
       const dbUser = await User.findById(res.body.id);
@@ -52,46 +52,14 @@ describe("User routes", () => {
       });
     });
 
-    // test('should be able to create an admin as well', async () => {
-    //   await insertUsers([admin]);
-    //   newUser.role = 'admin';
+    test("should return 400 error if email is invalid", async () => {
+      newUser.email = "invalidEmail";
 
-    //   const res = await request(app)
-    //     .post('/v1/users')
-    //     .set('Authorization', `Bearer ${adminAccessToken}`)
-    //     .send(newUser)
-    //     .expect(httpStatus.CREATED);
-
-    //   expect(res.body.role).toBe('admin');
-
-    //   const dbUser = await User.findById(res.body.id);
-    //   expect(dbUser.role).toBe('admin');
-    // });
-
-    // test('should return 401 error if access token is missing', async () => {
-    //   await request(app).post('/v1/users').send(newUser).expect(httpStatus.UNAUTHORIZED);
-    // });
-
-    // test('should return 403 error if logged in user is not admin', async () => {
-    //   await insertUsers([userOne]);
-
-    //   await request(app)
-    //     .post('/v1/users')
-    //     .set('Authorization', `Bearer ${userOneAccessToken}`)
-    //     .send(newUser)
-    //     .expect(httpStatus.FORBIDDEN);
-    // });
-
-    // test('should return 400 error if email is invalid', async () => {
-    //   await insertUsers([admin]);
-    //   newUser.email = 'invalidEmail';
-
-    //   await request(app)
-    //     .post('/v1/users')
-    //     .set('Authorization', `Bearer ${adminAccessToken}`)
-    //     .send(newUser)
-    //     .expect(httpStatus.BAD_REQUEST);
-    // });
+      await request(app)
+        .post("/api/users")
+        .send(newUser)
+        .expect(httpStatus.BAD_REQUEST);
+    });
 
     // test('should return 400 error if email is already used', async () => {
     //   await insertUsers([admin, userOne]);
