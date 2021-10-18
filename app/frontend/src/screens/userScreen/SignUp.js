@@ -7,9 +7,10 @@ import {
   TextInput,
   Dimensions,
   ImageBackground,
+  Button
 } from 'react-native';
-import NumberPlease from 'react-native-number-please';
 import DatePicker from '@react-native-community/datetimepicker';
+// import DatePicker from 'react-native-datepicker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 const { height, width } = Dimensions.get('window');
 const imageSource = require('../../../assets/blurredDavis.jpg');
@@ -20,9 +21,10 @@ const Signup = (props) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [title, setTitle] = useState('');
   const [department, setDepartment] = useState('');
-  const [date, setDate] = useState(new Date());
   const [fillError, setFillError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false)
 
   const signup = () => {
     if (
@@ -102,9 +104,11 @@ const Signup = (props) => {
           autoCorrect={false}
         />
         <View style={styles.dateInput}>
+
           <Text style={styles.DOBText}>Date of Birth</Text>
           <DatePicker
             style={styles.datePickerStyle}
+            display="default"
             mode="date" //The enum of date, datetime and time
             value={date} //initial date from state
             format="MM-DD-YYYY"
