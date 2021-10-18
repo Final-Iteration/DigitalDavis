@@ -12,7 +12,7 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 import { curChallenge, pastChallenge, allChallenge } from './MockData';
 import { TabBar } from 'react-native-tab-view';
 import axios from 'axios';
-const baseURL = 'http://localhost:3005/api/challenges/';
+const baseURL = 'http://0ebf-2601-204-e780-d390-21c6-7498-b775-c0b1.ngrok.io/api/challenges';
 
 const TopSwipe = ({ props }) => {
   const [allChallenges, setAllChallenge] = useState([]);
@@ -22,7 +22,9 @@ const TopSwipe = ({ props }) => {
     async function fetchAPI() {
       try {
         const res = await axios.get(baseURL);
-        setAllChallenge(res.data); //set allChallenges to whatever is returned from the API call
+        console.log(res.data);
+        setAllChallenge(res.data.results); 
+        //set allChallenges to whatever is returned from the API call
         //we will also do this for setPastChallenges and setCurrentChallenges
       } catch (error) {
         console.log(error);
@@ -49,10 +51,13 @@ const TopSwipe = ({ props }) => {
           >
             <ChallengeBox
               current={true}
-              title={item.title}
-              description={item.shortDescr}
-              image={item.image}
-              status={item.status}
+              title={item.name}
+              description={item.description}
+              image={
+                // eslint-disable-next-line max-len
+                'https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ'
+              }
+              status={'participating'}
             />
           </TouchableOpacity>
         );
