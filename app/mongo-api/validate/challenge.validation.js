@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { objectId } = require("./custom.validation");
 
 const createChallenge = {
   body: Joi.object().keys({

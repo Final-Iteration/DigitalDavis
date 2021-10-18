@@ -1,11 +1,11 @@
 const request = require("supertest");
 const faker = require("faker");
 const httpStatus = require("http-status");
-const app = require("../../src/app");
+const app = require("../../../mongo-api/app");
 //Need to replace this with our own DB
 const setupTestDB = require("../utils/setupTestDB");
-
-const { User } = require("../../src/models");
+const { User } = require("../../models");
+// const { User } = require("../../models");
 
 //These fixtures create differnt kinds of users [I don't think we need this - Sharon]
 // const { userOne, userTwo, admin, insertUsers } = require('../fixtures/user.fixture');
