@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -12,6 +12,13 @@ import {
 import DatePicker from '@react-native-community/datetimepicker';
 // import DatePicker from 'react-native-datepicker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import axios from 'axios';
+const baseURL =
+  'http://0ebf-2601-204-e780-d390-21c6-7498-b775-c0b1.ngrok.io/api/users';
+
+
+
+
 const { height, width } = Dimensions.get('window');
 const imageSource = require('../../../assets/blurredDavis.jpg');
 const Signup = (props) => {
@@ -27,6 +34,8 @@ const Signup = (props) => {
   const [open, setOpen] = useState(false)
 
   const signup = () => {
+    const [signupInformation, setUserSignupInformation] = useState([]);
+
     if (
       name.length === 0 ||
       email.length === 0 ||
@@ -41,6 +50,27 @@ const Signup = (props) => {
       setPasswordError(true);
     } else {
       //post request to database
+      // useEffect(() => {
+      //   async function setUserSignup() {
+      //     try {
+      //       const res = await axios.post(baseURL,{
+      //         first_name: name,
+      //         last_name: name,
+      //         email: email,
+      //         dob: date,
+      //         department: department,
+      //         job_title: title
+
+      //       });
+      //       console.log(res.data);
+      //       //setUserSignupInformation(res.data.results[0]);
+      //     } catch (error) {
+      //       console.log(error);
+      //     }
+      //   }
+    
+      //   setUserSignup();
+      // }, []);
       props.navigation.navigate('Main');
     }
   };

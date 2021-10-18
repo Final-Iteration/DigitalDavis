@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import ChallengeBox from './ChallengeBox';
 import { TabView, SceneMap } from 'react-native-tab-view';
-import { curChallenge, pastChallenge, allChallenge } from './MockData';
 import { TabBar } from 'react-native-tab-view';
 import axios from 'axios';
 const baseURL =
@@ -34,7 +33,7 @@ const TopSwipe = ({ props }) => {
 
   const FirstRoute = () => (
     <FlatList
-      data={allChallenge}
+      data={allChallenges}
       renderItem={({ item }) => {
         return (
           <TouchableOpacity
