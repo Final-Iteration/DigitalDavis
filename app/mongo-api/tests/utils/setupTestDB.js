@@ -12,19 +12,14 @@ const setupTestDB = () => {
   });
 
   // before running each of the test delete all the items in the collections
-  //   beforeEach(async () => {
-  //     await Promise.all(
-  //       Object.values(mongoose.connection.collections).map(async (collection) =>
-  //         collection.deleteMany()
-  //       )
-  //     );
-  //   });
+  beforeEach(async () => {
+    await Promise.all(
+      Object.values(mongoose.connection.collections).map(async (collection) =>
+        collection.deleteMany()
+      )
+    );
+  });
 
-  /**
-   * @TODO
-   * @Josh
-   * How to disconnect from our mongoDB
-   */
   //After all the tests have run disconnect from db
   afterAll(async () => {
     await mongoose.disconnect();
