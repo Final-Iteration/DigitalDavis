@@ -4,7 +4,7 @@ const { User } = require("../../models");
 
 const userOne = {
   _id: mongoose.Types.ObjectId(),
-  first_name: faker.name.findName(),
+  first_name: "Ace",
   last_name: faker.name.findName(),
   email: faker.internet.email().toLowerCase(),
   job_title: [`${faker.name.jobTitle()}`],
@@ -13,7 +13,7 @@ const userOne = {
 
 const userTwo = {
   _id: mongoose.Types.ObjectId(),
-  first_name: faker.name.findName(),
+  first_name: "Bobbo",
   last_name: faker.name.findName(),
   email: faker.internet.email().toLowerCase(),
   job_title: [`${faker.name.jobTitle()}`],
