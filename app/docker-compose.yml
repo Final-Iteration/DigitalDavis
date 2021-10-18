@@ -1,15 +1,15 @@
 version: "3.8"
 services:
   express-api:
-    image: final-iteration/express:1.0.0
+    image: ucd-emp-wellness-api:1.0.0
     hostname: final-iteration
-    container_name: express-api
+    container_name: ucd-emp-wellness-api
     build: ./mongo-api/
     env_file: 
       - .env
     environment:
       - "EXPRESS_API_PORT=${EXPRESS_API_PORT}"
-      - "NODE_ENV=${NODE_ENV}"
+      - "NODE_ENV=production"
       - "PROD_DATABASE_USER=${PROD_DATABASE_USER}"
       - "PROD_DATABASE_PW=${PROD_DATABASE_PW}"
       - "PROD_DATABASE_HOST=${PROD_DATABASE_HOST}"
@@ -31,3 +31,6 @@ services:
       - ./mongo-api:/usr/src/app
       - api_node_modules:/usr/src/cache
     restart: unless-stopped
+
+volumes:
+  api_node_modules:
