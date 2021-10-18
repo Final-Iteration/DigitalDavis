@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import {
   useWindowDimensions,
   StyleSheet,
@@ -35,7 +34,7 @@ const TopSwipe = ({ props }) => {
 
   const FirstRoute = () => (
     <FlatList
-      data={allChallenges}
+      data={allChallenge}
       renderItem={({ item }) => {
         return (
           <TouchableOpacity
@@ -50,13 +49,10 @@ const TopSwipe = ({ props }) => {
           >
             <ChallengeBox
               current={true}
-              title={item.name}
-              description={item.description}
-              image={
-                // eslint-disable-next-line max-len
-                'https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ'
-              }
-              status={'participating'}
+              title={item.title}
+              description={item.shortDescr}
+              image={item.image}
+              status={item.status}
             />
           </TouchableOpacity>
         );
