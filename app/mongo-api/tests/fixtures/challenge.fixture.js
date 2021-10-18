@@ -95,6 +95,13 @@ const challengeThree = {
 };
 
 const insertChallenges = async (challenges) => {
+  challenges.map((challenge) =>
+    challenge.participants.push(challenges.creator)
+  );
+  challenges.map((challenge) =>
+    console.log("\nChallenge creator: ", challenge.creator)
+  );
+
   await Challenge.insertMany(challenges.map((challenge) => ({ ...challenge })));
 };
 

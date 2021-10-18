@@ -58,10 +58,27 @@ describe("Challenge routes", () => {
       newChallenge = {
         name: "Challenge Name",
         creator: "Sharon",
+        tags: ["Emotional"],
+        start_date: "2021-10-19",
+        end_date: "2022-01-05",
+        description: "jump 2000, million-times.",
+        location: "Davis,Ca",
+        participants: ["Sharon"],
       };
     });
 
     test("should return 201 and successfully create new Challenge if data is ok", async () => {
+      newChallenge = {
+        name: "Challenge Name",
+        creator: "Sharon",
+        tags: ["Emotional"],
+        start_date: "2021-10-19",
+        end_date: "2022-01-05",
+        description: "jump 2000, million-times.",
+        location: "Davis,Ca",
+        participants: ["Sharon"],
+      };
+
       const res = await request(app)
         .post("/api/challenges")
         .send(newChallenge)
@@ -71,13 +88,13 @@ describe("Challenge routes", () => {
         id: expect.anything(),
         name: newChallenge.name,
         creator: newChallenge.creator,
-        // tags: newChallenge.tags,
-        // description: newChallenge.description,
-        // location: newChallenge.location,
-        // timestamp: newChallenge.timestamp,
-        // start_date: newChallenge.start_date,
-        // end_date: newChallenge.end_date,
-        // participants: newChallenge.participants,
+        tags: newChallenge.tags,
+        description: newChallenge.description,
+        location: newChallenge.location,
+        timestamp: expect.anything(),
+        start_date: expect.anything(),
+        end_date: expect.anything(),
+        participants: newChallenge.participants,
       });
 
       const dbChallenge = await Challenge.findById(res.body.id);
@@ -85,36 +102,40 @@ describe("Challenge routes", () => {
       expect(dbChallenge).toMatchObject({
         name: newChallenge.name,
         creator: newChallenge.creator,
-        // tags: newChallenge.tags,
-        // description: newChallenge.description,
-        // location: newChallenge.location,
+        tags: newChallenge.tags,
+        description: newChallenge.description,
+        location: newChallenge.location,
         // timestamp: newChallenge.timestamp,
         // start_date: newChallenge.start_date,
         // end_date: newChallenge.end_date,
-        // participants: newChallenge.participants,
+        participants: newChallenge.participants,
       });
     });
+
+    test("should return 400 error if name is already used", async () => {
+      await insertChallenges([challengeOne]);
+      newChallenge.name = challengeOne.name;
+
+      await request(app)
+        .post("/api/challenges")
+        .send(newChallenge)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    /**
+     * @TODO modify this function and check if start date > end date returns 400
+     */
+    // test("should return 400 error if name is already used", async () => {
+    //   await insertChallenges([challengeOne]);
+    //   newChallenge.name = challengeOne.name;
+
+    //   await request(app)
+    //     .post("/api/challenges")
+    //     .send(newChallenge)
+    //     .expect(httpStatus.BAD_REQUEST);
+    // });
   });
 });
-// test("should return 400 error if email is invalid", async () => {
-//   newChallenge.email = "invalidEmail";
-
-//   await request(app)
-//     .post("/api/challenges")
-//     .send(newChallenge)
-//     .expect(httpStatus.BAD_REQUEST);
-// });
-
-// test('should return 400 error if email is already used', async () => {
-//   await insertChallenges([admin, challengeOne]);
-//   newChallenge.email = challengeOne.email;
-
-//   await request(app)
-//     .post("/api/challenges")
-//     .set('Authorization', `Bearer ${adminAccessToken}`)
-//     .send(newChallenge)
-//     .expect(httpStatus.BAD_REQUEST);
-// });
 
 //   test("should return 400 error if  name length is more than 30 characters", async () => {
 //     newChallenge.name = "Lorem ipsum dolor sit amet, con";
