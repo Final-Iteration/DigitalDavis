@@ -38,8 +38,8 @@ describe("Challenge model", () => {
     let newChallenge;
     beforeEach(() => {
       newChallenge = {
-        name: faker.random.words(),
-        creator: faker.name.findName(),
+        name: faker.random.words(2),
+        creator: faker.lorem.words(3).substring(0, 30),
         tags: shuffle(challengeTags),
         description: faker.random.words(),
         location: faker.address.city(),
