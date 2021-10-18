@@ -12,26 +12,25 @@ import { TabView, SceneMap } from 'react-native-tab-view';
 import { curChallenge, pastChallenge, allChallenge } from './MockData';
 import { TabBar } from 'react-native-tab-view';
 import axios from 'axios';
-const baseURL = 'http://0ebf-2601-204-e780-d390-21c6-7498-b775-c0b1.ngrok.io/api/challenges';
+const baseURL =
+  'http://0ebf-2601-204-e780-d390-21c6-7498-b775-c0b1.ngrok.io/api/challenges';
 
 const TopSwipe = ({ props }) => {
   const [allChallenges, setAllChallenge] = useState([]);
   const [pastChallenges, setPastChallenges] = useState([]);
-  const [currentChallenges, setCurrentChallenged] = useState([]);
+  const [currentChallenges, setCurrentChallenges] = useState([]);
   useEffect(() => {
-    async function fetchAPI() {
+    async function getAllChallenges() {
       try {
         const res = await axios.get(baseURL);
         console.log(res.data);
-        setAllChallenge(res.data.results); 
-        //set allChallenges to whatever is returned from the API call
-        //we will also do this for setPastChallenges and setCurrentChallenges
+        setAllChallenge(res.data.results);
       } catch (error) {
         console.log(error);
       }
     }
 
-    fetchAPI();
+    getAllChallenges();
   }, []);
 
   const FirstRoute = () => (
@@ -66,9 +65,27 @@ const TopSwipe = ({ props }) => {
     />
   );
 
+  useEffect(() => {
+    async function getCurrentChallenges() {
+      try {
+        const res = await axios.get(baseURL);
+        console.log(res.data);
+        setCurrentChallenges(res.data.results);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getCurrentChallenges();
+  }, []);
+
+  /**
+   *
+   * @todo Filter to the challenges the user is currently participating in.
+   */
   const SecondRoute = () => (
     <FlatList
-      data={curChallenge}
+      data={currentChallenges}
       renderItem={({ item }) => {
         return (
           <TouchableOpacity
@@ -81,10 +98,13 @@ const TopSwipe = ({ props }) => {
           >
             <ChallengeBox
               current={true}
-              title={item.title}
-              description={item.shortDescr}
-              image={item.image}
-              status={item.status}
+              title={item.name}
+              description={item.description}
+              image={
+                // eslint-disable-next-line max-len
+                'https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ'
+              }
+              status={'participating'}
             />
           </TouchableOpacity>
         );
@@ -92,9 +112,23 @@ const TopSwipe = ({ props }) => {
       keyExtractor={(item) => item.id}
     />
   );
+  useEffect(() => {
+    async function getPastChallenges() {
+      try {
+        const res = await axios.get(baseURL);
+        console.log(res.data);
+        setPastChallenges(res.data.results);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getPastChallenges();
+  }, []);
+
   const ThirdRoute = () => (
     <FlatList
-      data={pastChallenge}
+      data={pastChallenges}
       renderItem={({ item }) => {
         return (
           <TouchableOpacity
@@ -106,10 +140,13 @@ const TopSwipe = ({ props }) => {
           >
             <ChallengeBox
               current={true}
-              title={item.title}
-              description={item.shortDescr}
-              image={item.image}
-              status={item.status}
+              title={item.name}
+              description={item.description}
+              image={
+                // eslint-disable-next-line max-len
+                'https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ'
+              }
+              status={'participating'}
             />
           </TouchableOpacity>
         );
