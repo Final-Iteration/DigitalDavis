@@ -4,7 +4,7 @@ const { Challenge } = require("../../models");
 
 const challengeOne = {
   _id: mongoose.Types.ObjectId(),
-  first_name: faker.name.findName(),
+  first_name: "A Running Challenge",
   last_name: faker.name.findName(),
   email: faker.internet.email().toLowerCase(),
   job_title: [`${faker.name.jobTitle()}`],
@@ -13,7 +13,16 @@ const challengeOne = {
 
 const challengeTwo = {
   _id: mongoose.Types.ObjectId(),
-  first_name: faker.name.findName(),
+  first_name: "Bouncing Challenge",
+  last_name: faker.name.findName(),
+  email: faker.internet.email().toLowerCase(),
+  job_title: [`${faker.name.jobTitle()}`],
+  department: faker.commerce.department(),
+};
+
+const challengeThree = {
+  _id: mongoose.Types.ObjectId(),
+  first_name: "CatWalking Challenge",
   last_name: faker.name.findName(),
   email: faker.internet.email().toLowerCase(),
   job_title: [`${faker.name.jobTitle()}`],
@@ -27,5 +36,6 @@ const insertChallenges = async (challenges) => {
 module.exports = {
   challengeOne,
   challengeTwo,
+  challengeThree,
   insertChallenges,
 };
