@@ -25,6 +25,7 @@ const CustomHeader = ({
   signup,
   challenge,
   challengeInfo,
+  createChallenge,
 }) => {
   if (challengeInfo) {
     return (
@@ -146,17 +147,33 @@ const CustomHeader = ({
           elevation: 0,
         }}
       >
-        <TouchableOpacity
-          style={{ left: width / 20 }}
-          onPress={() => navigation.navigate("User")}
-        >
-          <Avatar.Image
-            size={40}
-            source={{
-              uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+        {createChallenge ? (
+          <TouchableOpacity
+            style={{ left: 5, flexDirection: "row", alignSelf: "center" }}
+            onPress={() => {
+              navigation.navigate("Challenge");
             }}
-          />
-        </TouchableOpacity>
+          >
+            <Ionicon
+              name="ios-chevron-back-outline"
+              size={30}
+              style={{ color: "#2F80ED" }}
+            />
+            <Text style={styles.challengeInfoBack}>Back</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={{ left: width / 20 }}
+            onPress={() => navigation.navigate("User")}
+          >
+            <Avatar.Image
+              size={40}
+              source={{
+                uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+              }}
+            />
+          </TouchableOpacity>
+        )}
         <Appbar.Content
           style={styles.headerStyle}
           title={<Text style={styles.title}>{title}</Text>}
@@ -169,10 +186,13 @@ const CustomHeader = ({
             <AntDesign name="plus" size={28} color="black" />
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity
-            style={styles.plusButton}
-          >
-            <AntDesign name="plus" size={28} color="black" style = {{opacity: 0}}/>
+          <TouchableOpacity style={styles.plusButton}>
+            <AntDesign
+              name="plus"
+              size={28}
+              color="black"
+              style={{ opacity: 0 }}
+            />
           </TouchableOpacity>
         )}
       </Appbar.Header>
