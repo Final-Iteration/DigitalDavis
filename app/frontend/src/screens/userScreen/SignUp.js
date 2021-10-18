@@ -7,9 +7,9 @@ import {
   TextInput,
   Dimensions,
   ImageBackground,
-  Button
-} from 'react-native';
-import DatePicker from '@react-native-community/datetimepicker';
+  Button,
+} from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 // import DatePicker from 'react-native-datepicker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
@@ -22,16 +22,16 @@ const baseURL =
 const { height, width } = Dimensions.get('window');
 const imageSource = require('../../../assets/blurredDavis.jpg');
 const Signup = (props) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [title, setTitle] = useState('');
-  const [department, setDepartment] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [title, setTitle] = useState("");
+  const [department, setDepartment] = useState("");
   const [fillError, setFillError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false)
+  const [date, setDate] = useState(new Date(Date.now()));
+  const [open, setOpen] = useState(false);
 
   const signup = () => {
     const [signupInformation, setUserSignupInformation] = useState([]);
@@ -74,13 +74,23 @@ const Signup = (props) => {
       props.navigation.navigate('Main');
     }
   };
+  const onChange = (event, value) => {
+    if (value) {
+      setDate(value);
+    }
+    setOpen(false);
+  };
+  const getDate = () => {
+    let d = date.toString().split(" ");
+    return `${d[1]} ${d[2]} ${d[3]}`;
+  };
   return (
     <ImageBackground style={styles.imageStyle} source={imageSource}>
       <KeyboardAwareScrollView
         enableOnAndroid={true}
         extraHeight={100}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps={'always'}
+        keyboardShouldPersistTaps={"always"}
       >
         <TextInput
           autoCapitalize="none"
@@ -133,23 +143,44 @@ const Signup = (props) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        <View style={styles.dateInput}>
 
-          <Text style={styles.DOBText}>Date of Birth</Text>
-          <DatePicker
-            style={styles.datePickerStyle}
-            display="default"
-            mode="date" //The enum of date, datetime and time
-            value={date} //initial date from state
-            format="MM-DD-YYYY"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            onDateChange={(date) => {
-              setDate(date);
-            }}
-          />
-        </View>
-
+        <TouchableOpacity
+          onPress={() => {
+            setOpen(!open);
+          }}
+          style={styles.dateInput}
+        >
+          <Text style={styles.DOBText}>
+            {`Date of Birth: ${Platform.OS === "ios" ? "" : getDate()}`}
+          </Text>
+          {Platform.OS === "ios" ? (
+            <DateTimePicker
+              style={styles.datePickerStyle}
+              display="default"
+              mode="date" //The enum of date, datetime and time
+              value={date} //initial date from state
+              format="MM-DD-YYYY"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              onDateChange={(date) => {
+                setDate(date);
+              }}
+            />
+          ) : (
+            open && (
+              <DateTimePicker
+                style={styles.datePickerStyle}
+                mode={"date"} //The enum of date, datetime and time
+                display={Platform.OS === "ios" ? "spinner" : "spinner"}
+                value={date} //initial date from state
+                format="MM-DD-YYYY"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                onChange={onChange}
+              />
+            )
+          )}
+        </TouchableOpacity>
         {fillError ? (
           <Text style={styles.errorText}>Fill out all info</Text>
         ) : null}
@@ -170,42 +201,42 @@ const styles = StyleSheet.create({
   dateInput: {
     height: 55,
     borderRadius: 10,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: "#F6F6F6",
     marginHorizontal: width / 15,
     marginBottom: height / 40,
     padding: height / 70,
     fontSize: 18,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   DOBText: {
     fontSize: 18,
     top: 2,
-    color: '#A9A9A9',
+    color: "#A9A9A9",
   },
   datePickerStyle: {
     height: 45,
     width: 120,
     right: 5,
     top: 5,
-    position: 'absolute',
+    position: "absolute",
   },
   errorText: {
-    color: 'red',
-    alignSelf: 'center',
+    color: "red",
+    alignSelf: "center",
     fontSize: 15,
     bottom: 5,
   },
   titleButton: {
-    alignSelf: 'center',
+    alignSelf: "center",
     width: 343,
-    flexDirection: 'row',
+    flexDirection: "row",
     bottom: 20,
   },
 
   signUpButton: {
-    color: 'white',
-    alignSelf: 'center',
+    color: "white",
+    alignSelf: "center",
     fontSize: 20,
     marginVertical: 10,
   },
@@ -213,16 +244,16 @@ const styles = StyleSheet.create({
     right: 0,
   },
   signUpView: {
-    alignSelf: 'center',
+    alignSelf: "center",
     height: 51,
     width: 343,
-    backgroundColor: '#142A4F',
+    backgroundColor: "#142A4F",
     borderRadius: 10,
   },
   textInput: {
     height: 55,
     borderRadius: 10,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: "#F6F6F6",
     marginHorizontal: width / 15,
     marginBottom: height / 40,
     padding: height / 70,
