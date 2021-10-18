@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const faker = require("faker");
 const { Challenge } = require("../../../models");
 
