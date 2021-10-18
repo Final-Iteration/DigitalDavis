@@ -27,6 +27,37 @@ const CustomHeader = ({
   challengeInfo,
   createChallenge,
 }) => {
+  const r = () => {
+    if (createChallenge) {
+      return (
+        <TouchableOpacity
+          style={{
+            left: 5,
+            flexDirection: "row",
+            alignSelf: "center",
+          }}
+        >
+          <Ionicon
+            name="ios-chevron-back-outline"
+            size={30}
+            style={{ color: "#2F80ED", opacity: 0 }}
+          />
+          <Text style={{ opacity: 0 }}>Back</Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <TouchableOpacity style={styles.plusButton}>
+          <AntDesign
+            name="plus"
+            size={28}
+            color="black"
+            style={{ opacity: 0 }}
+          />
+        </TouchableOpacity>
+      );
+    }
+  };
   if (challengeInfo) {
     return (
       <Appbar.Header
@@ -53,6 +84,20 @@ const CustomHeader = ({
           style={styles.headerStyle}
           title={<Text style={styles.title}>{title}</Text>}
         />
+        <TouchableOpacity
+          style={{
+            left: 5,
+            flexDirection: "row",
+            alignSelf: "center",
+          }}
+        >
+          <Ionicon
+            name="ios-chevron-back-outline"
+            size={30}
+            style={{ color: "#2F80ED", opacity: 0 }}
+          />
+          <Text style={{ opacity: 0 }}>Back</Text>
+        </TouchableOpacity>
       </Appbar.Header>
     );
   } else if (signup) {
@@ -186,14 +231,7 @@ const CustomHeader = ({
             <AntDesign name="plus" size={28} color="black" />
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={styles.plusButton}>
-            <AntDesign
-              name="plus"
-              size={28}
-              color="black"
-              style={{ opacity: 0 }}
-            />
-          </TouchableOpacity>
+          r()
         )}
       </Appbar.Header>
     );
