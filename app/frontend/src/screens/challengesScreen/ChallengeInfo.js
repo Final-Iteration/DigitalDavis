@@ -24,8 +24,10 @@ const ChallengeInfo = (props) => {
   useEffect(() => {
     setStatus(challenge.status);
   }, []);
-  const day = challenge.date.toString().split(' ');
+  let day = challenge.start_date.toString();
+  day = day.substring(0, day.indexOf('T'));
 
+  console.log(day);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -56,7 +58,7 @@ const ChallengeInfo = (props) => {
             />
             <Text
               style={styles.date}
-            >{`${day[0]} ${day[1]} ${day[2]} ${day[3]}`}</Text>
+            >{day}</Text>
           </View>
         </View>
         {/* API CALL TO UPDATE PARTICIPATION */}
