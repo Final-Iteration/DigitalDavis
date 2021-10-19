@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
     // validate: [validateDOB, 'Please enter a correct date'],
   },
   job_title: {
-    type: [String],
+    type: String,
     required: false,
   },
   department: {

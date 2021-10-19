@@ -8,33 +8,30 @@ import {
   Dimensions,
   ImageBackground,
   Button,
-} from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 // import DatePicker from 'react-native-datepicker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 const baseURL =
-  'http://0ebf-2601-204-e780-d390-21c6-7498-b775-c0b1.ngrok.io/api/users';
-
-
-
+  'http://d601-2601-204-e780-d390-a50c-9558-8c81-9e0b.ngrok.io/api/users';
 
 const { height, width } = Dimensions.get('window');
 const imageSource = require('../../../assets/blurredDavis.jpg');
 const Signup = (props) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [title, setTitle] = useState("");
-  const [department, setDepartment] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [title, setTitle] = useState('');
+  const [department, setDepartment] = useState('');
   const [fillError, setFillError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
   const [open, setOpen] = useState(false);
 
   const signup = () => {
-    const [signupInformation, setUserSignupInformation] = useState([]);
+    // const [signupInformation, setUserSignupInformation] = useState([]);
 
     if (
       name.length === 0 ||
@@ -50,28 +47,33 @@ const Signup = (props) => {
       setPasswordError(true);
     } else {
       //post request to database
-      // useEffect(() => {
-      //   async function setUserSignup() {
-      //     try {
-      //       const res = await axios.post(baseURL,{
-      //         first_name: name,
-      //         last_name: name,
-      //         email: email,
-      //         dob: date,
-      //         department: department,
-      //         job_title: title
 
-      //       });
-      //       console.log(res.data);
-      //       //setUserSignupInformation(res.data.results[0]);
-      //     } catch (error) {
-      //       console.log(error);
-      //     }
-      //   }
-    
-      //   setUserSignup();
-      // }, []);
-      props.navigation.navigate('Main');
+      const setUserSignup = async () => {
+        date.toString();
+        try {
+          
+          const res = await axios.post(baseURL, {
+            first_name: name,
+            last_name: name,
+            email: email,
+            dob: date.toString(),
+            department: department,
+            job_title: title,
+          });
+          
+          /** 
+           * @todo get token for user 
+           */
+          console.log(res.data);
+          props.navigation.navigate('Main');
+        } catch (error) {          
+          console.log(error.message);
+        }
+      }
+
+      setUserSignup();
+      // Check token 
+      
     }
   };
   const onChange = (event, value) => {
@@ -81,7 +83,7 @@ const Signup = (props) => {
     setOpen(false);
   };
   const getDate = () => {
-    let d = date.toString().split(" ");
+    let d = date.toString().split(' ');
     return `${d[1]} ${d[2]} ${d[3]}`;
   };
   return (
@@ -90,7 +92,7 @@ const Signup = (props) => {
         enableOnAndroid={true}
         extraHeight={100}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps={"always"}
+        keyboardShouldPersistTaps={'always'}
       >
         <TextInput
           autoCapitalize="none"
@@ -151,9 +153,9 @@ const Signup = (props) => {
           style={styles.dateInput}
         >
           <Text style={styles.DOBText}>
-            {`Date of Birth: ${Platform.OS === "ios" ? "" : getDate()}`}
+            {`Date of Birth: ${Platform.OS === 'ios' ? '' : getDate()}`}
           </Text>
-          {Platform.OS === "ios" ? (
+          {Platform.OS === 'ios' ? (
             <DateTimePicker
               style={styles.datePickerStyle}
               display="default"
@@ -170,8 +172,8 @@ const Signup = (props) => {
             open && (
               <DateTimePicker
                 style={styles.datePickerStyle}
-                mode={"date"} //The enum of date, datetime and time
-                display={Platform.OS === "ios" ? "spinner" : "spinner"}
+                mode={'date'} //The enum of date, datetime and time
+                display={Platform.OS === 'ios' ? 'spinner' : 'spinner'}
                 value={date} //initial date from state
                 format="MM-DD-YYYY"
                 confirmBtnText="Confirm"
@@ -201,42 +203,42 @@ const styles = StyleSheet.create({
   dateInput: {
     height: 55,
     borderRadius: 10,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: '#F6F6F6',
     marginHorizontal: width / 15,
     marginBottom: height / 40,
     padding: height / 70,
     fontSize: 18,
-    flexDirection: "row",
-    alignItems: "flex-start",
+    flexDirection: 'row',
+    alignItems: 'flex-start',
   },
   DOBText: {
     fontSize: 18,
     top: 2,
-    color: "#A9A9A9",
+    color: '#A9A9A9',
   },
   datePickerStyle: {
     height: 45,
     width: 120,
     right: 5,
     top: 5,
-    position: "absolute",
+    position: 'absolute',
   },
   errorText: {
-    color: "red",
-    alignSelf: "center",
+    color: 'red',
+    alignSelf: 'center',
     fontSize: 15,
     bottom: 5,
   },
   titleButton: {
-    alignSelf: "center",
+    alignSelf: 'center',
     width: 343,
-    flexDirection: "row",
+    flexDirection: 'row',
     bottom: 20,
   },
 
   signUpButton: {
-    color: "white",
-    alignSelf: "center",
+    color: 'white',
+    alignSelf: 'center',
     fontSize: 20,
     marginVertical: 10,
   },
@@ -244,16 +246,16 @@ const styles = StyleSheet.create({
     right: 0,
   },
   signUpView: {
-    alignSelf: "center",
+    alignSelf: 'center',
     height: 51,
     width: 343,
-    backgroundColor: "#142A4F",
+    backgroundColor: '#142A4F',
     borderRadius: 10,
   },
   textInput: {
     height: 55,
     borderRadius: 10,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: '#F6F6F6',
     marginHorizontal: width / 15,
     marginBottom: height / 40,
     padding: height / 70,
