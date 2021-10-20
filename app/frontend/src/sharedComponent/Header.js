@@ -159,7 +159,7 @@ const CustomHeader = ({
         <Appbar.Content title={<Text style={styles.title}>{title}</Text>} />
         {challenge ? (
           <TouchableOpacity
-            onPress={() => navigation.navigate("CreateChallenge")}
+            onPress={() => navigation.navigate("CreateChallengeTags")}
             style={styles.plusButton}
           >
             {/* <Feather name="plus-circle" size={30} color="black" /> */}
