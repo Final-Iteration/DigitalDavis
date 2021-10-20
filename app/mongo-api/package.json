@@ -15,12 +15,14 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "eslint": "^8.0.1",
     "express": "^4.17.1",
     "express-mongo-sanitize": "^2.1.0",
     "helmet": "^4.6.0",
     "http-status": "^1.5.0",
     "joi": "^17.4.2",
     "mongoose": "^6.0.7",
+    "supertest": "^6.1.6",
     "validator": "^13.6.0",
     "xss-clean": "^0.1.1"
   },
