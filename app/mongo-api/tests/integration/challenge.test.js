@@ -58,9 +58,9 @@ describe("Challenge routes", () => {
       newChallenge = {
         name: "Challenge Name",
         creator: "Sharon",
-        tags: ["Emotional"],
-        start_date: "2021-10-19",
-        end_date: "2022-01-05",
+        tags: ["Emotional", "Spiritual"],
+        start_date: "2021-10-31",
+        end_date: "2022-01-31",
         description: "jump 2000, million-times.",
         location: "Davis,Ca",
         participants: ["Sharon"],
@@ -71,9 +71,9 @@ describe("Challenge routes", () => {
       newChallenge = {
         name: "Challenge Name",
         creator: "Sharon",
-        tags: ["Emotional"],
-        start_date: "2021-10-19",
-        end_date: "2022-01-05",
+        tags: ["Emotional", "Spiritual"],
+        start_date: "2021-10-31",
+        end_date: "2022-01-31",
         description: "jump 2000, million-times.",
         location: "Davis,Ca",
         participants: ["Sharon"],
@@ -83,6 +83,9 @@ describe("Challenge routes", () => {
         .post("/api/challenges")
         .send(newChallenge)
         .expect(httpStatus.CREATED);
+
+      // console.log("\nHTTP MESSAGE: ", httpStatus._MESSAGE);
+      // console.log("\nHTTP MESSAGE: ", httpStatus);
 
       expect(res.body).toEqual({
         id: expect.anything(),
@@ -146,7 +149,10 @@ describe("Challenge routes", () => {
   });
   describe("GET /api/challenges", () => {
     test("should return 200 and apply the default query options", async () => {
-      await insertChallenges([challengeOne, challengeTwo]);
+      await insertChallenges([challengeOne, challengeTwo, challengeThree]);
+
+      // const tagsArray = [];
+      // tagsArray.push(challengeOne.tags);
 
       const res = await request(app)
         .get("/api/challenges")
@@ -158,9 +164,9 @@ describe("Challenge routes", () => {
         page: 1,
         limit: 10,
         totalPages: 1,
-        totalResults: 2,
+        totalResults: 3,
       });
-      expect(res.body.results).toHaveLength(2);
+      expect(res.body.results).toHaveLength(3);
       expect(res.body.results[0]).toEqual({
         id: challengeOne._id.toHexString(),
         name: challengeOne.name,
@@ -172,6 +178,18 @@ describe("Challenge routes", () => {
         start_date: expect.anything(),
         end_date: expect.anything(),
         participants: challengeOne.participants,
+      });
+      expect(res.body.results[1]).toEqual({
+        id: challengeTwo._id.toHexString(),
+        name: challengeTwo.name,
+        creator: challengeTwo.creator,
+        tags: challengeTwo.tags,
+        description: challengeTwo.description,
+        location: challengeTwo.location,
+        timestamp: expect.anything(),
+        start_date: expect.anything(),
+        end_date: expect.anything(),
+        participants: challengeTwo.participants,
       });
     });
 
@@ -189,9 +207,9 @@ describe("Challenge routes", () => {
         page: 1,
         limit: 10,
         totalPages: 1,
-        totalResults: 2,
+        totalResults: 1,
       });
-      expect(res.body.results).toHaveLength(2);
+      expect(res.body.results).toHaveLength(1);
       expect(res.body.results[0].id).toBe(challengeOne._id.toHexString());
     });
 

@@ -12,6 +12,10 @@ const challengeTags = [
 ];
 
 /**
+ * @TODO Create  function to generate valid start and end dates for the challenge
+ */
+
+/**
  *
  *@todo fix copied shuffle code [DUPLICATED CODE]
  */
@@ -41,71 +45,57 @@ const challengeOne = {
   _id: mongoose.Types.ObjectId(),
   name: "A Running Challenge",
   creator: faker.lorem.words(3).substring(0, 30),
-  tags: shuffle(challengeTags),
+  tags: ["Emotional"],
   description: faker.random.words(),
   location: faker.address.city(),
   timestamp: faker.date.recent(),
-  start_date: faker.date.soon(),
+  start_date: "2021-10-22",
   end_date: faker.date.future(),
-  participants: [
-    `${faker.name.findName()}`,
-    `${faker.name.findName()}`,
-    `${faker.name.findName()}`,
-    `${faker.name.findName()}`,
-    `${faker.name.findName()}`,
-  ],
+  participants: [`${faker.name.findName()}`],
 };
 
 const challengeTwo = {
   _id: mongoose.Types.ObjectId(),
   name: "Bouncing Challenge",
   creator: faker.lorem.words(3).substring(0, 30),
-  tags: shuffle(challengeTags),
+  tags: ["Physical", "Social", "Spiritual"],
   description: faker.random.words(),
   location: faker.address.city(),
   timestamp: faker.date.recent(),
-  start_date: faker.date.soon(),
+  start_date: "2021-10-22",
   end_date: faker.date.future(),
-  participants: [
-    `${faker.name.findName()}`,
-    `${faker.name.findName()}`,
-    `${faker.name.findName()}`,
-    `${faker.name.findName()}`,
-    `${faker.name.findName()}`,
-  ],
+  participants: [`${faker.name.findName()}`],
 };
 
 const challengeThree = {
   _id: mongoose.Types.ObjectId(),
   name: "CatWalking Challenge",
-  creator: faker.lorem.words(3).substring(0, 30),
-  tags: shuffle(challengeTags),
+  creator: "Sharon",
+  tags: ["Physical", "Social", "Spiritual"],
   description: faker.random.words(),
   location: faker.address.city(),
   timestamp: faker.date.recent(),
-  start_date: faker.date.soon(),
+  start_date: "2021-10-22",
   end_date: faker.date.future(),
-  participants: [
-    `${faker.name.findName()}`,
-    `${faker.name.findName()}`,
-    `${faker.name.findName()}`,
-    `${faker.name.findName()}`,
-    `${faker.name.findName()}`,
-  ],
+  participants: [`${faker.name.findName()}`, `${faker.name.findName()}`],
 };
 
-const insertChallenges = async (challenges) => {
-  challenges.map((challenge) =>
-    challenge.participants.push(challenges.creator)
-  );
-  challenges.map((challenge) => {
-    console.log("\nChallenge creator: ", challenge.creator);
-    for (let i = 0; i < challenge.tags; i++) {
-      console.log("\nTAG: ", challenge.tags[i]);
-    }
-    console.log("\n");
-  });
+// const insertChallenges = async (challenges) => {
+//   // challenges.map((challenge) =>
+//   //   challenge.participants.push(challenges.creator)
+//   // );
+//   // challenges.map((challenge) => {
+//   //   console.log("\nChallenge creator: ", challenge.creator);
+//   //   for (let i = 0; i < challenge.tags; i++) {
+//   //     console.log("\nTAG: ", challenge.tags[i]);
+//   //   }
+//   //   console.log("\n");
+//   // });
 
+//   await Challenge.insertMany(challenges.map((challenge) => ({ ...challenge })));
+// };
+
+const insertChallenges = async (challenges) => {
   await Challenge.insertMany(challenges.map((challenge) => ({ ...challenge })));
 };
 
