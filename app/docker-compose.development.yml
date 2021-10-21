@@ -1,10 +1,10 @@
 version: "3.8"
 services:
-  mongodb:
-    build: ./mongo-db/
-    image: final-iteration/mongodb:1.0.0
+  mongo-database:
+    image: ucd-emp-wellness-db:lts
     hostname: final-iteration
-    container_name: mongodb
+    container_name: ucd-emp-wellness-db
+    build: ./mongo-db/
     environment:
       - PUID=1000
       - PGID=1000
@@ -13,30 +13,22 @@ services:
     restart: unless-stopped
     volumes: 
       - mongodb:/data/db
-  express:
-    image: final-iteration/express:1.0.0
+    networks:
+      - test_network
+  express-api:
+    image: ucd-emp-wellness-api:lts
     hostname: final-iteration
-    container_name: express
+    container_name: ucd-emp-wellness-api
     build: ./mongo-api/
-    env_file: 
-      - .env
     environment:
+      - "NODE_ENV=development"
       - "EXPRESS_API_PORT=${EXPRESS_API_PORT}"
-      - "NODE_ENV=${NODE_ENV}"
-      - "DATABASE_USER=${DATABASE_USER}"
-      - "DATABASE_PW=${DATABASE_PW}"
-      - "DATABASE_HOST=${DATABASE_HOST}"
-      - "DATABASE_PORT=${DATABASE_PORT}"
-      - "DATABASE_NAME=${DATABASE_NAME}"
-      - "DATABASE_PROTOCOL=${DATABASE_PROTOCOL}"
-      - "DATABASE_COLLECTION=${DATABASE_COLLECTION}"
-      - "DATABASE_AUTHSOURCE=${DATABASE_AUTHSOURCE}"
-      - "DATABASE_CAPATH=${DATABASE_CAPATH}"
-      - "LOCAL_DATABASE_HOST=${LOCAL_DATABASE_HOST}"
-      - "LOCAL_DATABASE_PORT=${LOCAL_DATABASE_PORT}"
-      - "LOCAL_DATABASE_NAME=${LOCAL_DATABASE_NAME}"
-      - "LOCAL_DATABASE_PROTOCOL=${LOCAL_DATABASE_PROTOCOL}"
-      - "LOCAL_DATABASE_COLLECTION=${LOCAL_DATABASE_COLLECTION}"
+      - "CA_CERTIFICATE_PATH=${CA_CERTIFICATE_PATH}"
+      - "DEV_DATABASE_HOST=${DEV_DATABASE_HOST}"
+      - "DEV_DATABASE_PORT=${DEV_DATABASE_PORT}"
+      - "DEV_DATABASE_NAME=${DEV_DATABASE_NAME}"
+      - "DEV_DATABASE_PROTOCOL=${DEV_DATABASE_PROTOCOL}"
+      - "DEV_DATABASE_COLLECTION=${DEV_DATABASE_COLLECTION}"
       - "DEBUG=${DEBUG}"
     ports:
       - "3005:3005"
@@ -44,27 +36,12 @@ services:
       - ./mongo-api:/usr/src/app
       - api_node_modules:/usr/src/cache
     restart: unless-stopped
-  # expo:
-  #   image: final-iteration/expo:1.2.0
-  #   hostname: final-iteration
-  #   container_name: expo
-  #   build: ./frontend/
-  #   env_file: 
-  #     - .env
-  #   ports:
-  #     - "19000:19000"
-  #     - "19001:19001"
-  #     - "19002:19002"
-  #     - "19006:19006"
-  #   volumes:
-  #     - ./frontend:/usr/src/app
-  #     - frontend_node_modules:/usr/src/cache
-  #   restart: always
-  #   environment:
-  #     - "REACT_NATIVE_PACKAGER_HOSTNAME=${REACT_NATIVE_PACKAGER_HOSTNAME}"
-  #     - "EXPO_DEVTOOLS_LISTEN_ADDRESS=${EXPO_DEVTOOLS_LISTEN_ADDRESS}"
-  #   command: /usr/src/app/docker-entrypoint.sh
+    networks:
+      - test_network
+
 volumes: 
-  frontend_node_modules:
   api_node_modules:
   mongodb:
+
+networks:
+  test_network:
