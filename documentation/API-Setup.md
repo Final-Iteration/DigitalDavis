@@ -19,7 +19,7 @@
 
 4. To start the docker container for a local mongodb instance run:
     ```bash
-    docker-compose up -d --no-deps --build mongodb
+    docker-compose -f docker-compose.development.yml up -d --no-deps --build mongodb
     ```
 
 6. Confirm the container has started by running:
