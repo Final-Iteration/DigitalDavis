@@ -1,14 +1,14 @@
-const mongoose = require("mongoose");
-const faker = require("faker");
-const { Challenge } = require("../../models");
+const mongoose = require('mongoose');
+const faker = require('faker');
+const { Challenge } = require('../../models');
 
 const challengeTags = [
-  "Emotional",
-  "Environmental",
-  "Intellectual",
-  "Physical",
-  "Social",
-  "Spiritual",
+  'Emotional',
+  'Environmental',
+  'Intellectual',
+  'Physical',
+  'Social',
+  'Spiritual',
 ];
 
 /**
@@ -43,39 +43,39 @@ function shuffle(array) {
 
 const challengeOne = {
   _id: mongoose.Types.ObjectId(),
-  name: "A Running Challenge",
+  name: 'A Running Challenge',
   creator: faker.lorem.words(3).substring(0, 30),
-  tags: ["Emotional"],
+  tags: ['Emotional'],
   description: faker.random.words(),
   location: faker.address.city(),
   timestamp: faker.date.recent(),
-  start_date: "2021-10-22",
+  start_date: '2021-10-22',
   end_date: faker.date.future(),
   participants: [`${faker.name.findName()}`],
 };
 
 const challengeTwo = {
   _id: mongoose.Types.ObjectId(),
-  name: "Bouncing Challenge",
+  name: 'Bouncing Challenge',
   creator: faker.lorem.words(3).substring(0, 30),
-  tags: ["Physical", "Social", "Spiritual"],
+  tags: ['Physical', 'Social', 'Spiritual'],
   description: faker.random.words(),
   location: faker.address.city(),
   timestamp: faker.date.recent(),
-  start_date: "2021-10-22",
+  start_date: '2021-10-22',
   end_date: faker.date.future(),
   participants: [`${faker.name.findName()}`],
 };
 
 const challengeThree = {
   _id: mongoose.Types.ObjectId(),
-  name: "CatWalking Challenge",
-  creator: "Sharon",
-  tags: ["Physical", "Social", "Spiritual"],
+  name: 'CatWalking Challenge',
+  creator: 'Sharon',
+  tags: ['Physical', 'Social', 'Spiritual'],
   description: faker.random.words(),
   location: faker.address.city(),
   timestamp: faker.date.recent(),
-  start_date: "2021-10-22",
+  start_date: '2021-10-22',
   end_date: faker.date.future(),
   participants: [`${faker.name.findName()}`, `${faker.name.findName()}`],
 };

@@ -6,12 +6,13 @@ const objectId = (value, helpers) => {
 };
 
 const email = (value, helpers) => {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if (!re.test(String(email).toLowerCase())){
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!re.test(String(email).toLowerCase())) {
     return helpers.message('email must be valid');
   }
-    return value;
-}
+  return value;
+};
 
 const validateStartDate = (value, helpers) => {};
 const validateEndDate = (value, helpers) => {};

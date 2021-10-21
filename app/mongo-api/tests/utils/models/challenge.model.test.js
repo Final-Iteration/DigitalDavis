@@ -1,14 +1,14 @@
 /* eslint-disable no-undef */
-const faker = require("faker");
-const { Challenge } = require("../../../models");
+const faker = require('faker');
+const { Challenge } = require('../../../models');
 
 const challengeTags = [
-  "Emotional",
-  "Environmental",
-  "Intellectual",
-  "Physical",
-  "Social",
-  "Spiritual",
+  'Emotional',
+  'Environmental',
+  'Intellectual',
+  'Physical',
+  'Social',
+  'Spiritual',
 ];
 
 /**
@@ -33,8 +33,8 @@ function shuffle(array) {
   return array[0];
 }
 
-describe("Challenge model", () => {
-  describe("Challenge validation", () => {
+describe('Challenge model', () => {
+  describe('Challenge validation', () => {
     let newChallenge;
     beforeEach(() => {
       newChallenge = {
@@ -59,7 +59,7 @@ describe("Challenge model", () => {
     /**
      * Create basic inital challenge
      */
-    test("should correctly validate a valid challenge", async () => {
+    test('should correctly validate a valid challenge', async () => {
       await expect(
         new Challenge(newChallenge).validate()
       ).resolves.toBeUndefined();
@@ -70,13 +70,13 @@ describe("Challenge model", () => {
      * 1. name length < 30
      * 2. name length > 5
      */
-    test("should throw a validation error if name length is > 30 characters", async () => {
-      newChallenge.name = "Lorem ipsum dolor sit amethdubj con";
+    test('should throw a validation error if name length is > 30 characters', async () => {
+      newChallenge.name = 'Lorem ipsum dolor sit amethdubj con';
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
-    test("should throw a validation error if name length is < 5 characters", async () => {
-      newChallenge.name = "hjk";
+    test('should throw a validation error if name length is < 5 characters', async () => {
+      newChallenge.name = 'hjk';
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
@@ -85,16 +85,16 @@ describe("Challenge model", () => {
      * creator length < 30
      * creator length > 3
      */
-    test("should throw a validation error if creator length is > 30 characters", async () => {
-      newChallenge.creator = "Lorem ipsum dolor sit amethdubj con";
+    test('should throw a validation error if creator length is > 30 characters', async () => {
+      newChallenge.creator = 'Lorem ipsum dolor sit amethdubj con';
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
     /**
      *
      */
-    test("should throw a validation error if creator length is < 3 characters", async () => {
-      newChallenge.creator = "hk";
+    test('should throw a validation error if creator length is < 3 characters', async () => {
+      newChallenge.creator = 'hk';
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
@@ -103,8 +103,8 @@ describe("Challenge model", () => {
      * @TODO
      * 1. tags must only be of the following ["Emotional", "Environmental", "Intellectual", "Physical", "Social", "Spiritual"]
      */
-    test("should throw a validation error if tags length is > 30 characters", async () => {
-      newChallenge.tags = ["NOT CORRECT", "SOCIAL"];
+    test('should throw a validation error if tags length is > 30 characters', async () => {
+      newChallenge.tags = ['NOT CORRECT', 'SOCIAL'];
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
@@ -113,9 +113,9 @@ describe("Challenge model", () => {
      * 1. description length < 150
      */
 
-    test("should throw a validation error if description length is >150 characters", async () => {
+    test('should throw a validation error if description length is >150 characters', async () => {
       newChallenge.description =
-        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis pa";
+        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis pa';
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
@@ -124,14 +124,14 @@ describe("Challenge model", () => {
      * 1. location length > 50
      * 2. location length < 1
      */
-    test("should throw a validation error if location length is > 50 characters", async () => {
+    test('should throw a validation error if location length is > 50 characters', async () => {
       newChallenge.location =
-        "Lorem ipsum dolor sit amet, consectetuer adipiscing";
+        'Lorem ipsum dolor sit amet, consectetuer adipiscing';
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
-    test("should throw a validation error if location length is < 1 characters", async () => {
-      newChallenge.location = "";
+    test('should throw a validation error if location length is < 1 characters', async () => {
+      newChallenge.location = '';
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
