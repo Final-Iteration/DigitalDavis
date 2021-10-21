@@ -68,16 +68,15 @@ describe("User routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    // test('should return 400 error if email is already used', async () => {
-    //   await insertUsers([admin, userOne]);
-    //   newUser.email = userOne.email;
+    test('should return 400 error if email is already used', async () => {
+      await insertUsers([userOne]);
+      newUser.email = userOne.email;
 
-    //   await request(app)
-    //     .post("/api/users")
-    //     .set('Authorization', `Bearer ${adminAccessToken}`)
-    //     .send(newUser)
-    //     .expect(httpStatus.BAD_REQUEST);
-    // });
+      await request(app)
+        .post("/api/users")
+        .send(newUser)
+        .expect(httpStatus.BAD_REQUEST);
+    });
 
     test("should return 400 error if first name length is more than 30 characters", async () => {
       newUser.first_name = "Lorem ipsum dolor sit amet, con";
@@ -277,14 +276,14 @@ describe("User routes", () => {
       });
     });
 
-    // test("should return 401 error if access token is missing", async () => {
-    //   await insertUsers([userOne]);
+    test.skip("should return 401 error if access token is missing", async () => {
+      await insertUsers([userOne]);
 
-    //   await request(app)
-    //     .get(`/api/users/${userOne._id}`)
-    //     .send()
-    //     .expect(httpStatus.UNAUTHORIZED);
-    // });
+      await request(app)
+        .get(`/api/users/${userOne._id}`)
+        .send()
+        .expect(httpStatus.UNAUTHORIZED);
+    });
 
     test("should return 400 error if userId is not a valid mongo id", async () => {
       await insertUsers([userOne]);
@@ -318,14 +317,14 @@ describe("User routes", () => {
       expect(dbUser).toBeNull();
     });
 
-    // test("should return 401 error if access token is missing", async () => {
-    //   await insertUsers([userOne]);
+    test.skip("should return 401 error if access token is missing", async () => {
+      await insertUsers([userOne]);
 
-    //   await request(app)
-    //     .delete(`/api/users/${userOne._id}`)
-    //     .send()
-    //     .expect(httpStatus.UNAUTHORIZED);
-    // });
+      await request(app)
+        .delete(`/api/users/${userOne._id}`)
+        .send()
+        .expect(httpStatus.UNAUTHORIZED);
+    });
 
     test("should return 400 error if userId is not a valid mongo id", async () => {
       await insertUsers([userOne]);
