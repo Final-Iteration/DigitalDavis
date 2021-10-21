@@ -5,8 +5,7 @@
       "host": "",
       "database": "",
       "collection": "",
-      "user": "",
-      "password": ""
+      "certificate": ""
     }
   }
 }
