@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
+    "eslint": "^8.0.1",
     "express": "^4.17.1",
     "express-mongo-sanitize": "^2.1.0",
     "helmet": "^4.6.0",
@@ -30,6 +31,7 @@
     "faker": "^5.5.3",
     "jest": "^27.2.4",
     "morgan": "^1.10.0",
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "supertest": "^6.1.6"
   }
 }

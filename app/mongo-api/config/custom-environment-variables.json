@@ -20,14 +20,5 @@
       "protocol" : "DEV_DATABASE_PROTOCOL",
       "collection": "DEV_DATABASE_COLLECTION"
     }
-  },
-    "test": {
-      "database": {
-        "host": "DEV_DATABASE_HOST",
-        "port": "DEV_DATABASE_PORT",
-        "name": "DEV_DATABASE_NAME",
-        "protocol" : "DEV_DATABASE_PROTOCOL",
-        "collection": "DEV_DATABASE_COLLECTION"
-      }
-    }
+  }
 } 
