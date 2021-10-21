@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   express-api:
-    image: ucd-emp-wellness-api:1.0.0
+    image: ucd-emp-wellness-api
     hostname: final-iteration
     container_name: ucd-emp-wellness-api
     build: ./mongo-api/
