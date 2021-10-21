@@ -3,8 +3,11 @@ const request = require("supertest");
 const faker = require("faker");
 const httpStatus = require("http-status");
 const app = require("../../../mongo-api/app");
+
 //Need to replace this with our own DB
 const setupTestDB = require("../utils/setupTestDB");
+// const connection = require("../../index")
+
 const { Challenge } = require("../../models");
 
 const challengeTags = [
@@ -15,6 +18,8 @@ const challengeTags = [
   "Social",
   "Spiritual",
 ];
+
+const jestTimeOutLimiter = 2500;
 
 /**
  * Returns the first element in the challengeTags array after the array has been shuffled
@@ -44,6 +49,8 @@ const {
   insertChallenges,
   challengeThree,
 } = require("../fixtures/challenge.fixture");
+const { deleteOne } = require("../../models/challenge.model");
+
 //JWT Tokens for testing
 // const { challengeOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
 
@@ -118,11 +125,7 @@ describe("Challenge routes", () => {
     test("should return 400 error if name is already used", async () => {
       await insertChallenges([challengeOne]);
       newChallenge.name = challengeOne.name;
-
-      await request(app)
-        .post("/api/challenges")
-        .send(newChallenge)
-        .expect(httpStatus.BAD_REQUEST);
+      await request(app).post("/api/challenges").send(newChallenge);
     });
 
     /**
