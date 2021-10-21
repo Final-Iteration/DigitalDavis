@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema({
     maxlength: 50,
     validate(value) {
       if (!validator.isEmail(value)) {
-        throw new Error("Invalid email");
+        throw new Error('Invalid email');
       }
     },
   },
@@ -85,7 +85,7 @@ var validateEmail = async function (email) {
  * @typedef User
  * determines collection name to be "user"
  */
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model('user', userSchema);
 // const UserTest = mongoose.model("user_test", userSchema);
 
 /**
