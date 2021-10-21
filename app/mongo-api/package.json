@@ -7,6 +7,7 @@
     "build": "node index.js",
     "build:dev": "nodemon index.js",
     "build:docker" : "./build.sh",
+    "docker" : "./run.sh",
     "test": "jest -i --colors --verbose --detectOpenHandles",
     "test:dev": "jest -i",
     "lint": "eslint .",

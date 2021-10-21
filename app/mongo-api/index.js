@@ -53,7 +53,7 @@ function uriBuilder(nodeEnv) {
  */
 async function connectMongoose(uri) {
   try {
-    await mongoose
+    const mongoose_connection = await mongoose
       .connect(uri, {
         sslCA: config.get(`${nodeEnv}.database.certificate`),
       })
@@ -63,6 +63,7 @@ async function connectMongoose(uri) {
         dbDebugger("Local DB Collections: " + Element.name)
       );
     });
+    return mongoose_connection
   } catch (error) {
     dbDebugger(error.message);
   }
@@ -86,7 +87,7 @@ async function initMongoose() {
     }
     const uri = uriBuilder(nodeEnv);
     dbDebugger(`Connection to Mongoose on ${uri}`);
-    connectMongoose(uri);
+    return connectMongoose(uri);
   } catch (error) {
     dbDebugger(error.message);
   }
@@ -94,4 +95,6 @@ async function initMongoose() {
 
 const nodeEnv = process.env.NODE_ENV;
 initServer();
-initMongoose();
+const mongoose_connection = initMongoose();
+
+module.exports = mongoose_connection
