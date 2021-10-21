@@ -4,7 +4,7 @@ const faker = require("faker");
 const httpStatus = require("http-status");
 const app = require("../../../mongo-api/app");
 //Need to replace this with our own DB
-// const setupTestDB = require("../utils/setupTestDB");
+const setupTestDB = require("../utils/setupTestDB");
 const { User } = require("../../models");
 
 const {
@@ -17,7 +17,7 @@ const {
 // const { userOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
 
 //Need to createa a connection to the testing database before running any tests
-// setupTestDB();
+setupTestDB();
 
 describe("User routes", () => {
   describe("POST /api/users", () => {
