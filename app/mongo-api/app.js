@@ -1,22 +1,22 @@
-const dotenv = require('dotenv').config();
-const config = require('config');
-const xss = require('xss-clean');
-const mongoSanitize = require('express-mongo-sanitize');
+const dotenv = require("dotenv").config();
+const config = require("config");
+const xss = require("xss-clean");
+const mongoSanitize = require("express-mongo-sanitize");
 // const compression = require('compression');
 // const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const express = require('express');
-const { errorConverter, errorHandler } = require('./middleware/error');
-const challengesRoute = require('./routes/challenge.route');
-const usersRoute = require('./routes/user.route');
-const appDebugger = require('debug')('app:startup');
+const helmet = require("helmet");
+const morgan = require("morgan");
+const express = require("express");
+const { errorConverter, errorHandler } = require("./middleware/error");
+const challengesRoute = require("./routes/challenge.route");
+const usersRoute = require("./routes/user.route");
+const appDebugger = require("debug")("app:startup");
 
 const app = express();
 
 // set Morgan
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
 }
 
 // set security HTTP headers
@@ -49,12 +49,12 @@ app.use(mongoSanitize());
 // }
 
 // api routes
-app.use('/api/challenges', challengesRoute);
-app.use('/api/users', usersRoute);
+app.use("/api/challenges", challengesRoute);
+app.use("/api/users", usersRoute);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
-  next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
+  next(new ApiError(httpStatus.NOT_FOUND, "Not found"));
 });
 
 // convert error to ApiError, if needed
