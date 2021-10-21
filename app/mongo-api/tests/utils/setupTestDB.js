@@ -1,15 +1,13 @@
-const dotenv = require("dotenv").config({ path: '../../.env.dev' });
-const config = require("config");
 const mongoose = require("mongoose");
-const app = require('../../app')
-const dbDebugger = require("debug")("app:mongodb");
+
+const connection_string = process.env.DB_CON_STR
 
 /**
  * Make the connection to mongoose before running any tests
  */
 const setupTestDB = () => {
   beforeAll(async () => {
-    initMongoose();
+    connectMongoose(connection_string);
   });
 
   // before running each of the test delete all the items in the collections
@@ -28,40 +26,6 @@ const setupTestDB = () => {
 };
 
 /**
- *
- * @param {*} nodeEnv
- * @returns
- */
- function uriBuilder(nodeEnv) {
-  var uri = "";
-  try {
-    if (nodeEnv === "production") {
-      uri =
-        config.get(`${nodeEnv}.database.protocol`) +
-        config.get(`${nodeEnv}.database.user`) +
-        ":" +
-        config.get(`${nodeEnv}.database.password`) +
-        "@" +
-        config.get(`${nodeEnv}.database.host`) +
-        "/" +
-        config.get(`${nodeEnv}.database.name`) +
-        "?" +
-        config.get(`${nodeEnv}.database.authsource`);
-    } else if (nodeEnv === "development") {
-      uri =
-        config.get(`${nodeEnv}.database.protocol`) +
-        config.get(`${nodeEnv}.database.host`) +
-        ":" +
-        config.get(`${nodeEnv}.database.port`) +
-        "/" +
-        config.get(`${nodeEnv}.database.name`);
-    }
-    return uri;
-  } catch (error) {
-    dbDebugger("uriBuilder: " + error.message);
-  }
-}
-/**
  * @TODO - find how to use default env vars for certificate passing
  * @param {*} uri
  */
@@ -69,44 +33,12 @@ const setupTestDB = () => {
   try {
     await mongoose
       .connect(uri, {
-        sslCA: config.get(`${nodeEnv}.database.certificate`),
+        ssl: false
       })
-      .then(() => dbDebugger("Status: connected"));
+      .then(() => console.log("Status: connected"));
   } catch (error) {
-    dbDebugger(error.message);
+    console.log(error.message);
   }
 }
 
-/**
- *
- */
- async function initMongoose() {
-  try {
-    if (nodeEnv === "development") {
-      dbDebugger("Host: " + config.get(`${nodeEnv}.database.host`));
-      dbDebugger("Name: " + config.get(`${nodeEnv}.database.name`));
-      dbDebugger("Collection: " + config.get(`${nodeEnv}.database.collection`));
-    } else if (nodeEnv === "common") {
-      dbDebugger("Host: " + config.get(`${nodeEnv}.database.host`));
-      dbDebugger("Name: " + config.get(`${nodeEnv}.database.name`));
-      dbDebugger(
-        "Collection : " + config.get(`${nodeEnv}.database.collection`)
-      );
-    }
-    const uri = uriBuilder(nodeEnv);
-    dbDebugger(`Connection to Mongoose on ${uri}`);
-    return connectMongoose(uri);
-  } catch (error) {
-    dbDebugger(error.message);
-  }
-}
-
-function initServer() {
-  const port = process.env.EXPRESS_API_PORT;
-  app.listen(port, () => {});
-}
-
-const nodeEnv = process.env.NODE_ENV;
-initMongoose();
-initServer();
 module.exports = setupTestDB;
