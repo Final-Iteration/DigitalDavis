@@ -1,5 +1,3 @@
-const dotenv = require("dotenv").config();
-const config = require("config");
 const xss = require("xss-clean");
 const mongoSanitize = require("express-mongo-sanitize");
 // const compression = require('compression');
