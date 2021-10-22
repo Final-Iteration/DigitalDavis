@@ -1,15 +1,26 @@
-const mongoose = require('mongoose');
-const faker = require('faker');
-const { Challenge } = require('../../models');
+const mongoose = require("mongoose");
+const faker = require("faker");
+const { Challenge } = require("../../models");
 
 const challengeTags = [
-  'Emotional',
-  'Environmental',
-  'Intellectual',
-  'Physical',
-  'Social',
-  'Spiritual',
+  "Emotional",
+  "Environmental",
+  "Intellectual",
+  "Physical",
+  "Social",
+  "Spiritual",
 ];
+
+function start_date() {
+  const startDate = new Date().toISOString();
+  return startDate;
+}
+
+function end_date() {
+  const endDate = new Date();
+  endDate.setDate(endDate.getDate() + 30);
+  return endDate;
+}
 
 /**
  * @TODO Create  function to generate valid start and end dates for the challenge
@@ -19,6 +30,7 @@ const challengeTags = [
  *
  *@todo fix copied shuffle code [DUPLICATED CODE]
  */
+
 /**
  * Returns the first element in the challengeTags array after the array has been shuffled
  * @param {*} array
@@ -43,61 +55,54 @@ function shuffle(array) {
 
 const challengeOne = {
   _id: mongoose.Types.ObjectId(),
-  name: 'A Running Challenge',
+  name: "A Running Challenge",
   creator: faker.lorem.words(3).substring(0, 30),
-  tags: ['Emotional'],
+  tags: ["Emotional"],
   description: faker.random.words(),
   location: faker.address.city(),
-  timestamp: faker.date.recent(),
-  start_date: '2021-10-22',
-  end_date: faker.date.future(),
+  timestamp: null,
+  start_date: null,
+  end_date: null,
   participants: [`${faker.name.findName()}`],
 };
 
 const challengeTwo = {
   _id: mongoose.Types.ObjectId(),
-  name: 'Bouncing Challenge',
+  name: "Bouncing Challenge",
   creator: faker.lorem.words(3).substring(0, 30),
-  tags: ['Physical', 'Social', 'Spiritual'],
+  tags: ["Physical", "Social", "Spiritual"],
   description: faker.random.words(),
   location: faker.address.city(),
-  timestamp: faker.date.recent(),
-  start_date: '2021-10-22',
-  end_date: faker.date.future(),
+  timestamp: null,
+  start_date: null,
+  end_date: null,
   participants: [`${faker.name.findName()}`],
 };
 
 const challengeThree = {
   _id: mongoose.Types.ObjectId(),
-  name: 'CatWalking Challenge',
-  creator: 'Sharon',
-  tags: ['Physical', 'Social', 'Spiritual'],
+  name: "CatWalking Challenge",
+  creator: "Sharon",
+  tags: ["Physical", "Social", "Spiritual"],
   description: faker.random.words(),
   location: faker.address.city(),
-  timestamp: faker.date.recent(),
-  start_date: '2021-10-22',
-  end_date: faker.date.future(),
+  timestamp: null,
+  start_date: null,
+  end_date: null,
   participants: [`${faker.name.findName()}`, `${faker.name.findName()}`],
 };
 
-// const insertChallenges = async (challenges) => {
-//   // challenges.map((challenge) =>
-//   //   challenge.participants.push(challenges.creator)
-//   // );
-//   // challenges.map((challenge) => {
-//   //   console.log("\nChallenge creator: ", challenge.creator);
-//   //   for (let i = 0; i < challenge.tags; i++) {
-//   //     console.log("\nTAG: ", challenge.tags[i]);
-//   //   }
-//   //   console.log("\n");
-//   // });
-
-//   await Challenge.insertMany(challenges.map((challenge) => ({ ...challenge })));
-// };
-
 const insertChallenges = async (challenges) => {
+  challenges.map((challenge) => {
+    challenge.start_date = start_date();
+    challenge.end_date = end_date();
+  });
   await Challenge.insertMany(challenges.map((challenge) => ({ ...challenge })));
 };
+
+// const insertChallenges = async (challenges) => {
+//   await Challenge.insertMany(challenges.map((challenge) => ({ ...challenge })));
+// };
 
 module.exports = {
   challengeOne,
