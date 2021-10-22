@@ -19,7 +19,16 @@ const challengeTags = [
   'Spiritual',
 ];
 
-const jestTimeOutLimiter = 2500;
+function start_date() {
+  const startDate = new Date().toISOString();
+  return startDate;
+}
+
+function end_date() {
+  const endDate = new Date();
+  endDate.setDate(endDate.getDate() + 30);
+  return endDate;
+}
 
 /**
  * Returns the first element in the challengeTags array after the array has been shuffled
@@ -60,14 +69,18 @@ setupTestDB();
 describe('Challenge routes', () => {
   describe('POST /api/challenges', () => {
     let newChallenge;
+    
+    let start = start_date();
+    let end = end_date();
 
     beforeEach(() => {
       newChallenge = {
         name: 'Challenge Name',
         creator: 'Sharon',
         tags: ['Emotional', 'Spiritual'],
-        start_date: '2021-10-31',
-        end_date: '2022-01-31',
+        timestamp: start,
+        start_date: start,
+        end_date: end,
         description: 'jump 2000, million-times.',
         location: 'Davis,Ca',
         participants: ['Sharon'],
@@ -75,16 +88,16 @@ describe('Challenge routes', () => {
     });
 
     test('should return 201 and successfully create new Challenge if data is ok', async () => {
-      newChallenge = {
-        name: 'Challenge Name',
-        creator: 'Sharon',
-        tags: ['Emotional', 'Spiritual'],
-        start_date: '2021-10-31',
-        end_date: '2022-01-31',
-        description: 'jump 2000, million-times.',
-        location: 'Davis,Ca',
-        participants: ['Sharon'],
-      };
+      // newChallenge = {
+      //   name: 'Challenge Name',
+      //   creator: 'Sharon',
+      //   tags: ['Emotional', 'Spiritual'],
+      //   start_date: '2021-10-31',
+      //   end_date: '2022-01-31',
+      //   description: 'jump 2000, million-times.',
+      //   location: 'Davis,Ca',
+      //   participants: ['Sharon'],
+      // };
 
       const res = await request(app)
         .post('/api/challenges')
@@ -103,9 +116,9 @@ describe('Challenge routes', () => {
         tags: newChallenge.tags,
         description: newChallenge.description,
         location: newChallenge.location,
-        timestamp: expect.anything(),
-        start_date: expect.anything(),
-        end_date: expect.anything(),
+        timestamp: newChallenge.timestamp,
+        start_date: newChallenge.startDate,
+        end_date: newChallenge.endDate,
         participants: newChallenge.participants,
       });
 
@@ -117,9 +130,9 @@ describe('Challenge routes', () => {
         tags: newChallenge.tags,
         description: newChallenge.description,
         location: newChallenge.location,
-        // timestamp: newChallenge.timestamp,
-        // start_date: newChallenge.start_date,
-        // end_date: newChallenge.end_date,
+        timestamp: newChallenge.timestamp,
+        start_date: newChallenge.start_date,
+        end_date: newChallenge.end_date,
         participants: newChallenge.participants,
       });
     });
