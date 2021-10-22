@@ -1,9 +1,9 @@
-const dotenv = require('dotenv').config({path: '/.env.dev'});
-const config = require('config');
-const app = require('./app');
-const mongoose = require('mongoose');
-const dbDebugger = require('debug')('app:mongodb');
-const appDebugger = require('debug')('app:startup');
+const dotenv = require("dotenv").config({ path: "/.env.dev" });
+const config = require("config");
+const app = require("./app");
+const mongoose = require("mongoose");
+const dbDebugger = require("debug")("app:mongodb");
+const appDebugger = require("debug")("app:startup");
 
 function initServer() {
   const port = process.env.EXPRESS_API_PORT;
@@ -18,32 +18,32 @@ function initServer() {
  * @returns
  */
 function uriBuilder(nodeEnv) {
-  var uri = '';
+  var uri = "";
   try {
-    if (nodeEnv === 'production') {
+    if (nodeEnv === "production") {
       uri =
         config.get(`${nodeEnv}.database.protocol`) +
         config.get(`${nodeEnv}.database.user`) +
-        ':' +
+        ":" +
         config.get(`${nodeEnv}.database.password`) +
-        '@' +
+        "@" +
         config.get(`${nodeEnv}.database.host`) +
-        '/' +
+        "/" +
         config.get(`${nodeEnv}.database.name`) +
-        '?' +
+        "?" +
         config.get(`${nodeEnv}.database.authsource`);
-    } else if (nodeEnv === 'development') {
+    } else if (nodeEnv === "development") {
       uri =
         config.get(`${nodeEnv}.database.protocol`) +
         config.get(`${nodeEnv}.database.host`) +
-        ':' +
+        ":" +
         config.get(`${nodeEnv}.database.port`) +
-        '/' +
+        "/" +
         config.get(`${nodeEnv}.database.name`);
     }
     return uri;
   } catch (error) {
-    dbDebugger('uriBuilder: ' + error.message);
+    dbDebugger("uriBuilder: " + error.message);
   }
 }
 
@@ -57,10 +57,10 @@ async function connectMongoose(uri) {
       .connect(uri, {
         sslCA: config.get(`${nodeEnv}.database.certificate`),
       })
-      .then(() => dbDebugger('Status: connected'));
+      .then(() => dbDebugger("Status: connected"));
     mongoose.connection.db.listCollections().toArray(function (err, names) {
       names.forEach((Element) =>
-        dbDebugger('Local DB Collections: ' + Element.name)
+        dbDebugger("Local DB Collections: " + Element.name)
       );
     });
   } catch (error) {
@@ -73,15 +73,15 @@ async function connectMongoose(uri) {
  */
 async function initMongoose() {
   try {
-    if (nodeEnv === 'development') {
-      dbDebugger('Host: ' + config.get(`${nodeEnv}.database.host`));
-      dbDebugger('Name: ' + config.get(`${nodeEnv}.database.name`));
-      dbDebugger('Collection: ' + config.get(`${nodeEnv}.database.collection`));
-    } else if (nodeEnv === 'common') {
-      dbDebugger('Host: ' + config.get(`${nodeEnv}.database.host`));
-      dbDebugger('Name: ' + config.get(`${nodeEnv}.database.name`));
+    if (nodeEnv === "development") {
+      dbDebugger("Host: " + config.get(`${nodeEnv}.database.host`));
+      dbDebugger("Name: " + config.get(`${nodeEnv}.database.name`));
+      dbDebugger("Collection: " + config.get(`${nodeEnv}.database.collection`));
+    } else if (nodeEnv === "common") {
+      dbDebugger("Host: " + config.get(`${nodeEnv}.database.host`));
+      dbDebugger("Name: " + config.get(`${nodeEnv}.database.name`));
       dbDebugger(
-        'Collection : ' + config.get(`${nodeEnv}.database.collection`)
+        "Collection : " + config.get(`${nodeEnv}.database.collection`)
       );
     }
     const uri = uriBuilder(nodeEnv);
