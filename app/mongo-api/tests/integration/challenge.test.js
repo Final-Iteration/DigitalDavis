@@ -91,9 +91,11 @@ describe('Challenge routes', () => {
         .send(newChallenge)
         .expect(httpStatus.CREATED);
 
-      // console.log("\nHTTP MESSAGE: ", httpStatus._MESSAGE);
-      // console.log("\nHTTP MESSAGE: ", httpStatus);
-
+    /**
+     * @todo timestamp  - expect.anything() // does not actually check IOS8601 - compliance
+     * @todo start_date - expect.anything() // does not actually check IOS8601 - compliance
+     * @todo end_date   - expect.anything() // does not actually check IOS8601 - compliance
+     */
       expect(res.body).toEqual({
         id: expect.anything(),
         name: newChallenge.name,
@@ -341,7 +343,7 @@ describe('Challenge routes', () => {
 });
 
 describe('GET /api/challenges/:challengeId', () => {
-  test.skip('should return 200 and the challenge object if data is ok', async () => {
+  test('should return 200 and the challenge object if data is ok', async () => {
     await insertChallenges([challengeOne]);
 
     const res = await request(app)
