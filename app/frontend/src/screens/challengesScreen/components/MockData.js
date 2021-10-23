@@ -63,7 +63,7 @@ export const cc = [
     status: true,
     tags: ["veggies", "green", "health"],
     location: "Davis, CA",
-    start_date: new date(),
+    start_date: new Date(),
   },
   {
     id: "5",
