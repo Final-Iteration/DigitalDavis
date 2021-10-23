@@ -13,6 +13,7 @@ import Ionicon from "react-native-vector-icons/Ionicons";
 
 import { Feather, AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Appbar, Avatar } from "react-native-paper";
+import { AntDesign } from '@expo/vector-icons'; 
 import { NavigationActions } from "react-navigation";
 const { height, width } = Dimensions.get("window");
 const barHeight = 37;
@@ -228,6 +229,7 @@ const CustomHeader = ({
             onPress={() => navigation.navigate("CreateChallenge")}
             style={styles.plusButton}
           >
+            {/* <Feather name="plus-circle" size={30} color="black" /> */}
             <AntDesign name="plus" size={28} color="black" />
           </TouchableOpacity>
         ) : (
@@ -255,6 +257,9 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: "#2F80ED",
     fontWeight: "500",
+  },
+  plusButton: {
+    right: width / 20,
   },
   plusButton: {
     right: width / 20,

@@ -52,10 +52,13 @@ app.use(mongoSanitize());
 app.use('/api/challenges', challengesRoute);
 app.use('/api/users', usersRoute);
 
-// send back a 404 error for any unknown api request
-app.use((req, res, next) => {
-  next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
-});
+
+
+//TodDo: (needs fix) COMMENTED OUT BECAUSE API ERROR WAS NOT DEFINED.
+// send back a 404 error for any unknown api request 
+//app.use((req, res, next) => {
+  //next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
+//});
 
 // convert error to ApiError, if needed
 app.use(errorConverter);
