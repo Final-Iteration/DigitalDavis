@@ -12,7 +12,7 @@ import { TabBar } from "react-native-tab-view";
 import axios from "axios";
 import { cc, pc, ac } from "./MockData";
 const baseURL =
-  "http://d601-2601-204-e780-d390-a50c-9558-8c81-9e0b.ngrok.io/api/challenges";
+  "http://2bf0-2601-204-e780-d390-b00f-3872-a6cf-3210.ngrok.io/api/challenges";
 
 const TopSwipe = ({ props }) => {
   const [allChallenges, setAllChallenge] = useState([]);
@@ -55,13 +55,12 @@ const TopSwipe = ({ props }) => {
 
   const FirstRoute = () => {
     //if there is no challenges to display
-    if (ac.length === 0) {
+    if (allChallenges.length === 0) {
       return defaultNoChallenge("All");
     } else {
       return (
         <FlatList
-          data={ac}
-          // data={allChallenges}
+          data={allChallenges}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
@@ -139,7 +138,6 @@ const TopSwipe = ({ props }) => {
     } else {
       return (
         <FlatList
-          // data={pc}
           data={pastChallenges}
           renderItem={({ item }) => {
             return (

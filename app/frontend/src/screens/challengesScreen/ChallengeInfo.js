@@ -30,7 +30,7 @@ const ChallengeInfo = (props) => {
 
   // let day = challenge.start_date.toString();
   // day = day.substring(0, day.indexOf("T"));
-  // let day = "09/40/20";
+  let day = "09/40/20";
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -96,7 +96,7 @@ const ChallengeInfo = (props) => {
         </TouchableOpacity>
         <View style={{ marginVertical: 12, bottom: 10 }}>
           <Text style={styles.about}>About</Text>
-          <Text style={styles.mainDescription}>{challenge.longDescr}</Text>
+          <Text style={styles.mainDescription}>{challenge.description}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
