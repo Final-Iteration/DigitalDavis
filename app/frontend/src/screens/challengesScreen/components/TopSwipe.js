@@ -55,7 +55,7 @@ const TopSwipe = ({ props }) => {
 
   const FirstRoute = () => {
     //if there is no challenges to display
-    if (allChallenges.length === 0) {
+    if (ac.length === 0) {
       return defaultNoChallenge("All");
     } else {
       return (
@@ -65,6 +65,7 @@ const TopSwipe = ({ props }) => {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
+                activeOpacity={1}
                 onPress={() =>
                   props.navigation.navigate("ChallengeInformation", {
                     challenge: item,
@@ -105,6 +106,7 @@ const TopSwipe = ({ props }) => {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
+                activeOpacity={1}
                 onPress={() =>
                   props.navigation.navigate("ChallengeInformation", {
                     challenge: item,
@@ -142,6 +144,7 @@ const TopSwipe = ({ props }) => {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
+                activeOpacity={1}
                 onPress={() =>
                   props.navigation.navigate("ChallengeInformation", {
                     challenge: item,
