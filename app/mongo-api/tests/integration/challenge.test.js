@@ -137,6 +137,9 @@ describe("Challenge routes", () => {
       });
     });
 
+    /**
+     * Name in Use
+     */
     test("should return 400 error if name is already used", async () => {
       await insertChallenges([challengeOne]);
       newChallenge.name = challengeOne.name;
@@ -156,7 +159,8 @@ describe("Challenge routes", () => {
     //     .expect(httpStatus.BAD_REQUEST);
     // });
 
-    test("should return 400 error if  name length is more than 30 characters", async () => {
+    
+    test("should return 400 error if name length is more than 30 characters", async () => {
       newChallenge.name = "Lorem ipsum dolor sit amet, con";
 
       await request(app)

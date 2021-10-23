@@ -14,12 +14,22 @@
   },
   "development": {
     "database": {
-      "host": "DEV_DATABASE_HOST",
+      "host": "DOCKER_DATABASE_HOST",
       "port": "DEV_DATABASE_PORT",
       "name": "DEV_DATABASE_NAME",
-      "protocol" : "DEV_DATABASE_PROTOCOL",
+      "protocol": "DEV_DATABASE_PROTOCOL",
       "collection": "DEV_DATABASE_COLLECTION",
       "certificate": "CA_CERTIFICATE_PATH"
     }
+  },
+  "docker": {
+    "database": {
+      "host": "DOCKER_DATABASE_HOST",
+      "port": "DOCKER_DATABASE_PORT",
+      "name": "DOCKER_DATABASE_NAME",
+      "protocol": "DOCKER_DATABASE_PROTOCOL",
+      "collection": "DOCKER_DATABASE_COLLECTION",
+      "certificate": "CA_CERTIFICATE_PATH"
+    }
   }
-} 
+}
