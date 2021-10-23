@@ -1,8 +1,17 @@
+<<<<<<< HEAD
 const dotenv = require('dotenv').config();
 const config = require('config');
 const { toJSON, paginate } = require('./plugins');
 const mongoose = require('mongoose');
 const modelDebugger = require('debug')('app:model');
+=======
+const dotenv = require("dotenv").config();
+const config = require("config");
+const { toJSON, paginate } = require("./plugins");
+const mongoose = require("mongoose");
+const modelDebugger = require("debug")("app:model");
+const bcrypt = require('bcrypt');
+>>>>>>> 43d9aefa425c6161cd5dd46b4b506c07b0a40aa8
 
 // schema
 const userSchema = new mongoose.Schema({
@@ -26,6 +35,11 @@ const userSchema = new mongoose.Schema({
     trim: true,
     minlength: 1,
     maxlength: 250,
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 8,
   },
   dob: {
     type: Date,
@@ -79,6 +93,23 @@ var validateEmail = async function (email) {
 
 //};
 
+<<<<<<< HEAD
+=======
+/**
+ * Check if password is correct password
+ * @param {string} password
+ * @returns {Promise<boolean>}
+ */
+ userSchema.methods.passwordMatch = async function (password) {
+  return bcrypt.compare(password, this.password)
+};
+
+userSchema.pre('save', async function (next) {
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
+>>>>>>> 43d9aefa425c6161cd5dd46b4b506c07b0a40aa8
 /**
  * @typedef User
  */
