@@ -65,7 +65,13 @@ const ChallengeInfo = (props) => {
           disabled={props.navigation.state.params.disableButton}
           style={[
             styles.participatingButton,
-            { backgroundColor: status ? "#90ee90" : "#DDDDDD" },
+            {
+              backgroundColor: props.navigation.state.params.disableButton
+                ? "#EBEBE4"
+                : status
+                ? "#90ee90"
+                : "#DDDDDD",
+            },
           ]}
           onPress={() => {
             setStatus(!status);
@@ -118,7 +124,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 17,
     marginVertical: 11,
   },
-
   image: {
     width: width,
     height: height / 2,
@@ -133,7 +138,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: width - 30,
     marginVertical: 11,
-    borderRadius: 3,
+    borderRadius: 8,
     alignSelf: "center",
   },
   about: {
