@@ -20,13 +20,16 @@ const { width, height } = Dimensions.get("window");
 const ChallengeInfo = (props) => {
   // this needs to be changed when we are importing data, should not be set to false
   const [status, setStatus] = useState(false);
+
   const challenge = props.navigation.state.params.challenge;
   useEffect(() => {
     setStatus(challenge.status);
   }, []);
+
   // console.log(challenge);
-  let day = challenge.date.toString();
-  day = day.substring(0, day.indexOf("T"));
+
+  // let day = challenge.start_date.toString();
+  // day = day.substring(0, day.indexOf("T"));
   // let day = "09/40/20";
 
   return (
