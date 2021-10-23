@@ -17,6 +17,18 @@ router
   );
 
 router
+.route("/active")
+.get(validate(challengeValidation.activeChallenges),
+ challengeController.getActiveChallenges
+);
+
+router
+.route("/past")
+.get(validate(challengeValidation.pastChallenges),
+ challengeController.getPastChallenges
+);
+
+router
   .route("/:Id")
   .get(
     validate(challengeValidation.getChallenge),
@@ -31,4 +43,6 @@ router
     challengeController.deleteChallenge
   );
 
-module.exports = router;
+
+
+  module.exports = router;

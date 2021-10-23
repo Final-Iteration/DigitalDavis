@@ -38,10 +38,23 @@ const deleteChallenge = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const getActiveChallenges = catchAsync(async (req, res) => {
+  const result = await challengeService.activeChallenges();
+  res.send(result);
+});
+
+
+const getPastChallenges = catchAsync(async (req, res) => {
+  const result = await challengeService.activeChallenges();
+  res.send(result);
+});
+
 module.exports = {
   createChallenge,
   getChallenges,
   getChallenge,
   updateChallenge,
   deleteChallenge,
+  getActiveChallenges,
+  getPastChallenges
 };
