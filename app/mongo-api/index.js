@@ -1,4 +1,4 @@
-const dotenv = require("dotenv").config({ path: "/.env.dev" });
+const dotenv = require("dotenv").config();
 const config = require("config");
 const app = require("./app");
 const mongoose = require("mongoose");
@@ -32,7 +32,7 @@ function uriBuilder(nodeEnv) {
         config.get(`${nodeEnv}.database.name`) +
         "?" +
         config.get(`${nodeEnv}.database.authsource`);
-    } else if (nodeEnv === "development") {
+    } else {
       uri =
         config.get(`${nodeEnv}.database.protocol`) +
         config.get(`${nodeEnv}.database.host`) +
@@ -55,7 +55,7 @@ async function connectMongoose(uri) {
   try {
     await mongoose
       .connect(uri, {
-        sslCA: config.get(`${nodeEnv}.database.certificate`),
+        sslCA: config.get(`${build_config}.database.certificate`),
       })
       .then(() => dbDebugger("Status: connected"));
     mongoose.connection.db.listCollections().toArray(function (err, names) {
@@ -73,18 +73,12 @@ async function connectMongoose(uri) {
  */
 async function initMongoose() {
   try {
-    if (nodeEnv === "development") {
-      dbDebugger("Host: " + config.get(`${nodeEnv}.database.host`));
-      dbDebugger("Name: " + config.get(`${nodeEnv}.database.name`));
-      dbDebugger("Collection: " + config.get(`${nodeEnv}.database.collection`));
-    } else if (nodeEnv === "common") {
-      dbDebugger("Host: " + config.get(`${nodeEnv}.database.host`));
-      dbDebugger("Name: " + config.get(`${nodeEnv}.database.name`));
-      dbDebugger(
-        "Collection : " + config.get(`${nodeEnv}.database.collection`)
-      );
+    if (build_config != "production") {
+      dbDebugger("Host: " + config.get(`${build_config}.database.host`));
+      dbDebugger("Name: " + config.get(`${build_config}.database.name`));
+      dbDebugger("Collection: " + config.get(`${build_config}.database.collection`));
     }
-    const uri = uriBuilder(nodeEnv);
+    const uri = uriBuilder(build_config);
     dbDebugger(`Connection to Mongoose on ${uri}`);
     return connectMongoose(uri);
   } catch (error) {
@@ -92,6 +86,8 @@ async function initMongoose() {
   }
 }
 
-const nodeEnv = process.env.NODE_ENV;
+const build_config = process.env.NODE_ENV;
+
+appDebugger('Build config = '+ build_config)
 initServer();
 initMongoose();
