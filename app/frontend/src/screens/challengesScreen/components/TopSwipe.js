@@ -30,128 +30,143 @@ const TopSwipe = ({ props }) => {
     }
     getAllChallenges();
   }, []);
-
-  const FirstRoute = () => (
-    <FlatList
-      data={ac}
-      // data={allChallenges}
-      renderItem={({ item }) => {
+  const defaultNoChallenge = (currentTab) => {
+    switch (currentTab) {
+      case "All":
         return (
-          <TouchableOpacity
-            onPress={() =>
-              props.navigation.navigate("ChallengeInformation", {
-                challenge: item,
-                disableButton: false,
-              })
-            }
-          >
-            <ChallengeBox
-              current={true}
-              title={item.name}
-              description={item.description}
-              image={
-                // eslint-disable-next-line max-len
-                "https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ"
-              }
-              status={"participating"}
-            />
-          </TouchableOpacity>
+          <Text style={styles.defaultText}>
+            There is currently no active challenges to display
+          </Text>
         );
-      }}
-      keyExtractor={(item) => item.id}
-    />
-  );
+      case "Current":
+        return (
+          <Text style={styles.defaultText}>
+            You are not currently participating in any challenges
+          </Text>
+        );
+      case "Past":
+        return (
+          <Text style={styles.defaultText}>
+            You have not completed any challenges
+          </Text>
+        );
+    }
+  };
 
-  // useEffect(() => {
-  //   async function getCurrentChallenges() {
-  //     try {
-  //       const res = await axios.get(baseURL);
-  //       console.log(res.data);
-  //       setCurrentChallenges(res.data.results);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-
-  //   getCurrentChallenges();
-  // }, []);
+  const FirstRoute = () => {
+    //if there is no challenges to display
+    if (allChallenges.length === 0) {
+      return defaultNoChallenge("All");
+    } else {
+      return (
+        <FlatList
+          data={ac}
+          // data={allChallenges}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  props.navigation.navigate("ChallengeInformation", {
+                    challenge: item,
+                    disableButton: false,
+                  })
+                }
+              >
+                <ChallengeBox
+                  current={true}
+                  title={item.name}
+                  description={item.description}
+                  image={
+                    // eslint-disable-next-line max-len
+                    "https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ"
+                  }
+                  status={"participating"}
+                />
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={(item) => item.id}
+        />
+      );
+    }
+  };
 
   /**
    *
    * @todo Filter to the challenges the user is currently participating in.
    */
-  const SecondRoute = () => (
-    <FlatList
-      data={currentChallenges}
-      renderItem={({ item }) => {
-        return (
-          <TouchableOpacity
-            onPress={() =>
-              props.navigation.navigate("ChallengeInformation", {
-                challenge: item,
-                disableButton: false,
-              })
-            }
-          >
-            <ChallengeBox
-              current={true}
-              title={item.name}
-              description={item.description}
-              image={
-                // eslint-disable-next-line max-len
-                "https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ"
-              }
-              status={"participating"}
-            />
-          </TouchableOpacity>
-        );
-      }}
-      keyExtractor={(item) => item.id}
-    />
-  );
-  // useEffect(() => {
-  //   async function getPastChallenges() {
-  //     try {
-  //       const res = await axios.get(baseURL);
-  //       console.log(res.data);
-  //       setPastChallenges(res.data.results);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
+  const SecondRoute = () => {
+    if (currentChallenges.length === 0) {
+      return defaultNoChallenge("Current");
+    } else {
+      return (
+        <FlatList
+          data={currentChallenges}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  props.navigation.navigate("ChallengeInformation", {
+                    challenge: item,
+                    disableButton: false,
+                  })
+                }
+              >
+                <ChallengeBox
+                  current={true}
+                  title={item.name}
+                  description={item.description}
+                  image={
+                    // eslint-disable-next-line max-len
+                    "https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ"
+                  }
+                  status={"participating"}
+                />
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={(item) => item.id}
+        />
+      );
+    }
+  };
 
-  //   getPastChallenges();
-  // }, []);
-
-  const ThirdRoute = () => (
-    <FlatList
-      data={pc}
-      renderItem={({ item }) => {
-        return (
-          <TouchableOpacity
-            onPress={() =>
-              props.navigation.navigate("ChallengeInformation", {
-                challenge: item,
-                disableButton: true,
-              })
-            }
-          >
-            <ChallengeBox
-              current={true}
-              title={item.name}
-              description={item.description}
-              image={
-                // eslint-disable-next-line max-len
-                "https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ"
-              }
-              status={"participating"}
-            />
-          </TouchableOpacity>
-        );
-      }}
-      keyExtractor={(item) => item.id}
-    />
-  );
+  const ThirdRoute = () => {
+    if (pastChallenges.length === 0) {
+      return defaultNoChallenge("Past");
+    } else {
+      return (
+        <FlatList
+          // data={pc}
+          data={pastChallenges}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  props.navigation.navigate("ChallengeInformation", {
+                    challenge: item,
+                    disableButton: true,
+                  })
+                }
+              >
+                <ChallengeBox
+                  current={true}
+                  title={item.name}
+                  description={item.description}
+                  image={
+                    // eslint-disable-next-line max-len
+                    "https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ"
+                  }
+                  status={"participating"}
+                />
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={(item) => item.id}
+        />
+      );
+    }
+  };
 
   const renderScene = SceneMap({
     first: FirstRoute,
@@ -192,6 +207,11 @@ const TopSwipe = ({ props }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#f2f2f2",
+  },
+  defaultText: {
+    marginVertical: "50%",
+    alignSelf: "center",
+    fontSize: 16,
   },
 });
 export default TopSwipe;
