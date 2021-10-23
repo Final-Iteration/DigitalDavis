@@ -2,7 +2,7 @@ version: "3.8"
 services:
   mongo-database:
     image: ucd-emp-wellness-db:lts
-    hostname: final-iteration
+    # hostname: localhost
     container_name: ucd-emp-wellness-db
     build: ./mongo-db/
     environment:
@@ -14,14 +14,14 @@ services:
     volumes: 
       - mongodb:/data/db
     networks:
-      - test_network
+      - dev_network
   express-api:
     image: ucd-emp-wellness-api:lts
-    hostname: final-iteration
+    # hostname: localhost
     container_name: ucd-emp-wellness-api
     build: ./mongo-api/
     environment:
-      - "NODE_ENV=development"
+      - "NODE_ENV=docker"
       - "EXPRESS_API_PORT=${EXPRESS_API_PORT}"
       - "CA_CERTIFICATE_PATH=${CA_CERTIFICATE_PATH}"
       - "DEV_DATABASE_HOST=${DEV_DATABASE_HOST}"
@@ -37,11 +37,14 @@ services:
       - api_node_modules:/usr/src/cache
     restart: unless-stopped
     networks:
-      - test_network
+      - dev_network
+    depends_on:
+      - mongo-database
 
 volumes: 
   api_node_modules:
   mongodb:
 
 networks:
-  test_network:
+  dev_network:
+    external: true
