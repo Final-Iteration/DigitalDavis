@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Dimensions } from 'react-native';
+import React from "react";
+import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Dimensions } from "react-native";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 const ChallengeBox = ({ image, title, description, status, past }) => {
   return (
@@ -22,7 +22,7 @@ const ChallengeBox = ({ image, title, description, status, past }) => {
           <Text style={styles.status_text}>Completed</Text>
         ) : (
           <Text style={styles.status_text}>
-            {status ? 'In Progress' : 'Not Participating'}
+            {status ? "In Progress" : "Not Participating"}
           </Text>
         )}
       </View>
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
     marginLeft: 17,
   },
   container: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    flexDirection: "column",
+    alignItems: "flex-start",
   },
   image: {
     borderRadius: 8,
@@ -46,20 +46,11 @@ const styles = StyleSheet.create({
     margin: 17,
   },
   title: {
-    fontWeight: '300',
+    fontWeight: "300",
     fontSize: 25,
     marginLeft: 17,
   },
-  // button: {
-  //   borderRadius: 4,
-  //   alignItems: "center",
-  //   backgroundColor: "#DDDDDD",
-  //   padding: 8,
-  //   margin: 2,
-  //   width: 100,
-  //   left: height / 5.2,
-  //   color: "red",
-  // },
+
   description: {
     fontSize: 16,
     marginLeft: 17,
