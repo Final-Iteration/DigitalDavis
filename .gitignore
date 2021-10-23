@@ -120,3 +120,4 @@ app/nohup.out
 app/mongo-db/dockerfile
 app/mongo-api/nohup.out
 app/mongo-api/.env.docker.dev
+app/mongo-api/.env.development
