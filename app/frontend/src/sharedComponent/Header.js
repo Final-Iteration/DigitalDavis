@@ -13,7 +13,7 @@ import Ionicon from "react-native-vector-icons/Ionicons";
 
 import { Feather, AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Appbar, Avatar } from "react-native-paper";
-import { AntDesign } from '@expo/vector-icons'; 
+//import { AntDesign } from '@expo/vector-icons'; 
 import { NavigationActions } from "react-navigation";
 const { height, width } = Dimensions.get("window");
 const barHeight = 37;

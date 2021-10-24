@@ -1,15 +1,10 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
-=======
-import React, { useState } from 'react';
->>>>>>> 341548f343f27d4506668cc4e3c2ff45d7a26cd3
 import {
   useWindowDimensions,
   StyleSheet,
   TouchableOpacity,
   FlatList,
   Text,
-<<<<<<< HEAD
 } from "react-native";
 import ChallengeBox from "./ChallengeBox";
 import { TabView, SceneMap } from "react-native-tab-view";
@@ -18,13 +13,6 @@ import axios from "axios";
 import { cc, pc, ac } from "./MockData";
 const baseURL =
   "http://2bf0-2601-204-e780-d390-b00f-3872-a6cf-3210.ngrok.io/api/challenges";
-=======
-} from 'react-native';
-import ChallengeBox from './ChallengeBox';
-import { TabView, SceneMap } from 'react-native-tab-view';
-import { curChallenge, pastChallenge, allChallenge } from './MockData';
-import { TabBar } from 'react-native-tab-view';
->>>>>>> 341548f343f27d4506668cc4e3c2ff45d7a26cd3
 
 const TopSwipe = ({ props }) => {
   const [allChallenges, setAllChallenge] = useState([]);
@@ -46,79 +34,21 @@ const TopSwipe = ({ props }) => {
     switch (currentTab) {
       case "All":
         return (
-<<<<<<< HEAD
           <Text style={styles.defaultText}>
             There is currently no active challenges to display
           </Text>
-=======
-          <TouchableOpacity
-            onLongPress={() => {
-              console.log('pressed');
-            }}
-            onPress={() =>
-              props.navigation.navigate('ChallengeInformation', {
-                challenge: item,
-              })
-            }
-          >
-            <ChallengeBox
-              current={true}
-              title={item.title}
-              description={item.shortDescr}
-              image={item.image}
-              status={item.status}
-            />
-          </TouchableOpacity>
->>>>>>> 341548f343f27d4506668cc4e3c2ff45d7a26cd3
         );
       case "Current":
         return (
-<<<<<<< HEAD
           <Text style={styles.defaultText}>
             You are not currently participating in any challenges
           </Text>
-=======
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={() =>
-              props.navigation.navigate('ChallengeInformation', {
-                challenge: item,
-              })
-            }
-          >
-            <ChallengeBox
-              current={true}
-              title={item.title}
-              description={item.shortDescr}
-              image={item.image}
-              status={item.status}
-            />
-          </TouchableOpacity>
->>>>>>> 341548f343f27d4506668cc4e3c2ff45d7a26cd3
         );
       case "Past":
         return (
-<<<<<<< HEAD
           <Text style={styles.defaultText}>
             You have not completed any challenges
           </Text>
-=======
-          <TouchableOpacity
-            onPress={() =>
-              props.navigation.navigate('ChallengeInformation', {
-                challenge: item,
-              })
-            }
-          >
-            <ChallengeBox
-              current={true}
-              title={item.title}
-              description={item.shortDescr}
-              image={item.image}
-              status={item.status}
-            />
-          </TouchableOpacity>
->>>>>>> 341548f343f27d4506668cc4e3c2ff45d7a26cd3
         );
     }
   };
