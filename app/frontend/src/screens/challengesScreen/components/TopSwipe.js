@@ -9,7 +9,7 @@ import {
 import ChallengeBox from "./ChallengeBox";
 import { TabView, SceneMap } from "react-native-tab-view";
 import { TabBar } from "react-native-tab-view";
-import axios from "axios";
+import axios from "../../../axios";
 import { cc, pc, ac } from "./MockData";
 const baseURL =
   "http://2bf0-2601-204-e780-d390-b00f-3872-a6cf-3210.ngrok.io/api/challenges";
@@ -21,8 +21,9 @@ const TopSwipe = ({ props }) => {
   useEffect(() => {
     async function getAllChallenges() {
       try {
-        const res = await axios.get(baseURL);
-        //console.log(res.data);
+        const res = await axios.get('/challenges');
+        console.log("-----ALL Challenges-----");
+        console.log(res.data);
         setAllChallenge(res.data.results);
       } catch (error) {
         console.log(error);
@@ -90,17 +91,30 @@ const TopSwipe = ({ props }) => {
       );
     }
   };
+  useEffect(() => {
+    async function getCurrentChallenges() {
+      try {
+        const res = await axios.get('/challenges/active');
+        console.log("-----Current Challenges-----")
+        console.log(res.data);
+        setCurrentChallenges(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
-  /**
-   *
-   * @todo Filter to the challenges the user is currently participating in.
-   */
+    getCurrentChallenges();
+  }, []);
+
+  
   const SecondRoute = () => {
+    
     if (currentChallenges.length === 0) {
       return defaultNoChallenge("Current");
     } else {
+      console.log(currentChallenges);
       return (
-        <FlatList
+        <FlatList          
           data={currentChallenges}
           renderItem={({ item }) => {
             return (
@@ -131,6 +145,21 @@ const TopSwipe = ({ props }) => {
       );
     }
   };
+
+  useEffect(() => {
+    async function getCurrentChallenges() {
+      try {
+        const res = await axios.get('/challenges/past');
+        console.log("-----Past Challenges-----")
+        console.log(res.data);
+        setCurrentChallenges(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getCurrentChallenges();
+  }, []);
 
   const ThirdRoute = () => {
     if (pastChallenges.length === 0) {
