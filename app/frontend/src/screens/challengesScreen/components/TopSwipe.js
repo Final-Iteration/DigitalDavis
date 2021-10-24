@@ -1,10 +1,15 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
+=======
+import React, { useState } from 'react';
+>>>>>>> 341548f343f27d4506668cc4e3c2ff45d7a26cd3
 import {
   useWindowDimensions,
   StyleSheet,
   TouchableOpacity,
   FlatList,
   Text,
+<<<<<<< HEAD
 } from "react-native";
 import ChallengeBox from "./ChallengeBox";
 import { TabView, SceneMap } from "react-native-tab-view";
@@ -13,6 +18,13 @@ import axios from "axios";
 import { cc, pc, ac } from "./MockData";
 const baseURL =
   "http://2bf0-2601-204-e780-d390-b00f-3872-a6cf-3210.ngrok.io/api/challenges";
+=======
+} from 'react-native';
+import ChallengeBox from './ChallengeBox';
+import { TabView, SceneMap } from 'react-native-tab-view';
+import { curChallenge, pastChallenge, allChallenge } from './MockData';
+import { TabBar } from 'react-native-tab-view';
+>>>>>>> 341548f343f27d4506668cc4e3c2ff45d7a26cd3
 
 const TopSwipe = ({ props }) => {
   const [allChallenges, setAllChallenge] = useState([]);
@@ -34,21 +46,79 @@ const TopSwipe = ({ props }) => {
     switch (currentTab) {
       case "All":
         return (
+<<<<<<< HEAD
           <Text style={styles.defaultText}>
             There is currently no active challenges to display
           </Text>
+=======
+          <TouchableOpacity
+            onLongPress={() => {
+              console.log('pressed');
+            }}
+            onPress={() =>
+              props.navigation.navigate('ChallengeInformation', {
+                challenge: item,
+              })
+            }
+          >
+            <ChallengeBox
+              current={true}
+              title={item.title}
+              description={item.shortDescr}
+              image={item.image}
+              status={item.status}
+            />
+          </TouchableOpacity>
+>>>>>>> 341548f343f27d4506668cc4e3c2ff45d7a26cd3
         );
       case "Current":
         return (
+<<<<<<< HEAD
           <Text style={styles.defaultText}>
             You are not currently participating in any challenges
           </Text>
+=======
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() =>
+              props.navigation.navigate('ChallengeInformation', {
+                challenge: item,
+              })
+            }
+          >
+            <ChallengeBox
+              current={true}
+              title={item.title}
+              description={item.shortDescr}
+              image={item.image}
+              status={item.status}
+            />
+          </TouchableOpacity>
+>>>>>>> 341548f343f27d4506668cc4e3c2ff45d7a26cd3
         );
       case "Past":
         return (
+<<<<<<< HEAD
           <Text style={styles.defaultText}>
             You have not completed any challenges
           </Text>
+=======
+          <TouchableOpacity
+            onPress={() =>
+              props.navigation.navigate('ChallengeInformation', {
+                challenge: item,
+              })
+            }
+          >
+            <ChallengeBox
+              current={true}
+              title={item.title}
+              description={item.shortDescr}
+              image={item.image}
+              status={item.status}
+            />
+          </TouchableOpacity>
+>>>>>>> 341548f343f27d4506668cc4e3c2ff45d7a26cd3
         );
     }
   };
@@ -177,14 +247,14 @@ const TopSwipe = ({ props }) => {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "first", title: "ALL" },
-    { key: "second", title: "CURRENT" },
-    { key: "third", title: "PAST" },
+    { key: 'first', title: 'ALL' },
+    { key: 'second', title: 'CURRENT' },
+    { key: 'third', title: 'PAST' },
   ]);
 
   return (
     <TabView
-      tabStyle={{ backgroundColor: "red" }}
+      tabStyle={{ backgroundColor: 'red' }}
       swipeEnabled={false}
       style={styles.container}
       navigationState={{ index, routes }}
@@ -193,10 +263,10 @@ const TopSwipe = ({ props }) => {
       renderTabBar={(props) => (
         <TabBar
           {...props}
-          style={{ backgroundColor: "#f2f2f2", flex: 0.09 }}
-          indicatorStyle={{ backgroundColor: "#142A4F" }}
+          style={{ backgroundColor: '#f2f2f2', flex: 0.09 }}
+          indicatorStyle={{ backgroundColor: '#142A4F' }}
           renderLabel={({ route, focused, color }) => (
-            <Text style={{ color: "black", margin: 8, fontSize: 15 }}>
+            <Text style={{ color: 'black', margin: 8, fontSize: 15 }}>
               {route.title}
             </Text>
           )}
@@ -207,7 +277,7 @@ const TopSwipe = ({ props }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f2f2f2",
+    backgroundColor: '#f2f2f2',
   },
   defaultText: {
     marginVertical: "50%",

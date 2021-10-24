@@ -37,15 +37,13 @@ const getChallengeById = async (challengeId) => {
   return Challenge.findOne({ _id: challengeId });
 };
 
-
 /**
  * Get challenge by id
  * @param none
  * @returns {Promise<Challenge>}
  */
 const isActive = async () => {
-
-  return Challenge.start_date ;
+  return Challenge.start_date;
 };
 
 /**
@@ -106,16 +104,17 @@ const activeChallenges = async () => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
-  const challenges = await Challenge.find( { end_date: {$gte: rn} } && {start_date: {$lte: rn}} ); 
+  const challenges = await Challenge.find(
+    { end_date: { $gte: rn } } && { start_date: { $lte: rn } }
+  );
   return challenges;
 };
-
 
 const pastChallenges = async () => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
-  const challenges = await Challenge.find( {end_date: {$lte: rn}} ); 
+  const challenges = await Challenge.find({ end_date: { $lte: rn } });
   return challenges;
 };
 
@@ -126,7 +125,6 @@ const pastChallenges = async () => {
  * @returns {Promise<Challenge>}
  */
 
-
 module.exports = {
   createChallenge,
   queryChallenges,
@@ -135,6 +133,5 @@ module.exports = {
   updateChallengeById,
   deleteChallengeById,
   activeChallenges,
-  pastChallenges
-
+  pastChallenges,
 };

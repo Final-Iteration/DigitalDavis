@@ -81,11 +81,11 @@ const Login = (props) => {
             <Text style={styles.forgotText}>Sign up</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Main')}>
-            <Text style = {styles.skipLogin}>
-              SKIP TO MAIN APP
-            </Text>
-        </TouchableOpacity>
+        <Button
+          title="SKIP BUTTON TO MAIN APP"
+          color="white"
+          onPress={() => props.navigation.navigate('Main')}
+        />
       </View>
     </ImageBackground>
   );
@@ -141,13 +141,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     marginTop: height / 70,
-    marginHorizontal: width / 40
+    marginHorizontal: width / 40,
   },
-  skipLogin:{
-    alignSelf: 'center',
-    color: 'white',
-    fontSize: 20,
-  }
 });
 
 export default Login;

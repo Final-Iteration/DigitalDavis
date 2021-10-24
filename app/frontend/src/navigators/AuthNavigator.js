@@ -27,7 +27,6 @@ const AuthStack = createStackNavigator({
     navigationOptions: {
       headerShown: true,
       title: 'Reset Password',
-
     },
   },
 });

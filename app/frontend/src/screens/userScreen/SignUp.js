@@ -7,6 +7,7 @@ import {
   TextInput,
   Dimensions,
   ImageBackground,
+<<<<<<< HEAD
   Button,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -16,6 +17,12 @@ import axios from 'axios';
 const baseURL =
   'http://2bf0-2601-204-e780-d390-b00f-3872-a6cf-3210.ngrok.io/api/users';
 
+=======
+} from 'react-native';
+import NumberPlease from 'react-native-number-please';
+import DatePicker from '@react-native-community/datetimepicker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+>>>>>>> 341548f343f27d4506668cc4e3c2ff45d7a26cd3
 const { height, width } = Dimensions.get('window');
 const imageSource = require('../../../assets/blurredDavis.jpg');
 const Signup = (props) => {
@@ -25,6 +32,10 @@ const Signup = (props) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [title, setTitle] = useState('');
   const [department, setDepartment] = useState('');
+<<<<<<< HEAD
+=======
+  const [date, setDate] = useState(new Date());
+>>>>>>> 341548f343f27d4506668cc4e3c2ff45d7a26cd3
   const [fillError, setFillError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
