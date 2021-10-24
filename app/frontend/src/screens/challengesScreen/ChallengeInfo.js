@@ -19,11 +19,11 @@ import UnjoinedBanner from './components/UnjoinedBanner';
 const { width, height } = Dimensions.get('window');
 const ChallengeInfo = (props) => {
   // this needs to be changed when we are importing data, should not be set to false
-  const [status, setStatus] = useState(false);
+  const [participationStatus, setStatus] = useState(false);
 
   const challenge = props.navigation.state.params.challenge;
   useEffect(() => {
-    setStatus(challenge.status);
+    setStatus(challenge.participationStatus);
   }, []);
 
   // console.log(challenge);
@@ -71,19 +71,19 @@ const ChallengeInfo = (props) => {
             {
               backgroundColor: props.navigation.state.params.disableButton
                 ? "#EBEBE4"
-                : status
+                : participationStatus
                 ? "#90ee90"
                 : "#DDDDDD",
             },
           ]}
           onPress={() => {
-            setStatus(!status);
+            setStatus(!participationStatus);
             showMessage({
               icon: 'success',
               position: 'top',
               message: null,
-              type: status ? 'warning' : 'success',
-              renderFlashMessageIcon: status ? UnjoinedBanner : JoinBanner,
+              type: participationStatus ? 'warning' : 'success',
+              renderFlashMessageIcon: participationStatus ? UnjoinedBanner : JoinBanner,
               style: { borderRadius: 15, top: 35, height: 50 },
               statusBarHeight: 0,
               floating: true,
@@ -91,7 +91,7 @@ const ChallengeInfo = (props) => {
           }}
         >
           <Text style={styles.participate}>
-            {status ? 'Participating' : 'Participate'}
+            {participationStatus ? 'Participating' : 'Participate'}
           </Text>
         </TouchableOpacity>
         <View style={{ marginVertical: 12, bottom: 10 }}>
