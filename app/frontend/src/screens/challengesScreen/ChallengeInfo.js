@@ -18,7 +18,9 @@ import UnjoinedBanner from './components/UnjoinedBanner';
 
 const { width, height } = Dimensions.get('window');
 const ChallengeInfo = (props) => {
-  // this needs to be changed when we are importing data, should not be set to false
+  /**
+   * @todo: this needs to be changed when we are importing data, should not be set to false
+   */
   const [participationStatus, setStatus] = useState(false);
 
   const challenge = props.navigation.state.params.challenge;
