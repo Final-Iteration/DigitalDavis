@@ -1,6 +1,6 @@
 {
-  "development": {
-    "name": "Mongo Express API - Development",
+  "docker": {
+    "name": "Mongo Express API - Docker",
     "database": {
       "host": "",
       "port": "",

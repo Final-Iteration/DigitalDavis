@@ -34,7 +34,7 @@ const queryUsers = async (filter, options) => {
  * @returns {Promise<User>}
  */
 const getUserById = async (UserId) => {
-  return User.findOne({ _id : UserId});
+  return User.findOne({ _id: UserId });
 };
 
 /**
@@ -42,7 +42,7 @@ const getUserById = async (UserId) => {
  * @param {string} first_name
  * @returns {Promise<User>}
  */
- const getUserByName = async (first_name) => {
+const getUserByName = async (first_name) => {
   return User.findOne({ first_name });
 };
 
@@ -53,12 +53,12 @@ const getUserById = async (UserId) => {
  * @returns {Promise<User>}
  */
 const updateUserById = async (id, updateBody) => {
-  const User = await getUserById({ _id : id});
+  const User = await getUserById({ _id: id });
   if (!User) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  //ERROR "User.isEmailTaken is not a function" even though it is a function 
-  //I can't figure this out  
+  //ERROR "User.isEmailTaken is not a function" even though it is a function
+  //I can't figure this out
   // if (await User.isEmailTaken(updateBody.email)) {
   //   throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   // }
@@ -76,7 +76,7 @@ const updateUserById = async (id, updateBody) => {
  * @returns {Promise<User>}
  */
 const deleteUserById = async (id) => {
-  const User = await getUserById({ _id : id});
+  const User = await getUserById({ _id: id });
   if (!User) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }

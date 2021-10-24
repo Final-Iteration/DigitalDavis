@@ -107,8 +107,17 @@ web-build/
 # macOS
 .DS_Store
 
-# expo 
+# Application 
 app/.expo-shared
 app/.expo-shared/**
 app/mongo-api/certificates/ca-certificate.crt
 .vscode/settings.json
+app/mongo-api/certificates/docker-config.json
+app/nohup.out
+
+.env.dev
+.env.prod
+
+app/mongo-api/nohup.out
+app/mongo-api/.env.docker.dev
+app/mongo-api/.env.development
