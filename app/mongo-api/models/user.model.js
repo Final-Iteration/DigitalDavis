@@ -1,7 +1,7 @@
 const validator = require('validator');
 const { toJSON, paginate } = require('./plugins');
 const mongoose = require('mongoose');
-//const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 // schema
 const userSchema = mongoose.Schema({
