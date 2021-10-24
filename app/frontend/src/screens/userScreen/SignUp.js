@@ -12,9 +12,8 @@ import {
 import DateTimePicker from '@react-native-community/datetimepicker';
 // import DatePicker from 'react-native-datepicker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import axios from 'axios';
-const baseURL =
-  'http://2bf0-2601-204-e780-d390-b00f-3872-a6cf-3210.ngrok.io/api/users';
+import axios from '../../axios';
+
 
 const { height, width } = Dimensions.get('window');
 const imageSource = require('../../../assets/blurredDavis.jpg');
@@ -52,7 +51,7 @@ const Signup = (props) => {
         date.toString();
         try {
           
-          const res = await axios.post(baseURL, {
+          const res = await axios.post('/users', {
             first_name: name,
             last_name: name,
             email: email,
