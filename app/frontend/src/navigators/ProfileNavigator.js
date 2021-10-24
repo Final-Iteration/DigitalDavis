@@ -13,7 +13,7 @@ const ProfileStack = createStackNavigator(
         header: ({ scene, previous, navigation }) => (
           <Header title="Profile" navigation={navigation} profile={true} />
         ),
-        cardStyle: { backgroundColor: "#142A4F" },
+        cardStyle: { backgroundColor: '#142A4F' },
       },
     },
     Setting: {
@@ -22,7 +22,7 @@ const ProfileStack = createStackNavigator(
         header: ({ scene, previous, navigation }) => (
           <Header title="Settings" navigation={navigation} setting={true} />
         ),
-        cardStyle: { backgroundColor: "#142A4F" },
+        cardStyle: { backgroundColor: '#142A4F' },
       },
     },
   },

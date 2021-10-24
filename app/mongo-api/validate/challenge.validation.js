@@ -79,19 +79,17 @@ const deleteChallenge = {
 
 const activeChallenges = {
   query: Joi.object().keys({
-      name: Joi.string().min(5).max(150).trim(),
-      sortBy: Joi.string(),
+    name: Joi.string().min(5).max(150).trim(),
+    sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
   }),
 };
 
-
-
 const pastChallenges = {
   query: Joi.object().keys({
-      name: Joi.string().min(5).max(150).trim(),
-      sortBy: Joi.string(),
+    name: Joi.string().min(5).max(150).trim(),
+    sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
   }),
@@ -104,5 +102,5 @@ module.exports = {
   updateChallenge,
   deleteChallenge,
   activeChallenges,
-  pastChallenges
+  pastChallenges,
 };

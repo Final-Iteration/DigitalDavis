@@ -43,7 +43,6 @@ const getActiveChallenges = catchAsync(async (req, res) => {
   res.send(result);
 });
 
-
 const getPastChallenges = catchAsync(async (req, res) => {
   const result = await challengeService.activeChallenges();
   res.send(result);
@@ -56,5 +55,5 @@ module.exports = {
   updateChallenge,
   deleteChallenge,
   getActiveChallenges,
-  getPastChallenges
+  getPastChallenges,
 };

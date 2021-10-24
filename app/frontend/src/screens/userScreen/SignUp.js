@@ -7,19 +7,19 @@ import {
   TextInput,
   Dimensions,
   ImageBackground,
-} from "react-native";
-import NumberPlease from "react-native-number-please";
-import DatePicker from "@react-native-community/datetimepicker";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-const { height, width } = Dimensions.get("window");
-const imageSource = require("../../../assets/blurredDavis.jpg");
+} from 'react-native';
+import NumberPlease from 'react-native-number-please';
+import DatePicker from '@react-native-community/datetimepicker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+const { height, width } = Dimensions.get('window');
+const imageSource = require('../../../assets/blurredDavis.jpg');
 const Signup = (props) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [title, setTitle] = useState("");
-  const [department, setDepartment] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [title, setTitle] = useState('');
+  const [department, setDepartment] = useState('');
   const [date, setDate] = useState(new Date());
   const [fillError, setFillError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -48,7 +48,7 @@ const Signup = (props) => {
         enableOnAndroid={true}
         extraHeight={100}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps={"always"}
+        keyboardShouldPersistTaps={'always'}
       >
         <TextInput
           autoCapitalize="none"
@@ -136,25 +136,25 @@ const styles = StyleSheet.create({
   dateInput: {
     height: 55,
     borderRadius: 10,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: '#F6F6F6',
     marginHorizontal: width / 15,
     marginBottom: height / 40,
     padding: height / 70,
     fontSize: 18,
-    flexDirection: "row",
-    alignItems: "flex-start",
+    flexDirection: 'row',
+    alignItems: 'flex-start',
   },
   DOBText: {
     fontSize: 18,
     top: 2,
-    color: "#A9A9A9",
+    color: '#A9A9A9',
   },
   datePickerStyle: {
     height: 45,
     width: 120,
     right: 5,
     top: 5,
-    position: "absolute",
+    position: 'absolute',
   },
   errorText: {
     color: 'red',
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   textInput: {
     height: 55,
     borderRadius: 10,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: '#F6F6F6',
     marginHorizontal: width / 15,
     marginBottom: height / 40,
     padding: height / 70,

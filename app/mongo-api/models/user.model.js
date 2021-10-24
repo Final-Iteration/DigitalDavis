@@ -91,8 +91,8 @@ var validateEmail = async function (email) {
  * @param {string} password
  * @returns {Promise<boolean>}
  */
- userSchema.methods.passwordMatch = async function (password) {
-  return bcrypt.compare(password, this.password)
+userSchema.methods.passwordMatch = async function (password) {
+  return bcrypt.compare(password, this.password);
 };
 
 userSchema.pre('save', async function (next) {
