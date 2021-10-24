@@ -1,32 +1,33 @@
-const dotenv = require("dotenv").config();
-const config = require("config");
-const { toJSON, paginate } = require("./plugins");
-const mongoose = require("mongoose");
-const modelDebugger = require("debug")("app:model");
-const bcrypt = require('bcrypt');
+const validator = require('validator');
+const { toJSON, paginate } = require('./plugins');
+const mongoose = require('mongoose');
 
 // schema
-const userSchema = new mongoose.Schema({
+const userSchema = mongoose.Schema({
   first_name: {
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 150,
+    maxlength: 30,
   },
   last_name: {
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 150,
+    maxlength: 30,
   },
   email: {
     type: String,
-    unique: true,
     required: true,
-    //validate: [validateEmail, 'Please fill a valid email address'],
+    unique: true,
     trim: true,
-    minlength: 1,
-    maxlength: 250,
+    lowercase: true,
+    maxlength: 50,
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw new Error('Invalid email');
+      }
+    },
   },
   password: {
     type: String,
@@ -36,7 +37,7 @@ const userSchema = new mongoose.Schema({
   dob: {
     type: Date,
     required: false,
-   // validate: [validateDOB, 'Please enter a correct date'],
+    // validate: [validateDOB, 'Please enter a correct date'],
   },
   job_title: {
     type: [String],
@@ -48,7 +49,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-
 // add plugin that converts mongoose to json
 userSchema.plugin(toJSON);
 userSchema.plugin(paginate);
@@ -59,17 +59,13 @@ userSchema.plugin(paginate);
  * @param {ObjectId} [excludeuserId] - The id of the user to be excluded
  * @returns {Promise<boolean>}
  */
- userSchema.statics.isEmailTaken = async function (
-  email,
-  excludeUserId
-) {
+userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
   const user = await this.findOne({
-   email,
+    email,
     _id: { $ne: excludeUserId },
   });
   return !!user;
 };
-
 
 //@TODO Fix this function @Daniel
 /**validateEmail
@@ -106,7 +102,13 @@ userSchema.pre('save', async function (next) {
 
 /**
  * @typedef User
+ * determines collection name to be "user"
  */
-const User = mongoose.model("user",userSchema);
+const User = mongoose.model('user', userSchema);
+// const UserTest = mongoose.model("user_test", userSchema);
 
+/**
+ * @todo Test if this works
+ */
 module.exports = User;
+// module.exports = UserTest;

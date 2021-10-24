@@ -11,7 +11,6 @@ import Icon from "react-native-vector-icons/AntDesign";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import { Feather } from "@expo/vector-icons";
 import { Appbar, Avatar } from "react-native-paper";
-import { AntDesign } from '@expo/vector-icons'; 
 import { NavigationActions } from "react-navigation";
 const { height, width } = Dimensions.get("window");
 const barHeight = 37;
@@ -114,7 +113,7 @@ const CustomHeader = ({
         }}
       >
         <TouchableOpacity
-          style={{ left: width / 20 }}
+          style={{ left: 22 }}
           onPress={() => navigation.navigate("User")}
         >
           <Avatar.Image
@@ -162,8 +161,7 @@ const CustomHeader = ({
             onPress={() => navigation.navigate("CreateChallenge")}
             style={styles.plusButton}
           >
-            {/* <Feather name="plus-circle" size={30} color="black" /> */}
-            <AntDesign name="plus" size={28} color="black" />
+            <Feather name="plus-circle" size={30} color="black" />
           </TouchableOpacity>
         ) : null}
       </Appbar.Header>
@@ -189,9 +187,6 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#2F80ED',
     fontWeight: '500',
-  },
-  plusButton: {
-    right: width / 20,
   },
   plusButton: {
     right: width / 20,

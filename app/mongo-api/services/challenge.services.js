@@ -34,7 +34,7 @@ const queryChallenges = async (filter, options) => {
  * @returns {Promise<Challenge>}
  */
 const getChallengeById = async (challengeId) => {
-  return Challenge.findOne({ _id : challengeId});
+  return Challenge.findOne({ _id: challengeId });
 };
 
 
@@ -53,7 +53,7 @@ const isActive = async () => {
  * @param {string} name
  * @returns {Promise<Challenge>}
  */
- const getChallengeByName = async (name) => {
+const getChallengeByName = async (name) => {
   return Challenge.findOne({ name });
 };
 
@@ -64,7 +64,7 @@ const isActive = async () => {
  * @returns {Promise<Challenge>}
  */
 const updateChallengeById = async (id, updateBody) => {
-  const challenge = await getChallengeById({ _id : id});
+  const challenge = await getChallengeById({ _id: id });
   if (!challenge) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
   }
@@ -82,7 +82,7 @@ const updateChallengeById = async (id, updateBody) => {
  * @returns {Promise<Challenge>}
  */
 const deleteChallengeById = async (id) => {
-  const challenge = await getChallengeById({ _id : id});
+  const challenge = await getChallengeById({ _id: id });
   if (!challenge) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
   }

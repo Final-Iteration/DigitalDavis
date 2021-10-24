@@ -1,5 +1,3 @@
-const dotenv = require('dotenv').config();
-const config = require('config');
 const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
 // const compression = require('compression');
@@ -17,7 +15,7 @@ const app = express();
 // set Morgan
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
-};
+}
 
 // set security HTTP headers
 app.use(helmet());
