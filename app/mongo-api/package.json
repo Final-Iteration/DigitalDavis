@@ -6,8 +6,7 @@
   "scripts": {
     "build": "node index.js",
     "build:dev": "nodemon index.js",
-    "build:database": "NODE_ENV=database ./build.sh",
-    "build:docker": "NODE_ENV=docker ./build.sh",
+    "build:docker": "NODE_ENV=docker ./script.sh",
     "test": "NODE_ENV=development DB_CON_STR=mongodb://localhost:27017/ jest -i --colors --verbose=true --detectOpenHandles ",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
