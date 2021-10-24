@@ -1,8 +1,5 @@
-const dotenv = require('dotenv').config();
-const config = require('config');
 const { toJSON, paginate } = require('./plugins');
 const mongoose = require('mongoose');
-const modelDebugger = require('debug')('app:model');
 
 /**
  * @function challengeSchema
@@ -14,7 +11,7 @@ const modelDebugger = require('debug')('app:model');
  * @participants a list of names of valid users
  * @tags can only be the following strings  ['Emotional', 'Environmental', 'Intellectual', 'Physical', 'Social', 'Spiritual']
  */
-const challengeSchema = new mongoose.Schema({
+const challengeSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -46,7 +43,6 @@ const challengeSchema = new mongoose.Schema({
   description: {
     type: String,
     required: false,
-    minlength: 3,
     maxlength: 150,
     trim: true,
     // match: /^([A-Za-z0-9_\\-\\.\\s\\!])+$/,
@@ -96,7 +92,7 @@ const challengeSchema = new mongoose.Schema({
   },
   participants: {
     type: [String],
-    required: true,
+    required: false,
     default: function () {
       return this.creator;
     },

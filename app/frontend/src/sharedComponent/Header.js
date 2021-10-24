@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Text,
   StyleSheet,
@@ -64,20 +64,20 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: "#fff",
+          backgroundColor: '#fff',
           elevation: 0,
         }}
       >
         <TouchableOpacity
-          style={{ left: 5, flexDirection: "row", alignSelf: "center" }}
+          style={{ left: 5, flexDirection: 'row', alignSelf: 'center' }}
           onPress={() => {
-            navigation.navigate("Challenge");
+            navigation.navigate('Challenge');
           }}
         >
           <Ionicon
             name="ios-chevron-back-outline"
             size={30}
-            style={{ color: "#2F80ED" }}
+            style={{ color: '#2F80ED' }}
           />
           <Text style={styles.challengeInfoBack}>Back</Text>
         </TouchableOpacity>
@@ -106,7 +106,7 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: "#1d3679",
+          backgroundColor: '#1d3679',
           elevation: -1,
         }}
       >
@@ -117,7 +117,7 @@ const CustomHeader = ({
         <TouchableOpacity
           style={{ right: 22 }}
           onPress={() => {
-            navigation.navigate("Login");
+            navigation.navigate('Login');
           }}
         >
           <Text>Login</Text>
@@ -137,7 +137,7 @@ const CustomHeader = ({
           style={{ left: 22 }}
           onPress={() => navigation.navigate("Setting")}
         >
-          <Icon name="setting" size={30} style={{ color: "white" }} />
+          <Icon name="setting" size={30} style={{ color: 'white' }} />
         </TouchableOpacity>
 
         <Appbar.Content
@@ -157,18 +157,18 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: "#142A4F",
+          backgroundColor: '#142A4F',
           elevation: 0,
         }}
       >
         <TouchableOpacity
-          style={{ left: width / 20 }}
-          onPress={() => navigation.navigate("User")}
+          style={{ left: 22 }}
+          onPress={() => navigation.navigate('User')}
         >
           <Avatar.Image
             size={40}
             source={{
-              uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+              uri: 'https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg',
             }}
           />
         </TouchableOpacity>
@@ -226,11 +226,10 @@ const CustomHeader = ({
         />
         {challenge ? (
           <TouchableOpacity
-            onPress={() => navigation.navigate("CreateChallenge")}
+            onPress={() => navigation.navigate('CreateChallenge')}
             style={styles.plusButton}
           >
-            {/* <Feather name="plus-circle" size={30} color="black" /> */}
-            <AntDesign name="plus" size={28} color="black" />
+            <Feather name="plus-circle" size={30} color="black" />
           </TouchableOpacity>
         ) : (
           r()
@@ -242,8 +241,8 @@ const CustomHeader = ({
 const styles = StyleSheet.create({
   challengeInfoBack: {
     fontSize: 17,
-    color: "#2F80ED",
-    fontWeight: "500",
+    color: '#2F80ED',
+    fontWeight: '500',
     marginVertical: 5,
   },
   headerStyle: {
@@ -257,9 +256,6 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: "#2F80ED",
     fontWeight: "500",
-  },
-  plusButton: {
-    right: width / 20,
   },
   plusButton: {
     right: width / 20,

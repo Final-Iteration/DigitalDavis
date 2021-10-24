@@ -1,5 +1,3 @@
-const dotenv = require('dotenv').config();
-const config = require('config');
 const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
 // const compression = require('compression');
@@ -52,12 +50,10 @@ app.use(mongoSanitize());
 app.use('/api/challenges', challengesRoute);
 app.use('/api/users', usersRoute);
 
-
-
 //TodDo: (needs fix) COMMENTED OUT BECAUSE API ERROR WAS NOT DEFINED.
-// send back a 404 error for any unknown api request 
+// send back a 404 error for any unknown api request
 //app.use((req, res, next) => {
-  //next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
+//next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
 //});
 
 // convert error to ApiError, if needed

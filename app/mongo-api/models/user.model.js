@@ -1,32 +1,33 @@
-const dotenv = require("dotenv").config();
-const config = require("config");
-const { toJSON, paginate } = require("./plugins");
-const mongoose = require("mongoose");
-const modelDebugger = require("debug")("app:model");
-const bcrypt = require('bcrypt');
+const validator = require('validator');
+const { toJSON, paginate } = require('./plugins');
+const mongoose = require('mongoose');
 
 // schema
-const userSchema = new mongoose.Schema({
+const userSchema = mongoose.Schema({
   first_name: {
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 150,
+    maxlength: 30,
   },
   last_name: {
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 150,
+    maxlength: 30,
   },
   email: {
     type: String,
-    unique: true,
     required: true,
-    //validate: [validateEmail, 'Please fill a valid email address'],
+    unique: true,
     trim: true,
-    minlength: 1,
-    maxlength: 250,
+    lowercase: true,
+    maxlength: 50,
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw new Error('Invalid email');
+      }
+    },
   },
   password: {
     type: String,
@@ -90,8 +91,8 @@ var validateEmail = async function (email) {
  * @param {string} password
  * @returns {Promise<boolean>}
  */
- userSchema.methods.passwordMatch = async function (password) {
-  return bcrypt.compare(password, this.password)
+userSchema.methods.passwordMatch = async function (password) {
+  return bcrypt.compare(password, this.password);
 };
 
 userSchema.pre('save', async function (next) {
@@ -101,7 +102,13 @@ userSchema.pre('save', async function (next) {
 
 /**
  * @typedef User
+ * determines collection name to be "user"
  */
 const User = mongoose.model('user', userSchema);
+// const UserTest = mongoose.model("user_test", userSchema);
 
+/**
+ * @todo Test if this works
+ */
 module.exports = User;
+// module.exports = UserTest;
