@@ -58,6 +58,7 @@ const Signup = (props) => {
             dob: date.toString(),
             department: department,
             job_title: title,
+            password: password
           });
           
           /** 
