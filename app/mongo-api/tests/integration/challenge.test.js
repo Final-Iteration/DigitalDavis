@@ -1,22 +1,22 @@
 /* eslint-disable no-undef */
-const request = require("supertest");
-const faker = require("faker");
-const httpStatus = require("http-status");
-const app = require("../../../mongo-api/app");
+const request = require('supertest');
+const faker = require('faker');
+const httpStatus = require('http-status');
+const app = require('../../../mongo-api/app');
 
 //Need to replace this with our own DB
-const setupTestDB = require("../utils/setupTestDB");
+const setupTestDB = require('../utils/setupTestDB');
 // const connection = require("../../index")
 
-const { Challenge } = require("../../models");
+const { Challenge } = require('../../models');
 
 const challengeTags = [
-  "Emotional",
-  "Environmental",
-  "Intellectual",
-  "Physical",
-  "Social",
-  "Spiritual",
+  'Emotional',
+  'Environmental',
+  'Intellectual',
+  'Physical',
+  'Social',
+  'Spiritual',
 ];
 
 function start_date() {
@@ -57,8 +57,8 @@ const {
   challengeTwo,
   insertChallenges,
   challengeThree,
-} = require("../fixtures/challenge.fixture");
-const { deleteOne } = require("../../models/challenge.model");
+} = require('../fixtures/challenge.fixture');
+const { deleteOne } = require('../../models/challenge.model');
 
 //JWT Tokens for testing
 // const { challengeOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
@@ -66,8 +66,8 @@ const { deleteOne } = require("../../models/challenge.model");
 //Need to createa a connection to the testing database before running any tests
 setupTestDB();
 
-describe("Challenge routes", () => {
-  describe("POST /api/challenges", () => {
+describe('Challenge routes', () => {
+  describe('POST /api/challenges', () => {
     let newChallenge;
 
     let start = start_date();
@@ -75,19 +75,19 @@ describe("Challenge routes", () => {
 
     beforeEach(() => {
       newChallenge = {
-        name: "Challenge Name",
-        creator: "Sharon",
-        tags: ["Emotional", "Spiritual"],
+        name: 'Challenge Name',
+        creator: 'Sharon',
+        tags: ['Emotional', 'Spiritual'],
         timestamp: start,
         start_date: start,
         end_date: end,
-        description: "jump 2000, million-times.",
-        location: "Davis,Ca",
-        participants: ["Sharon"],
+        description: 'jump 2000, million-times.',
+        location: 'Davis,Ca',
+        participants: ['Sharon'],
       };
     });
 
-    test("should return 201 and successfully create new Challenge if data is ok", async () => {
+    test('should return 201 and successfully create new Challenge if data is ok', async () => {
       // newChallenge = {
       //   name: 'Challenge Name',
       //   creator: 'Sharon',
@@ -100,7 +100,7 @@ describe("Challenge routes", () => {
       // };
 
       const res = await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .send(newChallenge)
         .expect(httpStatus.CREATED);
 
@@ -140,10 +140,10 @@ describe("Challenge routes", () => {
     /**
      * Name in Use
      */
-    test("should return 400 error if name is already used", async () => {
+    test('should return 400 error if name is already used', async () => {
       await insertChallenges([challengeOne]);
       newChallenge.name = challengeOne.name;
-      await request(app).post("/api/challenges").send(newChallenge);
+      await request(app).post('/api/challenges').send(newChallenge);
     });
 
     /**
@@ -159,25 +159,24 @@ describe("Challenge routes", () => {
     //     .expect(httpStatus.BAD_REQUEST);
     // });
 
-    
-    test("should return 400 error if name length is more than 30 characters", async () => {
-      newChallenge.name = "Lorem ipsum dolor sit amet, con";
+    test('should return 400 error if name length is more than 30 characters', async () => {
+      newChallenge.name = 'Lorem ipsum dolor sit amet, con';
 
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
   });
-  describe("GET /api/challenges", () => {
-    test("should return 200 and apply the default query options", async () => {
+  describe('GET /api/challenges', () => {
+    test('should return 200 and apply the default query options', async () => {
       await insertChallenges([challengeOne, challengeTwo, challengeThree]);
 
       // const tagsArray = [];
       // tagsArray.push(challengeOne.tags);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .send()
         .expect(httpStatus.OK);
 
@@ -215,11 +214,11 @@ describe("Challenge routes", () => {
       });
     });
 
-    test("should correctly apply filter on name field", async () => {
+    test('should correctly apply filter on name field', async () => {
       await insertChallenges([challengeOne, challengeTwo]);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .query({ name: challengeOne.name })
         .send()
         .expect(httpStatus.OK);
@@ -240,12 +239,12 @@ describe("Challenge routes", () => {
      */
 
     // eslint-disable-next-line max-len
-    test("should correctly sort the returned array if descending sort param  by name is specified", async () => {
+    test('should correctly sort the returned array if descending sort param  by name is specified', async () => {
       await insertChallenges([challengeOne, challengeTwo]);
 
       const res = await request(app)
-        .get("/api/challenges")
-        .query({ sortBy: "name:desc" })
+        .get('/api/challenges')
+        .query({ sortBy: 'name:desc' })
         .send()
         .expect(httpStatus.OK);
 
@@ -261,12 +260,12 @@ describe("Challenge routes", () => {
       expect(res.body.results[1].id).toBe(challengeOne._id.toHexString());
     });
 
-    test("should sort returned array if ascending sort param by name specified", async () => {
+    test('should sort returned array if ascending sort param by name specified', async () => {
       await insertChallenges([challengeOne, challengeTwo]);
 
       const res = await request(app)
-        .get("/api/challenges")
-        .query({ sortBy: "name:asc" })
+        .get('/api/challenges')
+        .query({ sortBy: 'name:asc' })
         .send()
         .expect(httpStatus.OK);
 
@@ -283,12 +282,12 @@ describe("Challenge routes", () => {
     });
 
     // eslint-disable-next-line max-len
-    test("should correctly sort the returned array if multiple sorting criteria are specified", async () => {
+    test('should correctly sort the returned array if multiple sorting criteria are specified', async () => {
       await insertChallenges([challengeOne, challengeTwo]);
 
       const res = await request(app)
-        .get("/api/challenges")
-        .query({ sortBy: "location:desc,name:asc" })
+        .get('/api/challenges')
+        .query({ sortBy: 'location:desc,name:asc' })
         .send()
         .expect(httpStatus.OK);
 
@@ -316,11 +315,11 @@ describe("Challenge routes", () => {
       });
     });
 
-    test("should limit returned array if limit param is specified", async () => {
+    test('should limit returned array if limit param is specified', async () => {
       await insertChallenges([challengeOne, challengeTwo, challengeThree]);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .query({ limit: 2 })
         .send()
         .expect(httpStatus.OK);
@@ -337,11 +336,11 @@ describe("Challenge routes", () => {
       expect(res.body.results[1].id).toBe(challengeTwo._id.toHexString());
     });
 
-    test("should return the correct page if page and limit params are specified", async () => {
+    test('should return the correct page if page and limit params are specified', async () => {
       await insertChallenges([challengeOne, challengeTwo, challengeThree]);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .query({ page: 2, limit: 2 })
         .send()
         .expect(httpStatus.OK);
@@ -359,8 +358,8 @@ describe("Challenge routes", () => {
   });
 });
 
-describe("GET /api/challenges/:challengeId", () => {
-  test("should return 200 and the challenge object if data is ok", async () => {
+describe('GET /api/challenges/:challengeId', () => {
+  test('should return 200 and the challenge object if data is ok', async () => {
     await insertChallenges([challengeOne]);
 
     const res = await request(app)
@@ -378,7 +377,7 @@ describe("GET /api/challenges/:challengeId", () => {
     });
   });
 
-  test.skip("should return 401 error if access token is missing", async () => {
+  test.skip('should return 401 error if access token is missing', async () => {
     await insertChallenges([challengeOne]);
 
     await request(app)
@@ -387,16 +386,16 @@ describe("GET /api/challenges/:challengeId", () => {
       .expect(httpStatus.UNAUTHORIZED);
   });
 
-  test("should return 400 error if challengeId is not a valid mongo id", async () => {
+  test('should return 400 error if challengeId is not a valid mongo id', async () => {
     await insertChallenges([challengeOne]);
 
     await request(app)
-      .get("/api/challenges/invalidId")
+      .get('/api/challenges/invalidId')
       .send()
       .expect(httpStatus.BAD_REQUEST);
   });
 
-  test("should return 404 error if challenge is not found", async () => {
+  test('should return 404 error if challenge is not found', async () => {
     await insertChallenges([challengeTwo]);
 
     await request(app)
@@ -406,8 +405,8 @@ describe("GET /api/challenges/:challengeId", () => {
   });
 });
 
-describe("DELETE /api/challenges/:challengeId", () => {
-  test("should return 204 if data is ok", async () => {
+describe('DELETE /api/challenges/:challengeId', () => {
+  test('should return 204 if data is ok', async () => {
     await insertChallenges([challengeOne]);
 
     await request(app)
@@ -419,7 +418,7 @@ describe("DELETE /api/challenges/:challengeId", () => {
     expect(dbChallenge).toBeNull();
   });
 
-  test.skip("should return 401 error if access token is missing", async () => {
+  test.skip('should return 401 error if access token is missing', async () => {
     await insertChallenges([challengeOne]);
 
     await request(app)
@@ -428,16 +427,16 @@ describe("DELETE /api/challenges/:challengeId", () => {
       .expect(httpStatus.UNAUTHORIZED);
   });
 
-  test("should return 400 error if challengeId is not a valid mongo id", async () => {
+  test('should return 400 error if challengeId is not a valid mongo id', async () => {
     await insertChallenges([challengeOne]);
 
     await request(app)
-      .delete("/api/challenges/invalidId")
+      .delete('/api/challenges/invalidId')
       .send()
       .expect(httpStatus.BAD_REQUEST);
   });
 
-  test("should return 404 error if challenge already is not found", async () => {
+  test('should return 404 error if challenge already is not found', async () => {
     await insertChallenges([challengeOne]);
 
     await request(app)

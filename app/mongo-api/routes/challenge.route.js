@@ -17,19 +17,21 @@ router
   );
 
 router
-.route("/active")
-.get(validate(challengeValidation.activeChallenges),
- challengeController.getActiveChallenges
-);
+  .route('/active')
+  .get(
+    validate(challengeValidation.activeChallenges),
+    challengeController.getActiveChallenges
+  );
 
 router
-.route("/past")
-.get(validate(challengeValidation.pastChallenges),
- challengeController.getPastChallenges
-);
+  .route('/past')
+  .get(
+    validate(challengeValidation.pastChallenges),
+    challengeController.getPastChallenges
+  );
 
 router
-  .route("/:Id")
+  .route('/:Id')
   .get(
     validate(challengeValidation.getChallenge),
     challengeController.getChallenge

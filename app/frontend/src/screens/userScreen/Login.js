@@ -70,15 +70,15 @@ const Login = (props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bottomHeader}>
-          <TouchableOpacity onPress={() => props.navigation.navigate('ResetPassword')}>
-            <Text style = {styles.forgotText}>
-              Forgot Password?
-            </Text>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('ResetPassword')}
+          >
+            <Text style={styles.forgotText}>Forgot Password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => props.navigation.navigate('Register')}>
-            <Text style = {styles.forgotText}>
-              Sign up
-            </Text>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('Register')}
+          >
+            <Text style={styles.forgotText}>Sign up</Text>
           </TouchableOpacity>
         </View>
         <Button
@@ -137,12 +137,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'center',
   },
-  forgotText:{
+  forgotText: {
     color: 'white',
     fontSize: 20,
     marginTop: height / 70,
-    marginHorizontal: width / 40
-  }
+    marginHorizontal: width / 40,
+  },
 });
 
 export default Login;

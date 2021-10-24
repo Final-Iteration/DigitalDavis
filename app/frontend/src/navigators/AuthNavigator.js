@@ -17,7 +17,7 @@ const AuthStack = createStackNavigator({
     screen: Signup,
     navigationOptions: {
       header: ({ scene, previous, navigation }) => (
-        <Header title="Sign Up" navigation={navigation} signup = {true}/>
+        <Header title="Sign Up" navigation={navigation} signup={true} />
       ),
     },
   },
@@ -25,7 +25,7 @@ const AuthStack = createStackNavigator({
     screen: ForgotPassword,
     navigationOptions: {
       headerShown: true,
-      title: "Reset Password",
+      title: 'Reset Password',
     },
   },
 });
