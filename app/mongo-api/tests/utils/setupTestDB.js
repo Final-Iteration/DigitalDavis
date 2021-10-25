@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const connection_string = process.env.DB_CON_STR;
+const connection_string = "mongodb://localhost:27017";
 
 /**
  * Make the connection to mongoose before running any tests
