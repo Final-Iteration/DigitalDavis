@@ -48,7 +48,7 @@ const CreateChallengeScreenTags = () => {
 
     return (
         <View>
-            <ProgressBar progress={0.33} color={Colors.blue600} />
+            <ProgressBar progress={0.25} color={Colors.blue600} />
             <Text style = {styles.headerText}>
                 Which domain of wellness does your challenge belong to?
             </Text>
