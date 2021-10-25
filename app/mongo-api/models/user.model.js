@@ -1,6 +1,7 @@
 const validator = require('validator');
 const { toJSON, paginate } = require('./plugins');
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 // schema
 const userSchema = mongoose.Schema({
@@ -104,7 +105,7 @@ userSchema.pre('save', async function (next) {
  * @typedef User
  * determines collection name to be "user"
  */
-const User = mongoose.model('user', userSchema);
+const User = mongoose.model('User', userSchema);
 // const UserTest = mongoose.model("user_test", userSchema);
 
 /**
