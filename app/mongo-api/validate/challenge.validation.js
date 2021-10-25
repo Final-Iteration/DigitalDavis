@@ -95,6 +95,15 @@ const pastChallenges = {
   }),
 };
 
+const allChallenges = {
+  query: Joi.object().keys({
+    name: Joi.string().min(5).max(150).trim(),
+    sortBy: Joi.string(),
+    limit: Joi.number().integer(),
+    page: Joi.number().integer(),
+  }),
+};
+
 module.exports = {
   createChallenge,
   getChallenges,
@@ -103,4 +112,5 @@ module.exports = {
   deleteChallenge,
   activeChallenges,
   pastChallenges,
+  allChallenges
 };

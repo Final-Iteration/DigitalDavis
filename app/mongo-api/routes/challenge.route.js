@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const validate = require('../middleware/validate');
-const challengeController = require('../controllers/challenge.controller');
-const challengeValidation = require('../validate/challenge.validation');
-const routeDebugger = require('debug')('app:routes');
+const validate = require("../middleware/validate");
+const challengeController = require("../controllers/challenge.controller");
+const challengeValidation = require("../validate/challenge.validation");
+const routeDebugger = require("debug")("app:routes");
 
 router
-  .route('/')
+  .route("/")
   .post(
     validate(challengeValidation.createChallenge),
     challengeController.createChallenge
@@ -17,21 +17,25 @@ router
   );
 
 router
-  .route('/active')
-  .get(
-    validate(challengeValidation.activeChallenges),
-    challengeController.getActiveChallenges
-  );
+.route("/active")
+.get(validate(challengeValidation.activeChallenges),
+ challengeController.getActiveChallenges
+);
 
 router
-  .route('/past')
-  .get(
-    validate(challengeValidation.pastChallenges),
-    challengeController.getPastChallenges
-  );
+.route("/past")
+.get(validate(challengeValidation.pastChallenges),
+ challengeController.getPastChallenges
+);
 
 router
-  .route('/:Id')
+.route("/all")
+.get(validate(challengeValidation.allChallenges),
+ challengeController.getAllChallenges
+);
+
+router
+  .route("/:Id")
   .get(
     validate(challengeValidation.getChallenge),
     challengeController.getChallenge
@@ -45,4 +49,6 @@ router
     challengeController.deleteChallenge
   );
 
-module.exports = router;
+
+
+  module.exports = router;
