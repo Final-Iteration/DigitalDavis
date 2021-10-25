@@ -8,6 +8,7 @@ import {
   View
 } from "react-native";
 
+import { ProgressBar, Colors } from 'react-native-paper';
 import Icon from "react-native-vector-icons/AntDesign";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import { Feather } from "@expo/vector-icons";
@@ -15,6 +16,7 @@ import { Appbar, Avatar } from "react-native-paper";
 import { AntDesign } from '@expo/vector-icons'; 
 import { NavigationActions } from "react-navigation";
 const { height, width } = Dimensions.get("window");
+let progressNumber = 0.25;
 const barHeight = 37;
 const headerMargin = Platform.OS === "ios" ? null : "50%";
 const CustomHeader = ({
@@ -25,9 +27,11 @@ const CustomHeader = ({
   signup,
   challenge,
   challengeInfo,
-  CreateChallengeTags
+  CreateChallengeTags,
+  CreateChallengeDate,
+  CreateChallengeDescription
 }) => {
-  if (CreateChallengeTags) {
+  if (CreateChallengeDescription) {
     return (
       <Appbar.Header
         statusBarHeight={barHeight}
@@ -37,12 +41,60 @@ const CustomHeader = ({
         }}
       >
         <View style = {styles.tagPageContainerGustav}>
-          <TouchableOpacity  onPress={() => {navigation.navigate("Challenge");}}>
+          <TouchableOpacity  onPress={() => {navigation.navigate("CreateChallengeDate")}}>
             <Text style ={styles.backButtonGustav}>
               Back
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity  onPress={() => {navigation.navigate("Challenge")}}>
+            <Text style = {styles.nextButtonGustav}>
+              Create
+            </Text>
+          </TouchableOpacity>
+        </View>
+        
+      </Appbar.Header>
+    );
+  }else if (CreateChallengeDate){
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#fff",
+          elevation: 0,
+        }}
+      >
+        <View style = {styles.tagPageContainerGustav}>
+          <TouchableOpacity  onPress={() => {navigation.navigate("CreateChallengeTags")}}>
+            <Text style ={styles.backButtonGustav}>
+              Back
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity  onPress={() => {navigation.navigate("CreateChallengeDescription")}}>
+            <Text style = {styles.nextButtonGustav}>
+              Next
+            </Text>
+          </TouchableOpacity>
+        </View>
+        
+      </Appbar.Header>
+    );
+  }else if (CreateChallengeTags) {
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#fff",
+          elevation: 0,
+        }}
+      >
+        <View style = {styles.tagPageContainerGustav}>
+          <TouchableOpacity  onPress={() => {navigation.navigate("Challenge")}}>
+            <Text style ={styles.backButtonGustav}>
+              Back
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity  onPress={() => {navigation.navigate("CreateChallengeDate")}}>
             <Text style = {styles.nextButtonGustav}>
               Next
             </Text>
