@@ -29,12 +29,21 @@ const queryUsers = async (filter, options) => {
 };
 
 /**
- * Get User by email
- * @param {string} email
+ * Get User by ID
+ * @param {string} ID
  * @returns {Promise<User>}
  */
 const getUserById = async (UserId) => {
   return User.findOne({ _id: UserId });
+};
+
+/**
+ * Get User by Email
+ * @param {string} Email
+ * @returns {Promise<User>}
+ */
+ const getUserByEmail = async (email) => {
+  return User.findOne({ email: email });
 };
 
 /**
@@ -91,4 +100,5 @@ module.exports = {
   getUserByName,
   updateUserById,
   deleteUserById,
+  getUserByEmail
 };
