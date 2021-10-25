@@ -1,5 +1,6 @@
 const httpStatus = require('http-status');
 const Challenge = require('../models/challenge.model');
+const User = require('../models/user.model');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -7,7 +8,8 @@ const ApiError = require('../utils/ApiError');
  * @param {Object} challengeBody
  * @returns {Promise<Challenge>}
  */
-const createChallenge = async (challengeBody) => {
+const createChallenge = async (challengeBody, ) => {
+  const creator = await User.find()
   if (await Challenge.isNameTaken(challengeBody.name)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
   }
@@ -34,16 +36,7 @@ const queryChallenges = async (filter, options) => {
  * @returns {Promise<Challenge>}
  */
 const getChallengeById = async (challengeId) => {
-  return Challenge.findOne({ _id: challengeId });
-};
-
-/**
- * Get challenge by id
- * @param none
- * @returns {Promise<Challenge>}
- */
-const isActive = async () => {
-  return Challenge.start_date;
+  return Challenge.findOne({ _id : challengeId});
 };
 
 /**
@@ -51,7 +44,7 @@ const isActive = async () => {
  * @param {string} name
  * @returns {Promise<Challenge>}
  */
-const getChallengeByName = async (name) => {
+ const getChallengeByName = async (name) => {
   return Challenge.findOne({ name });
 };
 
@@ -62,7 +55,7 @@ const getChallengeByName = async (name) => {
  * @returns {Promise<Challenge>}
  */
 const updateChallengeById = async (id, updateBody) => {
-  const challenge = await getChallengeById({ _id: id });
+  const challenge = await getChallengeById({ _id : id});
   if (!challenge) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
   }
@@ -80,7 +73,7 @@ const updateChallengeById = async (id, updateBody) => {
  * @returns {Promise<Challenge>}
  */
 const deleteChallengeById = async (id) => {
-  const challenge = await getChallengeById({ _id: id });
+  const challenge = await getChallengeById({ _id : id});
   if (!challenge) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
   }
@@ -98,17 +91,24 @@ const activeChallenges = async () => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
-  const challenges = await Challenge.find(
-    { end_date: { $gte: rn } } && { start_date: { $lte: rn } }
-  );
+  const challenges = await Challenge.find( { end_date: {$gte: rn} } && {start_date: {$lte: rn}} ); 
   return challenges;
 };
+
 
 const pastChallenges = async () => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
-  const challenges = await Challenge.find({ end_date: { $lte: rn } });
+  const challenges = await Challenge.find( {end_date: {$lte: rn}} ); 
+  return challenges;
+};
+
+const allChallenges = async () => {
+  const timeElasped = Date.now();
+  const today = new Date(timeElasped);
+  rn = today.toISOString();
+  const challenges = await Challenge.find( {} || {end_date: {$gte: rn}} ); 
   return challenges;
 };
 
@@ -119,6 +119,7 @@ const pastChallenges = async () => {
  * @returns {Promise<Challenge>}
  */
 
+
 module.exports = {
   createChallenge,
   queryChallenges,
@@ -128,4 +129,5 @@ module.exports = {
   deleteChallengeById,
   activeChallenges,
   pastChallenges,
+  allChallenges
 };
