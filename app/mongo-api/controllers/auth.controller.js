@@ -6,7 +6,7 @@ const User = require('../models/user.model');
 
 const signup = catchAsync(async (req, res) => {
     const user = await userService.createUser(req.body);
-    const token = authService.issueJWT(user);
+    const token = authService.createJWT(user);
     res.status(httpStatus.CREATED).send({id: user._id, tokenObject: token});
 });
 
@@ -16,7 +16,7 @@ const login = catchAsync(async (req, res) => {
         res.status(401).send({success: false, msg: "No account associated with that Email."});
     }else{
         if(user.passwordMatch(req.body.password)){
-            const token = authService.issueJWT(user);
+            const token = authService.createJWT(user);
             res.status(200).send({id: user._id, tokenObject: token});
         }else { 
             res.status(401).send({ success: false, msg: "Incorrect password" });
