@@ -1,5 +1,7 @@
 import React from "react";
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 const CreateChallengeDescription = () => {
     return (
