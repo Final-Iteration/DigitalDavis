@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
+  View
 } from "react-native";
 
 import Icon from "react-native-vector-icons/AntDesign";
@@ -24,8 +25,33 @@ const CustomHeader = ({
   signup,
   challenge,
   challengeInfo,
+  CreateChallengeTags
 }) => {
-  if (challengeInfo) {
+  if (CreateChallengeTags) {
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#fff",
+          elevation: 0,
+        }}
+      >
+        <View style = {styles.tagPageContainerGustav}>
+          <TouchableOpacity  onPress={() => {navigation.navigate("Challenge");}}>
+            <Text style ={styles.backButtonGustav}>
+              Back
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style = {styles.nextButtonGustav}>
+              Next
+            </Text>
+          </TouchableOpacity>
+        </View>
+        
+      </Appbar.Header>
+    );
+  }else if (challengeInfo) {
     return (
       <Appbar.Header
         statusBarHeight={barHeight}
@@ -193,9 +219,22 @@ const styles = StyleSheet.create({
   plusButton: {
     right: width / 20,
   },
-  plusButton: {
+  nextButtonGustav:{
     right: width / 20,
+    fontSize: 20,
+    color: '#0288d1'
   },
+  backButtonGustav:{
+    left: width / 20,
+    fontSize: 20,
+    color: '#0288d1'
+  },
+  tagPageContainerGustav: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1,
+    // width: '80%'
+  }
 });
 
 export default CustomHeader;
