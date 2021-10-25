@@ -5,14 +5,18 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
-} from 'react-native';
+  View
+} from "react-native";
 
-import Icon from 'react-native-vector-icons/AntDesign';
-import Ionicon from 'react-native-vector-icons/Ionicons';
-import { Feather } from '@expo/vector-icons';
-import { Appbar, Avatar } from 'react-native-paper';
-import { NavigationActions } from 'react-navigation';
-const { height, width } = Dimensions.get('window');
+import { ProgressBar, Colors } from 'react-native-paper';
+import Icon from "react-native-vector-icons/AntDesign";
+import Ionicon from "react-native-vector-icons/Ionicons";
+import { Feather } from "@expo/vector-icons";
+import { Appbar, Avatar } from "react-native-paper";
+import { AntDesign } from '@expo/vector-icons'; 
+import { NavigationActions } from "react-navigation";
+const { height, width } = Dimensions.get("window");
+let progressNumber = 0.25;
 const barHeight = 37;
 const headerMargin = Platform.OS === 'ios' ? null : '50%';
 const CustomHeader = ({
@@ -23,8 +27,83 @@ const CustomHeader = ({
   signup,
   challenge,
   challengeInfo,
+  CreateChallengeTags,
+  CreateChallengeDate,
+  CreateChallengeDescription
 }) => {
-  if (challengeInfo) {
+  if (CreateChallengeDescription) {
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#fff",
+          elevation: 0,
+        }}
+      >
+        <View style = {styles.tagPageContainerGustav}>
+          <TouchableOpacity  onPress={() => {navigation.navigate("CreateChallengeDate")}}>
+            <Text style ={styles.backButtonGustav}>
+              Back
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity  onPress={() => {navigation.navigate("Challenge")}}>
+            <Text style = {styles.nextButtonGustav}>
+              Create
+            </Text>
+          </TouchableOpacity>
+        </View>
+        
+      </Appbar.Header>
+    );
+  }else if (CreateChallengeDate){
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#fff",
+          elevation: 0,
+        }}
+      >
+        <View style = {styles.tagPageContainerGustav}>
+          <TouchableOpacity  onPress={() => {navigation.navigate("CreateChallengeTags")}}>
+            <Text style ={styles.backButtonGustav}>
+              Back
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity  onPress={() => {navigation.navigate("CreateChallengeDescription")}}>
+            <Text style = {styles.nextButtonGustav}>
+              Next
+            </Text>
+          </TouchableOpacity>
+        </View>
+        
+      </Appbar.Header>
+    );
+  }else if (CreateChallengeTags) {
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#fff",
+          elevation: 0,
+        }}
+      >
+        <View style = {styles.tagPageContainerGustav}>
+          <TouchableOpacity  onPress={() => {navigation.navigate("Challenge")}}>
+            <Text style ={styles.backButtonGustav}>
+              Back
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity  onPress={() => {navigation.navigate("CreateChallengeDate")}}>
+            <Text style = {styles.nextButtonGustav}>
+              Next
+            </Text>
+          </TouchableOpacity>
+        </View>
+        
+      </Appbar.Header>
+    );
+  }else if (challengeInfo) {
     return (
       <Appbar.Header
         statusBarHeight={barHeight}
@@ -158,10 +237,10 @@ const CustomHeader = ({
         <Appbar.Content title={<Text style={styles.title}>{title}</Text>} />
         {challenge ? (
           <TouchableOpacity
-            onPress={() => navigation.navigate('CreateChallenge')}
+            onPress={() => navigation.navigate("CreateChallengeTags")}
             style={styles.plusButton}
           >
-            <Feather name="plus-circle" size={30} color="black" />
+          <AntDesign name="plus" size={28} color="black" />
           </TouchableOpacity>
         ) : null}
       </Appbar.Header>
@@ -191,6 +270,22 @@ const styles = StyleSheet.create({
   plusButton: {
     right: width / 20,
   },
+  nextButtonGustav:{
+    right: width / 20,
+    fontSize: 20,
+    color: '#0288d1'
+  },
+  backButtonGustav:{
+    left: width / 20,
+    fontSize: 20,
+    color: '#0288d1'
+  },
+  tagPageContainerGustav: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1,
+    // width: '80%'
+  }
 });
 
 export default CustomHeader;
