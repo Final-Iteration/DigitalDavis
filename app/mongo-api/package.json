@@ -7,7 +7,7 @@
     "build": "node index.js",
     "build:dev": "nodemon index.js",
     "build:docker": "NODE_ENV=docker ./script.sh",
-    "test": "NODE_ENV=development DB_CON_STR=mongodb://localhost:27017/ jest -i --colors --verbose=true --detectOpenHandles ",
+    "test": "jest -i --colors --verbose=true --detectOpenHandles ",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check **/*.js",
