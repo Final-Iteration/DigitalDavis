@@ -21,7 +21,7 @@ const TopSwipe = ({ props }) => {
   useEffect(() => {
     async function getAllChallenges() {
       try {
-        const res = await axios.get('/challenges');
+        const res = await axios.get("/challenges");
         console.log("-----ALL Challenges-----");
         console.log(res.data);
         setAllChallenge(res.data.results);
@@ -56,12 +56,12 @@ const TopSwipe = ({ props }) => {
 
   const FirstRoute = () => {
     //if there is no challenges to display
-    if (allChallenges.length === 0) {
+    if (ac.length === 0) {
       return defaultNoChallenge("All");
     } else {
       return (
         <FlatList
-          data={allChallenges}
+          data={ac}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
@@ -94,8 +94,8 @@ const TopSwipe = ({ props }) => {
   useEffect(() => {
     async function getCurrentChallenges() {
       try {
-        const res = await axios.get('/challenges/active');
-        console.log("-----Current Challenges-----")
+        const res = await axios.get("/challenges/active");
+        console.log("-----Current Challenges-----");
         console.log(res.data);
         setCurrentChallenges(res.data);
       } catch (error) {
@@ -106,15 +106,13 @@ const TopSwipe = ({ props }) => {
     getCurrentChallenges();
   }, []);
 
-  
   const SecondRoute = () => {
-    
     if (currentChallenges.length === 0) {
       return defaultNoChallenge("Current");
     } else {
       console.log(currentChallenges);
       return (
-        <FlatList          
+        <FlatList
           data={currentChallenges}
           renderItem={({ item }) => {
             return (
@@ -149,8 +147,8 @@ const TopSwipe = ({ props }) => {
   useEffect(() => {
     async function getCurrentChallenges() {
       try {
-        const res = await axios.get('/challenges/past');
-        console.log("-----Past Challenges-----")
+        const res = await axios.get("/challenges/past");
+        console.log("-----Past Challenges-----");
         console.log(res.data);
         setCurrentChallenges(res.data);
       } catch (error) {
@@ -206,14 +204,14 @@ const TopSwipe = ({ props }) => {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'first', title: 'ALL' },
-    { key: 'second', title: 'CURRENT' },
-    { key: 'third', title: 'PAST' },
+    { key: "first", title: "ALL" },
+    { key: "second", title: "CURRENT" },
+    { key: "third", title: "PAST" },
   ]);
 
   return (
     <TabView
-      tabStyle={{ backgroundColor: 'red' }}
+      tabStyle={{ backgroundColor: "red" }}
       swipeEnabled={false}
       style={styles.container}
       navigationState={{ index, routes }}
@@ -222,10 +220,10 @@ const TopSwipe = ({ props }) => {
       renderTabBar={(props) => (
         <TabBar
           {...props}
-          style={{ backgroundColor: '#f2f2f2', flex: 0.09 }}
-          indicatorStyle={{ backgroundColor: '#142A4F' }}
+          style={{ backgroundColor: "#f2f2f2", flex: 0.09 }}
+          indicatorStyle={{ backgroundColor: "#142A4F" }}
           renderLabel={({ route, focused, color }) => (
-            <Text style={{ color: 'black', margin: 8, fontSize: 15 }}>
+            <Text style={{ color: "black", margin: 8, fontSize: 15 }}>
               {route.title}
             </Text>
           )}
@@ -236,7 +234,7 @@ const TopSwipe = ({ props }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: "#f2f2f2",
   },
   defaultText: {
     marginVertical: "50%",
