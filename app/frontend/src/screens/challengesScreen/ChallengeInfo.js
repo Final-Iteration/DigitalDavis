@@ -17,18 +17,63 @@ import JoinBanner from "./components/JoinBanner";
 import UnjoinedBanner from "./components/UnjoinedBanner";
 import Modal from "react-native-modal";
 import Participant from "./components/Participant";
-
+import axios from "axios";
+import MapView, { Marker } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
+import * as Location from "expo-location";
+const GOOGLE_API_KEY = "AIzaSyBJCM6WfGIUpdIxDYp3fjSHgGPZLvrUgNM";
+const MAP_QUEST_KEY = "HrX8Ag2remRQH5v0FIcYe7xk7d9Y775u";
 const { width, height } = Dimensions.get("window");
+const LATITUD_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUD_DELTA + width / height;
+
 const ChallengeInfo = (props) => {
   /**
    * @todo: this needs to be changed when we are importing data, should not be set to false
    */
+
   const [participationStatus, setStatus] = useState(false);
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [participantModal, setParticipantModal] = useState(false);
+  const [mapModal, setMapModal] = useState(false);
+  const [origin, setOrigin] = useState({});
+  const [destination, setDestination] = useState({});
 
   const challenge = props.navigation.state.params.challenge;
+
   useEffect(() => {
     setStatus(challenge.participationStatus);
+    const getUserLocation = async () => {
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          setErrorMsg("Permission to access location was denied");
+          return;
+        }
+        let location = await Location.getCurrentPositionAsync({});
+
+        setOrigin({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          latitudeDelta: LATITUD_DELTA,
+          longitudeDelta: LONGITUDE_DELTA,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const getLongLat = async () => {
+      try {
+        const longLat = await axios.get(
+          `http://www.mapquestapi.com/geocoding/v1/address?location=${challenge.location}&key=${MAP_QUEST_KEY}`
+        );
+        const result = longLat.data.results[0].locations[0].displayLatLng;
+        setDestination({ latitude: result.lat, longitude: result.lng });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUserLocation();
+    getLongLat();
   }, []);
 
   // console.log(challenge);
@@ -53,7 +98,12 @@ const ChallengeInfo = (props) => {
           />
         </ScrollView>
         <View style={styles.locationTime}>
-          <TouchableOpacity style={{ flexDirection: "row" }}>
+          <TouchableOpacity
+            style={{ flexDirection: "row" }}
+            onPress={() => {
+              setMapModal(!mapModal);
+            }}
+          >
             <Icon
               name="ios-location-outline"
               size={30}
@@ -73,7 +123,7 @@ const ChallengeInfo = (props) => {
         </View>
         <TouchableOpacity
           style={{ flexDirection: "row", marginHorizontal: 17 }}
-          onPress={() => setModalVisible(!isModalVisible)}
+          onPress={() => setParticipantModal(!participantModal)}
         >
           <Icon
             name="people-outline"
@@ -84,8 +134,8 @@ const ChallengeInfo = (props) => {
         </TouchableOpacity>
 
         <Modal
-          isVisible={isModalVisible}
-          onBackdropPress={() => setModalVisible(!isModalVisible)}
+          isVisible={participantModal}
+          onBackdropPress={() => setParticipantModal(!participantModal)}
         >
           <ScrollView
             style={styles.modalView}
@@ -97,11 +147,39 @@ const ChallengeInfo = (props) => {
                 alignSelf: "center",
                 marginVertical: 15,
               }}
-              onPress={() => setModalVisible(!isModalVisible)}
+              onPress={() => setParticipantModal(!participantModal)}
             >
               <Text style={{ fontSize: 17, color: "blue" }}>Close</Text>
             </TouchableOpacity>
           </ScrollView>
+        </Modal>
+
+        <Modal
+          isVisible={mapModal}
+          onBackdropPress={() => setMapModal(!mapModal)}
+        >
+          <MapView
+            followUserLocation={true}
+            zoomEnabled={true}
+            style={[
+              {
+                height: 500,
+                width: 372,
+              },
+              styles.modalView,
+            ]}
+            initialRegion={origin}
+          >
+            <Marker coordinate={origin} />
+            <Marker coordinate={destination} />
+            <MapViewDirections
+              destination={destination}
+              origin={origin}
+              apikey={GOOGLE_API_KEY}
+              strokeWidth={3}
+              strokeColor="red"
+            />
+          </MapView>
         </Modal>
 
         {/* API CALL TO UPDATE PARTICIPATION */}
