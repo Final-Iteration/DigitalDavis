@@ -124,21 +124,31 @@ const ChallengeInfo = (props) => {
         >
           <Image style={styles.image} source={{ uri: challenge.image }} />
         </View>
-
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <Text style={styles.title}>{challenge.name}</Text>
-          <FlatList
-            style={{ left: 17 }}
-            contentContainerStyle={{
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          style={{ top: 10 }}
+        >
+          <View
+            style={{
+              alignItems: "center",
               flexDirection: "row",
-              justifyContent: "space-between",
             }}
-            data={challenge.tags}
-            renderItem={({ item }) => <TagPill tag={item} />}
-            keyExtractor={(item) => item}
-          />
+          >
+            <Text style={styles.title}>{challenge.name}</Text>
+            <FlatList
+              style={{ left: 35, height: 35 }}
+              contentContainerStyle={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+              data={challenge.tags}
+              renderItem={({ item }) => <TagPill tag={item} />}
+              keyExtractor={(item) => item}
+            />
+          </View>
         </ScrollView>
-        <View style={{ marginHorizontal: width / 100 }}>
+        <View style={{ marginHorizontal: width / 100, marginVertical: 10 }}>
           <View style={styles.locationTime}>
             <TouchableOpacity
               style={[
@@ -340,7 +350,7 @@ const styles = StyleSheet.create({
     height: 35,
     borderRadius: 10,
     width: 115,
-    borderWidth: 0.3,
+    borderWidth: 0.7,
     borderColor: "blue",
     alignItems: "center",
     backgroundColor: "white",
@@ -353,7 +363,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 33,
     left: 17,
-    marginVertical: 13,
   },
   modalView: {
     marginVertical: 200,
@@ -371,17 +380,12 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     textDecorationLine: "underline",
   },
-  locationText: {
-    left: 7,
-    fontSize: 16,
-    marginVertical: 8,
-    textDecorationLine: "underline",
-  },
+
   locationTime: {
     top: 10,
     flexDirection: "row",
     marginHorizontal: 17,
-    marginVertical: 11,
+    marginVertical: 15,
     justifyContent: "space-between",
   },
   image: {
@@ -404,8 +408,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   about: {
-    fontWeight: "500",
-    opacity: 0.9,
+    fontWeight: "300",
+
     fontSize: 25,
     left: 16,
     marginVertical: 7,
