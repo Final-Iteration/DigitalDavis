@@ -13,14 +13,14 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
     margin: 2,
-    backgroundColor: "#142A4F",
+    backgroundColor: "#0288E1",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.8,
     shadowRadius: 1,
     shadowColor: "#142A4F",
   },
   tagText: {
-    fontSize: 9,
+    fontSize: 10,
     margin: 9,
     color: "white",
     alignSelf: "center",
