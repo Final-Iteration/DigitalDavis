@@ -9,7 +9,12 @@ import {
 } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
-
+/**
+ * 
+ * @todo Waiting for Gustav to revamp this. 
+ * We'll be using states for Axios calls. 
+ * ex. useState, setState, etc
+ */
 const CreateChallengeScreen = (props) => {
   return (
     <View style={styles.mainContainer}>

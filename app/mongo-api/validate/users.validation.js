@@ -8,7 +8,7 @@ const createUser = {
     email: Joi.string().required().min(3).max(30).trim(), //Add function to validate email
     password: Joi.string().required().min(8),
     dob: Joi.date().raw(),
-    job_title: Joi.array().items(Joi.string()),
+    job_title: Joi.string(),
     department: Joi.string().trim(),
   }),
 };

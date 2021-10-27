@@ -94,8 +94,8 @@ const MainBottomTab = createBottomTabNavigator(
 
 const styles = StyleSheet.create({
   image: {
-    width: isNaN(width) ? 32 : width / 15,
-    height: isNaN(width) ? 32 : width / 15,
+    width: width / 15,
+    height:  width /                                                                                                                                       15,
   },
 });
 export default MainBottomTab;

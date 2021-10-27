@@ -1,5 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+/* eslint-disable react-native/no-color-literals */
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 const TagPill = ({ tag }) => {
   return (
@@ -11,18 +12,18 @@ const TagPill = ({ tag }) => {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 10,
-    margin: 5,
-    backgroundColor: '#142A4F',
-    shadowOffset: { width: 1, height: 1 },
+    margin: 2,
+    backgroundColor: "#142A4F",
+    shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowColor: '#142A4F',
+    shadowRadius: 1,
+    shadowColor: "#142A4F",
   },
   tagText: {
-    fontSize: 17,
+    fontSize: 9,
     margin: 9,
-    color: 'white',
-    alignSelf: 'center',
+    color: "white",
+    alignSelf: "center",
   },
 });
 

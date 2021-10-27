@@ -1,9 +1,9 @@
-import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
+import React from "react";
+import { createStackNavigator } from "react-navigation-stack";
 
-import Settings from '../screens/Profile/Setting';
-import Profile from '../screens/Profile/User';
-import Header from '../sharedComponent/Header';
+import Settings from "../screens/Profile/Setting";
+import Profile from "../screens/Profile/User";
+import Header from "../sharedComponent/Header";
 
 const ProfileStack = createStackNavigator(
   {
@@ -26,7 +26,7 @@ const ProfileStack = createStackNavigator(
       },
     },
   },
-  { initialRouteName: 'User', headerMode: 'screen' }
+  { initialRouteName: "User", headerMode: "screen" }
 );
 
 export default ProfileStack;

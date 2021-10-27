@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,10 +7,14 @@ import {
   TextInput,
   Dimensions,
   ImageBackground,
+  Button,
 } from 'react-native';
-import NumberPlease from 'react-native-number-please';
-import DatePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
+// import DatePicker from 'react-native-datepicker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import axios from '../../axios';
+
+
 const { height, width } = Dimensions.get('window');
 const imageSource = require('../../../assets/blurredDavis.jpg');
 const Signup = (props) => {
@@ -20,11 +24,14 @@ const Signup = (props) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [title, setTitle] = useState('');
   const [department, setDepartment] = useState('');
-  const [date, setDate] = useState(new Date());
   const [fillError, setFillError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [date, setDate] = useState(new Date(Date.now()));
+  const [open, setOpen] = useState(false);
 
   const signup = () => {
+    // const [signupInformation, setUserSignupInformation] = useState([]);
+
     if (
       name.length === 0 ||
       email.length === 0 ||
@@ -39,8 +46,45 @@ const Signup = (props) => {
       setPasswordError(true);
     } else {
       //post request to database
-      props.navigation.navigate('Main');
+
+      const setUserSignup = async () => {
+        date.toString();
+        try {
+          
+          const res = await axios.post('/users', {
+            first_name: name,
+            last_name: name,
+            email: email,
+            dob: date.toString(),
+            department: department,
+            job_title: title,
+            password: password
+          });
+          
+          /** 
+           * @todo get token for user 
+           */
+          console.log(res.data);
+          props.navigation.navigate('Main');
+        } catch (error) {          
+          console.log(error.message);
+        }
+      }
+
+      setUserSignup();
+      // Check token 
+      
     }
+  };
+  const onChange = (event, value) => {
+    if (value) {
+      setDate(value);
+    }
+    setOpen(false);
+  };
+  const getDate = () => {
+    let d = date.toString().split(' ');
+    return `${d[1]} ${d[2]} ${d[3]}`;
   };
   return (
     <ImageBackground style={styles.imageStyle} source={imageSource}>
@@ -101,21 +145,44 @@ const Signup = (props) => {
           autoCapitalize="none"
           autoCorrect={false}
         />
-        <View style={styles.dateInput}>
-          <Text style={styles.DOBText}>Date of Birth</Text>
-          <DatePicker
-            style={styles.datePickerStyle}
-            mode="date" //The enum of date, datetime and time
-            value={date} //initial date from state
-            format="MM-DD-YYYY"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            onDateChange={(date) => {
-              setDate(date);
-            }}
-          />
-        </View>
 
+        <TouchableOpacity
+          onPress={() => {
+            setOpen(!open);
+          }}
+          style={styles.dateInput}
+        >
+          <Text style={styles.DOBText}>
+            {`Date of Birth: ${Platform.OS === 'ios' ? '' : getDate()}`}
+          </Text>
+          {Platform.OS === 'ios' ? (
+            <DateTimePicker
+              style={styles.datePickerStyle}
+              display="default"
+              mode="date" //The enum of date, datetime and time
+              value={date} //initial date from state
+              format="MM-DD-YYYY"
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              onDateChange={(date) => {
+                setDate(date);
+              }}
+            />
+          ) : (
+            open && (
+              <DateTimePicker
+                style={styles.datePickerStyle}
+                mode={'date'} //The enum of date, datetime and time
+                display={Platform.OS === 'ios' ? 'spinner' : 'spinner'}
+                value={date} //initial date from state
+                format="MM-DD-YYYY"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                onChange={onChange}
+              />
+            )
+          )}
+        </TouchableOpacity>
         {fillError ? (
           <Text style={styles.errorText}>Fill out all info</Text>
         ) : null}
