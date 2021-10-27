@@ -124,12 +124,9 @@ const ChallengeInfo = (props) => {
         >
           <Image style={styles.image} source={{ uri: challenge.image }} />
         </View>
-        <Text style={styles.title}>{challenge.name}</Text>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          style={{ height: 35 }}
-        >
+
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <Text style={styles.title}>{challenge.name}</Text>
           <FlatList
             style={{ left: 17 }}
             contentContainerStyle={{
