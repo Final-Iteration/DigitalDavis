@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,19 +9,22 @@ import {
   ScrollView,
   SafeAreaView,
   FlatList,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import TagPill from './components/TagPill';
-import { showMessage } from 'react-native-flash-message';
-import JoinBanner from './components/JoinBanner';
-import UnjoinedBanner from './components/UnjoinedBanner';
+} from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import TagPill from "./components/TagPill";
+import { showMessage } from "react-native-flash-message";
+import JoinBanner from "./components/JoinBanner";
+import UnjoinedBanner from "./components/UnjoinedBanner";
+import Modal from "react-native-modal";
+import Participant from "./components/Participant";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 const ChallengeInfo = (props) => {
   /**
    * @todo: this needs to be changed when we are importing data, should not be set to false
    */
   const [participationStatus, setStatus] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const challenge = props.navigation.state.params.challenge;
   useEffect(() => {
@@ -41,8 +44,8 @@ const ChallengeInfo = (props) => {
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <FlatList
             contentContainerStyle={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+              flexDirection: "row",
+              justifyContent: "space-between",
             }}
             data={challenge.tags}
             renderItem={({ item }) => <TagPill tag={item} />}
@@ -50,21 +53,57 @@ const ChallengeInfo = (props) => {
           />
         </ScrollView>
         <View style={styles.locationTime}>
-          <Icon
-            name="ios-location-outline"
-            size={30}
-            style={{ color: 'blue' }}
-          />
-          <Text style={styles.locationText}>{challenge.location}</Text>
-          <View style={styles.dateBox}>
+          <TouchableOpacity style={{ flexDirection: "row" }}>
+            <Icon
+              name="ios-location-outline"
+              size={30}
+              style={{ color: "blue" }}
+            />
+            <Text style={styles.locationText}>{challenge.location}</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.dateBox}>
             <Icon
               name="calendar-outline"
               size={30}
-              style={{ color: 'red', right: 7 }}
+              style={{ color: "red", right: 7 }}
             />
             <Text style={styles.date}>{day}</Text>
-          </View>
+          </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          style={{ flexDirection: "row", marginHorizontal: 17 }}
+          onPress={() => setModalVisible(!isModalVisible)}
+        >
+          <Icon
+            name="people-outline"
+            size={30}
+            style={{ color: "blue", right: 7 }}
+          />
+          <Text style={styles.locationText}>456 Participants</Text>
+        </TouchableOpacity>
+
+        <Modal
+          isVisible={isModalVisible}
+          onBackdropPress={() => setModalVisible(!isModalVisible)}
+        >
+          <ScrollView
+            style={styles.modalView}
+            showsVerticalScrollIndicator={false}
+          >
+            <Participant />
+            <TouchableOpacity
+              style={{
+                alignSelf: "center",
+                marginVertical: 15,
+              }}
+              onPress={() => setModalVisible(!isModalVisible)}
+            >
+              <Text style={{ fontSize: 17, color: "blue" }}>Close</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </Modal>
+
         {/* API CALL TO UPDATE PARTICIPATION */}
         <TouchableOpacity
           disabled={props.navigation.state.params.disableButton}
@@ -81,11 +120,13 @@ const ChallengeInfo = (props) => {
           onPress={() => {
             setStatus(!participationStatus);
             showMessage({
-              icon: 'success',
-              position: 'top',
+              icon: "success",
+              position: "top",
               message: null,
-              type: participationStatus ? 'warning' : 'success',
-              renderFlashMessageIcon: participationStatus ? UnjoinedBanner : JoinBanner,
+              type: participationStatus ? "warning" : "success",
+              renderFlashMessageIcon: participationStatus
+                ? UnjoinedBanner
+                : JoinBanner,
               style: { borderRadius: 15, top: 35, height: 50 },
               statusBarHeight: 0,
               floating: true,
@@ -93,7 +134,7 @@ const ChallengeInfo = (props) => {
           }}
         >
           <Text style={styles.participate}>
-            {participationStatus ? 'Participating' : 'Participate'}
+            {participationStatus ? "Participating" : "Participate"}
           </Text>
         </TouchableOpacity>
         <View style={{ marginVertical: 12, bottom: 10 }}>
@@ -106,26 +147,31 @@ const ChallengeInfo = (props) => {
 };
 
 const styles = StyleSheet.create({
+  modalView: {
+    marginVertical: 200,
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
   dateBox: {
-    position: 'absolute',
+    position: "absolute",
     right: 0,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
+    justifyContent: "space-between",
+    flexDirection: "row",
   },
   date: {
     fontSize: 16,
     marginVertical: 8,
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
   locationText: {
     left: 7,
     fontSize: 16,
     marginVertical: 8,
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
   locationTime: {
     top: 10,
-    flexDirection: 'row',
+    flexDirection: "row",
     marginHorizontal: 17,
     marginVertical: 11,
   },
@@ -136,7 +182,7 @@ const styles = StyleSheet.create({
   mainDescription: {
     top: 10,
     fontSize: 18,
-    fontWeight: '300',
+    fontWeight: "300",
     marginHorizontal: 17,
   },
   participatingButton: {
@@ -147,15 +193,15 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   about: {
-    fontWeight: '600',
+    fontWeight: "600",
     fontSize: 25,
     left: 17,
     marginVertical: 7,
   },
   participate: {
-    fontWeight: '500',
+    fontWeight: "500",
     margin: 15,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 });
 
