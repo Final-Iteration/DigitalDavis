@@ -17,6 +17,7 @@ const ChallengeStack = createStackNavigator({
       header: ({ scene, previous, navigation }) => (
         <Header title="Challenges" navigation={navigation} challenge={true} />
       ),
+
     },
   },
 
@@ -31,13 +32,21 @@ const ChallengeStack = createStackNavigator({
           challenge={true}
         />
       ),
+
     },
   },
   CreateChallenge: {
     screen: CreateChallengeScreen,
     navigationOptions: {
-      headerShown: false,
+      header: ({ scene, previous, navigation }) => (
+        <Header
+        createChallenge={true}
+          title="Create Challenge"
+          navigation={navigation}
+        />
+      ),
     },
+
   },
   CreateChallengeTags: {
     screen: CreateChallengeScreenTags,

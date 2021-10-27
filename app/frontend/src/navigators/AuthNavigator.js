@@ -19,6 +19,7 @@ const AuthStack = createStackNavigator({
       header: ({ scene, previous, navigation }) => (
         <Header title="Sign Up" navigation={navigation} signup={true} />
       ),
+
     },
   },
   ResetPassword: {

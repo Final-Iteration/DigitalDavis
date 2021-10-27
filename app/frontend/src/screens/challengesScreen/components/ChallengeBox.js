@@ -50,16 +50,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginLeft: 17,
   },
-  // button: {
-  //   borderRadius: 4,
-  //   alignItems: "center",
-  //   backgroundColor: "#DDDDDD",
-  //   padding: 8,
-  //   margin: 2,
-  //   width: 100,
-  //   left: height / 5.2,
-  //   color: "red",
-  // },
+
   description: {
     fontSize: 16,
     marginLeft: 17,
