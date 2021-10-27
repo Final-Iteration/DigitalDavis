@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Text,
   StyleSheet,
@@ -13,7 +13,7 @@ import Ionicon from "react-native-vector-icons/Ionicons";
 
 import { Feather, AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Appbar, Avatar } from "react-native-paper";
-//import { AntDesign } from '@expo/vector-icons'; 
+//import { AntDesign } from '@expo/vector-icons';
 import { NavigationActions } from "react-navigation";
 const { height, width } = Dimensions.get("window");
 const barHeight = 37;
@@ -28,9 +28,8 @@ const CustomHeader = ({
   challengeInfo,
   CreateChallengeTags,
   CreateChallengeDate,
-  CreateChallengeDescription
+  CreateChallengeDescription,
 }) => {
-
   const r = () => {
     if (CreateChallengeTags) {
       return (
@@ -72,22 +71,25 @@ const CustomHeader = ({
           elevation: 0,
         }}
       >
-        <View style = {styles.tagPageContainerGustav}>
-          <TouchableOpacity  onPress={() => {navigation.navigate("CreateChallengeDate")}}>
-            <Text style ={styles.backButtonGustav}>
-              Back
-            </Text>
+        <View style={styles.tagPageContainerGustav}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("CreateChallengeDate");
+            }}
+          >
+            <Text style={styles.backButtonGustav}>Back</Text>
           </TouchableOpacity>
-          <TouchableOpacity  onPress={() => {navigation.navigate("Challenge")}}>
-            <Text style = {styles.nextButtonGustav}>
-              Create
-            </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Challenge");
+            }}
+          >
+            <Text style={styles.nextButtonGustav}>Create</Text>
           </TouchableOpacity>
         </View>
-        
       </Appbar.Header>
     );
-  }else if (CreateChallengeDate){
+  } else if (CreateChallengeDate) {
     return (
       <Appbar.Header
         statusBarHeight={barHeight}
@@ -96,22 +98,25 @@ const CustomHeader = ({
           elevation: 0,
         }}
       >
-        <View style = {styles.tagPageContainerGustav}>
-          <TouchableOpacity  onPress={() => {navigation.navigate("CreateChallengeTags")}}>
-            <Text style ={styles.backButtonGustav}>
-              Back
-            </Text>
+        <View style={styles.tagPageContainerGustav}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("CreateChallengeTags");
+            }}
+          >
+            <Text style={styles.backButtonGustav}>Back</Text>
           </TouchableOpacity>
-          <TouchableOpacity  onPress={() => {navigation.navigate("CreateChallengeDescription")}}>
-            <Text style = {styles.nextButtonGustav}>
-              Next
-            </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("CreateChallengeDescription");
+            }}
+          >
+            <Text style={styles.nextButtonGustav}>Next</Text>
           </TouchableOpacity>
         </View>
-        
       </Appbar.Header>
     );
-  }else if (CreateChallengeTags) {
+  } else if (CreateChallengeTags) {
     return (
       <Appbar.Header
         statusBarHeight={barHeight}
@@ -120,43 +125,47 @@ const CustomHeader = ({
           elevation: 0,
         }}
       >
-        <View style = {styles.tagPageContainerGustav}>
-          <TouchableOpacity  onPress={() => {navigation.navigate("Challenge")}}>
-            <Text style ={styles.backButtonGustav}>
-              Back
-            </Text>
+        <View style={styles.tagPageContainerGustav}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Challenge");
+            }}
+          >
+            <Text style={styles.backButtonGustav}>Back</Text>
           </TouchableOpacity>
-          <TouchableOpacity  onPress={() => {navigation.navigate("CreateChallengeDate")}}>
-            <Text style = {styles.nextButtonGustav}>
-              Next
-            </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("CreateChallengeDate");
+            }}
+          >
+            <Text style={styles.nextButtonGustav}>Next</Text>
           </TouchableOpacity>
         </View>
-        
       </Appbar.Header>
     );
-  }else if (challengeInfo) {
+  } else if (challengeInfo) {
     return (
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: '#fff',
+          backgroundColor: "#fff",
           elevation: 0,
         }}
       >
-        <TouchableOpacity
-          style={{ left: 5, flexDirection: 'row', alignSelf: 'center' }}
+        <Appbar.Action
+          animated={false}
+          icon={() => (
+            <Ionicon
+              name="ios-chevron-back-outline"
+              size={30}
+              style={{ color: "#2F80ED" }}
+            />
+          )}
           onPress={() => {
-            navigation.navigate('Challenge');
+            navigation.navigate("Challenge");
           }}
-        >
-          <Ionicon
-            name="ios-chevron-back-outline"
-            size={30}
-            style={{ color: '#2F80ED' }}
-          />
-          <Text style={styles.challengeInfoBack}>Back</Text>
-        </TouchableOpacity>
+        />
+
         <Appbar.Content
           style={styles.headerStyle}
           title={<Text style={styles.title}>{title}</Text>}
@@ -182,7 +191,7 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: '#1d3679',
+          backgroundColor: "#1d3679",
           elevation: -1,
         }}
       >
@@ -190,10 +199,11 @@ const CustomHeader = ({
           style={styles.headerStyle}
           title={<Text style={styles.title}>{title}</Text>}
         />
+
         <TouchableOpacity
           style={{ right: 22 }}
           onPress={() => {
-            navigation.navigate('Login');
+            navigation.navigate("Login");
           }}
         >
           <Text>Login</Text>
@@ -209,23 +219,26 @@ const CustomHeader = ({
           elevation: 0,
         }}
       >
-        <TouchableOpacity
-          style={{ left: 22 }}
+        <Appbar.Action
+          style={styles.leftAction}
+          animated={false}
+          icon={() => (
+            <Icon name="setting" size={30} style={{ color: "white" }} />
+          )}
           onPress={() => navigation.navigate("Setting")}
-        >
-          <Icon name="setting" size={30} style={{ color: 'white' }} />
-        </TouchableOpacity>
+        />
 
         <Appbar.Content
           style={styles.headerStyle}
           title={<Text style={styles.title}>{title}</Text>}
         />
-        <TouchableOpacity
-          style={{ right: 22 }}
+
+        <Appbar.Action
+          style={styles.rightAction}
+          animated={false}
+          icon={() => <Feather name="chevron-down" size={30} color="white" />}
           onPress={() => navigation.goBack(null)}
-        >
-          <Feather name="chevron-down" size={30} color="white" />
-        </TouchableOpacity>
+        />
       </Appbar.Header>
     );
   } else if (setting) {
@@ -233,31 +246,33 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: '#142A4F',
+          backgroundColor: "#142A4F",
           elevation: 0,
         }}
       >
-        <TouchableOpacity
-          style={{ left: 22 }}
-          onPress={() => navigation.navigate('User')}
-        >
-          <Avatar.Image
-            size={40}
-            source={{
-              uri: 'https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg',
-            }}
-          />
-        </TouchableOpacity>
+        <Appbar.Action
+          style={styles.leftAction}
+          animated={false}
+          icon={() => (
+            <Avatar.Image
+              size={40}
+              source={{
+                uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+              }}
+            />
+          )}
+          onPress={() => navigation.navigate("User")}
+        />
         <Appbar.Content
           style={styles.headerStyle}
           title={<Text style={styles.title}>{title}</Text>}
         />
-        <TouchableOpacity
-          style={{ right: 22 }}
+        <Appbar.Action
+          style={styles.rightAction}
+          animated={false}
+          icon={() => <Feather name="chevron-down" size={30} color="white" />}
           onPress={() => navigation.goBack(null)}
-        >
-          <Feather name="chevron-down" size={30} color="white" />
-        </TouchableOpacity>
+        />
       </Appbar.Header>
     );
   } else {
@@ -269,47 +284,43 @@ const CustomHeader = ({
           elevation: 0,
         }}
       >
-        {/* {createChallenge ? (
-          <TouchableOpacity
-            style={{ left: 5, flexDirection: "row", alignSelf: "center" }}
-            onPress={() => {
-              navigation.navigate("Challenge");
-            }}
-          >
-            <Ionicon
-              name="ios-chevron-back-outline"
-              size={30}
-              style={{ color: "#2F80ED" }}
-            />
-            <Text style={styles.challengeInfoBack}>Back</Text>
-          </TouchableOpacity>
-        ) : ( */}
-          <TouchableOpacity
-            style={{ left: width / 20 }}
-            onPress={() => navigation.navigate("User")}
-          >
+        <Appbar.Action
+          style={styles.leftAction}
+          animated={false}
+          icon={() => (
             <Avatar.Image
               size={40}
               source={{
                 uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
               }}
             />
-          </TouchableOpacity>
-        {/* )} */}
+          )}
+          onPress={() => navigation.navigate("User")}
+        />
+
         <Appbar.Content
-          style={styles.headerStyle}
+          style={[styles.headerStyle]}
           title={<Text style={styles.title}>{title}</Text>}
         />
-        {challenge ? (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("CreateChallengeTags")}
-            style={styles.plusButton}
-          >
-          <AntDesign name="plus" size={28} color="black" />
-          </TouchableOpacity>
-        ) : (
-          r()
-        )}
+        <Appbar.Action
+          style={styles.rightAction}
+          animated={false}
+          icon={() => {
+            if (challenge) {
+              return (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("CreateChallengeTags")}
+                  style={styles.plusButton}
+                >
+                  <AntDesign name="plus" size={25} color="black" />
+                </TouchableOpacity>
+              );
+            } else {
+              return r();
+            }
+          }}
+          onPress={() => navigation.navigate("User")}
+        />
       </Appbar.Header>
     );
   }
@@ -317,12 +328,12 @@ const CustomHeader = ({
 const styles = StyleSheet.create({
   challengeInfoBack: {
     fontSize: 17,
-    color: '#2F80ED',
-    fontWeight: '500',
+    color: "#2F80ED",
+    fontWeight: "500",
     marginVertical: 5,
   },
   headerStyle: {
-    alignItems: "center",
+    // alignItems: "center",
   },
   title: {
     fontSize: 25,
@@ -333,25 +344,27 @@ const styles = StyleSheet.create({
     color: "#2F80ED",
     fontWeight: "500",
   },
-  plusButton: {
-    right: width / 20,
-  },
-  nextButtonGustav:{
+  nextButtonGustav: {
     right: width / 20,
     fontSize: 20,
-    color: '#0288d1'
+    color: "#0288d1",
   },
-  backButtonGustav:{
+  backButtonGustav: {
     left: width / 20,
     fontSize: 20,
-    color: '#0288d1'
+    color: "#0288d1",
   },
   tagPageContainerGustav: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     flex: 1,
-    // width: '80%'
-  }
+  },
+  leftAction: {
+    left: width / 28,
+  },
+  rightAction: {
+    right: width / 28,
+  },
 });
 
 export default CustomHeader;
