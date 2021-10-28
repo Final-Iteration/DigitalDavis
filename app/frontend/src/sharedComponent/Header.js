@@ -13,7 +13,6 @@ import Ionicon from "react-native-vector-icons/Ionicons";
 
 import { Feather, AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Appbar, Avatar } from "react-native-paper";
-//import { AntDesign } from '@expo/vector-icons';
 import { NavigationActions } from "react-navigation";
 const { height, width } = Dimensions.get("window");
 const barHeight = 37;
@@ -153,13 +152,17 @@ const CustomHeader = ({
         }}
       >
         <Appbar.Action
+          style={{ width: 70 }}
           animated={false}
           icon={() => (
-            <Ionicon
-              name="ios-chevron-back-outline"
-              size={30}
-              style={{ color: "#2F80ED" }}
-            />
+            <View style={{ flexDirection: "row" }}>
+              <Ionicon
+                name="ios-chevron-back-outline"
+                size={30}
+                style={{ color: "#2F80ED" }}
+              />
+              <Text style={styles.backButton}>Back</Text>
+            </View>
           )}
           onPress={() => {
             navigation.navigate("Challenge");
@@ -349,6 +352,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#0288d1",
   },
+  backButton: {
+    color: "#0288d1",
+    alignSelf: "center",
+    fontSize: 18,
+  },
+
   backButtonGustav: {
     left: width / 20,
     fontSize: 20,

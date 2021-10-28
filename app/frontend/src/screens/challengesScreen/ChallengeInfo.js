@@ -128,7 +128,12 @@ const ChallengeInfo = (props) => {
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <Text style={styles.title}>{challenge.name}</Text>
           <FlatList
-            style={{ left: 17 }}
+            style={{
+              left: 35,
+              height: 35,
+              marginRight: 50,
+              alignSelf: "center",
+            }}
             contentContainerStyle={{
               flexDirection: "row",
               justifyContent: "space-between",
@@ -137,6 +142,7 @@ const ChallengeInfo = (props) => {
             renderItem={({ item }) => <TagPill tag={item} />}
             keyExtractor={(item) => item}
           />
+          {/* </View> */}
         </ScrollView>
         <View style={{ marginHorizontal: width / 100 }}>
           <View style={styles.locationTime}>
