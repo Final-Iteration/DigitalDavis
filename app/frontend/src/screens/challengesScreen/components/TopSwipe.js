@@ -204,9 +204,9 @@ const TopSwipe = ({ props }) => {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "first", title: "ALL" },
-    { key: "second", title: "CURRENT" },
-    { key: "third", title: "PAST" },
+    { key: "first", title: "Active" },
+    { key: "second", title: "Current" },
+    { key: "third", title: "Past" },
   ]);
 
   return (

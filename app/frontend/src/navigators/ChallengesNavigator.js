@@ -1,14 +1,14 @@
-import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
+import React from "react";
+import { createStackNavigator } from "react-navigation-stack";
 
 import CurrentChallenges from "../screens/challengesScreen/CurrentChallenge";
 import ChallengeInfo from "../screens/challengesScreen/ChallengeInfo";
 import CreateChallengeScreen from "../screens/challengesScreen/CreateChallengeScreen";
-import CreateChallengeScreenTags from '../screens/challengesScreen/CreateChallengeScreenTags';
-import CreateChallengeDate from '../screens/challengesScreen/CreateChallengeDate';
-import CreateChallengeDescription from '../screens/challengesScreen/CreateChallengeDescription';
+import CreateChallengeScreenTags from "../screens/challengesScreen/CreateChallengeScreenTags";
+import CreateChallengeDate from "../screens/challengesScreen/CreateChallengeDate";
+import CreateChallengeDescription from "../screens/challengesScreen/CreateChallengeDescription";
 
-import Header from '../sharedComponent/Header';
+import Header from "../sharedComponent/Header";
 
 const ChallengeStack = createStackNavigator({
   Challenge: {
@@ -17,7 +17,6 @@ const ChallengeStack = createStackNavigator({
       header: ({ scene, previous, navigation }) => (
         <Header title="Challenges" navigation={navigation} challenge={true} />
       ),
-
     },
   },
 
@@ -25,14 +24,8 @@ const ChallengeStack = createStackNavigator({
     screen: ChallengeInfo,
     navigationOptions: {
       header: ({ scene, previous, navigation }) => (
-        <Header
-          challengeInfo={true}
-          title="Challenge"
-          navigation={navigation}
-          challenge={true}
-        />
+        <Header challengeInfo={true} navigation={navigation} challenge={true} />
       ),
-
     },
   },
   CreateChallenge: {
@@ -40,13 +33,12 @@ const ChallengeStack = createStackNavigator({
     navigationOptions: {
       header: ({ scene, previous, navigation }) => (
         <Header
-        createChallenge={true}
+          createChallenge={true}
           title="Create Challenge"
           navigation={navigation}
         />
       ),
     },
-
   },
   CreateChallengeTags: {
     screen: CreateChallengeScreenTags,
@@ -60,14 +52,11 @@ const ChallengeStack = createStackNavigator({
       ),
     },
   },
-  CreateChallengeDate:{
+  CreateChallengeDate: {
     screen: CreateChallengeDate,
     navigationOptions: {
       header: ({ scene, previous, navigation }) => (
-        <Header
-          CreateChallengeDate={true}
-          navigation={navigation}
-        />
+        <Header CreateChallengeDate={true} navigation={navigation} />
       ),
     },
   },
@@ -75,10 +64,7 @@ const ChallengeStack = createStackNavigator({
     screen: CreateChallengeDescription,
     navigationOptions: {
       header: ({ scene, previous, navigation }) => (
-        <Header
-          CreateChallengeDescription={true}
-          navigation={navigation}
-        />
+        <Header CreateChallengeDescription={true} navigation={navigation} />
       ),
     },
   },

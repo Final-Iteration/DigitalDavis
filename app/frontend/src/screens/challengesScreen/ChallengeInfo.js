@@ -124,29 +124,24 @@ const ChallengeInfo = (props) => {
         >
           <Image style={styles.image} source={{ uri: challenge.image }} />
         </View>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          style={{ top: 10 }}
-        >
-          <View
+
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <Text style={styles.title}>{challenge.name}</Text>
+          <FlatList
             style={{
-              alignItems: "center",
+              left: 35,
+              height: 35,
+              marginRight: 50,
+              alignSelf: "center",
+            }}
+            contentContainerStyle={{
               flexDirection: "row",
             }}
-          >
-            <Text style={styles.title}>{challenge.name}</Text>
-            <FlatList
-              style={{ left: 35, height: 35 }}
-              contentContainerStyle={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-              data={challenge.tags}
-              renderItem={({ item }) => <TagPill tag={item} />}
-              keyExtractor={(item) => item}
-            />
-          </View>
+            data={challenge.tags}
+            renderItem={({ item }) => <TagPill tag={item} />}
+            keyExtractor={(item) => item}
+          />
+          {/* </View> */}
         </ScrollView>
         <View style={{ marginHorizontal: width / 100, marginVertical: 10 }}>
           <View style={styles.locationTime}>
