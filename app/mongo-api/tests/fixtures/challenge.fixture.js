@@ -1,36 +1,27 @@
-const mongoose = require('mongoose');
-const faker = require('faker');
-const { Challenge } = require('../../models');
-
-const challengeTags = [
-  'Emotional',
-  'Environmental',
-  'Intellectual',
-  'Physical',
-  'Social',
-  'Spiritual',
-];
+const mongoose = require("mongoose");
+const faker = require("faker");
+const { Challenge } = require("../../models");
 
 function start_date() {
-  const startDate = new Date().toISOString();
+  const startDate = new Date();
   return startDate;
 }
 
 function end_date() {
   const endDate = new Date();
   endDate.setDate(endDate.getDate() + 30);
+  // return new Date(endDate).toISOString();
   return endDate;
 }
 
-/**
- * @TODO Create  function to generate valid start and end dates for the challenge
- */
-
-/**
- *
- *@todo fix copied shuffle code [DUPLICATED CODE]
- */
-
+const challengeTags = [
+  "Emotional",
+  "Environmental",
+  "Intellectual",
+  "Physical",
+  "Social",
+  "Spiritual",
+];
 /**
  * Returns the first element in the challengeTags array after the array has been shuffled
  * @param {*} array
@@ -55,40 +46,40 @@ function shuffle(array) {
 
 const challengeOne = {
   _id: mongoose.Types.ObjectId(),
-  name: 'A Running Challenge',
+  name: "A Running Challenge",
   creator: faker.lorem.words(3).substring(0, 30),
-  tags: ['Emotional'],
+  tags: [shuffle(challengeTags)],
   description: faker.random.words(),
   location: faker.address.city(),
-  timestamp: null,
-  start_date: null,
-  end_date: null,
+  timestamp: faker.date.soon(),
+  start_date: start_date(),
+  end_date: end_date(),
   participants: [`${faker.name.findName()}`],
 };
 
 const challengeTwo = {
   _id: mongoose.Types.ObjectId(),
-  name: 'Bouncing Challenge',
+  name: "Bouncing Challenge",
   creator: faker.lorem.words(3).substring(0, 30),
-  tags: ['Physical', 'Social', 'Spiritual'],
+  tags: ["Physical", "Spiritual"],
   description: faker.random.words(),
   location: faker.address.city(),
-  timestamp: null,
-  start_date: null,
-  end_date: null,
+  timestamp: faker.date.soon(),
+  start_date: start_date(),
+  end_date: end_date(),
   participants: [`${faker.name.findName()}`],
 };
 
 const challengeThree = {
   _id: mongoose.Types.ObjectId(),
-  name: 'CatWalking Challenge',
-  creator: 'Sharon',
-  tags: ['Physical', 'Social', 'Spiritual'],
+  name: "CatWalking Challenge",
+  creator: "Sharon",
+  tags: ["Physical", "Social", "Spiritual"],
   description: faker.random.words(),
   location: faker.address.city(),
-  timestamp: null,
-  start_date: null,
-  end_date: null,
+  timestamp: faker.date.soon(),
+  start_date: start_date(),
+  end_date: end_date(),
   participants: [`${faker.name.findName()}`, `${faker.name.findName()}`],
 };
 
