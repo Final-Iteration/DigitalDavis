@@ -5,28 +5,21 @@ import Insights from '../screens/insightsScreen/Insights';
 
 import Header from '../sharedComponent/Header';
 
-const InsightStack = createStackNavigator({
-  Insight: {
-    screen: Insights,
-    navigationOptions: {
-      header: () => <Header title="Insights" />,
-      headerStyle: {
-        backgroundColor: "#142A4F",
-      },
-      headerTintColor: "#fff",
-      headerTitleStyle: {
-        fontWeight: "semi-bold",
-        fontSize: 32,
-        fontFamily: "Helvetica",
+const InsightStack = createStackNavigator(
+  {
+    Insight: {
+      screen: Insights,
+      navigationOptions: {
+        header: ({ scene, previous, navigation }) => (
+          <Header title="Insights" navigation={navigation} />
+        ),
       },
     },
   },
-  Setting: {
-    screen: Settings,
-  },
-  UserProfile: {
-    screen: User,
-  },
-});
+  {
+    initialRouteName: 'Insight',
+    headerMode: 'screen',
+  }
+);
 
 export default InsightStack;

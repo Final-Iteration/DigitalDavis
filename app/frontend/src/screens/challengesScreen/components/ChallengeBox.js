@@ -15,11 +15,16 @@ const ChallengeBox = ({ image, title, description, status, past }) => {
           uri: image,
         }}
       ></Image>
-      <View style={styles.title_container}>
-        <Text style={styles.title}>Challenge Title</Text>
-        <TouchableOpacity style={styles.button}>
-          <Text>Particpate</Text>
-        </TouchableOpacity>
+      <View style={styles.titleDescriptionContainer}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.description}>{description}</Text>
+        {past ? (
+          <Text style={styles.status_text}>Completed</Text>
+        ) : (
+          <Text style={styles.status_text}>
+            {status ? 'In Progress' : 'Not Participating'}
+          </Text>
+        )}
       </View>
     </View>
   );

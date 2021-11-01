@@ -15,14 +15,312 @@ import { Feather, AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Appbar, Avatar } from "react-native-paper";
 import { NavigationActions } from "react-navigation";
 const { height, width } = Dimensions.get("window");
-const CustomHeader = ({ title }) => {
-  return (
-    <Appbar.Header>
-      <TouchableOpacity style={{ left: 22 }}>
-        <Avatar.Image
-          size={40}
-          source={{
-            uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+const barHeight = 37;
+const platform = Platform.OS === "ios" ? true : "50%";
+const CustomHeader = ({
+  navigation,
+  title,
+  profile,
+  setting,
+  signup,
+  challenge,
+  challengeInfo,
+  CreateChallengeTags,
+  CreateChallengeDate,
+  CreateChallengeDescription,
+}) => {
+  const r = () => {
+    if (CreateChallengeTags) {
+      return (
+        <TouchableOpacity
+          style={{
+            left: 5,
+            flexDirection: "row",
+            alignSelf: "center",
+          }}
+        >
+          <Ionicon
+            name="ios-chevron-back-outline"
+            size={30}
+            style={{ color: "#2F80ED", opacity: 0 }}
+          />
+          <Text style={{ opacity: 0 }}>Back</Text>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <TouchableOpacity style={styles.plusButton}>
+          <AntDesign
+            name="plus"
+            size={28}
+            color="black"
+            style={{ opacity: 0 }}
+          />
+        </TouchableOpacity>
+      );
+    }
+  };
+
+  if (CreateChallengeDescription) {
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#fff",
+          elevation: 0,
+        }}
+      >
+        <View style={styles.tagPageContainerGustav}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("CreateChallengeDate");
+            }}
+          >
+            <Text style={styles.backButtonGustav}>Back</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Challenge");
+            }}
+          >
+            <Text style={styles.nextButtonGustav}>Create</Text>
+          </TouchableOpacity>
+        </View>
+      </Appbar.Header>
+    );
+  } else if (CreateChallengeDate) {
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#fff",
+          elevation: 0,
+        }}
+      >
+        <View style={styles.tagPageContainerGustav}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("CreateChallengeTags");
+            }}
+          >
+            <Text style={styles.backButtonGustav}>Back</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("CreateChallengeDescription");
+            }}
+          >
+            <Text style={styles.nextButtonGustav}>Next</Text>
+          </TouchableOpacity>
+        </View>
+      </Appbar.Header>
+    );
+  } else if (CreateChallengeTags) {
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#fff",
+          elevation: 0,
+        }}
+      >
+        <View style={styles.tagPageContainerGustav}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Challenge");
+            }}
+          >
+            <Text style={styles.backButtonGustav}>Back</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("CreateChallengeDate");
+            }}
+          >
+            <Text style={styles.nextButtonGustav}>Next</Text>
+          </TouchableOpacity>
+        </View>
+      </Appbar.Header>
+    );
+  } else if (challengeInfo) {
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#fff",
+          elevation: 0,
+        }}
+      >
+        <Appbar.Action
+          style={{ width: 70 }}
+          animated={false}
+          icon={() => (
+            <View style={{ flexDirection: "row" }}>
+              <Ionicon
+                name="ios-chevron-back-outline"
+                size={30}
+                style={{ color: "#2F80ED" }}
+              />
+              <Text style={styles.backButton}>Back</Text>
+            </View>
+          )}
+          onPress={() => {
+            navigation.navigate("Challenge");
+          }}
+        />
+
+        <Appbar.Content
+          style={styles.headerStyle}
+          title={<Text style={styles.title}>{title}</Text>}
+        />
+        <TouchableOpacity
+          style={{
+            left: 5,
+            flexDirection: "row",
+            alignSelf: "center",
+          }}
+        >
+          <Ionicon
+            name="ios-chevron-back-outline"
+            size={30}
+            style={{ color: "#2F80ED", opacity: 0 }}
+          />
+          <Text style={{ opacity: 0 }}>Back</Text>
+        </TouchableOpacity>
+      </Appbar.Header>
+    );
+  } else if (signup) {
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#1d3679",
+          elevation: -1,
+        }}
+      >
+        <Appbar.Content
+          style={styles.headerStyle}
+          title={<Text style={styles.title}>{title}</Text>}
+        />
+
+        <TouchableOpacity
+          style={{ right: 22 }}
+          onPress={() => {
+            navigation.navigate("Login");
+          }}
+        >
+          <Text>Login</Text>
+        </TouchableOpacity>
+      </Appbar.Header>
+    );
+  } else if (profile) {
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#142A4F",
+          elevation: 0,
+        }}
+      >
+        <Appbar.Action
+          style={styles.leftAction}
+          animated={false}
+          icon={() => (
+            <Icon name="setting" size={30} style={{ color: "white" }} />
+          )}
+          onPress={() => navigation.navigate("Setting")}
+        />
+
+        <Appbar.Content
+          style={styles.headerStyle}
+          title={<Text style={styles.title}>{title}</Text>}
+        />
+
+        <Appbar.Action
+          style={styles.rightAction}
+          animated={false}
+          icon={() => <Feather name="chevron-down" size={30} color="white" />}
+          onPress={() => navigation.goBack(null)}
+        />
+      </Appbar.Header>
+    );
+  } else if (setting) {
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#142A4F",
+          elevation: 0,
+        }}
+      >
+        <Appbar.Action
+          style={styles.leftAction}
+          animated={false}
+          icon={() => (
+            <Avatar.Image
+              size={40}
+              source={{
+                uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+              }}
+            />
+          )}
+          onPress={() => navigation.navigate("User")}
+        />
+        <Appbar.Content
+          style={styles.headerStyle}
+          title={<Text style={styles.title}>{title}</Text>}
+        />
+        <Appbar.Action
+          style={styles.rightAction}
+          animated={false}
+          icon={() => <Feather name="chevron-down" size={30} color="white" />}
+          onPress={() => navigation.goBack(null)}
+        />
+      </Appbar.Header>
+    );
+  } else {
+    return (
+      <Appbar.Header
+        statusBarHeight={barHeight}
+        style={{
+          backgroundColor: "#fff",
+          elevation: 0,
+        }}
+      >
+        <Appbar.Action
+          style={styles.leftAction}
+          animated={false}
+          icon={() => (
+            <Avatar.Image
+              size={40}
+              source={{
+                uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+              }}
+            />
+          )}
+          onPress={() => navigation.navigate("User")}
+        />
+
+        <Appbar.Content
+          style={[styles.headerStyle]}
+          title={<Text style={styles.title}>{title}</Text>}
+        />
+        <Appbar.Action
+          style={styles.rightAction}
+          animated={false}
+          icon={() => {
+            if (challenge) {
+              return (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("CreateChallengeTags")}
+                  style={styles.plusButton}
+                >
+                  <AntDesign name="plus" size={25} color="black" />
+                </TouchableOpacity>
+              );
+            } else {
+              return r();
+            }
           }}
           onPress={() => navigation.navigate("User")}
         />
