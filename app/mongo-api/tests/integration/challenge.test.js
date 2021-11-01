@@ -16,8 +16,8 @@ const { deleteOne } = require("../../models/challenge.model");
 
 //JWT Tokens for testing
 // const { challengeOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
-
 //Creates a connection to the testing database before running any tests
+
 setupTestDB();
 
 describe("Challenge routes", () => {
