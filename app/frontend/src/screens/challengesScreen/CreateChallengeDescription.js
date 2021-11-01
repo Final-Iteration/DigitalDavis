@@ -19,6 +19,8 @@ import Modal from "react-native-modal";
 import UnsplashCred from "../../secrete/UnplashCred";
 import axios from "axios";
 import UnplashImage from "./components/UnplashImage";
+// import { showMessage } from "react-native-flash-message";
+// import CreateChallengeBanner from "./components/CreateChallengeBanner";
 const { width, height } = Dimensions.get("window");
 
 const CreateChallengeDescription = () => {
