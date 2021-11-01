@@ -6,7 +6,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const fs = require('fs');
 const path = require('path');
 
-const pubPath = path.join(__dirname, '../keys/pub_rsa.pem');
+const pubPath = path.join(__dirname, '../certificates/pub_rsa.pem');
 const PUBLIC_KEY = fs.readFileSync(pubPath, 'utf8');
 
 const options = {
