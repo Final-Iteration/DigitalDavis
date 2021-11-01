@@ -254,10 +254,13 @@ const ChallengeInfo = (props) => {
             },
           ]}
           onPress={() => {
-            const updateParticipationStatusOnChallenge = async () =>{
+            const addUserToChallenge = async () =>{
               try{
               // console.log(challenge.id);
+              // TODO: Route should be /challenges/addParticipant/:id
               const res = await axios.patch(`/challenges/${challenge.id}`,{
+                //TODO: Will need to pass in UserID, and make sure Challenge service is appending this into the challenge
+                //participants: [`${user.id}`]
                 participants: ["Test Participation Axios call"]
               });
               }catch (error){
@@ -265,7 +268,32 @@ const ChallengeInfo = (props) => {
               }
             
             }
-            updateParticipationStatusOnChallenge();
+            const removeUserFromChallenge = async () => {
+              try{
+                // console.log(challenge.id);
+                // TODO: Route should be /challenges/removeParticipant/:id
+                const res = await axios.patch(`/challenges/${challenge.id}`,{
+                  //TODO: Will need to pass in UserID, and make sure Challenge service is removing the user from the challenge
+                  //participants: [`${user.id}`]
+                  participants: ["Test Participation Axios call"]
+                });
+                }catch (error){
+                console.log(error.message);
+                } 
+            }
+
+            /**
+             * Add a user to a challenge and change participationStatus to allow the UI to update accordingly
+             */
+            if(participationStatus == false)
+            {
+              addUserToChallenge();
+              setStatus(!participationStatus);
+            }else{
+              removeUserFromChallenge();
+              setStatus(!participationStatus);
+            }
+            
             setStatus(!participationStatus);
             showMessage({
               icon: "success",
