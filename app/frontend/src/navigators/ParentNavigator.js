@@ -27,7 +27,8 @@ const MainNavigator = createSwitchNavigator(
     Main: TabStack,
   },
   {
-    initialRouteName: "Auth",
+    initialRouteName: 'Auth',
   }
 );
+
 export default MainNavigator;

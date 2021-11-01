@@ -1,0 +1,35 @@
+{
+  "production": {
+    "database": {
+      "user": "PROD_DATABASE_USER",
+      "password": "PROD_DATABASE_PW",
+      "protocol": "PROD_DATABASE_PROTOCOL",
+      "host": "PROD_DATABASE_HOST",
+      "port": "PROD_DATABASE_PORT",
+      "name": "PROD_DATABASE_NAME",
+      "collection": "PROD_DATABASE_COLLECTION",
+      "authsource": "PROD_DATABASE_AUTHSOURCE",
+      "certificate": "CA_CERTIFICATE_PATH"
+    }
+  },
+  "development": {
+    "database": {
+      "host": "DOCKER_DATABASE_HOST",
+      "port": "DEV_DATABASE_PORT",
+      "name": "DEV_DATABASE_NAME",
+      "protocol": "DEV_DATABASE_PROTOCOL",
+      "collection": "DEV_DATABASE_COLLECTION",
+      "certificate": "CA_CERTIFICATE_PATH"
+    }
+  },
+  "docker": {
+    "database": {
+      "host": "DOCKER_DATABASE_HOST",
+      "port": "DOCKER_DATABASE_PORT",
+      "name": "DOCKER_DATABASE_NAME",
+      "protocol": "DOCKER_DATABASE_PROTOCOL",
+      "collection": "DOCKER_DATABASE_COLLECTION",
+      "certificate": "CA_CERTIFICATE_PATH"
+    }
+  }
+}

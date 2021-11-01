@@ -1,19 +1,19 @@
-import React from "react";
-import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Dimensions } from "react-native";
+import React from 'react';
+import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Dimensions } from 'react-native';
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+const { width, height } = Dimensions.get('window');
 
-const ChallengeBox = () => {
+const ChallengeBox = ({ image, title, description, status, past }) => {
   return (
     // data passed in should contain:
     //image uri, challenge title, description, status
     <View style={styles.container}>
       <Image
         style={styles.image}
-        // replace this hard coded image with the image uri's when we get them
-        source={require("cd ../../../../assets/yoga.png")}
+        source={{
+          uri: image,
+        }}
       ></Image>
       <View style={styles.title_container}>
         <Text style={styles.title}>Challenge Title</Text>
@@ -21,50 +21,38 @@ const ChallengeBox = () => {
           <Text>Particpate</Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.description}>Sample Description</Text>
-      <Text style={styles.status_text}>In Progress</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "column",
-    alignItems: "flex-start",
+  status_text: {
+    opacity: 0.5,
+    marginLeft: 17,
   },
-  title_container: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: windowWidth,
+  container: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
   image: {
     borderRadius: 8,
-    width: windowWidth / 1.05,
-    height: windowHeight / 4.5,
-    margin: 10,
+    width: width / 1.1,
+    height: height / 4,
+    margin: 17,
   },
   title: {
-    fontWeight: "bold",
-    fontSize: 16,
-    margin: 2,
-    marginLeft: 6,
+    fontWeight: '300',
+    fontSize: 25,
+    marginLeft: 17,
   },
-  button: {
-    borderRadius: 4,
-    alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 8,
-    margin: 2,
-    width: 100,
-    left: windowHeight / 5.2,
-    color: "red",
-  },
+
   description: {
-    fontSize: 14,
+    fontSize: 16,
+    marginLeft: 17,
+    opacity: 0.8,
   },
-  status_text: {
-    color: "grey",
-    fontSize: 13,
+  titleDescriptionContainer: {
+    bottom: height / 100,
   },
 });
 

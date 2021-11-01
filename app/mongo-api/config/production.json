@@ -1,0 +1,16 @@
+{
+  "production": {
+    "name": "Mongo Express API - Production",
+    "database": {
+      "user": "",
+      "password": "",
+      "protocol": "",
+      "host": "",
+      "port": "",
+      "database": "",
+      "collection": "",
+      "authsource": "",
+      "certificate": ""
+    }
+  }
+}

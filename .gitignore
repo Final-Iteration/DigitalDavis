@@ -79,6 +79,9 @@ jspm_packages/
 
 # dotenv environment variables file
 .env
+.env.docker
+.env.api
+env
 
 # next.js build output
 .next
@@ -104,6 +107,20 @@ web-build/
 # macOS
 .DS_Store
 
-# expo 
+# Application 
 app/.expo-shared
 app/.expo-shared/**
+app/mongo-api/certificates/ca-certificate.crt
+.vscode/settings.json
+app/mongo-api/certificates/docker-config.json
+app/nohup.out
+
+.env.dev
+.env.prod
+
+nohup.out
+.env.docker.dev
+.env.development
+
+priv_rsa.pem
+pub_rsa.pem
