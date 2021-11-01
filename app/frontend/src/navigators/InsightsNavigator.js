@@ -1,11 +1,9 @@
-import React from "react";
-import { createStackNavigator } from "react-navigation-stack";
+import React from 'react';
+import { createStackNavigator } from 'react-navigation-stack';
 
-import Insights from "../screens/insightsScreen/Insights";
-import Settings from "../screens/insightsScreen/Settings";
-import User from "../screens/insightsScreen/User";
+import Insights from '../screens/insightsScreen/Insights';
 
-import Header from "../sharedComponent/Header";
+import Header from '../sharedComponent/Header';
 
 const InsightStack = createStackNavigator({
   Insight: {

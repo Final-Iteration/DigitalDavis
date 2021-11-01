@@ -1,0 +1,13 @@
+{
+  "docker": {
+    "name": "Mongo Express API - Docker",
+    "database": {
+      "host": "",
+      "port": "",
+      "name": "",
+      "protocol" : "",
+      "collection": "",
+      "certificate": ""
+    }
+  }
+}

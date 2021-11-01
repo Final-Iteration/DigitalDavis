@@ -1,0 +1,13 @@
+{
+  "development": {
+    "name": "Mongo Express API - Development",
+    "database": {
+      "host": "",
+      "port": "",
+      "name": "",
+      "protocol" : "",
+      "collection": "",
+      "certificate": ""
+    }
+  }
+}
