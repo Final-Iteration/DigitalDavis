@@ -42,7 +42,7 @@ const CreateChallengeDescription = () => {
 
   const searchPhotos = async () => {
     const response = await axios.get(
-      `https://api.unsplash.com/search/photos?client_id=${UnsplashCred.accessKey}&query=${image}`
+      `https://api.unsplash.com/search/photos?client_id=${UnsplashCred.accessKey}&query=${image}&per_page=20`
     );
 
     setImageURL(
@@ -63,7 +63,7 @@ const CreateChallengeDescription = () => {
         contentContainerStyle={{ paddingBottom: 13 }}
       >
         <Text style={styles.headerText}>
-          Give your challenge a name, description, and picture.
+          Give your challenge a picture, name, and description.
         </Text>
 
         <Text style={styles.secondHeaderText}>
