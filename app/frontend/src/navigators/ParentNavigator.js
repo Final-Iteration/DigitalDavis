@@ -1,30 +1,16 @@
 //https://reactnavigation.org/docs/auth-flow/
-import React from "react";
-import { createSwitchNavigator } from "react-navigation";
-import { createBottomTabNavigator } from "react-navigation-tabs";
-
-//bottom tab
-import ChallengeStack from "./ChallengesNavigator";
-import FormularyStack from "./FormularyNavigator";
-import InsightStack from "./InsightsNavigator";
-import KnowledgeStack from "./KnowledgeNavigator";
-import SearchStack from "./SearchNavigator";
+import React from 'react';
+import { createSwitchNavigator } from 'react-navigation';
 
 //auth stack
-import AuthStack from "./UserNavigator";
-
-const TabStack = createBottomTabNavigator({
-  InsightStack: InsightStack,
-  Formulary: FormularyStack,
-  SearchStack: SearchStack,
-  KnowledgeStack: KnowledgeStack,
-  Challenge: ChallengeStack,
-});
+import AuthStack from './AuthNavigator';
+//main stack
+import MainStack from './Modal';
 
 const MainNavigator = createSwitchNavigator(
   {
     Auth: AuthStack,
-    Main: TabStack,
+    Main: MainStack,
   },
   {
     initialRouteName: 'Auth',
