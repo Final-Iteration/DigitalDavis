@@ -293,8 +293,6 @@ const ChallengeInfo = (props) => {
               removeUserFromChallenge();
               setStatus(!participationStatus);
             }
-            
-            setStatus(!participationStatus);
             showMessage({
               icon: "success",
               position: "top",
