@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 
-const privPath = path.join(__dirname, '../keys/priv_rsa.pem');
+const privPath = path.join(__dirname, '../certificates/priv_rsa.pem');
 const PRIVATE_KEY = fs.readFileSync(privPath, 'utf8');
 
 function createJWT(user){
