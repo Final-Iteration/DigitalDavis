@@ -1,27 +1,10 @@
 version: "3.8"
 services:
-  mongo-database:
-    image: final-iteration/mongodb:1.0.0
-    hostname: final-iteration
-    container_name: mongo-database
-    build: ./mongo-db/
-    env_file: 
-      - .env
-    environment:
-      - PUID=1000
-      - PGID=1000
-    ports:
-      - "27017:27017"
-    restart: unless-stopped
-    volumes: 
-      - mongodb:/data/db
   express-api:
-    image: final-iteration/express:1.0.0
+    image: final_iteration_api_prod:lts
     hostname: final-iteration
     container_name: express-api
     build: ./mongo-api/
-    env_file: 
-      - .env
     environment:
       - "NODE_ENV=production"
       - "EXPRESS_API_PORT=${EXPRESS_API_PORT}"
@@ -36,33 +19,4 @@ services:
       - "PROD_DATABASE_AUTHSOURCE=${PROD_DATABASE_AUTHSOURCE}"
     ports:
       - "3005:3005"
-    volumes:
-      - ./mongo-api:/usr/src/app
-      - api_node_modules:/usr/src/cache
     restart: unless-stopped
-  # expo-frontend:
-  #   image: final-iteration/expo:1.2.0
-  #   hostname: final-iteration
-  #   container_name: expo
-  #   build: ./frontend/
-  #   env_file: 
-  #     - .env.docker
-  #   ports:
-  #     - "19000:19000"
-  #     - "19001:19001"
-  #     - "19002:19002"
-  #     - "19006:19006"
-  #   volumes:
-  #     - ./frontend:/usr/src/app
-  #     - frontend_node_modules:/usr/src/cache
-  #   restart: always
-  #   environment:
-  #     - "REACT_NATIVE_PACKAGER_HOSTNAME=${REACT_NATIVE_PACKAGER_HOSTNAME}"
-  #     - "EXPO_DEVTOOLS_LISTEN_ADDRESS=${EXPO_DEVTOOLS_LISTEN_ADDRESS}"
-  #   command: /usr/src/app/docker-entrypoint.sh
-  #   networks:
-  #     - node-network
-volumes: 
-  frontend_node_modules:
-  api_node_modules:
-  mongodb:
