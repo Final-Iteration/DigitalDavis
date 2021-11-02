@@ -12,11 +12,28 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 const { width, height } = Dimensions.get('window');
 
-const CreateChallengeScreenTags = () => {
+const CreateChallengeScreenTags = (props) => {
 
     const [tagsPageActive, setTagsPageActive] = useState(true);
     const [datePageActive, setDatePageActive] = useState(false);
     const [descriptionPageActive, setDescriptionPageActive] = useState(false);
+    const [checkInput, setCheckInput] = useState(false);
+
+    // const inputCheck = () => {
+    //     if (tagsPageActive){
+    //         if (emotionalTag || environmentalTag || intellectualTag || physicalTag || socialTag || spiritualTag){
+    //             setCheckInput(true);
+    //             return checkInput;
+    //         }else{
+    //             setCheckInput(false);
+    //             return checkInput;
+    //         }
+    //     }else if (datePageActive) {
+            
+    //     }else if (descriptionPageActive){
+
+    //     }
+    // };
 
     //tags page states
     const [selectAllTags, setSelectAllTags] = useState(false);
@@ -82,7 +99,17 @@ const CreateChallengeScreenTags = () => {
     // TAG PAGE INFORMATION
     if (tagsPageActive) {
         return (
-            <View>
+            <View style = {styles.pageContainer}> 
+                <View style={styles.tagPageContainerGustav}>
+                    <TouchableOpacity onPress={() => {props.navigation.navigate("Challenge");}}>
+                    <Text style={styles.backButtonGustav}>Back</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => (emotionalTag || environmentalTag || intellectualTag || physicalTag || socialTag || spiritualTag) ? (setTagsPageActive(false), setDatePageActive(true)): null}>
+                        <Text style={(emotionalTag || environmentalTag || intellectualTag || physicalTag || socialTag || spiritualTag) ? styles.nextButtonValid : styles.nextButtonInvalid}>
+                            Next
+                        </Text>
+                    </TouchableOpacity>
+                </View>
                 <ProgressBar progress={0.25} color={Colors.blue600} />
                 <Text style = {styles.headerText}>
                     Which domain of wellness does your challenge belong to?
@@ -163,14 +190,24 @@ const CreateChallengeScreenTags = () => {
     // DATES PAGE INFORMATION
     }else if (datePageActive) {
         return (
-            <View style={styles.containerDates}>
-              <ProgressBar progress={0.5} color={Colors.blue600} />
-              <KeyboardAwareScrollView
-                enableOnAndroid={true}
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps={"always"}
-                extraScrollHeight={30}
-              >
+            <View style={styles.containerDatesAndDescription}>
+                <View style={styles.tagPageContainerGustav}>
+                    <TouchableOpacity onPress={() => {setTagsPageActive(true); setDatePageActive(false);}}>
+                    <Text style={styles.backButtonGustav}>Back</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {location.trim().length ? (setDatePageActive(false), setDescriptionPageActive(true)) : null}}>
+                        <Text style={location.trim().length ? styles.nextButtonValid : styles.nextButtonInvalid}>
+                            Next
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <ProgressBar progress={0.5} color={Colors.blue600} />
+                <KeyboardAwareScrollView
+                    enableOnAndroid={true}
+                    showsVerticalScrollIndicator={false}
+                    keyboardShouldPersistTaps={"always"}
+                    extraScrollHeight={30}
+                >
                 <Text style={styles.headerText}>
                   Select when and where to begin your challenge!
                 </Text>
@@ -184,16 +221,17 @@ const CreateChallengeScreenTags = () => {
                   <View style={styles.dateDropDown}>
                     <Text style={styles.datesText}>Start Date</Text>
                     <RNDateTimePicker
-                      disabled={false}
-                      style={styles.datePickerStyle}
-                      testID="dateTimePicker"
-                      value={startDate}
-                      mode={"date"}
-                      is24Hour={true}
-                      display="default"
-                      onChange={(event, selectedDate) => {
-                        setStartDate(selectedDate);
-                      }}
+                        minimumDate = {new Date(startDate)}
+                        disabled={false}
+                        style={styles.datePickerStyle}
+                        testID="dateTimePicker"
+                        value={startDate}
+                        mode={"date"}
+                        is24Hour={true}
+                        display="default"
+                        onChange={(event, selectedDate) => {
+                            setStartDate(selectedDate);
+                        }}
                     />
                   </View>
         
@@ -201,16 +239,17 @@ const CreateChallengeScreenTags = () => {
                   <View style={styles.dateDropDown}>
                     <Text style={styles.datesText}>End Date</Text>
                     <RNDateTimePicker
-                      disabled={false}
-                      style={styles.datePickerStyle}
-                      testID="dateTimePicker"
-                      value={endDate}
-                      mode={"date"}
-                      is24Hour={true}
-                      display="default"
-                      onChange={(event, selectedDate) => {
+                        minimumDate = {new Date(startDate)}
+                        disabled={false}
+                        style={styles.datePickerStyle}
+                        testID="dateTimePicker"
+                        value={endDate}
+                        mode={"date"}
+                        is24Hour={true}
+                        display="default"
+                        onChange={(event, selectedDate) => {
                         setEndDate(selectedDate);
-                      }}
+                        }}
                     />
                   </View>
                 </View>
@@ -237,7 +276,19 @@ const CreateChallengeScreenTags = () => {
     // DESCRIPTION PAGE INFORMATION
     }else if (descriptionPageActive){
         return (
-            <View style = {styles.containerDescription}>
+            <View style = {styles.containerDatesAndDescription}>
+                <View style={styles.tagPageContainerGustav}>
+                    <TouchableOpacity onPress={() => {setDatePageActive(true); setDescriptionPageActive(false);}}>
+                    <Text style={styles.backButtonGustav}>
+                        Back
+                    </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => {(challengeName.trim().length && challengeDescription.trim().length) ? props.navigation.navigate('Challenge') : null}}>
+                        <Text style={(challengeName.trim().length && challengeDescription.trim().length) ? styles.nextButtonValid : styles.nextButtonInvalid}>
+                            Create
+                        </Text>
+                    </TouchableOpacity>
+                </View>
                 <ProgressBar progress={0.75} color={Colors.blue600} />
                 <KeyboardAwareScrollView
                     enableOnAndroid={true}
@@ -287,6 +338,29 @@ const CreateChallengeScreenTags = () => {
 };
 
 const styles = StyleSheet.create({
+    nextButtonInvalid: {
+        right: width / 20,
+        fontSize: 20,
+        color: "#BEBEBE",
+    },
+    nextButtonValid: {
+        right: width / 20,
+        fontSize: 20,
+        color: "#0288d1",
+    },
+    backButtonGustav: {
+        left: width / 20,
+        fontSize: 20,
+        color: "#0288d1",
+    },
+    tagPageContainerGustav: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        bottom: height / 60
+    },
+    pageContainer:{
+        marginTop: height / 13
+    },
     tagTextContainer:{
         marginTop: height / 20,
         marginHorizontal: width / 20,
@@ -347,7 +421,8 @@ const styles = StyleSheet.create({
         borderColor: "#D3D3D3",
         marginTop: height / 45,
     },
-    containerDates: {
+    containerDatesAndDescription: {
+        marginTop: height / 13,
         flex: 1,
     },
     locationLength: {
@@ -380,9 +455,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginHorizontal: width / 25,
         marginTop: height / 20
-    },
-    containerDescription: {
-        flex: 1
     },
     inputLengths: {
         alignSelf: 'flex-end',
