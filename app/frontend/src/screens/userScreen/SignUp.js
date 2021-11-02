@@ -14,6 +14,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from '../../axios';
 
+const asyncStorage = require('../../asyncStorage');
 
 const { height, width } = Dimensions.get('window');
 const imageSource = require('../../../assets/blurredDavis.jpg');
@@ -51,20 +52,22 @@ const Signup = (props) => {
         date.toString();
         try {
           
-          const res = await axios.post('/users', {
+          const res = await axios.post('/api/auth/signup', {
             first_name: name,
             last_name: name,
             email: email,
             dob: date.toString(),
             department: department,
-            job_title: title,
+            //job_title: title,   NEEDS FIX> SHOULD NOT BE AN ARRAY
             password: password
           });
           
           /** 
            * @todo get token for user 
            */
-          console.log(res.data);
+          await asyncStorage.storeData("ID", res.data.id);
+          await asyncStorage.storeData("Authorization", res.data.tokenObject.token);
+
           props.navigation.navigate('Main');
         } catch (error) {          
           console.log(error.message);
