@@ -45,13 +45,11 @@ const createChallenge = async () => {
     location: "Davis,Ca",
     participants: ["Sharon"],
   };
-  console.log("\n newChallenge", newChallenge);
   return newChallenge;
 };
 
 const getChallenge = async () => {
   const newChallenge = await createChallenge();
-  console.log("\n newChallenge in getChallenge", newChallenge);
   return newChallenge;
 };
 
