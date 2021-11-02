@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {View, Text, StyleSheet, Dimensions, FlatList, TouchableOpacity, TextInput} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, FlatList, TouchableOpacity, TextInput, ScrollView, Image, SafeAreaView} from 'react-native';
 import { Divider } from "react-native-elements";
 import { ProgressBar, Colors } from 'react-native-paper';
 import { Feather } from '@expo/vector-icons'; 
@@ -8,7 +8,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Icon from "react-native-vector-icons/Fontisto";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
+import Modal from "react-native-modal";
+import UnsplashCred from "../../secrete/UnplashCred";
+import axios from "axios";
+import UnplashImage from "./components/UnplashImage";
 
 const { width, height } = Dimensions.get('window');
 
@@ -60,6 +65,24 @@ const CreateChallengeScreenTags = (props) => {
     const [descriptionLength, setDescriptionLength] = useState(250);
     const [challengeName, setChallengeName] = useState('');
     const [challengeDescription, setChallengeDescription] = useState('');
+    const [modal, setModal] = useState(false);
+    const [image, setImage] = useState("");
+    const [imageURL, setImageURL] = useState([]); //list of images returned from unsplash api
+    const [selectedPhoto, setSelectedPhoto] = useState(
+        "https://mpama.com/wp-content/uploads/2017/04/default-image-620x600.jpg"
+    ); //url of a single picture chosen by user
+
+    const searchPhotos = async (text) => {
+        const response = await axios.get(
+          `https://api.unsplash.com/search/photos?client_id=${UnsplashCred.accessKey}&query=${text}&per_page=20`
+        );
+    
+        setImageURL(
+          response.data.results.map((data) => {
+            return data.urls.regular;
+          })
+        );
+      };
 
     const textInputCounts = (prop, text) => {
         if (prop == 'name'){
@@ -289,55 +312,199 @@ const CreateChallengeScreenTags = (props) => {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <ProgressBar progress={0.75} color={Colors.blue600} />
-                <KeyboardAwareScrollView
-                    enableOnAndroid={true}
-                    showsVerticalScrollIndicator={false}
-                    keyboardShouldPersistTaps={"always"}
-                    extraScrollHeight={20}
-                >
-                    <Text style = {styles.headerTextDescription}>
-                        Give your challenge a name and description. 
-                    </Text>
-                    <Text style = {styles.secondHeaderTextDescription}>
-                        Don't worry about it too much you can change it later. 
-                    </Text>
-                    <Text style = {styles.nameAndDescriptionText}>
-                        Name
-                    </Text>
-                    <TextInput 
-                        maxLength={30}
-                        style={styles.nameBox}
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        value={challengeName}
-                        onChangeText={(text) => {setChallengeName(text); textInputCounts('name', text);}}
-                    />
-                    <Text style = {styles.inputLengths}>
-                        {nameLength}
-                    </Text>
-                    <Text style = {styles.nameAndDescriptionText}>
-                        Description
-                    </Text>
-                    <TextInput 
-                        maxLength={250}
-                        multiline={true}
-                        style={styles.descriptionBox}
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        value={challengeDescription}
-                        onChangeText={(text) => {setChallengeDescription(text); textInputCounts('',text);}}
-                    />
-                    <Text style = {styles.inputLengths}>
-                        {descriptionLength}
-                    </Text>
-                </KeyboardAwareScrollView>
+                <SafeAreaView style={styles.safeAreaViewContainer}>
+                    <ProgressBar progress={0.75} color={Colors.blue600} />
+                    <KeyboardAwareScrollView
+                        enableOnAndroid={true}
+                        showsVerticalScrollIndicator={false}
+                        keyboardShouldPersistTaps={"always"}
+                        extraScrollHeight={20}
+                    >
+                        <Text style = {styles.headerTextDescription}>
+                            Give your challenge a name and description. 
+                        </Text>
+                        <Text style = {styles.secondHeaderTextDescription}>
+                            Don't worry about it too much you can change it later. 
+                        </Text>
+                        <View style={styles.challengePhotoContainer}>
+                            <Image
+                                style={styles.challengePhoto}
+                                source={{ uri: selectedPhoto }}
+                            />
+                            <TouchableOpacity
+                                style={styles.uploadPictureContainer}
+                                onPress={() => setModal(!modal)}
+                                activeOpacity={1}
+                            >
+                            <Text style={styles.uploadPictureText}>Select challenge photo</Text>
+                            <Feather
+                                name="external-link"
+                                size={17}
+                                color={"white"}
+                                style={{ marginRight: 10 }}
+                            />
+                            </TouchableOpacity>
+                        </View>
+                        <Text style = {styles.nameAndDescriptionText}>
+                            Name
+                        </Text>
+                        <TextInput 
+                            maxLength={30}
+                            style={styles.nameBox}
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            value={challengeName}
+                            onChangeText={(text) => {setChallengeName(text); textInputCounts('name', text);}}
+                        />
+                        <Text style = {styles.inputLengths}>
+                            {nameLength}
+                        </Text>
+                        <Text style = {styles.nameAndDescriptionText}>
+                            Description
+                        </Text>
+                        <TextInput 
+                            maxLength={250}
+                            multiline={true}
+                            style={styles.descriptionBox}
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            value={challengeDescription}
+                            onChangeText={(text) => {setChallengeDescription(text); textInputCounts('',text);}}
+                        />
+                        <Text style = {styles.inputLengths}>
+                            {descriptionLength}
+                        </Text>
+                        <Modal
+                            isVisible={modal}
+                            onBackdropPress={() => setModal(!modal)}
+                            useNativeDriver={true}
+                        >
+                            <ScrollView
+                                style={styles.modalView}
+                                showsVerticalScrollIndicator={false}
+                            >
+                                <View
+                                    style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    width: "98%",
+                                    alignSelf: "center",
+                                    }}
+                                >
+                                    <View style={styles.searchContainer}>
+                                        <Icon name="search" size={16} style={{marginHorizontal: width / 50}}/>
+                                        <TextInput
+                                            style={{ width: "85%" }}
+                                            value={image}
+                                            // marginHorizontal = {width / 50}
+                                            placeholder="Search images"
+                                            placeholderTextColor="grey"
+                                            onChangeText={(text) => {
+                                            setImage(text);
+                                            searchPhotos(text);
+                                        }}
+                                        />
+                                    </View>
+                                    <TouchableOpacity
+                                        style={{ right: 0, position: "absolute" }}
+                                        onPress={() => setModal(!modal)}
+                                    >
+                                    <Feather name="x-circle" size={25} />
+                                    </TouchableOpacity>
+                                </View>
+                                <FlatList
+                                    showsVerticalScrollIndicator={false}
+                                    showsHorizontalScrollIndicator={false}
+                                    style={styles.pictureList}
+                                    data={imageURL}
+                                    numColumns={2}
+                                    renderItem={({ item }) => (
+                                        <UnplashImage
+                                        url={item}
+                                        setPhoto={setSelectedPhoto}
+                                        currentlySelected={selectedPhoto}
+                                    />
+                                    )}
+                                    keyExtractor={(item) => item}
+                                />
+                            </ScrollView>
+                        </Modal>
+                    </KeyboardAwareScrollView>
+                </SafeAreaView>
             </View>
         );
     }
 };
 
 const styles = StyleSheet.create({
+    safeAreaViewContainer:{
+        flex: 1,
+    },
+    challengePhotoContainer: {
+        marginTop: height / 55,
+        height: height / 3,
+        marginHorizontal: width / 25,
+    },
+    challengePhoto: {
+        width: "100%",
+        height: "100%",
+        borderRadius: 10,
+    },
+    closeModalText: {
+        margin: 7,
+        fontSize: 15,
+        marginHorizontal: 20,
+        color: "white",
+    },
+    closeModal: {
+        borderRadius: 5,
+        marginVertical: 7,
+        alignSelf: "center",
+        backgroundColor: "#4997d0",
+    },
+    pictureList: {
+        alignSelf: "center",
+        marginTop: -5,
+    },
+    iconStyle: { 
+        marginHorizontal: 10
+    },
+    searchContainer: {
+        alignItems: "center",
+        flexDirection: "row",
+        borderWidth: 0.3,
+        borderRadius: 10,
+        backgroundColor: "#D3D3D3",
+        borderColor: "#D3D3D3",
+        marginVertical: height / 60,
+        marginHorizontal: width / 30,
+        right: 5,
+        height: 35,
+    },
+    modalView: {
+        marginVertical: 100,
+        backgroundColor: "white",
+        borderRadius: 10,
+    },
+    uploadPictureText: {
+        marginVertical: 10,
+        marginLeft: 10,
+        fontSize: 17,
+        alignSelf: "center",
+        color: "white",
+    },
+    uploadPictureContainer: {
+        position: "absolute",
+        alignSelf: "center",
+        bottom: 2,
+        borderColor: "#abdcfb",
+        borderWidth: 1,
+        borderRadius: 10,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+      },
     nextButtonInvalid: {
         right: width / 20,
         fontSize: 20,
