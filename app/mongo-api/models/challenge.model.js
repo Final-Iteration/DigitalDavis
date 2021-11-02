@@ -90,10 +90,6 @@ const challengeSchema = mongoose.Schema({
   participants: {
     type: [String],
     required: false,
-  },
-  participants: {
-    type: [String],
-    required: false,
     default: function () {
       return this.creator;
     },

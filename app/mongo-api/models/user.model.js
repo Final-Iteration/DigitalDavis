@@ -1,7 +1,7 @@
-const validator = require('validator');
-const { toJSON, paginate } = require('./plugins');
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const validator = require("validator");
+const { toJSON, paginate } = require("./plugins");
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 // schema
 const userSchema = mongoose.Schema({
@@ -41,7 +41,7 @@ const userSchema = mongoose.Schema({
     // validate: [validateDOB, 'Please enter a correct date'],
   },
   job_title: {
-    type: String,
+    type: [String],
     required: false,
   },
   department: {
