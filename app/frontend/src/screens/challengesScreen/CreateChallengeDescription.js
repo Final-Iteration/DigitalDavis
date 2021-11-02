@@ -12,7 +12,7 @@ const CreateChallengeDescription = () => {
     const [challengeName, setChallengeName] = useState('');
     const [challengeDescription, setChallengeDescription] = useState('');
 
-    const textInputCount = (prop, text) => {
+    const textInputCounts = (prop, text) => {
         if (prop == 'name'){
             setInputLength(30 - text.length)
         }else{
@@ -22,7 +22,7 @@ const CreateChallengeDescription = () => {
     };
 
     return (
-        <View style = {styles.container}>
+        <View style = {styles.containerDescription}>
             <ProgressBar progress={0.75} color={Colors.blue600} />
             <KeyboardAwareScrollView
             enableOnAndroid={true}
@@ -30,10 +30,10 @@ const CreateChallengeDescription = () => {
             keyboardShouldPersistTaps={"always"}
             extraScrollHeight={20}
             >
-                <Text style = {styles.headerText}>
+                <Text style = {styles.headerTextDescription}>
                     Give your challenge a name and description. 
                 </Text>
-                <Text style = {styles.secondHeaderText}>
+                <Text style = {styles.secondHeaderTextDescription}>
                     Don't worry about it too much you can change it later. 
                 </Text>
                 <Text style = {styles.nameAndDescriptionText}>
@@ -45,7 +45,7 @@ const CreateChallengeDescription = () => {
                     autoCapitalize="none"
                     autoCorrect={false}
                     value={challengeName}
-                    onChangeText={(text) => {setChallengeName(text); textInputCount('name', text);}}
+                    onChangeText={(text) => {setChallengeName(text); textInputCounts('name', text);}}
                 />
                 <Text style = {styles.inputLengths}>
                     {nameLength}
@@ -60,7 +60,7 @@ const CreateChallengeDescription = () => {
                     autoCapitalize="none"
                     autoCorrect={false}
                     value={challengeDescription}
-                    onChangeText={(text) => {setChallengeDescription(text); textInputCount('',text);}}
+                    onChangeText={(text) => {setChallengeDescription(text); textInputCounts('',text);}}
                 />
                 <Text style = {styles.inputLengths}>
                     {descriptionLength}
@@ -71,13 +71,13 @@ const CreateChallengeDescription = () => {
 };
 
 const styles = StyleSheet.create({
-    headerText:{
+    headerTextDescription:{
         fontSize: 22,
         fontWeight: 'bold',
         marginHorizontal: width / 25,
         marginTop: height / 50
     },
-    secondHeaderText: {
+    secondHeaderTextDescription: {
         marginHorizontal: width / 25,
         fontWeight: '300',
         marginTop: height / 20
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         marginHorizontal: width / 25,
         marginTop: height / 20
     },
-    container: {
+    containerDescription: {
         flex: 1
     },
     inputLengths: {
