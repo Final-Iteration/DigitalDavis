@@ -43,13 +43,9 @@ const ChallengeStack = createStackNavigator({
   CreateChallengeTags: {
     screen: CreateChallengeScreenTags,
     navigationOptions: {
-      header: ({ scene, previous, navigation }) => (
-        <Header
-          CreateChallengeTags={true}
-          // title="CreateChallengeTags"
-          navigation={navigation}
-        />
-      ),
+      // header: ({ scene, previous, navigation }) => (
+      //   <Header CreateChallengeTags={true} navigation={navigation} />
+      // ),
     },
   },
   CreateChallengeDate: {
