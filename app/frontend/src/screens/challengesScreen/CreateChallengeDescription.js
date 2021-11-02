@@ -42,9 +42,9 @@ const CreateChallengeDescription = () => {
     }
   };
 
-  const searchPhotos = async () => {
+  const searchPhotos = async (text) => {
     const response = await axios.get(
-      `https://api.unsplash.com/search/photos?client_id=${UnsplashCred.accessKey}&query=${image}&per_page=20`
+      `https://api.unsplash.com/search/photos?client_id=${UnsplashCred.accessKey}&query=${text}&per_page=20`
     );
 
     setImageURL(
@@ -146,7 +146,7 @@ const CreateChallengeDescription = () => {
                   placeholderTextColor="grey"
                   onChangeText={(text) => {
                     setImage(text);
-                    searchPhotos();
+                    searchPhotos(text);
                   }}
                 />
               </View>
