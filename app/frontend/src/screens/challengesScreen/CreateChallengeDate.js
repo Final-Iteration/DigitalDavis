@@ -19,7 +19,7 @@ const CreateChallengeDate = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.containerDates}>
       <ProgressBar progress={0.5} color={Colors.blue600} />
       <KeyboardAwareScrollView
         enableOnAndroid={true}
@@ -27,7 +27,7 @@ const CreateChallengeDate = () => {
         keyboardShouldPersistTaps={"always"}
         extraScrollHeight={30}
       >
-        <Text style={styles.headerText}>
+        <Text style={styles.headerTextDate}>
           Select when and where to begin your challenge!
         </Text>
         <View
@@ -93,7 +93,7 @@ const CreateChallengeDate = () => {
 };
 
 const styles = StyleSheet.create({
-  headerText: {
+  headerTextDate: {
     fontSize: 22,
     fontWeight: "bold",
     marginHorizontal: width / 25,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     borderColor: "#D3D3D3",
     marginTop: height / 45,
   },
-  container: {
+  containerDates: {
     flex: 1,
   },
   locationLength: {
