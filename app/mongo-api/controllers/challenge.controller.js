@@ -1,9 +1,9 @@
-const httpStatus = require('http-status');
-const pick = require('../utils/pick');
-const ApiError = require('../utils/ApiError');
-const catchAsync = require('../utils/catchAsync');
-const controllerDebugger = require('debug')('app:controllers');
-const challengeService = require('../services/challenge.services');
+const httpStatus = require("http-status");
+const pick = require("../utils/pick");
+const ApiError = require("../utils/ApiError");
+const catchAsync = require("../utils/catchAsync");
+const controllerDebugger = require("debug")("app:controllers");
+const challengeService = require("../services/challenge.services");
 
 const createChallenge = catchAsync(async (req, res) => {
   const challenge = await challengeService.createChallenge(req.body);
@@ -11,8 +11,8 @@ const createChallenge = catchAsync(async (req, res) => {
 });
 
 const getChallenges = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name']); //add filter by start date later
-  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const filter = pick(req.query, ["name", "start_date"]);
+  const options = pick(req.query, ["sortBy", "limit", "page"]);
   const result = await challengeService.queryChallenges(filter, options);
   res.send(result);
 });
@@ -20,7 +20,7 @@ const getChallenges = catchAsync(async (req, res) => {
 const getChallenge = catchAsync(async (req, res) => {
   const challenge = await challengeService.getChallengeById(req.params.Id);
   if (!challenge) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
+    throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
   }
   res.send(challenge);
 });
@@ -61,5 +61,5 @@ module.exports = {
   deleteChallenge,
   getActiveChallenges,
   getPastChallenges,
-  getAllChallenges
+  getAllChallenges,
 };
