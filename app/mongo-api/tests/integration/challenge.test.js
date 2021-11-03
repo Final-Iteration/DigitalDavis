@@ -64,23 +64,35 @@ describe("Challenge routes", () => {
       });
     });
 
-    /**
-     * Name in Use
-     */
-    test("should return 400 error if name is already used", async () => {
-      await insertChallenges([challengeOne]);
-      newChallenge.name = challengeOne.name;
-      await request(app).post("/api/challenges").send(newChallenge);
-    });
-
-    /**
-     * @TODO modify this function and check if start date > end date returns 400
-     */
     test("should return 400 error if start date > end date", async () => {
       //Make newChallenge's start_date > end_date
       const endDate = new Date(newChallenge.end_date);
       endDate.setDate(endDate.getDate() + 2);
       newChallenge.start_date = endDate;
+
+      await request(app)
+        .post("/api/challenges")
+        .send(newChallenge)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if start date < current date", async () => {
+      //Make newChallenge's start_date = current date -2
+      const pastDate = new Date();
+      pastDate.setDate(pastDate.getDate() - 2);
+      newChallenge.start_date = pastDate;
+
+      await request(app)
+        .post("/api/challenges")
+        .send(newChallenge)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if end date < current date", async () => {
+      //Make newChallenge's end_date = current date -2
+      const pastDate = new Date();
+      pastDate.setDate(pastDate.getDate() - 2);
+      newChallenge.end_date = pastDate;
 
       await request(app)
         .post("/api/challenges")
@@ -96,7 +108,92 @@ describe("Challenge routes", () => {
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
-  });
+
+    test("should return 400 error if name length is less than 5 characters", async () => {
+      newChallenge.name = "Lor";
+
+      await request(app)
+        .post("/api/challenges")
+        .send(newChallenge)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if creator length is less than 3 characters", async () => {
+      newChallenge.creator = "L";
+
+      await request(app)
+        .post("/api/challenges")
+        .send(newChallenge)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if creator length is more than 30 characters", async () => {
+      newChallenge.creator = "Lorem ipsum dolor sit amethdubj con";
+
+      await request(app)
+        .post("/api/challenges")
+        .send(newChallenge)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if tags are incorrect", async () => {
+      newChallenge.tags = ["NOT CORRECT", "SOCIAL"];
+
+      await request(app)
+        .post("/api/challenges")
+        .send(newChallenge)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if timestamp is null", async () => {
+      newChallenge.timestamp = null;
+
+      await request(app)
+        .post("/api/challenges")
+        .send(newChallenge)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if description length is more than 150 characters", async () => {
+      newChallenge.description =
+        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis pa";
+
+      await request(app)
+        .post("/api/challenges")
+        .send(newChallenge)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if summary length is more than 150 characters", async () => {
+      newChallenge.summary =
+        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis pa";
+
+      await request(app)
+        .post("/api/challenges")
+        .send(newChallenge)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if location length is less than 1 characters", async () => {
+      newChallenge.location = "";
+
+      await request(app)
+        .post("/api/challenges")
+        .send(newChallenge)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if location length is more than 50 characters", async () => {
+      newChallenge.location =
+        "Lorem ipsum dolor sit amet, consectetuer adipiscing";
+
+      await request(app)
+        .post("/api/challenges")
+        .send(newChallenge)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+  }); //end of POST
+
   describe("GET /api/challenges", () => {
     test("should return 200 and apply the default query options", async () => {
       await insertChallenges([challengeOne, challengeTwo, challengeThree]);
@@ -122,8 +219,8 @@ describe("Challenge routes", () => {
         description: challengeOne.description,
         location: challengeOne.location,
         timestamp: expect.anything(),
-        start_date: expect.anything(),
-        end_date: expect.anything(),
+        start_date: new Date(challengeOne.start_date).toISOString(),
+        end_date: new Date(challengeOne.end_date).toISOString(),
         participants: challengeOne.participants,
       });
       expect(res.body.results[1]).toEqual({
@@ -134,8 +231,8 @@ describe("Challenge routes", () => {
         description: challengeTwo.description,
         location: challengeTwo.location,
         timestamp: expect.anything(),
-        start_date: expect.anything(),
-        end_date: expect.anything(),
+        start_date: new Date(challengeTwo.start_date).toISOString(),
+        end_date: new Date(challengeTwo.end_date).toISOString(),
         participants: challengeTwo.participants,
       });
     });
@@ -160,12 +257,30 @@ describe("Challenge routes", () => {
       expect(res.body.results[0].id).toBe(challengeOne._id.toHexString());
     });
 
-    /**
-     * @TODO add a check for date sorting
-     */
+    test("should correctly apply filter on start_date field", async () => {
+      await insertChallenges([challengeOne, challengeTwo]);
+
+      console.log("\n challengeOne.start_date", challengeOne.start_date);
+
+      const res = await request(app)
+        .get("/api/challenges")
+        .query({ start_date: challengeOne.start_date })
+        .send()
+        .expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 1,
+      });
+      expect(res.body.results).toHaveLength(1);
+      expect(res.body.results[0].id).toBe(challengeOne._id.toHexString());
+    });
 
     // eslint-disable-next-line max-len
-    test("should correctly sort the returned array if descending sort param  by name is specified", async () => {
+    test("should correctly sort the returned array if descending sort param by name is specified", async () => {
       await insertChallenges([challengeOne, challengeTwo]);
 
       const res = await request(app)
@@ -181,6 +296,29 @@ describe("Challenge routes", () => {
         totalPages: 1,
         totalResults: 2,
       });
+      expect(res.body.results).toHaveLength(2);
+      expect(res.body.results[0].id).toBe(challengeTwo._id.toHexString());
+      expect(res.body.results[1].id).toBe(challengeOne._id.toHexString());
+    });
+
+    // eslint-disable-next-line max-len
+    test("should correctly sort the returned array if descending sort param  by start date is specified", async () => {
+      await insertChallenges([challengeOne, challengeTwo]);
+
+      const res = await request(app)
+        .get("/api/challenges")
+        .query({ sortBy: "start_date:desc" })
+        .send()
+        .expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 2,
+      });
+
       expect(res.body.results).toHaveLength(2);
       expect(res.body.results[0].id).toBe(challengeTwo._id.toHexString());
       expect(res.body.results[1].id).toBe(challengeOne._id.toHexString());
@@ -202,6 +340,29 @@ describe("Challenge routes", () => {
         totalPages: 1,
         totalResults: 2,
       });
+      expect(res.body.results).toHaveLength(2);
+      expect(res.body.results[0].id).toBe(challengeOne._id.toHexString());
+      expect(res.body.results[1].id).toBe(challengeTwo._id.toHexString());
+    });
+
+    // eslint-disable-next-line max-len
+    test("should correctly sort the returned array if ascending sort param  by start date is specified", async () => {
+      await insertChallenges([challengeOne, challengeTwo]);
+
+      const res = await request(app)
+        .get("/api/challenges")
+        .query({ sortBy: "start_date:asc" })
+        .send()
+        .expect(httpStatus.OK);
+
+      expect(res.body).toEqual({
+        results: expect.any(Array),
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        totalResults: 2,
+      });
+
       expect(res.body.results).toHaveLength(2);
       expect(res.body.results[0].id).toBe(challengeOne._id.toHexString());
       expect(res.body.results[1].id).toBe(challengeTwo._id.toHexString());
@@ -282,96 +443,96 @@ describe("Challenge routes", () => {
       expect(res.body.results[0].id).toBe(challengeThree._id.toHexString());
     });
   });
-});
 
-describe("GET /api/challenges/:challengeId", () => {
-  test("should return 200 and the challenge object if data is ok", async () => {
-    await insertChallenges([challengeOne]);
+  describe("GET /api/challenges/:challengeId", () => {
+    test("should return 200 and the challenge object if data is ok", async () => {
+      await insertChallenges([challengeOne]);
 
-    const res = await request(app)
-      .get(`/api/challenges/${challengeOne._id}`)
-      .send()
-      .expect(httpStatus.OK);
+      const res = await request(app)
+        .get(`/api/challenges/${challengeOne._id}`)
+        .send()
+        .expect(httpStatus.OK);
 
-    expect(res.body).toEqual({
-      id: expect.anything(),
-      name: challengeOne.name,
-      creator: challengeOne.creator,
-      tags: challengeOne.tags,
-      description: challengeOne.description,
-      location: challengeOne.location,
-      timestamp: new Date(challengeOne.timestamp).toISOString(),
-      start_date: new Date(challengeOne.start_date).toISOString(),
-      end_date: new Date(challengeOne.end_date).toISOString(),
-      participants: challengeOne.participants,
+      expect(res.body).toEqual({
+        id: expect.anything(),
+        name: challengeOne.name,
+        creator: challengeOne.creator,
+        tags: challengeOne.tags,
+        description: challengeOne.description,
+        location: challengeOne.location,
+        timestamp: new Date(challengeOne.timestamp).toISOString(),
+        start_date: new Date(challengeOne.start_date).toISOString(),
+        end_date: new Date(challengeOne.end_date).toISOString(),
+        participants: challengeOne.participants,
+      });
+    });
+
+    test.skip("should return 401 error if access token is missing", async () => {
+      await insertChallenges([challengeOne]);
+
+      await request(app)
+        .get(`/api/challenges/${challengeOne._id}`)
+        .send()
+        .expect(httpStatus.UNAUTHORIZED);
+    });
+
+    test("should return 400 error if challengeId is not a valid mongo id", async () => {
+      await insertChallenges([challengeOne]);
+
+      await request(app)
+        .get("/api/challenges/invalidId")
+        .send()
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 404 error if challenge is not found", async () => {
+      await insertChallenges([challengeTwo]);
+
+      await request(app)
+        .get(`/api/challenges/${challengeOne._id}`)
+        .send()
+        .expect(httpStatus.NOT_FOUND);
     });
   });
 
-  test.skip("should return 401 error if access token is missing", async () => {
-    await insertChallenges([challengeOne]);
+  describe("DELETE /api/challenges/:challengeId", () => {
+    test("should return 204 if data is ok", async () => {
+      await insertChallenges([challengeOne]);
 
-    await request(app)
-      .get(`/api/challenges/${challengeOne._id}`)
-      .send()
-      .expect(httpStatus.UNAUTHORIZED);
-  });
+      await request(app)
+        .delete(`/api/challenges/${challengeOne._id}`)
+        .send()
+        .expect(httpStatus.NO_CONTENT);
 
-  test("should return 400 error if challengeId is not a valid mongo id", async () => {
-    await insertChallenges([challengeOne]);
+      const dbChallenge = await Challenge.findById(challengeOne._id);
+      expect(dbChallenge).toBeNull();
+    });
 
-    await request(app)
-      .get("/api/challenges/invalidId")
-      .send()
-      .expect(httpStatus.BAD_REQUEST);
-  });
+    test.skip("should return 401 error if access token is missing", async () => {
+      await insertChallenges([challengeOne]);
 
-  test("should return 404 error if challenge is not found", async () => {
-    await insertChallenges([challengeTwo]);
+      await request(app)
+        .delete(`/api/challenges/${challengeOne._id}`)
+        .send()
+        .expect(httpStatus.UNAUTHORIZED);
+    });
 
-    await request(app)
-      .get(`/api/challenges/${challengeOne._id}`)
-      .send()
-      .expect(httpStatus.NOT_FOUND);
-  });
-});
+    test("should return 400 error if challengeId is not a valid mongo id", async () => {
+      await insertChallenges([challengeOne]);
 
-describe("DELETE /api/challenges/:challengeId", () => {
-  test("should return 204 if data is ok", async () => {
-    await insertChallenges([challengeOne]);
+      await request(app)
+        .delete("/api/challenges/invalidId")
+        .send()
+        .expect(httpStatus.BAD_REQUEST);
+    });
 
-    await request(app)
-      .delete(`/api/challenges/${challengeOne._id}`)
-      .send()
-      .expect(httpStatus.NO_CONTENT);
+    test("should return 404 error if challenge already is not found", async () => {
+      await insertChallenges([challengeOne]);
 
-    const dbChallenge = await Challenge.findById(challengeOne._id);
-    expect(dbChallenge).toBeNull();
-  });
-
-  test.skip("should return 401 error if access token is missing", async () => {
-    await insertChallenges([challengeOne]);
-
-    await request(app)
-      .delete(`/api/challenges/${challengeOne._id}`)
-      .send()
-      .expect(httpStatus.UNAUTHORIZED);
-  });
-
-  test("should return 400 error if challengeId is not a valid mongo id", async () => {
-    await insertChallenges([challengeOne]);
-
-    await request(app)
-      .delete("/api/challenges/invalidId")
-      .send()
-      .expect(httpStatus.BAD_REQUEST);
-  });
-
-  test("should return 404 error if challenge already is not found", async () => {
-    await insertChallenges([challengeOne]);
-
-    await request(app)
-      .delete(`/api/challenges/${challengeTwo._id}`)
-      .send()
-      .expect(httpStatus.NOT_FOUND);
+      await request(app)
+        .delete(`/api/challenges/${challengeTwo._id}`)
+        .send()
+        .expect(httpStatus.NOT_FOUND);
+    });
   });
 });
