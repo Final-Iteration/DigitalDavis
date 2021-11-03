@@ -47,14 +47,13 @@ const Signup = (props) => {
       setPasswordError(true);
     } else {
       //post request to database
-
       const setUserSignup = async () => {
         date.toString();
         try {
-          
+          const nameArr = name.split(' ', 2);
           const res = await axios.post('/api/auth/signup', {
-            first_name: name,
-            last_name: name,
+            first_name: nameArr[0],
+            last_name: nameArr[1],
             email: email,
             dob: date.toString(),
             department: department,
@@ -79,16 +78,19 @@ const Signup = (props) => {
       
     }
   };
+
   const onChange = (event, value) => {
     if (value) {
       setDate(value);
     }
     setOpen(false);
   };
+  
   const getDate = () => {
     let d = date.toString().split(' ');
     return `${d[1]} ${d[2]} ${d[3]}`;
   };
+  
   return (
     <ImageBackground style={styles.imageStyle} source={imageSource}>
       <KeyboardAwareScrollView
