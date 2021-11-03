@@ -1,5 +1,6 @@
-const { toJSON, paginate } = require('./plugins');
-const mongoose = require('mongoose');
+const { toJSON, paginate } = require("./plugins");
+const mongoose = require("mongoose");
+const modelDebugger = require("debug")("model:startup");
 
 /**
  * @function challengeSchema
@@ -31,12 +32,12 @@ const challengeSchema = mongoose.Schema({
   tags: {
     type: [String],
     enum: [
-      'Emotional',
-      'Environmental',
-      'Intellectual',
-      'Physical',
-      'Social',
-      'Spiritual',
+      "Emotional",
+      "Environmental",
+      "Intellectual",
+      "Physical",
+      "Social",
+      "Spiritual",
     ],
     required: false,
   },
@@ -73,7 +74,7 @@ const challengeSchema = mongoose.Schema({
       validator: function (date) {
         return validateStartDate(date);
       },
-      message: 'Start Date cannot be in the past',
+      message: "Start Date cannot be in the past",
     },
   },
   end_date: {
@@ -83,12 +84,8 @@ const challengeSchema = mongoose.Schema({
       validator: function (date) {
         return validateEndDate(this.start_date, date);
       },
-      message: 'End Date must be after start date within 1 year.',
+      message: "End Date must be after start date within 1 year.",
     },
-  },
-  participants: {
-    type: [String],
-    required: false,
   },
   participants: {
     type: [String],
@@ -167,20 +164,34 @@ const validateStartDate = (startDate) => {
  * @returns Integer form of date in YYYYMMDD format.
  */
 const dateFormater = (date, currentDate) => {
-  return parseInt(
-    '' +
+  let number = parseInt(
+    "" +
       date.getFullYear() +
-      (date.getMonth() + 1 > 9 ? '' : 0) +
+      (date.getMonth() + 1 > 9 ? "" : 0) +
       (date.getMonth() + 1) +
-      (date.getUTCDate() > 9 ? '' : 0) +
+      (date.getUTCDate() > 9 ? "" : 0) +
       (currentDate ? date.getDate() : date.getUTCDate()),
     10
   );
+
+  modelDebugger("TYPEOF date", typeof number);
+  return number;
 };
+// const dateFormater = (date, currentDate) => {
+//   return parseInt(
+//     '' +
+//       date.getFullYear() +
+//       (date.getMonth() + 1 > 9 ? '' : 0) +
+//       (date.getMonth() + 1) +
+//       (date.getUTCDate() > 9 ? '' : 0) +
+//       (currentDate ? date.getDate() : date.getUTCDate()),
+//     10
+//   );
+// };
 
 /**
  * @typedef Challenge
  */
-const Challenge = mongoose.model('challenge', challengeSchema);
+const Challenge = mongoose.model("challenge", challengeSchema);
 
 module.exports = Challenge;
