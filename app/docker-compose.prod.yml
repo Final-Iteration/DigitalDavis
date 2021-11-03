@@ -3,8 +3,10 @@ services:
   express-api:
     image: final_iteration_api_prod:lts
     hostname: final-iteration
-    container_name: express-api
-    build: ./mongo-api/
+    container_name: ucd-wellness-api
+    build: 
+       context: ./mongo-api/
+       dockerfile: prod.Dockerfile
     environment:
       - "NODE_ENV=production"
       - "EXPRESS_API_PORT=${EXPRESS_API_PORT}"

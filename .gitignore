@@ -127,3 +127,4 @@ ca-certificate.crt
 
 priv_rsa.pem
 pub_rsa.pem
+app/mongo-api/ucd-emp-wellness-api.yaml
