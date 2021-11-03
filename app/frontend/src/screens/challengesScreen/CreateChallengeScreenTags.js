@@ -12,12 +12,35 @@ import Icon from "react-native-vector-icons/Fontisto";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import Modal from "react-native-modal";
 import UnsplashCred from "../../secrete/UnplashCred";
-import axios from "axios";
+import axios from "../../axios";
 import UnplashImage from "./components/UnplashImage";
 
 const { width, height } = Dimensions.get('window');
 
 const CreateChallengeScreenTags = (props) => {
+
+    const createChallenge = async () => {
+        try {
+          
+    //       const res = await axios.post('/challenges', {
+    //         name: challengeName,
+    //         creator: "user.id",
+	// 		start_date: startDate,
+    //         end_date: endDate,
+    //         description: challengeDescription           
+    //       });
+          
+    //       /** 
+    //        * @todo get token for user 
+    //        */
+    //       console.log(res.data);
+    //       props.navigation.navigate('Main');
+    //     } catch (error) {          
+    //       console.log(error.message);
+    //     }
+    //   }
+
+    //   createChallenge();
 
     const [tagsPageActive, setTagsPageActive] = useState(true);
     const [datePageActive, setDatePageActive] = useState(false);
