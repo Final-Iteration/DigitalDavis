@@ -14,6 +14,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from '../../axios';
 
+const asyncStorage = require('../../asyncStorage');
 
 const { height, width } = Dimensions.get('window');
 const imageSource = require('../../../assets/blurredDavis.jpg');
@@ -46,25 +47,26 @@ const Signup = (props) => {
       setPasswordError(true);
     } else {
       //post request to database
-
       const setUserSignup = async () => {
         date.toString();
         try {
-          
-          const res = await axios.post('/users', {
-            first_name: name,
-            last_name: name,
+          const nameArr = name.split(' ', 2);
+          const res = await axios.post('/api/auth/signup', {
+            first_name: nameArr[0],
+            last_name: nameArr[1],
             email: email,
             dob: date.toString(),
             department: department,
-            job_title: title,
+            //job_title: title,   NEEDS FIX> SHOULD NOT BE AN ARRAY
             password: password
           });
           
           /** 
            * @todo get token for user 
            */
-          console.log(res.data);
+          await asyncStorage.storeData("ID", res.data.id);
+          await asyncStorage.storeData("Authorization", res.data.tokenObject.token);
+
           props.navigation.navigate('Main');
         } catch (error) {          
           console.log(error.message);
@@ -76,16 +78,19 @@ const Signup = (props) => {
       
     }
   };
+
   const onChange = (event, value) => {
     if (value) {
       setDate(value);
     }
     setOpen(false);
   };
+  
   const getDate = () => {
     let d = date.toString().split(' ');
     return `${d[1]} ${d[2]} ${d[3]}`;
   };
+  
   return (
     <ImageBackground style={styles.imageStyle} source={imageSource}>
       <KeyboardAwareScrollView

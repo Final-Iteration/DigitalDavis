@@ -11,6 +11,9 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
+import axios from '../../axios';
+
+const asyncStorage = require('../../asyncStorage');
 
 const { width, height } = Dimensions.get('window');
 const imageSource = require('../../../assets/blurredDavis.jpg');
@@ -23,9 +26,11 @@ const Login = (props) => {
     if (email.length === 0 || password.length === 0) {
       return;
     } else if (validateEmail(email)) {
-      props.navigation.navigate('Main');
+      setUserLogin();
     }
   };
+
+  
 
   // a function that validates an email to the format of name@domain.com
   function validateEmail(email) {
@@ -34,6 +39,25 @@ const Login = (props) => {
     return regexp.test(email);
   }
   // const apiCall = function --- function will call our database to validate user email and password
+
+  const setUserLogin = async () => {
+    try {
+
+      const res = await axios.post('/api/auth/login', {
+        email: email,
+        password: password
+      });
+
+      await asyncStorage.storeData("ID", res.data.id);
+      await asyncStorage.storeData("Authorization", res.data.tokenObject.token);
+      
+      props.navigation.navigate('Main');
+      
+    }catch( error ){
+      console.log(error.message);
+    }
+  };
+
   return (
     <ImageBackground style={styles.imageStyle} source={imageSource}>
       {/* this will be removed! when we have our login API set up*/}

@@ -10,22 +10,29 @@ import {
 import { Avatar } from 'react-native-paper';
 import Field from './components/Field';
 import { Feather } from '@expo/vector-icons';
+import axios from '../../axios';
+
+const asyncStorage = require('../../asyncStorage');
+
 
 //expect API call return
 const profile = {
   profilePicture:
     'https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg',
-  fullName: 'Keisuka Nakagawa',
-  userName: 'Keisuka N.',
+  fullName: ' ',
+  userName: ' ',
   title: 'Software Engineer',
-  age: '26',
+  age: ' ',
   birthDate: new Date(),
-  department: 'Psychiatry and Behavioral Sciences',
-  gender: 'Male',
-  email: 'drknakagawa@ucdavis.edu',
+  department: ' ',
+  gender: ' ',
+  email: ' ',
 };
 const { height, width } = Dimensions.get('window');
+
 const UserProfile = (props) => {
+
+
   //userEffect to fetch current user
   const [username, setUsername] = useState('');
   const [profilePicture, setProfilePicture] = useState('A');
@@ -37,16 +44,41 @@ const UserProfile = (props) => {
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
 
-  const dob = profile.birthDate.toString().split(' ');
+  //const dob = profile.birthDate.toString().split(' ');
+
   useEffect(() => {
-    setUsername(profile.userName);
+    const getUserInfo = async () => {
+      
+      try {
+        const id = await asyncStorage.getData("ID");
+        const authToken = await asyncStorage.getData("Authorization");
+        const res = await axios.get(`/api/users/${id}`, {
+            headers: {
+              Authorization: authToken,
+            }
+          }
+        );
+        
+        const user = res.data;
+        console.log(user);
+        const dob = user.dob.split('-', 3);
+        dob[2] = dob[2].split('T', 1);
+        setFullName((user.hasOwnProperty("first_name") && user.hasOwnProperty("last_name")) ? user.first_name + " " + user.last_name : profile.fullName);
+        setUsername((user.hasOwnProperty("userName") ? user.userName : profile.userName));
+        setTitle((user.hasOwnProperty("title") ? user.title : profile.title));
+        setAge((user.hasOwnProperty("age") ? user.age : profile.age));
+        setDepartment((user.hasOwnProperty("department") ? user.department : profile.department));
+        setGender((user.hasOwnProperty("gender") ? user.gender : profile.gender));
+        setEmail((user.hasOwnProperty("email") ? user.email : profile.email));
+        setBirthday(`${dob[1]} ${dob[2]} ${dob[0]}`);
+      }catch( error ){
+        console.log(error.message);
+      }
+    };
+
+    getUserInfo();
+    
     setProfilePicture(profile.profilePicture);
-    setFullName(profile.fullName);
-    setTitle(profile.title);
-    setAge(profile.age);
-    setDepartment(profile.department);
-    setGender(profile.gender);
-    setEmail(profile.email);
     setBirthday(`${dob[1]} ${dob[2]} ${dob[3]}`);
   }, []);
 

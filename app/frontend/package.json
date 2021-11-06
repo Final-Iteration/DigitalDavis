@@ -10,6 +10,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.6.4",
     "@expo/ngrok": "^4.1.0",
+    "@react-native-async-storage/async-storage": "^1.15.9",
     "@react-native-community/blur": "^3.6.0",
     "@react-native-community/datetimepicker": "^3.5.2",
     "@react-native-community/masked-view": "0.1.10",
