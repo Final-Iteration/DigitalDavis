@@ -8,9 +8,24 @@ const ApiError = require("../utils/ApiError");
  * @param {Object} challengeBody
  * @returns {Promise<Challenge>}
  */
-const createChallenge = async (challengeBody) => {
-  const creator = await User.find();
-  return Challenge.create(challengeBody);
+const createChallenge = async (challengeBody, ID) => {
+  var data = 
+  {
+    name: challengeBody.name,
+    creator: ID,
+    tags: challengeBody.tags,
+    description: challengeBody.description,
+    summary: challengeBody.summary,
+    location: challengeBody.location,
+    timestamp: challengeBody.timestamp,
+    start_date: challengeBody.start_date,
+    end_date: challengeBody.end_date,
+    //participants: challengeBody.participants
+  };
+  const creator = await User.find(ID);
+  console.log(creator);
+  return Challenge.create(data);
+  //return Challenge.create(challengeBody);
 };
 
 /**
