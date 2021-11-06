@@ -19,26 +19,29 @@ const { width, height } = Dimensions.get('window');
 
 const CreateChallengeScreenTags = (props) => {
 
-    const createChallenge = async () => {
-        try {
-          
-    //       const res = await axios.post('/challenges', {
-    //         name: challengeName,
-    //         creator: "user.id",
-	// 		start_date: startDate,
-    //         end_date: endDate,
-    //         description: challengeDescription           
-    //       });
-          
-    //       /** 
-    //        * @todo get token for user 
-    //        */
-    //       console.log(res.data);
-    //       props.navigation.navigate('Main');
-    //     } catch (error) {          
-    //       console.log(error.message);
-    //     }
-    //   }
+    const createChallenge = async () => {        
+        if (challengeName.trim().length && challengeDescription.trim().length){
+            try {
+            
+            const res = await axios.post('/challenges', {
+                name: challengeName,
+                creator: "user.id",
+                start_date: startDate,
+                end_date: endDate,
+                description: challengeDescription           
+            });
+            
+            /** 
+             * @todo get token for user 
+             */
+            console.log(res.data);
+            props.navigation.navigate('Challenge');
+            } catch (error) {          
+            console.log(error.message);
+            }  
+        }
+        
+      }
 
     //   createChallenge();
 
@@ -329,7 +332,7 @@ const CreateChallengeScreenTags = (props) => {
                         Back
                     </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {(challengeName.trim().length && challengeDescription.trim().length) ? props.navigation.navigate('Challenge') : null}}>
+                    <TouchableOpacity onPress={() => createChallenge()}>
                         <Text style={(challengeName.trim().length && challengeDescription.trim().length) ? styles.nextButtonValid : styles.nextButtonInvalid}>
                             Create
                         </Text>
