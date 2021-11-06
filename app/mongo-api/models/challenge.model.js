@@ -12,6 +12,7 @@ const modelDebugger = require("debug")("model:startup");
  * @participants a list of names of valid users
  * @tags can only be the following strings  ['Emotional', 'Environmental', 'Intellectual', 'Physical', 'Social', 'Spiritual']
  */
+Schema = mongoose.Schema;
 const challengeSchema = mongoose.Schema({
   name: {
     type: String,
@@ -22,11 +23,7 @@ const challengeSchema = mongoose.Schema({
     // match: '/[A-Za-z0-9_\\-\\.\\s\\!])+$/',
   },
   creator: {
-    type: String,
-    required: true,
-    minlength: 3,
-    maxlength: 30,
-    trim: true,
+    type: { type: Schema.Types.ObjectId, ref: 'User' }
     // match: /^([A-Za-z0-9_\\-\\.\\s])+$/,
   },
   tags: {
@@ -87,13 +84,13 @@ const challengeSchema = mongoose.Schema({
       message: "End Date must be after start date within 1 year.",
     },
   },
-  participants: {
-    type: [String],
-    required: false,
-    default: function () {
-      return this.creator;
-    },
-  },
+  // participants: {
+  //   type: [String],
+  //   required: false,
+  //   default: function () {
+  //     return this.creator;
+  //   },
+  // },
 });
 
 // add plugin that converts mongoose to json
@@ -193,5 +190,6 @@ const dateFormater = (date, currentDate) => {
  * @typedef Challenge
  */
 const Challenge = mongoose.model("challenge", challengeSchema);
+//const User = mongoose.model("user", UserSchema);
 
 module.exports = Challenge;
