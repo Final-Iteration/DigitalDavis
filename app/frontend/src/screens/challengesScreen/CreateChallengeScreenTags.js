@@ -15,6 +15,9 @@ import UnsplashCred from "../../secrete/UnplashCred";
 import axios from "../../axios";
 import UnplashImage from "./components/UnplashImage";
 
+
+const asyncStorage = require('../../asyncStorage');
+
 const { width, height } = Dimensions.get('window');
 
 const CreateChallengeScreenTags = (props) => {
@@ -22,13 +25,20 @@ const CreateChallengeScreenTags = (props) => {
     const createChallenge = async () => {        
         if (challengeName.trim().length && challengeDescription.trim().length){
             try {
-            
+            //TODO: Add in the optional attributes in challenge model:
+            //  summary, location, tags
             const res = await axios.post('/challenges', {
                 name: challengeName,
                 creator: "user.id",
                 start_date: startDate,
                 end_date: endDate,
-                description: challengeDescription           
+                description: challengeDescription,
+                location: location           
+            },{ 
+                header:{
+                    ID: asyncStorage.getData("ID"),
+                    Authorization: asyncStorage.getData("Authorization")
+                }
             });
             
             /** 
