@@ -43,8 +43,6 @@ const CreateChallengeScreenTags = (props) => {
 
         if (challengeName.trim().length && challengeDescription.trim().length){
             try {
-            //TODO: Add in the optional attributes in challenge model:
-            //   tags
             const res = await axios.post('/challenges', {
                 name: challengeName,
                 start_date: startDate,
