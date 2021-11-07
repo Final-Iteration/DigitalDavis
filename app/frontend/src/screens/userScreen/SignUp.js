@@ -51,22 +51,17 @@ const Signup = (props) => {
         date.toString();
         try {
           const nameArr = name.split(' ', 2);
-          const res = await axios.post('/api/auth/signup', {
+          const res = await axios.post('/auth/signup', {
             first_name: nameArr[0],
             last_name: nameArr[1],
             email: email,
             dob: date.toString(),
             department: department,
-            //job_title: title,   NEEDS FIX> SHOULD NOT BE AN ARRAY
+            //job_title: title,   //NEEDS FIX> SHOULD NOT BE AN ARRAY
             password: password
           });
-          
-          /** 
-           * @todo get token for user 
-           */
           await asyncStorage.storeData("ID", res.data.id);
           await asyncStorage.storeData("Authorization", res.data.tokenObject.token);
-
           props.navigation.navigate('Main');
         } catch (error) {          
           console.log(error.message);
