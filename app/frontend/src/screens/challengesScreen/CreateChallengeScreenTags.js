@@ -21,19 +21,37 @@ const asyncStorage = require('../../asyncStorage');
 const { width, height } = Dimensions.get('window');
 
 const CreateChallengeScreenTags = (props) => {
+    
 
     const createChallenge = async () => {        
+        
+        const tagsArray = [];
+        if (emotionalTag == true) { tagsArray.push('Emotional')};
+        if (environmentalTag == true) { tagsArray.push('Environmental')};
+        if (intellectualTag == true) { tagsArray.push('Intellectual')};
+        if (physicalTag == true) { tagsArray.push('Physical')};
+        if (socialTag == true) { tagsArray.push('Social')};
+        if (spiritualTag == true) { tagsArray.push('Spiritual')};
+        if (selectAllTags == true) { tagsArray.push('Emotional'
+                                                    ,'Environmental'
+                                                    , 'Intellectual'
+                                                    , 'Physical'
+                                                    , 'Social'
+                                                    , 'Spiritual')};
+
+        
+
         if (challengeName.trim().length && challengeDescription.trim().length){
             try {
             //TODO: Add in the optional attributes in challenge model:
-            //  summary, location, tags
+            //   tags
             const res = await axios.post('/challenges', {
                 name: challengeName,
-                creator: "user.id",
                 start_date: startDate,
                 end_date: endDate,
                 description: challengeDescription,
-                location: location           
+                location: location,
+                tags: tagsArray         
             },{ 
                 header:{
                     ID: asyncStorage.getData("ID"),
@@ -50,8 +68,12 @@ const CreateChallengeScreenTags = (props) => {
             console.log(error.message);
             }  
         }
+    };
+
         
-      }
+        
+      
+
 
     //   createChallenge();
 
