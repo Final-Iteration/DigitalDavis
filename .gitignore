@@ -124,3 +124,4 @@ nohup.out
 
 priv_rsa.pem
 pub_rsa.pem
+app/frontend/src/axios/index.js

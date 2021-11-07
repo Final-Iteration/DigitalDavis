@@ -15,7 +15,7 @@ router
   .post(authController.login);
 
 router.get('/test', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-   res.status(200).json({ success: true, msg: 'You are authorized', headers: req.headers});
+   res.status(200).json({ success: true, msg: 'You are authorized', headers: req.headers, body: req.body});
 });
 
 module.exports = router;
