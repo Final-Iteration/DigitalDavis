@@ -25,19 +25,28 @@ const CreateChallengeScreenTags = (props) => {
 
     const createChallenge = async () => {        
         
-        const tagsArray = [];
-        if (emotionalTag == true) { tagsArray.push('Emotional')};
-        if (environmentalTag == true) { tagsArray.push('Environmental')};
-        if (intellectualTag == true) { tagsArray.push('Intellectual')};
-        if (physicalTag == true) { tagsArray.push('Physical')};
-        if (socialTag == true) { tagsArray.push('Social')};
-        if (spiritualTag == true) { tagsArray.push('Spiritual')};
-        if (selectAllTags == true) { tagsArray.push('Emotional'
-                                                    ,'Environmental'
-                                                    , 'Intellectual'
-                                                    , 'Physical'
-                                                    , 'Social'
-                                                    , 'Spiritual')};
+        const tagsArray = [String];
+        if (selectAllTags == true) 
+            { 
+                tagsArray.push("Emotional"
+                            ,"Environmental"
+                            , "Intellectual"
+                            , "Physical"
+                            , "Social"
+                            , "Spiritual")
+            }
+        else
+        {
+            if (emotionalTag == true) { tagsArray.push("Emotional")};
+            if (environmentalTag == true) { tagsArray.push("Environmental")};
+            if (intellectualTag == true) { tagsArray.push("Intellectual")};
+            if (physicalTag == true) { tagsArray.push("Physical")};
+            if (socialTag == true) { tagsArray.push("Social")};
+            if (spiritualTag == true) { tagsArray.push("Spiritual")};  
+        }
+
+        
+        
 
         
 
