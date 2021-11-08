@@ -11,8 +11,8 @@ import { TabView, SceneMap } from "react-native-tab-view";
 import { TabBar } from "react-native-tab-view";
 import axios from "../../../axios";
 import { cc, pc, ac } from "./MockData";
-const baseURL =
-  "http://2bf0-2601-204-e780-d390-b00f-3872-a6cf-3210.ngrok.io/api/challenges";
+const asyncStorage = require('../../../asyncStorage');
+
 
 const TopSwipe = ({ props }) => {
   const [allChallenges, setAllChallenge] = useState([]);
@@ -21,7 +21,14 @@ const TopSwipe = ({ props }) => {
   useEffect(() => {
     async function getAllChallenges() {
       try {
-        const res = await axios.get("/challenges");
+        const id = await asyncStorage.getData("ID");
+        const authToken = await asyncStorage.getData("Authorization");
+        const res = await axios.get("/challenges", {
+          headers: {
+            id: id,
+            Authorization: authToken,
+          }
+        });
         console.log("-----ALL Challenges-----");
         console.log(res.data);
         setAllChallenge(res.data.results);
@@ -94,7 +101,14 @@ const TopSwipe = ({ props }) => {
   useEffect(() => {
     async function getCurrentChallenges() {
       try {
-        const res = await axios.get("/challenges/active");
+        const id = await asyncStorage.getData("ID");
+        const authToken = await asyncStorage.getData("Authorization");
+        const res = await axios.get("/challenges/active", {
+          headers: {
+            id: id,
+            Authorization: authToken,
+          }
+        });
         console.log("-----Current Challenges-----");
         console.log(res.data);
         setCurrentChallenges(res.data);
@@ -147,7 +161,14 @@ const TopSwipe = ({ props }) => {
   useEffect(() => {
     async function getCurrentChallenges() {
       try {
-        const res = await axios.get("/challenges/past");
+        const id = await asyncStorage.getData("ID");
+        const authToken = await asyncStorage.getData("Authorization");
+        const res = await axios.get("/challenges/past", {
+          headers: {
+            id: id,
+            Authorization: authToken,
+          }
+        });
         console.log("-----Past Challenges-----");
         console.log(res.data);
         setPastChallenges(res.data);
