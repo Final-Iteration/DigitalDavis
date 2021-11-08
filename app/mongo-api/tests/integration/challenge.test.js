@@ -11,18 +11,19 @@ const {
   insertChallenges,
   challengeThree,
 } = require("../fixtures/challenge.fixture");
-
+const { userOneAccessToken, userTwoAccessToken, userThreeAccessToken } = require('../fixtures/token.fixtures');
 const { deleteOne } = require("../../models/challenge.model");
+const testDebugger = require('debug')('app:test');
 
-//JWT Tokens for testing
-// const { challengeOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
-
-//Creates a connection to the testing database before running any tests
+/**
+ * Setup Database 
+ */
 setupTestDB();
 
 describe("Challenge routes", () => {
   describe("POST /api/challenges", () => {
     let newChallenge;
+    console.log('userOneAccessToken: '+ userOneAccessToken)
     beforeAll(() =>
       getChallenge().then((response) => {
         newChallenge = response;
@@ -32,6 +33,8 @@ describe("Challenge routes", () => {
     test("should return 201 and successfully create new Challenge if data is ok", async () => {
       const res = await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send(newChallenge)
         .expect(httpStatus.CREATED);
 
@@ -72,6 +75,8 @@ describe("Challenge routes", () => {
 
       await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -84,6 +89,8 @@ describe("Challenge routes", () => {
 
       await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -96,6 +103,8 @@ describe("Challenge routes", () => {
 
       await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -105,6 +114,8 @@ describe("Challenge routes", () => {
 
       await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -114,6 +125,8 @@ describe("Challenge routes", () => {
 
       await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -123,6 +136,8 @@ describe("Challenge routes", () => {
 
       await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -132,6 +147,8 @@ describe("Challenge routes", () => {
 
       await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+         
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -141,6 +158,8 @@ describe("Challenge routes", () => {
 
       await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -150,6 +169,8 @@ describe("Challenge routes", () => {
 
       await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -160,6 +181,8 @@ describe("Challenge routes", () => {
 
       await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -170,6 +193,8 @@ describe("Challenge routes", () => {
 
       await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -179,6 +204,8 @@ describe("Challenge routes", () => {
 
       await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -189,6 +216,8 @@ describe("Challenge routes", () => {
 
       await request(app)
         .post("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send(newChallenge)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -200,6 +229,8 @@ describe("Challenge routes", () => {
 
       const res = await request(app)
         .get("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send()
         .expect(httpStatus.OK);
 
@@ -242,6 +273,8 @@ describe("Challenge routes", () => {
 
       const res = await request(app)
         .get("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .query({ name: challengeOne.name })
         .send()
         .expect(httpStatus.OK);
@@ -260,10 +293,12 @@ describe("Challenge routes", () => {
     test("should correctly apply filter on start_date field", async () => {
       await insertChallenges([challengeOne, challengeTwo]);
 
-      console.log("\n challengeOne.start_date", challengeOne.start_date);
+      testDebugger("\n challengeOne.start_date", challengeOne.start_date);
 
       const res = await request(app)
         .get("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .query({ start_date: challengeOne.start_date })
         .send()
         .expect(httpStatus.OK);
@@ -285,6 +320,8 @@ describe("Challenge routes", () => {
 
       const res = await request(app)
         .get("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .query({ sortBy: "name:desc" })
         .send()
         .expect(httpStatus.OK);
@@ -307,6 +344,8 @@ describe("Challenge routes", () => {
 
       const res = await request(app)
         .get("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .query({ sortBy: "start_date:desc" })
         .send()
         .expect(httpStatus.OK);
@@ -329,6 +368,8 @@ describe("Challenge routes", () => {
 
       const res = await request(app)
         .get("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .query({ sortBy: "name:asc" })
         .send()
         .expect(httpStatus.OK);
@@ -352,6 +393,8 @@ describe("Challenge routes", () => {
 
       const res = await request(app)
         .get("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .query({ sortBy: "start_date:asc" })
         .send()
         .expect(httpStatus.OK);
@@ -375,6 +418,8 @@ describe("Challenge routes", () => {
 
       const res = await request(app)
         .get("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .query({ sortBy: "location:desc,name:asc" })
         .send()
         .expect(httpStatus.OK);
@@ -408,6 +453,7 @@ describe("Challenge routes", () => {
 
       const res = await request(app)
         .get("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .query({ limit: 2 })
         .send()
         .expect(httpStatus.OK);
@@ -429,6 +475,8 @@ describe("Challenge routes", () => {
 
       const res = await request(app)
         .get("/api/challenges")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .query({ page: 2, limit: 2 })
         .send()
         .expect(httpStatus.OK);
@@ -451,6 +499,8 @@ describe("Challenge routes", () => {
 
       const res = await request(app)
         .get(`/api/challenges/${challengeOne._id}`)
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
         .send()
         .expect(httpStatus.OK);
 
@@ -472,6 +522,8 @@ describe("Challenge routes", () => {
 
         await request(app)
           .get(`/api/challenges/${challengeOne._id}`)
+          .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
           .send()
           .expect(httpStatus.UNAUTHORIZED);
       });
@@ -481,6 +533,8 @@ describe("Challenge routes", () => {
 
         await request(app)
           .get("/api/challenges/invalidId")
+          .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
           .send()
           .expect(httpStatus.BAD_REQUEST);
       });
@@ -490,6 +544,8 @@ describe("Challenge routes", () => {
 
         await request(app)
           .get(`/api/challenges/${challengeOne._id}`)
+          .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
           .send()
           .expect(httpStatus.NOT_FOUND);
       });
@@ -501,6 +557,8 @@ describe("Challenge routes", () => {
 
         await request(app)
           .delete(`/api/challenges/${challengeOne._id}`)
+          .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
           .send()
           .expect(httpStatus.NO_CONTENT);
 
@@ -513,6 +571,8 @@ describe("Challenge routes", () => {
 
         await request(app)
           .delete(`/api/challenges/${challengeOne._id}`)
+          .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
           .send()
           .expect(httpStatus.UNAUTHORIZED);
       });
@@ -522,6 +582,8 @@ describe("Challenge routes", () => {
 
         await request(app)
           .delete("/api/challenges/invalidId")
+          .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
           .send()
           .expect(httpStatus.BAD_REQUEST);
       });
@@ -531,6 +593,8 @@ describe("Challenge routes", () => {
 
         await request(app)
           .delete(`/api/challenges/${challengeTwo._id}`)
+          .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+    
           .send()
           .expect(httpStatus.NOT_FOUND);
       });

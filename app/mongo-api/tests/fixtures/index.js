@@ -1,3 +1,4 @@
+const testDebugger = require('debug')('app:test');
 
 function start_date() {
     const startDate = new Date();
@@ -13,5 +14,5 @@ function start_date() {
   const start = start_date()
   const end = end_date()
 
-  console.log(start)
-  console.log(end)
+  testDebugger(start)
+  testDebugger(end)

@@ -1,6 +1,7 @@
 const javawt = require('jsonwebtoken');
 const moment = require('moment');
 const httpStatus = require('http-status');
+const dotenv = require('dotenv').config();
 const config = require('config');
 const userService = require('./user.services');
 const { Token } = require('../models');
@@ -15,7 +16,7 @@ const { tokenTypes } = require('../utils/tokens');
  * @param {string} [secret]
  * @returns {string}
  */
-const generateToken = (userId, expires, type, secret = config.get('jwt.secret')) => {
+const generateToken = (userId, expires, type, secret = config.get('development.jwt.secret')) => {
   const payload = {
     sub: userId,
     iat: moment().unix(),
@@ -52,7 +53,7 @@ const saveToken = async (token, userId, expires, type, blacklisted = false) => {
  * @returns {Promise<Token>}
  */
 const verifyToken = async (token, type) => {
-  const payload = javawt.verify(token, config.get('jwt.secret'));
+  const payload = javawt.verify(token, config.get('development.jwt.secret'));
   const tokenDoc = await Token.findOne({ token, type, user: payload.sub, blacklisted: false });
   if (!tokenDoc) {
     throw new Error('Token not found');
