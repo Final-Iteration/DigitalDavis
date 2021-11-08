@@ -9,7 +9,7 @@ const ApiError = require("../utils/ApiError");
  * @returns {Promise<Challenge>}
  */
 const createChallenge = async (challengeBody, ID) => {
-  var data = 
+  const data = 
   {
     name: challengeBody.name,
     creator: ID,
@@ -22,9 +22,12 @@ const createChallenge = async (challengeBody, ID) => {
     end_date: challengeBody.end_date,
     //participants: challengeBody.participants
   };
-  const creator = await User.find(ID);
+  const creator = await User.findOne({ _id: ID });
+  console.log(ID);
   console.log(creator);
+ 
   return Challenge.create(data);
+
   //return Challenge.create(challengeBody);
 };
 
@@ -48,7 +51,11 @@ const queryChallenges = async (filter, options) => {
  * @returns {Promise<Challenge>}
  */
 const getChallengeById = async (challengeId) => {
+  
+  
   return Challenge.findOne({ _id: challengeId });
+
+
 };
 
 /**
