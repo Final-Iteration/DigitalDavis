@@ -10,10 +10,8 @@ import {
 
 import Icon from "react-native-vector-icons/AntDesign";
 import Ionicon from "react-native-vector-icons/Ionicons";
-
-import { Feather, AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather, AntDesign } from "@expo/vector-icons";
 import { Appbar, Avatar } from "react-native-paper";
-import { NavigationActions } from "react-navigation";
 const { height, width } = Dimensions.get("window");
 const barHeight = 37;
 const platform = Platform.OS === "ios" ? true : "50%";
@@ -260,7 +258,7 @@ const CustomHeader = ({
             <Avatar.Image
               size={40}
               source={{
-                uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+                uri: "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png",
               }}
             />
           )}
@@ -294,7 +292,7 @@ const CustomHeader = ({
             <Avatar.Image
               size={40}
               source={{
-                uri: "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+                uri: "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png",
               }}
             />
           )}

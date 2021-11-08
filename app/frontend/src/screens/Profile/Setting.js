@@ -1,46 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-} from 'react-native';
-import { Avatar } from 'react-native-paper';
-import Field from './components/Field';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import * as ImagePicker from 'expo-image-picker';
-import Icon from 'react-native-vector-icons/AntDesign';
+} from "react-native";
+import { Avatar } from "react-native-paper";
+import Field from "./components/Field";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import * as ImagePicker from "expo-image-picker";
+import Icon from "react-native-vector-icons/AntDesign";
 
 //expect API call return
 const profile = {
   profilePicture:
-    'https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg',
-  fullName: 'Keisuka Nakagawa',
-  userName: 'Keisuka N.',
-  title: 'Software Engineer',
-  age: '26',
+    "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+  fullName: "Keisuka Nakagawa",
+  userName: "Keisuka N.",
+  title: "Software Engineer",
+  age: "26",
   birthDate: new Date(),
-  department: 'Psychiatry and Behavioral Sciences',
-  gender: 'Male',
-  email: 'drknakagawa@ucdavis.edu',
+  department: "Psychiatry and Behavioral Sciences",
+  gender: "Male",
+  email: "drknakagawa@ucdavis.edu",
 };
-const { height, width } = Dimensions.get('window');
+const { height, width } = Dimensions.get("window");
 const UserProfile = (props) => {
   //userEffect to fetch current user
-  const [username, setUsername] = useState('');
-  const [profilePicture, setProfilePicture] = useState('A');
-  const [fullName, setFullName] = useState('');
-  const [title, setTitle] = useState('');
-  const [age, setAge] = useState('');
+  const [username, setUsername] = useState("");
+  const [profilePicture, setProfilePicture] = useState("A");
+  const [fullName, setFullName] = useState("");
+  const [title, setTitle] = useState("");
+  const [age, setAge] = useState("");
   const [birthday, setBirthday] = useState(new Date());
-  const [department, setDepartment] = useState('');
-  const [gender, setGender] = useState('');
-  const [email, setEmail] = useState('');
+  const [department, setDepartment] = useState("");
+  const [gender, setGender] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     setUsername(profile.userName);
-    setProfilePicture(profile.profilePicture);
+    setProfilePicture(
+      "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png"
+    );
     setFullName(profile.fullName);
     setTitle(profile.title);
     setAge(profile.age);
@@ -51,7 +53,7 @@ const UserProfile = (props) => {
   }, []);
   //API CALL TO SAVE UPDATED INFO TO DATA BASE
   const saveChange = () => {
-    props.navigation.navigate('User');
+    props.navigation.navigate("User");
   };
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -70,7 +72,7 @@ const UserProfile = (props) => {
       enableOnAndroid={true}
       extraHeight={120}
       showsVerticalScrollIndicator={false}
-      keyboardShouldPersistTaps={'always'}
+      keyboardShouldPersistTaps={"always"}
     >
       <View style={styles.imageView}>
         <View style={styles.halfImageView}></View>
@@ -91,7 +93,7 @@ const UserProfile = (props) => {
           <Text style={styles.title}>{title}</Text>
         </View>
       </View>
-      <View style={{ backgroundColor: '#f2f2f2' }}>
+      <View style={{ backgroundColor: "#f2f2f2" }}>
         <Field
           title="Username"
           text={username}
@@ -138,63 +140,63 @@ const UserProfile = (props) => {
 };
 const styles = StyleSheet.create({
   saveChangeButton: {
-    textAlign: 'center',
+    textAlign: "center",
     height: 75,
-    width: '100%',
-    backgroundColor: '#142A4F',
+    width: "100%",
+    backgroundColor: "#142A4F",
     borderRadius: 10,
   },
   saveChangeText: {
     marginVertical: 15,
-    color: 'white',
-    fontWeight: '500',
+    color: "white",
+    fontWeight: "500",
     fontSize: 18,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   cameraIconView: {
-    alignItems: 'center',
-    position: 'absolute',
-    alignSelf: 'center',
+    alignItems: "center",
+    position: "absolute",
+    alignSelf: "center",
     height: 110,
     width: 110,
     borderRadius: 100,
     opacity: 0.8,
-    backgroundColor: 'grey',
+    backgroundColor: "grey",
     top: -60,
   },
-  cameraIcon: { color: 'black', marginVertical: '30%' },
+  cameraIcon: { color: "black", marginVertical: "30%" },
   avatar: {
     top: -60,
-    alignSelf: 'center',
-    tintColor: 'grey',
+    alignSelf: "center",
+    tintColor: "grey",
   },
   uploadBtn: {
-    display: 'flex',
-    position: 'absolute',
-    alignSelf: 'center',
+    display: "flex",
+    position: "absolute",
+    alignSelf: "center",
   },
 
   fullName: {
     fontSize: 27,
-    fontWeight: '500',
-    alignSelf: 'center',
+    fontWeight: "500",
+    alignSelf: "center",
   },
   title: {
     fontSize: 18,
-    fontWeight: '500',
-    alignSelf: 'center',
+    fontWeight: "500",
+    alignSelf: "center",
   },
   imageView: {
     top: 0,
-    width: '100%',
+    width: "100%",
     height: 210,
-    alignItems: 'center',
-    backgroundColor: 'rgba(242,242,242,255)',
+    alignItems: "center",
+    backgroundColor: "rgba(242,242,242,255)",
   },
   halfImageView: {
     width: width,
     height: 163 / 2,
-    backgroundColor: '#142A4F',
+    backgroundColor: "#142A4F",
   },
 });
 export default UserProfile;
