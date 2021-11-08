@@ -81,8 +81,53 @@ describe("User routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
+    test("should return 400 error if email length is more than 50 characters", async () => {
+      newUser.email = "Lorem ipsum dolor sit amet, consectetuer adipiscing";
+
+      await request(app)
+        .post("/api/users")
+        .send(newUser)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
     test("should return 400 error if first name length is more than 30 characters", async () => {
       newUser.first_name = "Lorem ipsum dolor sit amet, con";
+
+      await request(app)
+        .post("/api/users")
+        .send(newUser)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if first name length is less than 1 characters", async () => {
+      newUser.first_name = "";
+
+      await request(app)
+        .post("/api/users")
+        .send(newUser)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if last name length is more than 30 characters", async () => {
+      newUser.last_name = "Lorem ipsum dolor sit amet, con";
+
+      await request(app)
+        .post("/api/users")
+        .send(newUser)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if last name length is less than 1 characters", async () => {
+      newUser.last_name = "";
+
+      await request(app)
+        .post("/api/users")
+        .send(newUser)
+        .expect(httpStatus.BAD_REQUEST);
+    });
+
+    test("should return 400 error if password length is less than 8 characters", async () => {
+      newUser.password = "Lo";
 
       await request(app)
         .post("/api/users")
@@ -138,10 +183,6 @@ describe("User routes", () => {
       expect(res.body.results).toHaveLength(2);
       expect(res.body.results[0].id).toBe(userOne._id.toHexString());
     });
-
-    /**
-     * @TODO add a check for date sorting
-     */
 
     // eslint-disable-next-line max-len
     test("should correctly sort the returned array if descending sort param  by first_name is specified", async () => {
