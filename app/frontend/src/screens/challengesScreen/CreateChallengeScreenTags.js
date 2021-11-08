@@ -12,12 +12,77 @@ import Icon from "react-native-vector-icons/Fontisto";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import Modal from "react-native-modal";
 import UnsplashCred from "../../secrete/UnplashCred";
-import axios from "axios";
+import axios from "../../axios";
 import UnplashImage from "./components/UnplashImage";
+
+
+const asyncStorage = require('../../asyncStorage');
 
 const { width, height } = Dimensions.get('window');
 
 const CreateChallengeScreenTags = (props) => {
+    
+
+    const createChallenge = async () => {        
+        
+        const tagsArray = [String];
+        if (selectAllTags == true) 
+            { 
+                tagsArray.push("Emotional"
+                            ,"Environmental"
+                            , "Intellectual"
+                            , "Physical"
+                            , "Social"
+                            , "Spiritual")
+            }
+        else
+        {
+            if (emotionalTag == true) { tagsArray.push("Emotional")};
+            if (environmentalTag == true) { tagsArray.push("Environmental")};
+            if (intellectualTag == true) { tagsArray.push("Intellectual")};
+            if (physicalTag == true) { tagsArray.push("Physical")};
+            if (socialTag == true) { tagsArray.push("Social")};
+            if (spiritualTag == true) { tagsArray.push("Spiritual")};  
+        }
+
+        
+        
+
+        
+
+        if (challengeName.trim().length && challengeDescription.trim().length){
+            try {
+            const res = await axios.post('/challenges', {
+                name: challengeName,
+                start_date: startDate,
+                end_date: endDate,
+                description: challengeDescription,
+                location: location,
+                tags: tagsArray         
+            },{ 
+                header:{
+                    ID: asyncStorage.getData("ID"),
+                    Authorization: asyncStorage.getData("Authorization")
+                }
+            });
+            
+            /** 
+             * @todo get token for user 
+             */
+            console.log(res.data);
+            props.navigation.navigate('Challenge');
+            } catch (error) {          
+            console.log(error.message);
+            }  
+        }
+    };
+
+        
+        
+      
+
+
+    //   createChallenge();
 
     const [tagsPageActive, setTagsPageActive] = useState(true);
     const [datePageActive, setDatePageActive] = useState(false);
@@ -306,7 +371,7 @@ const CreateChallengeScreenTags = (props) => {
                         Back
                     </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => {(challengeName.trim().length && challengeDescription.trim().length) ? props.navigation.navigate('Challenge') : null}}>
+                    <TouchableOpacity onPress={() => createChallenge()}>
                         <Text style={(challengeName.trim().length && challengeDescription.trim().length) ? styles.nextButtonValid : styles.nextButtonInvalid}>
                             Create
                         </Text>

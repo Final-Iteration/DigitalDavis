@@ -18,7 +18,7 @@ import JoinBanner from "./components/JoinBanner";
 import UnjoinedBanner from "./components/UnjoinedBanner";
 import Modal from "react-native-modal";
 import Participant from "./components/Participant";
-import axios from "axios";
+import axios from "../../axios";
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import * as Location from "expo-location";
@@ -53,6 +53,7 @@ const ChallengeInfo = (props) => {
 
   useEffect(() => {
     setStatus(challenge.participationStatus);
+    
     const getUserLocation = async () => {
       try {
         //user location
@@ -86,8 +87,8 @@ const ChallengeInfo = (props) => {
 
     getUserLocation();
   }, []);
-
-  // console.log(challenge);
+  console.log("-------------CHALLENGE CLICKED-------------");
+  console.log(challenge.id);
 
   // let day = challenge.start_date.toString();
   // day = day.substring(0, day.indexOf("T"));
@@ -252,7 +253,45 @@ const ChallengeInfo = (props) => {
             },
           ]}
           onPress={() => {
-            setStatus(!participationStatus);
+            const addUserToChallenge = async () =>{
+              try{
+              // console.log(challenge.id);
+              // TODO: Route should be /challenges/addParticipant/:id
+              const res = await axios.patch(`/challenges/${challenge.id}`,{
+                //TODO: Will need to pass in UserID, and make sure Challenge service is appending this into the challenge
+                //participants: [`${user.id}`]
+                participants: ["Test Participation Axios call"]
+              });
+              }catch (error){
+              console.log(error.message);
+              }
+            
+            }
+            const removeUserFromChallenge = async () => {
+              try{
+                // console.log(challenge.id);
+                // TODO: Route should be /challenges/removeParticipant/:id
+                const res = await axios.patch(`/challenges/${challenge.id}`,{
+                  //TODO: Will need to pass in UserID, and make sure Challenge service is removing the user from the challenge
+                  //participants: [`${user.id}`]
+                  participants: ["Test Participation Axios call"]
+                });
+                }catch (error){
+                console.log(error.message);
+                } 
+            }
+
+            /**
+             * Add a user to a challenge and change participationStatus to allow the UI to update accordingly
+             */
+            if(participationStatus == false)
+            {
+              addUserToChallenge();
+              setStatus(!participationStatus);
+            }else{
+              removeUserFromChallenge();
+              setStatus(!participationStatus);
+            }
             showMessage({
               icon: "success",
               position: "top",

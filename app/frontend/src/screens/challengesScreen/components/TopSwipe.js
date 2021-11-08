@@ -61,7 +61,7 @@ const TopSwipe = ({ props }) => {
     } else {
       return (
         <FlatList
-          data={ac}
+          data={allChallenges}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
@@ -150,7 +150,7 @@ const TopSwipe = ({ props }) => {
         const res = await axios.get("/challenges/past");
         console.log("-----Past Challenges-----");
         console.log(res.data);
-        setCurrentChallenges(res.data);
+        setPastChallenges(res.data);
       } catch (error) {
         console.log(error);
       }
