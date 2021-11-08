@@ -44,7 +44,7 @@ const UserProfile = (props) => {
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
 
-  //const dob = profile.birthDate.toString().split(' ');
+  const dob = profile.birthDate.toString().split(' ');
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -52,8 +52,9 @@ const UserProfile = (props) => {
       try {
         const id = await asyncStorage.getData("ID");
         const authToken = await asyncStorage.getData("Authorization");
-        const res = await axios.get(`/api/users/${id}`, {
+        const res = await axios.get(`/users/${id}`, {
             headers: {
+              id: id,
               Authorization: authToken,
             }
           }
