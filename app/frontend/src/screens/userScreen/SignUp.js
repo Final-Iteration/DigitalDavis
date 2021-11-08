@@ -32,7 +32,7 @@ const Signup = (props) => {
 
   const signup = () => {
     // const [signupInformation, setUserSignupInformation] = useState([]);
-
+    
     if (
       name.length === 0 ||
       email.length === 0 ||
@@ -60,8 +60,8 @@ const Signup = (props) => {
             //job_title: title,   //NEEDS FIX> SHOULD NOT BE AN ARRAY
             password: password
           });
-          await asyncStorage.storeData("ID", res.data.id);
-          await asyncStorage.storeData("Authorization", res.data.tokenObject.token);
+          await asyncStorage.storeData("ID", res.data.user.id);
+          await asyncStorage.storeData("Authorization", "Bearer " + res.data.tokens.access.token);
           props.navigation.navigate('Main');
         } catch (error) {          
           console.log(error.message);

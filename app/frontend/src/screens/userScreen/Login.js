@@ -43,13 +43,13 @@ const Login = (props) => {
   const setUserLogin = async () => {
     try {
 
-      const res = await axios.post('/api/auth/login', {
+      const res = await axios.post('/auth/login', {
         email: email,
         password: password
       });
 
-      await asyncStorage.storeData("ID", res.data.id);
-      await asyncStorage.storeData("Authorization", res.data.tokenObject.token);
+      await asyncStorage.storeData("ID", res.data.user.id);
+      await asyncStorage.storeData("Authorization", "Bearer " + res.data.tokens.access.token);
       
       props.navigation.navigate('Main');
       
