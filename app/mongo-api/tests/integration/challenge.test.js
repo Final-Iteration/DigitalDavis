@@ -340,6 +340,7 @@ describe("Challenge routes", () => {
         totalPages: 1,
         totalResults: 2,
       });
+
       expect(res.body.results).toHaveLength(2);
       expect(res.body.results[0].id).toBe(challengeOne._id.toHexString());
       expect(res.body.results[1].id).toBe(challengeTwo._id.toHexString());
@@ -465,74 +466,74 @@ describe("Challenge routes", () => {
         end_date: new Date(challengeOne.end_date).toISOString(),
         participants: challengeOne.participants,
       });
+
+      test.skip("should return 401 error if access token is missing", async () => {
+        await insertChallenges([challengeOne]);
+
+        await request(app)
+          .get(`/api/challenges/${challengeOne._id}`)
+          .send()
+          .expect(httpStatus.UNAUTHORIZED);
+      });
+
+      test("should return 400 error if challengeId is not a valid mongo id", async () => {
+        await insertChallenges([challengeOne]);
+
+        await request(app)
+          .get("/api/challenges/invalidId")
+          .send()
+          .expect(httpStatus.BAD_REQUEST);
+      });
+
+      test("should return 404 error if challenge is not found", async () => {
+        await insertChallenges([challengeTwo]);
+
+        await request(app)
+          .get(`/api/challenges/${challengeOne._id}`)
+          .send()
+          .expect(httpStatus.NOT_FOUND);
+      });
     });
 
-    test.skip("should return 401 error if access token is missing", async () => {
-      await insertChallenges([challengeOne]);
+    describe("DELETE /api/challenges/:challengeId", () => {
+      test("should return 204 if data is ok", async () => {
+        await insertChallenges([challengeOne]);
 
-      await request(app)
-        .get(`/api/challenges/${challengeOne._id}`)
-        .send()
-        .expect(httpStatus.UNAUTHORIZED);
-    });
+        await request(app)
+          .delete(`/api/challenges/${challengeOne._id}`)
+          .send()
+          .expect(httpStatus.NO_CONTENT);
 
-    test("should return 400 error if challengeId is not a valid mongo id", async () => {
-      await insertChallenges([challengeOne]);
+        const dbChallenge = await Challenge.findById(challengeOne._id);
+        expect(dbChallenge).toBeNull();
+      });
 
-      await request(app)
-        .get("/api/challenges/invalidId")
-        .send()
-        .expect(httpStatus.BAD_REQUEST);
-    });
+      test.skip("should return 401 error if access token is missing", async () => {
+        await insertChallenges([challengeOne]);
 
-    test("should return 404 error if challenge is not found", async () => {
-      await insertChallenges([challengeTwo]);
+        await request(app)
+          .delete(`/api/challenges/${challengeOne._id}`)
+          .send()
+          .expect(httpStatus.UNAUTHORIZED);
+      });
 
-      await request(app)
-        .get(`/api/challenges/${challengeOne._id}`)
-        .send()
-        .expect(httpStatus.NOT_FOUND);
-    });
-  });
+      test("should return 400 error if challengeId is not a valid mongo id", async () => {
+        await insertChallenges([challengeOne]);
 
-  describe("DELETE /api/challenges/:challengeId", () => {
-    test("should return 204 if data is ok", async () => {
-      await insertChallenges([challengeOne]);
+        await request(app)
+          .delete("/api/challenges/invalidId")
+          .send()
+          .expect(httpStatus.BAD_REQUEST);
+      });
 
-      await request(app)
-        .delete(`/api/challenges/${challengeOne._id}`)
-        .send()
-        .expect(httpStatus.NO_CONTENT);
+      test("should return 404 error if challenge already is not found", async () => {
+        await insertChallenges([challengeOne]);
 
-      const dbChallenge = await Challenge.findById(challengeOne._id);
-      expect(dbChallenge).toBeNull();
-    });
-
-    test.skip("should return 401 error if access token is missing", async () => {
-      await insertChallenges([challengeOne]);
-
-      await request(app)
-        .delete(`/api/challenges/${challengeOne._id}`)
-        .send()
-        .expect(httpStatus.UNAUTHORIZED);
-    });
-
-    test("should return 400 error if challengeId is not a valid mongo id", async () => {
-      await insertChallenges([challengeOne]);
-
-      await request(app)
-        .delete("/api/challenges/invalidId")
-        .send()
-        .expect(httpStatus.BAD_REQUEST);
-    });
-
-    test("should return 404 error if challenge already is not found", async () => {
-      await insertChallenges([challengeOne]);
-
-      await request(app)
-        .delete(`/api/challenges/${challengeTwo._id}`)
-        .send()
-        .expect(httpStatus.NOT_FOUND);
+        await request(app)
+          .delete(`/api/challenges/${challengeTwo._id}`)
+          .send()
+          .expect(httpStatus.NOT_FOUND);
+      });
     });
   });
 });

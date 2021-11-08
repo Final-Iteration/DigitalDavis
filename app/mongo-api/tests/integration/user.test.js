@@ -6,6 +6,7 @@ const app = require("../../../mongo-api/app");
 //Need to replace this with our own DB
 const setupTestDB = require("../utils/setupTestDB");
 const { User } = require("../../models");
+const { userOneAccessToken, userTwoAccessToken, userThreeAccessToken } = require('../fixtures/token.fixture');
 
 const {
   userOne,
@@ -14,7 +15,8 @@ const {
   userThree,
 } = require("../fixtures/user.fixture");
 //JWT Tokens for testing
-// const { userOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
+
+
 
 //Need to createa a connection to the testing database before running any tests
 setupTestDB();
@@ -37,6 +39,7 @@ describe("User routes", () => {
     test("should return 201 and successfully create new user if data is ok", async () => {
       const res = await request(app)
         .post("/api/users")
+        .set('Authorization', `Bearer ${userOneAccessToken}`)
         .send(newUser)
         .expect(httpStatus.CREATED);
 
