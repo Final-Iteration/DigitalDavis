@@ -54,6 +54,8 @@ const CreateChallengeScreenTags = (props) => {
             location: location
         };
 
+        const id = await asyncStorage.getData("ID");
+        const authToken = await asyncStorage.getData("Authorization");
 
         if (challengeName.trim().length && challengeDescription.trim().length){
             try {
