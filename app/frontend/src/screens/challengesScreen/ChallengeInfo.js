@@ -12,7 +12,6 @@ import {
   ActivityIndicator,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import TagPill from "./components/TagPill";
 import { showMessage } from "react-native-flash-message";
 import JoinBanner from "./components/JoinBanner";
 import UnjoinedBanner from "./components/UnjoinedBanner";
@@ -53,7 +52,7 @@ const ChallengeInfo = (props) => {
 
   useEffect(() => {
     setStatus(challenge.participationStatus);
-    
+
     const getUserLocation = async () => {
       try {
         //user location
@@ -125,25 +124,7 @@ const ChallengeInfo = (props) => {
         >
           <Image style={styles.image} source={{ uri: challenge.image }} />
         </View>
-
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <Text style={styles.title}>{challenge.name}</Text>
-          <FlatList
-            style={{
-              left: 35,
-              height: 35,
-              marginRight: 50,
-              alignSelf: "center",
-            }}
-            contentContainerStyle={{
-              flexDirection: "row",
-            }}
-            data={challenge.tags}
-            renderItem={({ item }) => <TagPill tag={item} />}
-            keyExtractor={(item) => item}
-          />
-          {/* </View> */}
-        </ScrollView>
+        <Text style={styles.title}>{challenge.name}</Text>
         <View style={{ marginHorizontal: width / 100, marginVertical: 10 }}>
           <View style={styles.locationTime}>
             <TouchableOpacity
@@ -253,48 +234,49 @@ const ChallengeInfo = (props) => {
             },
           ]}
           onPress={() => {
-            const addUserToChallenge = async () =>{
-              try{
-              // console.log(challenge.id);
-              // TODO: Route should be /challenges/addParticipant/:id
-              const res = await axios.patch(`/challenges/${challenge.id}`,{
-                //TODO: Will need to pass in UserID, and make sure Challenge service is appending this into the challenge
-                //participants: [`${user.id}`]
-                participants: ["Test Participation Axios call"]
-              },
-              {
-                headers: {
-                  id: id,
-                  Authorization: authToken,
-                }
-              });
-              }catch (error){
-              console.log(error.message);
+            const addUserToChallenge = async () => {
+              try {
+                // console.log(challenge.id);
+                // TODO: Route should be /challenges/addParticipant/:id
+                const res = await axios.patch(
+                  `/challenges/${challenge.id}`,
+                  {
+                    //TODO: Will need to pass in UserID, and make sure Challenge service is appending this into the challenge
+                    //participants: [`${user.id}`]
+                    participants: ["Test Participation Axios call"],
+                  },
+                  {
+                    headers: {
+                      id: id,
+                      Authorization: authToken,
+                    },
+                  }
+                );
+              } catch (error) {
+                console.log(error.message);
               }
-            
-            }
+            };
             const removeUserFromChallenge = async () => {
-              try{
+              try {
                 // console.log(challenge.id);
                 // TODO: Route should be /challenges/removeParticipant/:id
-                const res = await axios.patch(`/challenges/${challenge.id}`,{
+                const res = await axios.patch(`/challenges/${challenge.id}`, {
                   //TODO: Will need to pass in UserID, and make sure Challenge service is removing the user from the challenge
                   //participants: [`${user.id}`]
-                  participants: ["Test Participation Axios call"]
+                  participants: ["Test Participation Axios call"],
                 });
-                }catch (error){
+              } catch (error) {
                 console.log(error.message);
-                } 
-            }
+              }
+            };
 
             /**
              * Add a user to a challenge and change participationStatus to allow the UI to update accordingly
              */
-            if(participationStatus == false)
-            {
+            if (participationStatus == false) {
               addUserToChallenge();
               setStatus(!participationStatus);
-            }else{
+            } else {
               removeUserFromChallenge();
               setStatus(!participationStatus);
             }
@@ -399,6 +381,7 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
   },
   title: {
+    marginTop: 10,
     fontWeight: "600",
     fontSize: 33,
     left: 17,
