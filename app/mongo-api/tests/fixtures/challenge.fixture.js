@@ -7,22 +7,10 @@ function start_date() {
   return startDate;
 }
 
-function start_date_add_days(days) {
-  const startDate = new Date();
-  startDate.setDate(startDate.getDate() + days);
-  return startDate;
-}
-
 function end_date() {
   const endDate = new Date();
   endDate.setDate(endDate.getDate() + 30);
   // return new Date(endDate).toISOString();
-  return endDate;
-}
-
-function end_date_add_days(days) {
-  const endDate = new Date();
-  endDate.setDate(endDate.getDate() + days);
   return endDate;
 }
 
@@ -77,8 +65,8 @@ const challengeTwo = {
   description: faker.random.words(),
   location: faker.address.city(),
   timestamp: faker.date.soon(),
-  start_date: start_date_add_days(2),
-  end_date: end_date_add_days(2),
+  start_date: start_date(),
+  end_date: end_date(),
   participants: [`${faker.name.findName()}`],
 };
 
@@ -90,8 +78,8 @@ const challengeThree = {
   description: faker.random.words(),
   location: faker.address.city(),
   timestamp: faker.date.soon(),
-  start_date: start_date_add_days(10),
-  end_date: end_date_add_days(10),
+  start_date: start_date(),
+  end_date: end_date(),
   participants: [`${faker.name.findName()}`, `${faker.name.findName()}`],
 };
 

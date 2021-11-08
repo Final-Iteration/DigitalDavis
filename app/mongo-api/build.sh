@@ -16,3 +16,6 @@ if [[ "${NODE_ENV}" == "database" ]]; then
     docker network create --subnet 172.23.0.0/16 dev_network
     docker-compose -f docker-compose.docker-dev.yml --project-name final_iteration --env-file ./mongo-api/.env up --no-deps --build -d --remove-orphans mongo-database
 fi
+
+docker-compose -f docker-compose.prod.yml --project-name final_iteration --env-file ./mongo-api/.env up --no-deps --build --remove-orphans express-api
+fi

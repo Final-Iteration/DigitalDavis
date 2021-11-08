@@ -6,6 +6,7 @@ const app = require("../../../mongo-api/app");
 //Need to replace this with our own DB
 const setupTestDB = require("../utils/setupTestDB");
 const { User } = require("../../models");
+const { userOneAccessToken, userTwoAccessToken, userThreeAccessToken } = require('../fixtures/token.fixture');
 
 const {
   userOne,
@@ -14,7 +15,8 @@ const {
   userThree,
 } = require("../fixtures/user.fixture");
 //JWT Tokens for testing
-// const { userOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
+
+
 
 //Need to createa a connection to the testing database before running any tests
 setupTestDB();
@@ -37,6 +39,7 @@ describe("User routes", () => {
     test("should return 201 and successfully create new user if data is ok", async () => {
       const res = await request(app)
         .post("/api/users")
+        .set('Authorization', `Bearer ${userOneAccessToken}`)
         .send(newUser)
         .expect(httpStatus.CREATED);
 
@@ -81,53 +84,8 @@ describe("User routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 400 error if email length is more than 50 characters", async () => {
-      newUser.email = "Lorem ipsum dolor sit amet, consectetuer adipiscing";
-
-      await request(app)
-        .post("/api/users")
-        .send(newUser)
-        .expect(httpStatus.BAD_REQUEST);
-    });
-
     test("should return 400 error if first name length is more than 30 characters", async () => {
       newUser.first_name = "Lorem ipsum dolor sit amet, con";
-
-      await request(app)
-        .post("/api/users")
-        .send(newUser)
-        .expect(httpStatus.BAD_REQUEST);
-    });
-
-    test("should return 400 error if first name length is less than 1 characters", async () => {
-      newUser.first_name = "";
-
-      await request(app)
-        .post("/api/users")
-        .send(newUser)
-        .expect(httpStatus.BAD_REQUEST);
-    });
-
-    test("should return 400 error if last name length is more than 30 characters", async () => {
-      newUser.last_name = "Lorem ipsum dolor sit amet, con";
-
-      await request(app)
-        .post("/api/users")
-        .send(newUser)
-        .expect(httpStatus.BAD_REQUEST);
-    });
-
-    test("should return 400 error if last name length is less than 1 characters", async () => {
-      newUser.last_name = "";
-
-      await request(app)
-        .post("/api/users")
-        .send(newUser)
-        .expect(httpStatus.BAD_REQUEST);
-    });
-
-    test("should return 400 error if password length is less than 8 characters", async () => {
-      newUser.password = "Lo";
 
       await request(app)
         .post("/api/users")

@@ -10,7 +10,6 @@ const challengesRoute = require('./routes/challenge.route');
 const usersRoute = require('./routes/user.route');
 const authRoute = require('./routes/auth.route');
 const passport = require('passport');
-const { jwtStrategy } = require('./utils/passport');
 const appDebugger = require('debug')('app:startup');
 
 const app = express();
@@ -41,9 +40,8 @@ app.use(mongoSanitize());
 //  app.options('*', cors());
 
 // jwt authentication
-//require('./middleware/auth')(passport);
+require('./middleware/auth')(passport);
 app.use(passport.initialize());
-passport.use('jwt', jwtStrategy);
 
 // limit repeated failed requests to auth endpoints
 // if (config.env === 'production') {
