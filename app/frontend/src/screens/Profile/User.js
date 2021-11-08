@@ -85,6 +85,8 @@ const UserProfile = (props) => {
 
   const logout = () => {
     //remove token from async storage
+    asyncStorage.removeData("ID");
+    asyncStorage.removeData("Authorization");
     props.navigation.navigate('Auth');
   };
 
