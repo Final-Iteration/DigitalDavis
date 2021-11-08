@@ -19,9 +19,18 @@ const getData = async (key) => {
       }
 };
 
+const removeData = async (key) => {
+  try {
+    await AsyncStorage.removeItem(key);
+  }catch(e) {
+    console.log("Could not remove Key: ", key);
+  }
+}
+
 module.exports = {
     storeData,
-    getData
-};
+    getData,
+    removeData
+  };
 
 
