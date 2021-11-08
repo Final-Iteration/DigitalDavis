@@ -31,5 +31,12 @@
       "collection": "DOCKER_DATABASE_COLLECTION",
       "certificate": "CA_CERTIFICATE_PATH"
     }
+  },
+  "jwt": {
+    "secret": "JWT_SECRET",
+    "accessExpirationMinutes": "JWT_ACCESS_EXPIRATION_MINUTES",
+    "refreshExpirationDays": "JWT_REFRESH_EXPIRATION_DAYS",
+    "resetPasswordExpirationMinutes": "JWT_RESET_PASSWORD_EXPIRATION_MINUTES",
+    "verifyEmailExpirationMinutes": "JWT_VERIFY_EMAIL_EXPIRATION_MINUTES"
   }
 }
