@@ -4,6 +4,7 @@ const validate = require('../middleware/validate');
 const userController = require('../controllers/user.controller');
 const userValidation = require('../validate/users.validation');
 const routeDebugger = require('debug')('app:routes');
+const auth = require('../middleware/auth');
 
 router
   .route('/')
@@ -12,8 +13,8 @@ router
 
 router
   .route('/:Id')
-  .get(validate(userValidation.getUser), userController.getUser)
-  .patch(validate(userValidation.updateUser), userController.updateUser)
-  .delete(validate(userValidation.deleteUser), userController.deleteUser);
+  .get(auth(), validate(userValidation.getUser), userController.getUser)
+  .patch(auth(), validate(userValidation.updateUser), userController.updateUser)
+  .delete(auth(), validate(userValidation.deleteUser), userController.deleteUser);
 
 module.exports = router;
