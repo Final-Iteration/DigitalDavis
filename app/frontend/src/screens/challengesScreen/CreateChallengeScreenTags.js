@@ -25,7 +25,7 @@ const CreateChallengeScreenTags = (props) => {
 
     const createChallenge = async () => {        
         
-        const tagsArray = [String];
+        const tagsArray = [];
         if (selectAllTags == true) 
             { 
                 tagsArray.push("Emotional"
@@ -45,25 +45,23 @@ const CreateChallengeScreenTags = (props) => {
             if (spiritualTag == true) { tagsArray.push("Spiritual")};  
         }
 
-        
-        
+        const body = {
+            name: challengeName,
+            start_date: startDate,
+            end_date: endDate,
+            description: challengeDescription,
+            tags: tagsArray,
+            location: location
+        };
 
-        
 
         if (challengeName.trim().length && challengeDescription.trim().length){
             try {
-            const res = await axios.post('/challenges', {
-                name: challengeName,
-                start_date: startDate,
-                end_date: endDate,
-                description: challengeDescription,
-                location: location,
-                tags: tagsArray         
-            },{ 
-                header:{
-                    ID: asyncStorage.getData("ID"),
-                    Authorization: asyncStorage.getData("Authorization")
-                }
+            const res = await axios.post('/challenges', body, {
+                headers: {
+                    id: id,
+                    Authorization: authToken,
+                  }
             });
             
             /** 
