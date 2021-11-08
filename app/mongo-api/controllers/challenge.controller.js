@@ -6,8 +6,7 @@ const controllerDebugger = require("debug")("app:controllers");
 const challengeService = require("../services/challenge.services");
 
 const createChallenge = catchAsync(async (req, res) => {
-  const creatorID = req.header.id;
-  console.log(req.header);
+  const creatorID = req.headers.id;
   const challenge = await challengeService.createChallenge(req.body, creatorID);
   res.status(httpStatus.CREATED).send(challenge);
 });

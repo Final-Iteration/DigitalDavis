@@ -22,10 +22,7 @@ const challengeSchema = mongoose.Schema({
     trim: true,
     // match: '/[A-Za-z0-9_\\-\\.\\s\\!])+$/',
   },
-  creator: {
-    type: { type: Schema.Types.ObjectId, ref: 'User' }
-    // match: /^([A-Za-z0-9_\\-\\.\\s])+$/,
-  },
+  creator: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
   tags: {
     type: [String],
     enum: [
