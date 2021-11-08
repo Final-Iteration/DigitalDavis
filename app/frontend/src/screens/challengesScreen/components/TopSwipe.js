@@ -11,8 +11,7 @@ import { TabView, SceneMap } from "react-native-tab-view";
 import { TabBar } from "react-native-tab-view";
 import axios from "../../../axios";
 import { cc, pc, ac } from "./MockData";
-const asyncStorage = require('../../../asyncStorage');
-
+const asyncStorage = require("../../../asyncStorage");
 
 const TopSwipe = ({ props }) => {
   const [allChallenges, setAllChallenge] = useState([]);
@@ -27,7 +26,7 @@ const TopSwipe = ({ props }) => {
           headers: {
             id: id,
             Authorization: authToken,
-          }
+          },
         });
         console.log("-----ALL Challenges-----");
         console.log(res.data);
@@ -63,12 +62,14 @@ const TopSwipe = ({ props }) => {
 
   const FirstRoute = () => {
     //if there is no challenges to display
+    // if (allChallenges.length === 0) {
     if (ac.length === 0) {
       return defaultNoChallenge("All");
     } else {
       return (
         <FlatList
-          data={allChallenges}
+          // data={allChallenges}
+          data={ac}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
@@ -107,7 +108,7 @@ const TopSwipe = ({ props }) => {
           headers: {
             id: id,
             Authorization: authToken,
-          }
+          },
         });
         console.log("-----Current Challenges-----");
         console.log(res.data);
@@ -121,13 +122,15 @@ const TopSwipe = ({ props }) => {
   }, []);
 
   const SecondRoute = () => {
-    if (currentChallenges.length === 0) {
+    // if (currentChallenges.length === 0) {
+    if (cc.length === 0) {
       return defaultNoChallenge("Current");
     } else {
       console.log(currentChallenges);
       return (
         <FlatList
-          data={currentChallenges}
+          // data={currentChallenges}
+          data={cc}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
@@ -167,7 +170,7 @@ const TopSwipe = ({ props }) => {
           headers: {
             id: id,
             Authorization: authToken,
-          }
+          },
         });
         console.log("-----Past Challenges-----");
         console.log(res.data);

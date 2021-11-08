@@ -1,16 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
 
 const Formulary = (props) => {
   return (
     <View>
-      <Text style={{ alignSelf: 'center' }}>This is the Formulary screen</Text>
-      <Button
-        title="search formulary"
-        onPress={() => {
-          props.navigation.navigate('SearchedFormulary');
-        }}
-      />
+      <Text style={{ alignSelf: "center" }}>This is the Formulary screen</Text>
     </View>
   );
 };
