@@ -51,7 +51,7 @@ const Signup = (props) => {
         date.toString();
         try {
           const nameArr = name.split(' ', 2);
-          const res = await axios.post('/auth/signup', {
+          const res = await axios.post('/auth/register', {
             first_name: nameArr[0],
             last_name: nameArr[1],
             email: email,
