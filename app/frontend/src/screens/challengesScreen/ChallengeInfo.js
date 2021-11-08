@@ -261,6 +261,12 @@ const ChallengeInfo = (props) => {
                 //TODO: Will need to pass in UserID, and make sure Challenge service is appending this into the challenge
                 //participants: [`${user.id}`]
                 participants: ["Test Participation Axios call"]
+              },
+              {
+                headers: {
+                  id: id,
+                  Authorization: authToken,
+                }
               });
               }catch (error){
               console.log(error.message);
