@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -14,7 +14,6 @@ import { Feather, AntDesign } from "@expo/vector-icons";
 import { Appbar, Avatar } from "react-native-paper";
 const { height, width } = Dimensions.get("window");
 const barHeight = 37;
-const platform = Platform.OS === "ios" ? true : "50%";
 const CustomHeader = ({
   navigation,
   title,
@@ -27,6 +26,8 @@ const CustomHeader = ({
   CreateChallengeDate,
   CreateChallengeDescription,
 }) => {
+  //get user profile
+  useEffect(() => {});
   const r = () => {
     if (CreateChallengeTags) {
       return (
