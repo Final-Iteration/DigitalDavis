@@ -1,10 +1,9 @@
-import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
+import React from "react";
+import { createStackNavigator } from "react-navigation-stack";
 
-import Knowledge from '../screens/knowledgeScreen/Knowledge';
-import SearchedKnowledge from '../screens/knowledgeScreen/SearchedKnowledge';
+import Knowledge from "../screens/knowledgeScreen/Knowledge";
 
-import Header from '../sharedComponent/Header';
+import Header from "../sharedComponent/Header";
 
 const KnowledgeStack = createStackNavigator(
   {
@@ -16,13 +15,10 @@ const KnowledgeStack = createStackNavigator(
         ),
       },
     },
-    SearchedKnowledge: {
-      screen: SearchedKnowledge,
-    },
   },
   {
-    initialRouteName: 'Knowledge',
-    headerMode: 'screen',
+    initialRouteName: "Knowledge",
+    headerMode: "screen",
   }
 );
 

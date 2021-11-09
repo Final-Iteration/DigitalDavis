@@ -1,10 +1,9 @@
-import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
+import React from "react";
+import { createStackNavigator } from "react-navigation-stack";
 
-import Formulary from '../screens/formularyScreen/Formulary';
-import SearchedFormulary from '../screens/formularyScreen/SearchedFormulary';
+import Formulary from "../screens/formularyScreen/Formulary";
 
-import Header from '../sharedComponent/Header';
+import Header from "../sharedComponent/Header";
 
 const FormularyStack = createStackNavigator(
   {
@@ -16,16 +15,10 @@ const FormularyStack = createStackNavigator(
         ),
       },
     },
-    SearchedFormulary: {
-      screen: SearchedFormulary,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
   },
   {
-    initialRouteName: 'Formulary',
-    headerMode: 'screen',
+    initialRouteName: "Formulary",
+    headerMode: "screen",
   }
 );
 
