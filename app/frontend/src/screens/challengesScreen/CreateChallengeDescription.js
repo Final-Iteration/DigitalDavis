@@ -93,7 +93,7 @@ const CreateChallengeDescription = () => {
 
         <Text style={styles.nameAndDescriptionText}>Name</Text>
         <TextInput
-          maxLength={30}
+          maxLength={15}
           style={styles.nameBox}
           autoCapitalize="none"
           autoCorrect={false}

@@ -66,6 +66,7 @@ const ChallengeInfo = (props) => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            marginTop: height / 50,
           }}
         >
           <Text style={styles.title}>{challenge.name}</Text>
@@ -209,7 +210,7 @@ const ChallengeInfo = (props) => {
             <TouchableOpacity
               style={{
                 alignSelf: "center",
-                marginVertical: 15,
+                marginVertical: height / 65,
               }}
               onPress={() => setParticipantModal(!participantModal)}
             >
@@ -243,9 +244,8 @@ const styles = StyleSheet.create({
     right: width / 35,
   },
   title: {
-    marginTop: 10,
-    fontWeight: "600",
-    fontSize: 33,
+    fontWeight: "500",
+    fontSize: 25,
     left: 17,
   },
   modalView: {
