@@ -25,6 +25,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+    "react-native-config": "^1.4.5",
     "react-native-date-picker": "^4.1.0",
     "react-native-datepicker": "^1.7.2",
     "react-native-dropdownalert": "^4.3.0",
@@ -54,6 +55,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "babel-plugin-inline-dotenv": "^1.6.0",
     "prettier": "^2.4.1"
   },
   "private": true
