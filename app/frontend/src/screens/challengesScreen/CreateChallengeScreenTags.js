@@ -22,10 +22,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import Icon from "react-native-vector-icons/Fontisto";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import Modal from "react-native-modal";
-// import UnsplashCred from "../../secrete/UnplashCred";
 import axios from "../../axios";
 import UnplashImage from "./components/UnplashImage";
-import Config from "react-native-config";
 
 const asyncStorage = require("../../asyncStorage");
 
