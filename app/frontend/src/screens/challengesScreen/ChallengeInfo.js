@@ -8,8 +8,6 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
-  FlatList,
-  ActivityIndicator,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { showMessage } from "react-native-flash-message";
@@ -18,14 +16,8 @@ import UnjoinedBanner from "./components/UnjoinedBanner";
 import Modal from "react-native-modal";
 import Participant from "./components/Participant";
 import axios from "../../axios";
-import MapView, { Marker } from "react-native-maps";
-import MapViewDirections from "react-native-maps-directions";
-import * as Location from "expo-location";
-const GOOGLE_API_KEY = "AIzaSyBJCM6WfGIUpdIxDYp3fjSHgGPZLvrUgNM";
-const MAP_QUEST_KEY = "HrX8Ag2remRQH5v0FIcYe7xk7d9Y775u";
+
 const { width, height } = Dimensions.get("window");
-const LATITUD_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUD_DELTA + width / height;
 
 const ChallengeInfo = (props) => {
   /**
@@ -34,76 +26,21 @@ const ChallengeInfo = (props) => {
 
   const [participationStatus, setStatus] = useState(false);
   const [participantModal, setParticipantModal] = useState(false);
-  const [mapModal, setMapModal] = useState(false);
-  const [dateModal, setDateModal] = useState(false);
-  const [locationButton, setLocationButton] = useState(false);
-  const [dateButton, setDateButton] = useState(false);
   const [antButton, setAntButton] = useState(false);
-  const [origin, setOrigin] = useState({
-    latitude: 0,
-    longitude: 0,
-    latitudeDelta: 0,
-    longitudeDelta: 0,
-  });
-  const [destination, setDestination] = useState({ latitude: 0, longitude: 0 });
-  const [showMap, setShowMap] = useState(false);
+  const [location, setLocation] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const challenge = props.navigation.state.params.challenge;
 
   useEffect(() => {
     setStatus(challenge.participationStatus);
-
-    const getUserLocation = async () => {
-      try {
-        //user location
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== "granted") {
-          setErrorMsg("Permission to access location was denied");
-          return;
-        }
-        let location = await Location.getCurrentPositionAsync({});
-
-        setOrigin({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-          latitudeDelta: LATITUD_DELTA,
-          longitudeDelta: LONGITUDE_DELTA,
-        });
-
-        //challenge address location
-
-        const longLat = await axios.get(
-          `http://www.mapquestapi.com/geocoding/v1/address?location=${challenge.location}&key=${MAP_QUEST_KEY}`
-        );
-        const result = longLat.data.results[0].locations[0].displayLatLng;
-        setDestination({ latitude: result.lat, longitude: result.lng });
-
-        setShowMap(true);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getUserLocation();
+    setLocation(challenge.location);
+    setStartDate(challenge.start_date.toString().substring(0, 11));
+    setEndDate(challenge.start_date.toString().substring(0, 11));
   }, []);
   console.log("-------------CHALLENGE CLICKED-------------");
   console.log(challenge.id);
-
-  // let day = challenge.start_date.toString();
-  // day = day.substring(0, day.indexOf("T"));
-  let day = "09/40/20";
-  const locationButtonPressed = () => {
-    setTimeout(() => {
-      setLocationButton(false);
-      setMapModal(!mapModal);
-    }, 250);
-  };
-  const dateButtonPressed = () => {
-    setTimeout(() => {
-      setDateButton(false);
-      setDateModal(!dateModal);
-    }, 250);
-  };
   const antButtonPressed = () => {
     setTimeout(() => {
       setAntButton(false);
@@ -124,101 +61,62 @@ const ChallengeInfo = (props) => {
         >
           <Image style={styles.image} source={{ uri: challenge.image }} />
         </View>
-        <Text style={styles.title}>{challenge.name}</Text>
-        <View style={{ marginHorizontal: width / 100, marginVertical: 10 }}>
-          <View style={styles.locationTime}>
-            <TouchableOpacity
-              style={[
-                styles.buttonContainer,
-                locationButton
-                  ? { backgroundColor: "#142A4F" }
-                  : { backgroundColor: "white" },
-              ]}
-              onPress={() => {
-                setLocationButton(true);
-                locationButtonPressed();
-              }}
-            >
-              <View style={styles.iconText}>
-                <Icon
-                  name="ios-location-outline"
-                  size={25}
-                  style={[
-                    locationButton ? { color: "white" } : { color: "blue" },
-                  ]}
-                />
-                <Text
-                  style={[
-                    { left: 5, fontSize: 13, fontWeight: "bold" },
-                    locationButton ? { color: "white" } : { color: "black" },
-                  ]}
-                >
-                  Location
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.buttonContainer,
-                dateButton
-                  ? { backgroundColor: "#142A4F" }
-                  : { backgroundColor: "white" },
-              ]}
-              onPress={() => {
-                setDateButton(true);
-                dateButtonPressed();
-              }}
-            >
-              <View style={styles.iconText}>
-                <Icon
-                  name="calendar-outline"
-                  size={25}
-                  style={[dateButton ? { color: "white" } : { color: "blue" }]}
-                />
-                <Text
-                  style={[
-                    { left: 5, fontSize: 13, fontWeight: "bold" },
-                    dateButton ? { color: "white" } : { color: "black" },
-                  ]}
-                >
-                  Date
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.buttonContainer,
-                antButton
-                  ? { backgroundColor: "#142A4F" }
-                  : { backgroundColor: "white" },
-              ]}
-              onPress={() => {
-                setAntButton(true);
-                antButtonPressed();
-              }}
-            >
-              <View style={styles.iconText}>
-                <Icon
-                  name="people-outline"
-                  size={25}
-                  style={[antButton ? { color: "white" } : { color: "blue" }]}
-                />
-                <Text
-                  style={[
-                    { left: 5, fontSize: 13, fontWeight: "bold" },
-                    antButton ? { color: "white" } : { color: "black" },
-                  ]}
-                >
-                  Attendees
-                </Text>
-              </View>
-            </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Text style={styles.title}>{challenge.name}</Text>
+          <TouchableOpacity
+            style={[
+              styles.buttonContainer,
+              antButton
+                ? { backgroundColor: "#142A4F" }
+                : { backgroundColor: "white" },
+            ]}
+            onPress={() => {
+              setAntButton(true);
+              antButtonPressed();
+            }}
+          >
+            <View style={styles.iconText}>
+              <Icon
+                name="people-outline"
+                size={25}
+                style={[antButton ? { color: "white" } : { color: "blue" }]}
+              />
+              <Text
+                style={[
+                  { left: 5, fontSize: 13, fontWeight: "bold" },
+                  antButton ? { color: "white" } : { color: "black" },
+                ]}
+              >
+                Attendees
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.locationTime}>
+          <View style={styles.iconText}>
+            <Icon
+              name="ios-location-outline"
+              size={25}
+              style={{ color: "blue" }}
+            />
+            <Text style={styles.dateText}>{location}</Text>
+          </View>
+          <View style={[styles.iconText]}>
+            <Icon name="calendar-outline" size={25} style={{ color: "blue" }} />
+            <Text style={styles.dateText}>{startDate}</Text>
+            <Text style={styles.dateText}>-</Text>
+            <Text style={styles.dateText}>{endDate}</Text>
           </View>
         </View>
-        <View style={{ marginVertical: 12, bottom: 10 }}>
-          <Text style={styles.about}>About</Text>
-          <Text style={styles.mainDescription}>{challenge.description}</Text>
-        </View>
+        <Text style={styles.about}>About</Text>
+        <Text style={styles.mainDescription}>{challenge.description}</Text>
 
         {/* API CALL TO UPDATE PARTICIPATION */}
         <TouchableOpacity
@@ -319,54 +217,17 @@ const ChallengeInfo = (props) => {
             </TouchableOpacity>
           </ScrollView>
         </Modal>
-
-        {/* MAP MODAL */}
-
-        <Modal
-          isVisible={mapModal}
-          onBackdropPress={() => setMapModal(!mapModal)}
-        >
-          {showMap ? (
-            <MapView
-              followUserLocation={true}
-              zoomEnabled={true}
-              style={[
-                {
-                  height: 500,
-                  width: 372,
-                },
-                styles.modalView,
-              ]}
-              initialRegion={origin}
-            >
-              <Marker coordinate={origin} />
-              <Marker
-                coordinate={destination}
-                title={"Location"}
-                description={challenge.location}
-              />
-              <MapViewDirections
-                destination={destination}
-                origin={origin}
-                apikey={GOOGLE_API_KEY}
-                strokeWidth={3}
-                strokeColor="red"
-              />
-            </MapView>
-          ) : (
-            <View>
-              <ActivityIndicator size="large" color="#0000ff" />
-            </View>
-          )}
-        </Modal>
-
-        {/* MODALS END */}
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  dateText: {
+    fontSize: 15,
+    fontWeight: "500",
+    left: 2,
+  },
   buttonContainer: {
     height: 35,
     borderRadius: 10,
@@ -379,6 +240,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.5,
     shadowRadius: 1,
+    right: width / 35,
   },
   title: {
     marginTop: 10,
@@ -387,14 +249,13 @@ const styles = StyleSheet.create({
     left: 17,
   },
   modalView: {
-    marginVertical: 200,
+    marginVertical: height / 5,
     backgroundColor: "white",
     borderRadius: 10,
   },
   iconText: {
     flexDirection: "row",
     alignItems: "center",
-    alignSelf: "center",
     marginVertical: 3,
   },
   date: {
@@ -402,11 +263,10 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     textDecorationLine: "underline",
   },
-
   locationTime: {
     top: 10,
     flexDirection: "row",
-    marginHorizontal: 17,
+    marginHorizontal: width / 30,
     marginVertical: 15,
     justifyContent: "space-between",
   },
@@ -417,7 +277,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   mainDescription: {
-    top: 10,
     fontSize: 15,
     fontWeight: "300",
     marginHorizontal: 17,
@@ -425,7 +284,7 @@ const styles = StyleSheet.create({
   participatingButton: {
     borderRadius: 8,
     width: width - 30,
-    marginVertical: 11,
+    marginVertical: height / 60,
     borderRadius: 8,
     alignSelf: "center",
   },
