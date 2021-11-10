@@ -22,7 +22,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import Icon from "react-native-vector-icons/Fontisto";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import Modal from "react-native-modal";
-import UnsplashCred from "../../secrete/UnplashCred";
 import axios from "../../axios";
 import UnplashImage from "./components/UnplashImage";
 
@@ -150,15 +149,19 @@ const CreateChallengeScreenTags = (props) => {
   ); //url of a single picture chosen by user
 
   const searchPhotos = async (text) => {
-    const response = await axios.get(
-      `https://api.unsplash.com/search/photos?client_id=${UnsplashCred.accessKey}&query=${text}&per_page=20`
-    );
+    try {
+      const response = await axios.get(
+        `https://api.unsplash.com/search/photos?client_id=${process.env.ACCESSKEY}&query=${text}&per_page=20`
+      );
 
-    setImageURL(
-      response.data.results.map((data) => {
-        return data.urls.regular;
-      })
-    );
+      setImageURL(
+        response.data.results.map((data) => {
+          return data.urls.regular;
+        })
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const textInputCounts = (prop, text) => {

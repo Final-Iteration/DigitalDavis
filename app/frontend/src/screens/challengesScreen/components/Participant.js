@@ -5,12 +5,14 @@ import {
   StyleSheet,
   Linking,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import axios from "axios";
 import { Avatar } from "react-native-paper";
 import { SwipeListView } from "react-native-swipe-list-view";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Entypo from "react-native-vector-icons/Entypo";
+const { height, width } = Dimensions.get("window");
 const participants = [
   {
     id: 1,
@@ -165,7 +167,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     flexDirection: "row",
-    left: 28,
+    marginHorizontal: 28,
     top: 9,
   },
   name: { fontSize: 18 },
@@ -174,9 +176,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flexDirection: "row",
     borderBottomWidth: 0.3,
-    width: 320,
+    width: width - 75,
     alignSelf: "center",
-    height: 70,
+    height: height / 15,
     top: 10,
     alignItems: "center",
   },

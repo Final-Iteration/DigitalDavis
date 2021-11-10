@@ -16,7 +16,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import Icon from "react-native-vector-icons/Fontisto";
 import Feather from "react-native-vector-icons/Feather";
 import Modal from "react-native-modal";
-import UnsplashCred from "../../secrete/UnplashCred";
 import axios from "axios";
 import UnplashImage from "./components/UnplashImage";
 // import { showMessage } from "react-native-flash-message";
@@ -44,7 +43,7 @@ const CreateChallengeDescription = () => {
 
   const searchPhotos = async (text) => {
     const response = await axios.get(
-      `https://api.unsplash.com/search/photos?client_id=${UnsplashCred.accessKey}&query=${text}&per_page=20`
+      `https://api.unsplash.com/search/photos?client_id=${process.env.ACCESKEY}&query=${text}&per_page=20`
     );
 
     setImageURL(
@@ -93,7 +92,7 @@ const CreateChallengeDescription = () => {
 
         <Text style={styles.nameAndDescriptionText}>Name</Text>
         <TextInput
-          maxLength={30}
+          maxLength={15}
           style={styles.nameBox}
           autoCapitalize="none"
           autoCorrect={false}
