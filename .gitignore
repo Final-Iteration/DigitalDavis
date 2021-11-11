@@ -118,6 +118,8 @@ app/nohup.out
 .env.dev
 .env.prod
 
-app/mongo-api/nohup.out
-app/mongo-api/.env.docker.dev
-app/mongo-api/.env.development
+nohup.out
+.env.docker.dev
+.env.development
+pub_rsa.pem
+priv_rsa.pem
