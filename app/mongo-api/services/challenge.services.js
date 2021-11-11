@@ -1,18 +1,15 @@
-const httpStatus = require('http-status');
-const Challenge = require('../models/challenge.model');
-const User = require('../models/user.model');
-const ApiError = require('../utils/ApiError');
+const httpStatus = require("http-status");
+const Challenge = require("../models/challenge.model");
+const User = require("../models/user.model");
+const ApiError = require("../utils/ApiError");
 
 /**
  * Create a challenge
  * @param {Object} challengeBody
  * @returns {Promise<Challenge>}
  */
-const createChallenge = async (challengeBody, ) => {
-  const creator = await User.find()
-  if (await Challenge.isNameTaken(challengeBody.name)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
-  }
+const createChallenge = async (challengeBody) => {
+  const creator = await User.find();
   return Challenge.create(challengeBody);
 };
 
@@ -36,7 +33,7 @@ const queryChallenges = async (filter, options) => {
  * @returns {Promise<Challenge>}
  */
 const getChallengeById = async (challengeId) => {
-  return Challenge.findOne({ _id : challengeId});
+  return Challenge.findOne({ _id: challengeId });
 };
 
 /**
@@ -44,7 +41,7 @@ const getChallengeById = async (challengeId) => {
  * @param {string} name
  * @returns {Promise<Challenge>}
  */
- const getChallengeByName = async (name) => {
+const getChallengeByName = async (name) => {
   return Challenge.findOne({ name });
 };
 
@@ -55,18 +52,15 @@ const getChallengeById = async (challengeId) => {
  * @returns {Promise<Challenge>}
  */
 const updateChallengeById = async (id, updateBody) => {
-  const challenge = await getChallengeById({ _id : id});
+  const challenge = await getChallengeById({ _id: id });
   if (!challenge) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
+    throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
   }
   if (
     updateBody.email &&
     (await Challenge.isEmailTaken(updateBody.email, id))
   ) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
-    if (await Challenge.isNameTaken(updateBody.name)) {
-      throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
-    }
+    throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
     Object.assign(challenge, updateBody);
     await challenge.save();
     return challenge;
@@ -79,9 +73,9 @@ const updateChallengeById = async (id, updateBody) => {
  * @returns {Promise<Challenge>}
  */
 const deleteChallengeById = async (id) => {
-  const challenge = await getChallengeById({ _id : id});
+  const challenge = await getChallengeById({ _id: id });
   if (!challenge) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
+    throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
   }
   await challenge.remove();
   return challenge;
@@ -97,16 +91,17 @@ const activeChallenges = async () => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
-  const challenges = await Challenge.find( { end_date: {$gte: rn} } && {start_date: {$lte: rn}} ); 
+  const challenges = await Challenge.find(
+    { end_date: { $gte: rn } } && { start_date: { $lte: rn } }
+  );
   return challenges;
 };
-
 
 const pastChallenges = async () => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
-  const challenges = await Challenge.find( {end_date: {$lte: rn}} ); 
+  const challenges = await Challenge.find({ end_date: { $lte: rn } });
   return challenges;
 };
 
@@ -114,7 +109,7 @@ const allChallenges = async () => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
-  const challenges = await Challenge.find( {} || {end_date: {$gte: rn}} ); 
+  const challenges = await Challenge.find({} || { end_date: { $gte: rn } });
   return challenges;
 };
 
@@ -125,7 +120,6 @@ const allChallenges = async () => {
  * @returns {Promise<Challenge>}
  */
 
-
 module.exports = {
   createChallenge,
   queryChallenges,
@@ -135,5 +129,5 @@ module.exports = {
   deleteChallengeById,
   activeChallenges,
   pastChallenges,
-  allChallenges
+  allChallenges,
 };

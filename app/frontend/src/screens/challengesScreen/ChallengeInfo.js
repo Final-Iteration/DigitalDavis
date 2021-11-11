@@ -233,7 +233,6 @@ const ChallengeInfo = (props) => {
             </TouchableOpacity>
           </View>
         </View>
-
         <View style={{ marginVertical: 12, bottom: 10 }}>
           <Text style={styles.about}>About</Text>
           <Text style={styles.mainDescription}>{challenge.description}</Text>

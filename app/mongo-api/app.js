@@ -8,6 +8,9 @@ const express = require('express');
 const { errorConverter, errorHandler } = require('./middleware/error');
 const challengesRoute = require('./routes/challenge.route');
 const usersRoute = require('./routes/user.route');
+const authRoute = require('./routes/auth.route');
+const passport = require('passport');
+const { jwtStrategy } = require('./utils/passport');
 const appDebugger = require('debug')('app:startup');
 
 const app = express();
@@ -38,8 +41,9 @@ app.use(mongoSanitize());
 //  app.options('*', cors());
 
 // jwt authentication
-// app.use(passport.initialize());
-// passport.use('jwt', jwtStrategy);
+//require('./middleware/auth')(passport);
+app.use(passport.initialize());
+passport.use('jwt', jwtStrategy);
 
 // limit repeated failed requests to auth endpoints
 // if (config.env === 'production') {
@@ -49,6 +53,7 @@ app.use(mongoSanitize());
 // api routes
 app.use('/api/challenges', challengesRoute);
 app.use('/api/users', usersRoute);
+app.use('/api/auth', authRoute);
 
 //TodDo: (needs fix) COMMENTED OUT BECAUSE API ERROR WAS NOT DEFINED.
 // send back a 404 error for any unknown api request

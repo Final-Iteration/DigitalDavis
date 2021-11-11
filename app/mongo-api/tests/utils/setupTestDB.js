@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
 const connection_string = "mongodb://localhost:27017";
+const testDebugger = require('debug')('app:test');
 
 /**
  * Make the connection to mongoose before running any tests
@@ -35,9 +35,9 @@ async function connectMongoose(uri) {
       .connect(uri, {
         ssl: false,
       })
-      .then(() => console.log('Status: connected'));
+      .then(() => testDebugger('Status: connected'));
   } catch (error) {
-    console.log(error.message);
+    testDebugger(error.message);
   }
 }
 

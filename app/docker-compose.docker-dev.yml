@@ -36,8 +36,6 @@ services:
     restart: unless-stopped
     networks:
       - dev_network
-    depends_on:
-      - mongo-database
 
 volumes: 
   api_node_modules:
