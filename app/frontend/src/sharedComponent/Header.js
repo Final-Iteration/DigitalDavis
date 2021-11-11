@@ -4,7 +4,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-  Platform,
   View,
 } from "react-native";
 
@@ -60,88 +59,89 @@ const CustomHeader = ({
     }
   };
 
-  if (CreateChallengeDescription) {
-    return (
-      <Appbar.Header
-        statusBarHeight={barHeight}
-        style={{
-          backgroundColor: "#fff",
-          elevation: 0,
-        }}
-      >
-        <View style={styles.tagPageContainerGustav}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("CreateChallengeDate");
-            }}
-          >
-            <Text style={styles.backButtonGustav}>Back</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Challenge");
-            }}
-          >
-            <Text style={styles.nextButtonGustav}>Create</Text>
-          </TouchableOpacity>
-        </View>
-      </Appbar.Header>
-    );
-  } else if (CreateChallengeDate) {
-    return (
-      <Appbar.Header
-        statusBarHeight={barHeight}
-        style={{
-          backgroundColor: "#fff",
-          elevation: 0,
-        }}
-      >
-        <View style={styles.tagPageContainerGustav}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("CreateChallengeTags");
-            }}
-          >
-            <Text style={styles.backButtonGustav}>Back</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("CreateChallengeDescription");
-            }}
-          >
-            <Text style={styles.nextButtonGustav}>Next</Text>
-          </TouchableOpacity>
-        </View>
-      </Appbar.Header>
-    );
-  } else if (CreateChallengeTags) {
-    return (
-      <Appbar.Header
-        statusBarHeight={barHeight}
-        style={{
-          backgroundColor: "#fff",
-          elevation: 0,
-        }}
-      >
-        <View style={styles.tagPageContainerGustav}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Challenge");
-            }}
-          >
-            <Text style={styles.backButtonGustav}>Back</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("CreateChallengeDate");
-            }}
-          >
-            <Text style={styles.nextButtonGustav}>Next</Text>
-          </TouchableOpacity>
-        </View>
-      </Appbar.Header>
-    );
-  } else if (challengeInfo) {
+  // if (CreateChallengeDescription) {
+  //   return (
+  //     <Appbar.Header
+  //       statusBarHeight={barHeight}
+  //       style={{
+  //         backgroundColor: "#fff",
+  //         elevation: 0,
+  //       }}
+  //     >
+  //       <View style={styles.tagPageContainerGustav}>
+  //         <TouchableOpacity
+  //           onPress={() => {
+  //             navigation.navigate("CreateChallengeDate");
+  //           }}
+  //         >
+  //           <Text style={styles.backButtonGustav}>Back</Text>
+  //         </TouchableOpacity>
+  //         <TouchableOpacity
+  //           onPress={() => {
+  //             navigation.navigate("Challenge");
+  //           }}
+  //         >
+  //           <Text style={styles.nextButtonGustav}>Create</Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //     </Appbar.Header>
+  //   );
+  // } else if (CreateChallengeDate) {
+  //   return (
+  //     <Appbar.Header
+  //       statusBarHeight={barHeight}
+  //       style={{
+  //         backgroundColor: "#fff",
+  //         elevation: 0,
+  //       }}
+  //     >
+  //       <View style={styles.tagPageContainerGustav}>
+  //         <TouchableOpacity
+  //           onPress={() => {
+  //             navigation.navigate("CreateChallengeTags");
+  //           }}
+  //         >
+  //           <Text style={styles.backButtonGustav}>Back</Text>
+  //         </TouchableOpacity>
+  //         <TouchableOpacity
+  //           onPress={() => {
+  //             navigation.navigate("CreateChallengeDescription");
+  //           }}
+  //         >
+  //           <Text style={styles.nextButtonGustav}>Next</Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //     </Appbar.Header>
+  //   );
+  // } else if (CreateChallengeTags) {
+  //   return (
+  //     <Appbar.Header
+  //       statusBarHeight={barHeight}
+  //       style={{
+  //         backgroundColor: "#fff",
+  //         elevation: 0,
+  //       }}
+  //     >
+  //       <View style={styles.tagPageContainerGustav}>
+  //         <TouchableOpacity
+  //           onPress={() => {
+  //             navigation.navigate("Challenge");
+  //           }}
+  //         >
+  //           <Text style={styles.backButtonGustav}>Back</Text>
+  //         </TouchableOpacity>
+  //         <TouchableOpacity
+  //           onPress={() => {
+  //             navigation.navigate("CreateChallengeDate");
+  //           }}
+  //         >
+  //           <Text style={styles.nextButtonGustav}>Next</Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //     </Appbar.Header>
+  //   );
+  // } else
+  if (challengeInfo) {
     return (
       <Appbar.Header
         statusBarHeight={barHeight}

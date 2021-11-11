@@ -243,13 +243,7 @@ const CreateChallengeScreenTags = (props) => {
         <Text style={styles.headerText}>
           Which domain of wellness does your challenge belong to?
         </Text>
-        {/* <FlatList 
-                    keyExtractor = {(item) => item.id}
-                    data = {challengeTags}
-                    renderItem = {({item}) => (
-                        <Text style = {styles.tagText}>{item.tagName}</Text>
-                    )}
-                /> */}
+
         <View style={styles.tagTextContainer}>
           <TouchableOpacity
             onPress={() => {

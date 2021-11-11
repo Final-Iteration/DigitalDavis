@@ -11,6 +11,8 @@ import Field from "./components/Field";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/AntDesign";
+const asyncStorage = require("../../asyncStorage");
+import axios from "../../axios";
 
 //expect API call return
 const profile = {
@@ -28,31 +30,60 @@ const profile = {
 const { height, width } = Dimensions.get("window");
 const UserProfile = (props) => {
   //userEffect to fetch current user
-  const [username, setUsername] = useState("");
   const [profilePicture, setProfilePicture] = useState("A");
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [title, setTitle] = useState("");
-  const [age, setAge] = useState("");
+  const [age, setAge] = useState(0);
   const [birthday, setBirthday] = useState(new Date());
   const [department, setDepartment] = useState("");
-  const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
-
-  useEffect(() => {
-    setUsername(profile.userName);
-    setProfilePicture(
-      "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png"
+  const [id, setId] = useState("");
+  const [token, setToken] = useState("");
+  function getAge(birthDate) {
+    return Math.floor(
+      (new Date() - new Date(birthDate).getTime()) / 3.15576e10
     );
-    setFullName(profile.fullName);
-    setTitle(profile.title);
-    setAge(profile.age);
-    setDepartment(profile.department);
-    setGender(profile.gender);
-    setEmail(profile.email);
-    setBirthday(profile.birthDate);
+  }
+  useEffect(() => {
+    const getUserInfo = async () => {
+      try {
+        const id = await asyncStorage.getData("ID");
+        setId(id);
+        const authToken = await asyncStorage.getData("Authorization");
+        setToken(authToken);
+        const res = await axios.get(`/users/${id}`, {
+          headers: {
+            id: id,
+            Authorization: authToken,
+          },
+        });
+        const user = res.data;
+        const dob = user.dob.split("-");
+        dob[2] = dob[2].split("T", 1);
+        setProfilePicture(profile.profilePicture);
+        setFirstName(user.first_name);
+        setLastName(user.last_name);
+        setTitle(user.job_title[0]);
+        setAge(getAge(new Date(birthday)));
+        setDepartment(user.department);
+        setEmail(user.email);
+        setBirthday(user.dob);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getUserInfo();
   }, []);
   //API CALL TO SAVE UPDATED INFO TO DATA BASE
-  const saveChange = () => {
+  const saveChange = async () => {
+    try {
+      props.navigation.navigate("User");
+    } catch (err) {
+      console.log(err);
+    }
+
+    //to be removed
     props.navigation.navigate("User");
   };
   const pickImage = async () => {
@@ -88,24 +119,23 @@ const UserProfile = (props) => {
             <Icon name="camera" size={40} style={styles.cameraIcon} />
           </View>
         </TouchableOpacity>
-        <View style={{ top: -50 }}>
-          <Text style={styles.fullName}>{fullName}</Text>
+        <View style={{ top: -(height / 15) }}>
+          <Text style={styles.fullName}>{`${firstName} ${lastName}`}</Text>
           <Text style={styles.title}>{title}</Text>
         </View>
       </View>
       <View style={{ backgroundColor: "#f2f2f2" }}>
         <Field
-          title="Username"
-          text={username}
+          title="First Name"
+          text={firstName}
           setting={true}
-          callback={setUsername}
+          callback={setFirstName}
         />
-        <Field title="Age" text={age} setting={true} callback={setAge} />
         <Field
-          title="Department"
-          text={department}
+          title="Last Name"
+          text={lastName}
           setting={true}
-          callback={setDepartment}
+          callback={setLastName}
         />
         <Field
           dob={true}
@@ -114,20 +144,20 @@ const UserProfile = (props) => {
           setting={true}
           callback={setBirthday}
         />
-        <Field title="Title" text={title} setting={true} callback={setTitle} />
+        <Field
+          title="Age"
+          text={age.toString()}
+          setting={false}
+          callback={setAge}
+        />
         <Field
           title="Department"
           text={department}
           setting={true}
           callback={setDepartment}
         />
+        <Field title="Title" text={title} setting={true} callback={setTitle} />
         <Field title="Email" text={email} setting={true} callback={setEmail} />
-        <Field
-          title="Gender"
-          text={gender}
-          setting={true}
-          callback={setGender}
-        />
       </View>
       <TouchableOpacity
         style={styles.saveChangeButton}
@@ -141,16 +171,16 @@ const UserProfile = (props) => {
 const styles = StyleSheet.create({
   saveChangeButton: {
     textAlign: "center",
-    height: 75,
+    height: height / 13,
     width: "100%",
     backgroundColor: "#142A4F",
     borderRadius: 10,
   },
   saveChangeText: {
-    marginVertical: 15,
+    marginVertical: 12,
     color: "white",
     fontWeight: "500",
-    fontSize: 18,
+    fontSize: width * 0.05,
     alignSelf: "center",
   },
   cameraIconView: {
@@ -177,25 +207,25 @@ const styles = StyleSheet.create({
   },
 
   fullName: {
-    fontSize: 27,
+    fontSize: width * 0.07,
     fontWeight: "500",
     alignSelf: "center",
   },
   title: {
-    fontSize: 18,
+    fontSize: width * 0.05,
     fontWeight: "500",
     alignSelf: "center",
   },
   imageView: {
     top: 0,
     width: "100%",
-    height: 210,
+    height: height / 4.5,
     alignItems: "center",
     backgroundColor: "rgba(242,242,242,255)",
   },
   halfImageView: {
     width: width,
-    height: 163 / 2,
+    height: height / 13,
     backgroundColor: "#142A4F",
   },
 });
