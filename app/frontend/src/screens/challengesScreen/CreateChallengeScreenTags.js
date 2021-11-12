@@ -62,6 +62,8 @@ const CreateChallengeScreenTags = (props) => {
       }
     }
 
+    const id = await asyncStorage.getData("ID");
+    const authToken = await asyncStorage.getData("Authorization");
     const body = {
       name: challengeName,
       start_date: startDate,
@@ -69,11 +71,9 @@ const CreateChallengeScreenTags = (props) => {
       description: challengeDescription,
       tags: tagsArray,
       location: location,
+      creator: id,
+      participants: [id],
     };
-
-    const id = await asyncStorage.getData("ID");
-    const authToken = await asyncStorage.getData("Authorization");
-
     if (challengeName.trim().length && challengeDescription.trim().length) {
       try {
         const res = await axios.post("/challenges", body, {
@@ -150,6 +150,7 @@ const CreateChallengeScreenTags = (props) => {
 
   const searchPhotos = async (text) => {
     try {
+      console.log(process.env.ACCESSKEY);
       const response = await axios.get(
         `https://api.unsplash.com/search/photos?client_id=${process.env.ACCESSKEY}&query=${text}&per_page=20`
       );
