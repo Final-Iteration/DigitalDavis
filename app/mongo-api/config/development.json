@@ -5,9 +5,16 @@
       "host": "",
       "port": "",
       "name": "",
-      "protocol" : "",
+      "protocol": "",
       "collection": "",
       "certificate": ""
+    },
+    "jwt": {
+      "secret": "",
+      "accessExpirationMinutes": "",
+      "refreshExpirationDays": "",
+      "resetPasswordExpirationMinutes": "",
+      "verifyEmailExpirationMinutes": ""
     }
   }
 }

@@ -10,7 +10,7 @@ const challengesRoute = require('./routes/challenge.route');
 const usersRoute = require('./routes/user.route');
 const authRoute = require('./routes/auth.route');
 const passport = require('passport');
-const { jwtStrategy } = require('./utils/passport');
+const { jwtStrategy } = require('./config/passport');
 const appDebugger = require('debug')('app:startup');
 
 const app = express();

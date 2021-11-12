@@ -6,10 +6,10 @@ const userValidation = require('../validate/users.validation');
 const routeDebugger = require('debug')('app:routes');
 const auth = require('../middleware/auth');
 
-router
-  .route('/')
-  .post(validate(userValidation.createUser), userController.createUser)
-  .get(validate(userValidation.getUsers), userController.getUsers);
+// router
+//   .route('/')
+//   .post(auth(), validate(userValidation.createUser), userController.createUser)
+//   .get(auth(), validate(userValidation.getUsers), userController.getUsers);
 
 router
   .route('/:Id')
