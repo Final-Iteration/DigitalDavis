@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { Avatar } from "react-native-paper";
 import Field from "./components/Field";
-import { Feather } from "@expo/vector-icons";
 import axios from "../../axios";
 
 const asyncStorage = require("../../asyncStorage");
@@ -159,7 +158,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   logOutText: {
-    marginVertical: 12,
+    marginVertical: height / 50,
     color: "white",
     fontWeight: "500",
     fontSize: width * 0.05,

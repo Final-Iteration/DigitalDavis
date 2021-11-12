@@ -13,7 +13,6 @@ import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/AntDesign";
 const asyncStorage = require("../../asyncStorage");
 import axios from "../../axios";
-import DateTimePicker from "@react-native-community/datetimepicker";
 
 //expect API call return
 // const profile = {
@@ -80,8 +79,24 @@ const UserProfile = (props) => {
   //API CALL TO SAVE UPDATED INFO TO DATA BASE
   const saveChange = async () => {
     try {
-      console.log(profilePicture);
-      console.log(birthday);
+      const res = await axios.patch(
+        `/users/${id}`,
+        {
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          dob: birthday,
+          department: department,
+          job_title: title,
+        },
+        {
+          headers: {
+            id: id,
+            Authorization: token,
+          },
+        }
+      );
+
       props.navigation.navigate("User");
     } catch (err) {
       console.log(err);
@@ -92,7 +107,9 @@ const UserProfile = (props) => {
 
   const onBirthdateChange = (event, value) => {
     setBirthday(value);
+    setAge(getAge(value));
     console.log(value);
+    console.log(age);
   };
 
   const pickImage = async () => {
@@ -186,7 +203,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   saveChangeText: {
-    marginVertical: 12,
+    marginVertical: height / 50,
     color: "white",
     fontWeight: "500",
     fontSize: width * 0.05,
