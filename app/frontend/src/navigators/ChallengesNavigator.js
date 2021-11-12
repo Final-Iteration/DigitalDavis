@@ -1,17 +1,16 @@
 import React from "react";
 import { createStackNavigator } from "react-navigation-stack";
 
-import CurrentChallenges from "../screens/challengesScreen/CurrentChallenge";
+import CurrentChallenge from "../screens/challengesScreen/CurrentChallenge";
 import ChallengeInfo from "../screens/challengesScreen/ChallengeInfo";
 import CreateChallengeScreen from "../screens/challengesScreen/CreateChallengeScreen";
 import CreateChallengeScreenTags from "../screens/challengesScreen/CreateChallengeScreenTags";
-
 import Header from "../sharedComponent/Header";
 
 const ChallengeStack = createStackNavigator(
   {
     Challenge: {
-      screen: CurrentChallenges,
+      screen: CurrentChallenge,
       navigationOptions: {
         header: ({ scene, previous, navigation }) => (
           <Header title="Challenges" navigation={navigation} challenge={true} />
