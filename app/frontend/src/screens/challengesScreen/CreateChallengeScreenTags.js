@@ -87,7 +87,7 @@ const CreateChallengeScreenTags = (props) => {
          * @todo get token for user
          */
         console.log(res.data);
-        props.navigation.navigate("Challenge");
+        props.navigation.navigate("Challenge", {option: "update"});
       } catch (error) {
         console.log(error.message);
       }
