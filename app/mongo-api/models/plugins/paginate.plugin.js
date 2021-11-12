@@ -37,8 +37,8 @@ const paginate = (schema) => {
         ? parseInt(options.limit, 50)
         : 10;
     const page =
-      options.page && parseInt(options.page, 50) > 0
-        ? parseInt(options.page, 50)
+      options.page && parseInt(options.page, 10) > 0
+        ? parseInt(options.page, 10)
         : 1;
     const skip = (page - 1) * limit;
 
