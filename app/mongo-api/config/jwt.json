@@ -1,9 +1,0 @@
-{
-  "jwt": {
-    "secret": "",
-    "accessExpirationMinutes": "",
-    "refreshExpirationDays": "",
-    "resetPasswordExpirationMinutes": "",
-    "verifyEmailExpirationMinutes": ""
-  }
-}

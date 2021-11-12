@@ -6,6 +6,11 @@ const app = require("../../../mongo-api/app");
 //Need to replace this with our own DB
 const setupTestDB = require("../utils/setupTestDB");
 const { User } = require("../../models");
+const {
+  userOneAccessToken,
+  userTwoAccessToken,
+  userThreeAccessToken,
+} = require("../fixtures/token.fixtures");
 
 const {
   userOne,
@@ -13,10 +18,10 @@ const {
   insertUsers,
   userThree,
 } = require("../fixtures/user.fixture");
-//JWT Tokens for testing
-// const { userOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
 
-//Need to createa a connection to the testing database before running any tests
+/**
+ * used to setup test db
+ */
 setupTestDB();
 
 describe("User routes", () => {
@@ -37,6 +42,7 @@ describe("User routes", () => {
     test("should return 201 and successfully create new user if data is ok", async () => {
       const res = await request(app)
         .post("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .send(newUser)
         .expect(httpStatus.CREATED);
 
@@ -67,6 +73,7 @@ describe("User routes", () => {
 
       await request(app)
         .post("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .send(newUser)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -77,6 +84,7 @@ describe("User routes", () => {
 
       await request(app)
         .post("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .send(newUser)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -86,6 +94,7 @@ describe("User routes", () => {
 
       await request(app)
         .post("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .send(newUser)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -95,6 +104,7 @@ describe("User routes", () => {
 
       await request(app)
         .post("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .send(newUser)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -104,6 +114,7 @@ describe("User routes", () => {
 
       await request(app)
         .post("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .send(newUser)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -113,6 +124,7 @@ describe("User routes", () => {
 
       await request(app)
         .post("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .send(newUser)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -122,6 +134,7 @@ describe("User routes", () => {
 
       await request(app)
         .post("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .send(newUser)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -131,6 +144,7 @@ describe("User routes", () => {
 
       await request(app)
         .post("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .send(newUser)
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -142,6 +156,7 @@ describe("User routes", () => {
 
       const res = await request(app)
         .get("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .send()
         .expect(httpStatus.OK);
 
@@ -169,6 +184,7 @@ describe("User routes", () => {
 
       const res = await request(app)
         .get("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .query({ first_name: userOne.first_name })
         .send()
         .expect(httpStatus.OK);
@@ -190,6 +206,7 @@ describe("User routes", () => {
 
       const res = await request(app)
         .get("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .query({ sortBy: "first_name:desc" })
         .send()
         .expect(httpStatus.OK);
@@ -211,6 +228,7 @@ describe("User routes", () => {
 
       const res = await request(app)
         .get("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .query({ sortBy: "first_name:asc" })
         .send()
         .expect(httpStatus.OK);
@@ -232,6 +250,7 @@ describe("User routes", () => {
 
       const res = await request(app)
         .get("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .query({ sortBy: "email:desc,first_name:asc" })
         .send()
         .expect(httpStatus.OK);
@@ -265,6 +284,7 @@ describe("User routes", () => {
 
       const res = await request(app)
         .get("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .query({ limit: 2 })
         .send()
         .expect(httpStatus.OK);
@@ -286,6 +306,7 @@ describe("User routes", () => {
 
       const res = await request(app)
         .get("/api/users")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .query({ page: 2, limit: 2 })
         .send()
         .expect(httpStatus.OK);
@@ -308,6 +329,7 @@ describe("User routes", () => {
 
       const res = await request(app)
         .get(`/api/users/${userOne._id}`)
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .send()
         .expect(httpStatus.OK);
 
@@ -327,6 +349,7 @@ describe("User routes", () => {
 
       await request(app)
         .get(`/api/users/${userOne._id}`)
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .send()
         .expect(httpStatus.UNAUTHORIZED);
     });
@@ -336,6 +359,8 @@ describe("User routes", () => {
 
       await request(app)
         .get("/api/users/invalidId")
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
+
         .send()
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -345,6 +370,7 @@ describe("User routes", () => {
 
       await request(app)
         .get(`/api/users/${userOne._id}`)
+        .set({ 'Authorization': `Bearer ${userOneAccessToken}`, 'ID': userOne._id })
         .send()
         .expect(httpStatus.NOT_FOUND);
     });
@@ -356,6 +382,7 @@ describe("User routes", () => {
 
       await request(app)
         .delete(`/api/users/${userOne._id}`)
+        .set({ Authorization: `Bearer ${userOneAccessToken}`, ID: userOne._id })
         .send()
         .expect(httpStatus.NO_CONTENT);
 
@@ -368,6 +395,7 @@ describe("User routes", () => {
 
       await request(app)
         .delete(`/api/users/${userOne._id}`)
+        .set({ Authorization: `Bearer ${userOneAccessToken}`, ID: userOne._id })
         .send()
         .expect(httpStatus.UNAUTHORIZED);
     });
@@ -377,6 +405,7 @@ describe("User routes", () => {
 
       await request(app)
         .delete("/api/users/invalidId")
+        .set({ Authorization: `Bearer ${userOneAccessToken}`, ID: userOne._id })
         .send()
         .expect(httpStatus.BAD_REQUEST);
     });
@@ -386,6 +415,7 @@ describe("User routes", () => {
 
       await request(app)
         .delete(`/api/users/${userTwo._id}`)
+        .set({ Authorization: `Bearer ${userOneAccessToken}`, ID: userOne._id })
         .send()
         .expect(httpStatus.NOT_FOUND);
     });
