@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
+import React, { useState } from "react";
+import { StatusBar } from "expo-status-bar";
 import {
   View,
   Text,
@@ -10,17 +10,17 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
-} from 'react-native';
-import axios from '../../axios';
+} from "react-native";
+import axios from "../../axios";
 
-const asyncStorage = require('../../asyncStorage');
+const asyncStorage = require("../../asyncStorage");
 
-const { width, height } = Dimensions.get('window');
-const imageSource = require('../../../assets/blurredDavis.jpg');
+const { width, height } = Dimensions.get("window");
+const imageSource = require("../../../assets/blurredDavis.jpg");
 
 const Login = (props) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const blankInputCheck = () => {
     if (email.length === 0 || password.length === 0) {
@@ -29,9 +29,6 @@ const Login = (props) => {
       setUserLogin();
     }
   };
-
-  
-
   // a function that validates an email to the format of name@domain.com
   function validateEmail(email) {
     const regexp =
@@ -42,18 +39,19 @@ const Login = (props) => {
 
   const setUserLogin = async () => {
     try {
-
-      const res = await axios.post('/auth/login', {
+      const res = await axios.post("/auth/login", {
         email: email,
-        password: password
+        password: password,
       });
 
       await asyncStorage.storeData("ID", res.data.user.id);
-      await asyncStorage.storeData("Authorization", "Bearer " + res.data.tokens.access.token);
-      
-      props.navigation.navigate('Main');
-      
-    }catch( error ){
+      await asyncStorage.storeData(
+        "Authorization",
+        "Bearer " + res.data.tokens.access.token
+      );
+
+      props.navigation.navigate("Main");
+    } catch (error) {
       console.log(error.message);
     }
   };
@@ -95,12 +93,12 @@ const Login = (props) => {
         </View>
         <View style={styles.bottomHeader}>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('ResetPassword')}
+            onPress={() => props.navigation.navigate("ResetPassword")}
           >
             <Text style={styles.forgotText}>Forgot Password?</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate('Register')}
+            onPress={() => props.navigation.navigate("Register")}
           >
             <Text style={styles.forgotText}>Sign up</Text>
           </TouchableOpacity>
@@ -108,7 +106,7 @@ const Login = (props) => {
         <Button
           title="SKIP BUTTON TO MAIN APP"
           color="white"
-          onPress={() => props.navigation.navigate('Main')}
+          onPress={() => props.navigation.navigate("Main")}
         />
       </View>
     </ImageBackground>
@@ -121,7 +119,7 @@ const styles = StyleSheet.create({
   emailPassStyle: {
     height: height / 17,
     borderRadius: 5,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: "#F6F6F6",
     marginHorizontal: width / 10,
     marginBottom: height / 40,
     fontSize: 18,
@@ -132,37 +130,37 @@ const styles = StyleSheet.create({
     width: width,
   },
   login: {
-    alignSelf: 'center',
-    color: 'white',
-    fontWeight: 'bold',
+    alignSelf: "center",
+    color: "white",
+    fontWeight: "bold",
     fontSize: 35,
     paddingBottom: height / 50,
   },
   signUpButtonGood: {
-    color: 'white',
-    alignSelf: 'center',
+    color: "white",
+    alignSelf: "center",
     fontSize: 20,
     marginVertical: height / 70,
   },
   signUpButtonBad: {
-    color: 'grey',
-    alignSelf: 'center',
+    color: "grey",
+    alignSelf: "center",
     fontSize: 20,
     marginVertical: height / 70,
   },
   signInView: {
-    alignSelf: 'center',
+    alignSelf: "center",
     height: height / 17,
     width: width / 1.24,
-    backgroundColor: '#142A4F',
+    backgroundColor: "#142A4F",
     borderRadius: 10,
   },
   bottomHeader: {
-    flexDirection: 'row',
-    alignSelf: 'center',
+    flexDirection: "row",
+    alignSelf: "center",
   },
   forgotText: {
-    color: 'white',
+    color: "white",
     fontSize: 20,
     marginTop: height / 70,
     marginHorizontal: width / 40,

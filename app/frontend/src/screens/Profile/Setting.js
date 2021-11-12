@@ -13,29 +13,32 @@ import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/AntDesign";
 const asyncStorage = require("../../asyncStorage");
 import axios from "../../axios";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 //expect API call return
-const profile = {
-  profilePicture:
-    "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
-  fullName: "Keisuka Nakagawa",
-  userName: "Keisuka N.",
-  title: "Software Engineer",
-  age: "26",
-  birthDate: new Date(),
-  department: "Psychiatry and Behavioral Sciences",
-  gender: "Male",
-  email: "drknakagawa@ucdavis.edu",
-};
+// const profile = {
+//   profilePicture:
+//     "https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg",
+//   fullName: "Keisuka Nakagawa",
+//   userName: "Keisuka N.",
+//   title: "Software Engineer",
+//   age: "26",
+//   birthDate: new Date(),
+//   department: "Psychiatry and Behavioral Sciences",
+//   gender: "Male",
+//   email: "drknakagawa@ucdavis.edu",
+// };
 const { height, width } = Dimensions.get("window");
 const UserProfile = (props) => {
   //userEffect to fetch current user
-  const [profilePicture, setProfilePicture] = useState("A");
+  const [profilePicture, setProfilePicture] = useState(
+    "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png"
+  );
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [title, setTitle] = useState("");
   const [age, setAge] = useState(0);
-  const [birthday, setBirthday] = useState(new Date());
+  const [birthday, setBirthday] = useState(new Date(Date.now()));
   const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
   const [id, setId] = useState("");
@@ -61,14 +64,13 @@ const UserProfile = (props) => {
         const user = res.data;
         const dob = user.dob.split("-");
         dob[2] = dob[2].split("T", 1);
-        setProfilePicture(profile.profilePicture);
         setFirstName(user.first_name);
         setLastName(user.last_name);
         setTitle(user.job_title[0]);
-        setAge(getAge(new Date(birthday)));
         setDepartment(user.department);
         setEmail(user.email);
         setBirthday(user.dob);
+        setAge(getAge(user.dob));
       } catch (error) {
         console.log(error.message);
       }
@@ -78,14 +80,21 @@ const UserProfile = (props) => {
   //API CALL TO SAVE UPDATED INFO TO DATA BASE
   const saveChange = async () => {
     try {
+      console.log(profilePicture);
+      console.log(birthday);
       props.navigation.navigate("User");
     } catch (err) {
       console.log(err);
     }
-
     //to be removed
     props.navigation.navigate("User");
   };
+
+  const onBirthdateChange = (event, value) => {
+    setBirthday(value);
+    console.log(value);
+  };
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -138,17 +147,17 @@ const UserProfile = (props) => {
           callback={setLastName}
         />
         <Field
-          dob={true}
-          title="Birth Date"
-          text={birthday}
-          setting={true}
-          callback={setBirthday}
-        />
-        <Field
           title="Age"
           text={age.toString()}
           setting={false}
           callback={setAge}
+        />
+        <Field
+          title="Date of Birth"
+          text={birthday}
+          setting={true}
+          dob={true}
+          callback={onBirthdateChange}
         />
         <Field
           title="Department"

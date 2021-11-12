@@ -71,15 +71,9 @@ const Signup = (props) => {
 
   const onChange = (event, value) => {
     setDate(value);
-
     if (Platform.OS === "android") {
       setOpen(false);
     }
-  };
-
-  const getDate = () => {
-    let d = date.toString().split(" ");
-    return `${d[1]} ${d[2]} ${d[3]}`;
   };
 
   return (

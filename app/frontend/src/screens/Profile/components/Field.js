@@ -1,9 +1,15 @@
-import React from 'react';
-import { View, Text, StyleSheet, Dimensions, TextInput } from 'react-native';
-import { Divider } from 'react-native-elements';
-import DatePicker from '@react-native-community/datetimepicker';
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TextInput,
+  ScrollView,
+} from "react-native";
+import DatePicker from "@react-native-community/datetimepicker";
 
-const { height, width } = Dimensions.get('window');
+const { height, width } = Dimensions.get("window");
 const Field = ({ title, text, setting, callback, dob }) => {
   let canEdit;
   if (setting) {
@@ -12,59 +18,56 @@ const Field = ({ title, text, setting, callback, dob }) => {
     canEdit = false;
   }
   return (
-    <View style={styles.parent}>
-      <View style={{ flexDirection: 'row' }}>
+    <ScrollView style={styles.parent}>
+      <View style={{ flexDirection: "row" }}>
         <Text style={styles.fieldTitle}>{title}</Text>
         {setting ? <Text style={styles.changeButton}>Change</Text> : null}
       </View>
-      <View style={{ bottom: 35, top: 5 }}>
+      <View style={styles.indivField}>
         {dob ? (
           <DatePicker
             mode="date" //The enum of date, datetime and time
-            value={text} //initial date from state
+            value={new Date(text)} //initial date from state
             format="MM-DD-YYYY"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
-            onDateChange={(date) => {
-              callback(date);
-            }}
+            onChange={callback}
           />
         ) : (
           <TextInput
-            style={{ fontSize: 19 }}
+            style={{ fontSize: width * 0.045 }}
             value={text}
             onChangeText={(text) => callback(text)}
             editable={canEdit}
             selectTextOnFocus={canEdit}
           />
         )}
-
-        <View style={{ width: width - 80, top: 10 }}>
-          <Divider orientation="horizontal" width={3} />
-        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  indivField: {
+    borderBottomWidth: 0.5,
+    // MarginTop: height/15,
+  },
   fieldTitle: {
     left: 0,
-    fontSize: 18,
+    fontSize: width * 0.045,
     opacity: 0.5,
   },
   changeButton: {
-    fontSize: 18,
+    fontSize: width * 0.045,
     opacity: 0.5,
     right: 0,
-    position: 'absolute',
-    opacity: 0.5,
+    position: "absolute",
   },
   parent: {
     width: width - 80,
-    height: height / 10,
-    flexDirection: 'column',
-    alignSelf: 'center',
+    marginVertical: height / 40,
+    flexDirection: "column",
+    alignSelf: "center",
   },
 });
 export default Field;

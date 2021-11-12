@@ -15,23 +15,25 @@ import axios from "../../axios";
 const asyncStorage = require("../../asyncStorage");
 
 //expect API call return
-const profile = {
-  profilePicture:
-    "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png",
-  fullName: " ",
-  userName: " ",
-  title: "Software Engineer",
-  age: " ",
-  birthDate: new Date(),
-  department: " ",
-  gender: " ",
-  email: " ",
-};
+// const profile = {
+//   profilePicture:
+//     "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png",
+//   fullName: " ",
+//   userName: " ",
+//   title: "Software Engineer",
+//   age: " ",
+//   birthDate: new Date(),
+//   department: " ",
+//   gender: " ",
+//   email: " ",
+// };
 const { height, width } = Dimensions.get("window");
 
 const UserProfile = (props) => {
   //userEffect to fetch current user
-  const [profilePicture, setProfilePicture] = useState("A");
+  const [profilePicture, setProfilePicture] = useState(
+    "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png"
+  );
   const [fullName, setFullName] = useState("");
   const [title, setTitle] = useState("");
   const [age, setAge] = useState(0);
@@ -39,7 +41,6 @@ const UserProfile = (props) => {
   const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
 
-  const dob = profile.birthDate.toString().split(" ");
   function getAge(birthDate) {
     return Math.floor(
       (new Date() - new Date(birthDate).getTime()) / 3.15576e10
@@ -58,16 +59,17 @@ const UserProfile = (props) => {
           },
         });
         const user = res.data;
-        console.log(user);
-        const dob = user.dob.split("-");
-        dob[2] = dob[2].split("T", 1);
-        setProfilePicture(profile.profilePicture);
+        const dob = new Date(user.dob);
+        // setProfilePicture(profile.profilePicture);
         setFullName(user.first_name + " " + user.last_name);
         setTitle(user.job_title[0]);
-        setAge(getAge(user.dob));
         setDepartment(user.department);
         setEmail(user.email);
-        setBirthday(`${dob[1]}/${dob[2]}/${dob[0]}`);
+        setBirthday(
+          `${dob.getMonth() + 1}/${dob.getDate()}/${dob.getFullYear()}`
+        );
+
+        setAge(getAge(user.dob));
       } catch (error) {
         console.log(error.message);
       }
@@ -112,10 +114,9 @@ const UserProfile = (props) => {
       >
         <Field title="Name" text={fullName} />
         <Field title="Age" text={age.toString()} />
+        <Field title="Date of Birth" text={birthday} />
         <Field title="Department" text={department} />
-        <Field title="Birth Date" text={birthday} />
         <Field title="Title" text={title} />
-        <Field title="Department" text={department} />
         <Field title="Email" text={email} />
       </View>
       <TouchableOpacity style={styles.logOutButton} onPress={() => logout()}>
