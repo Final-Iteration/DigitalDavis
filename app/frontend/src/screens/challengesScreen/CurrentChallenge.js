@@ -17,12 +17,12 @@ const CurrentChallenges = (props) => {
   const [allChallenges, setAllChallenge] = useState([]);
   const [pastChallenges, setPastChallenges] = useState([]);
   const [currentChallenges, setCurrentChallenges] = useState([]);
-  const didFocusSubscription = props.navigation.addListener(
-    "didFocus",
-    (payload) => {
-      getAllChallenges();
-    }
-  );
+  // const didFocusSubscription = props.navigation.addListener(
+  //   "didFocus",
+  //   (payload) => {
+  //     getAllChallenges();
+  //   }
+  // );
 
   const getAllChallenges = async () => {
     try {
@@ -46,7 +46,7 @@ const CurrentChallenges = (props) => {
           Authorization: authToken,
         },
       });
-
+      console.log(getAllChallenges.data.results);
       setAllChallenge(getAllChallenges.data.results);
       setCurrentChallenges(getCurrentChallenges.data);
       setPastChallenges(getPastChallenges.data);
@@ -57,7 +57,6 @@ const CurrentChallenges = (props) => {
 
   useEffect(() => {
     // console.log(didFocusSubscription);
-
     getAllChallenges();
   }, [props.navigation.isFocused()]);
 

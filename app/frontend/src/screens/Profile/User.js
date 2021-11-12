@@ -33,34 +33,41 @@ const UserProfile = (props) => {
     );
   }
 
+  const getUserInfo = async () => {
+    try {
+      const id = await asyncStorage.getData("ID");
+      const authToken = await asyncStorage.getData("Authorization");
+      const res = await axios.get(`/users/${id}`, {
+        headers: {
+          id: id,
+          Authorization: authToken,
+        },
+      });
+      const user = res.data;
+      const dob = new Date(user.dob);
+      // setProfilePicture(profile.profilePicture);
+      setFullName(user.first_name + " " + user.last_name);
+      setTitle(user.job_title[0]);
+      setDepartment(user.department);
+      setEmail(user.email);
+      setBirthday(
+        `${dob.getMonth() + 1}/${dob.getDate()}/${dob.getFullYear()}`
+      );
+
+      setAge(getAge(user.dob));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  // const didFocusSubscription = props.navigation.addListener(
+  //   "didFocus",
+  //   (payload) => {
+  //     console.log("user focused");
+  //     getUserInfo();
+  //   }
+  // );
+
   useEffect(() => {
-    const getUserInfo = async () => {
-      try {
-        const id = await asyncStorage.getData("ID");
-        const authToken = await asyncStorage.getData("Authorization");
-        const res = await axios.get(`/users/${id}`, {
-          headers: {
-            id: id,
-            Authorization: authToken,
-          },
-        });
-        const user = res.data;
-        const dob = new Date(user.dob);
-        // setProfilePicture(profile.profilePicture);
-        setFullName(user.first_name + " " + user.last_name);
-        setTitle(user.job_title[0]);
-        setDepartment(user.department);
-        setEmail(user.email);
-        setBirthday(
-          `${dob.getMonth() + 1}/${dob.getDate()}/${dob.getFullYear()}`
-        );
-
-        setAge(getAge(user.dob));
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-
     getUserInfo();
   }, []);
 
