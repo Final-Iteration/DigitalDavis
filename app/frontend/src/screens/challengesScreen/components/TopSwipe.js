@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   FlatList,
   Text,
+  Dimensions,
 } from "react-native";
 import ChallengeBox from "./ChallengeBox";
 import { TabView, SceneMap } from "react-native-tab-view";
@@ -12,7 +13,7 @@ import { TabBar } from "react-native-tab-view";
 import axios from "../../../axios";
 import { cc, pc, ac } from "./MockData";
 const asyncStorage = require("../../../asyncStorage");
-
+const { height, width } = Dimensions.get("window");
 const TopSwipe = ({ props }) => {
   const [allChallenges, setAllChallenge] = useState([]);
   const [pastChallenges, setPastChallenges] = useState([]);
@@ -22,15 +23,28 @@ const TopSwipe = ({ props }) => {
       try {
         const id = await asyncStorage.getData("ID");
         const authToken = await asyncStorage.getData("Authorization");
-        const res = await axios.get("/challenges", {
+        const getAllChallenges = await axios.get("/challenges", {
           headers: {
             id: id,
             Authorization: authToken,
           },
         });
-        console.log("-----ALL Challenges-----");
-        console.log(res.data);
-        setAllChallenge(res.data.results);
+        const getCurrentChallenges = await axios.get("/challenges/active", {
+          headers: {
+            id: id,
+            Authorization: authToken,
+          },
+        });
+        const getPastChallenges = await axios.get("/challenges/past", {
+          headers: {
+            id: id,
+            Authorization: authToken,
+          },
+        });
+        console.log(getAllChallenges.data);
+        setAllChallenge(getAllChallenges.data.results);
+        setCurrentChallenges(getCurrentChallenges.data);
+        setPastChallenges(getPastChallenges.data);
       } catch (error) {
         console.log(error);
       }
@@ -62,14 +76,12 @@ const TopSwipe = ({ props }) => {
 
   const FirstRoute = () => {
     //if there is no challenges to display
-    // if (allChallenges.length === 0) {
-    if (ac.length === 0) {
+    if (allChallenges.length === 0) {
       return defaultNoChallenge("All");
     } else {
       return (
         <FlatList
-          // data={allChallenges}
-          data={ac}
+          data={allChallenges}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
@@ -99,38 +111,14 @@ const TopSwipe = ({ props }) => {
       );
     }
   };
-  useEffect(() => {
-    async function getCurrentChallenges() {
-      try {
-        const id = await asyncStorage.getData("ID");
-        const authToken = await asyncStorage.getData("Authorization");
-        const res = await axios.get("/challenges/active", {
-          headers: {
-            id: id,
-            Authorization: authToken,
-          },
-        });
-        console.log("-----Current Challenges-----");
-        console.log(res.data);
-        setCurrentChallenges(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    getCurrentChallenges();
-  }, []);
 
   const SecondRoute = () => {
-    // if (currentChallenges.length === 0) {
-    if (cc.length === 0) {
+    if (currentChallenges.length === 0) {
       return defaultNoChallenge("Current");
     } else {
-      console.log(currentChallenges);
       return (
         <FlatList
-          // data={currentChallenges}
-          data={cc}
+          data={currentChallenges}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
@@ -147,7 +135,6 @@ const TopSwipe = ({ props }) => {
                   title={item.name}
                   description={item.description}
                   image={
-                    // eslint-disable-next-line max-len
                     "https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ"
                   }
                   status={"participating"}
@@ -160,28 +147,6 @@ const TopSwipe = ({ props }) => {
       );
     }
   };
-
-  useEffect(() => {
-    async function getCurrentChallenges() {
-      try {
-        const id = await asyncStorage.getData("ID");
-        const authToken = await asyncStorage.getData("Authorization");
-        const res = await axios.get("/challenges/past", {
-          headers: {
-            id: id,
-            Authorization: authToken,
-          },
-        });
-        console.log("-----Past Challenges-----");
-        console.log(res.data);
-        setPastChallenges(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    getCurrentChallenges();
-  }, []);
 
   const ThirdRoute = () => {
     if (pastChallenges.length === 0) {
@@ -206,7 +171,6 @@ const TopSwipe = ({ props }) => {
                   title={item.name}
                   description={item.description}
                   image={
-                    // eslint-disable-next-line max-len
                     "https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ"
                   }
                   status={"participating"}
@@ -244,10 +208,15 @@ const TopSwipe = ({ props }) => {
       renderTabBar={(props) => (
         <TabBar
           {...props}
-          style={{ backgroundColor: "#f2f2f2", flex: 0.09 }}
+          style={{ backgroundColor: "#f2f2f2", flex: 0.08 }}
           indicatorStyle={{ backgroundColor: "#142A4F" }}
           renderLabel={({ route, focused, color }) => (
-            <Text style={{ color: "black", margin: 8, fontSize: 15 }}>
+            <Text
+              style={{
+                color: "black",
+                fontSize: width * 0.043,
+              }}
+            >
               {route.title}
             </Text>
           )}
@@ -263,7 +232,7 @@ const styles = StyleSheet.create({
   defaultText: {
     marginVertical: "50%",
     alignSelf: "center",
-    fontSize: 16,
+    fontSize: width * 0.04,
   },
 });
 export default TopSwipe;

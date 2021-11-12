@@ -13,19 +13,6 @@ import axios from "../../axios";
 
 const asyncStorage = require("../../asyncStorage");
 
-//expect API call return
-// const profile = {
-//   profilePicture:
-//     "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png",
-//   fullName: " ",
-//   userName: " ",
-//   title: "Software Engineer",
-//   age: " ",
-//   birthDate: new Date(),
-//   department: " ",
-//   gender: " ",
-//   email: " ",
-// };
 const { height, width } = Dimensions.get("window");
 
 const UserProfile = (props) => {

@@ -51,9 +51,7 @@ const UserProfile = (props) => {
     const getUserInfo = async () => {
       try {
         const id = await asyncStorage.getData("ID");
-        setId(id);
         const authToken = await asyncStorage.getData("Authorization");
-        setToken(authToken);
         const res = await axios.get(`/users/${id}`, {
           headers: {
             id: id,
@@ -79,30 +77,12 @@ const UserProfile = (props) => {
   //API CALL TO SAVE UPDATED INFO TO DATA BASE
   const saveChange = async () => {
     try {
-      const res = await axios.patch(
-        `/users/${id}`,
-        {
-          first_name: firstName,
-          last_name: lastName,
-          email: email,
-          dob: birthday,
-          department: department,
-          job_title: title,
-        },
-        {
-          headers: {
-            id: id,
-            Authorization: token,
-          },
-        }
-      );
-
       props.navigation.navigate("User");
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
     //to be removed
-    props.navigation.navigate("User");
+    // props.navigation.navigate("User");
   };
 
   const onBirthdateChange = (event, value) => {
