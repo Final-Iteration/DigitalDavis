@@ -23,13 +23,15 @@ async function connectMongoose(url = "mongodb://localhost:27017", certificate = 
     await mongoose
       .connect(url, {
         sslCA: certificate,
-      })
+      } )
       .then(() => dbDebugger('Status: connected'));
-    mongoose.connection.db.listCollections().toArray(function (err, names) {
-      names.forEach((Element) =>
-        dbDebugger('Collections: ' + Element.name)
-      );
-    });
+      if (config.env != "production"){
+        mongoose.connection.db.listCollections().toArray(function (err, names) {
+          names.forEach((Element) =>
+            dbDebugger('Collections: ' + Element.name)
+          );
+        });
+      }
   } catch (error) {
     dbDebugger(error.message);
   }
