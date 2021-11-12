@@ -12,13 +12,18 @@ import { TabView, SceneMap } from "react-native-tab-view";
 import { TabBar } from "react-native-tab-view";
 import axios from "../../axios";
 const asyncStorage = require("../../asyncStorage");
-import { useIsFocused } from "@react-navigation/native";
 const { height, width } = Dimensions.get("window");
 const CurrentChallenges = (props) => {
-  const isFocused = useIsFocused();
   const [allChallenges, setAllChallenge] = useState([]);
   const [pastChallenges, setPastChallenges] = useState([]);
   const [currentChallenges, setCurrentChallenges] = useState([]);
+  const didFocusSubscription = props.navigation.addListener(
+    "didFocus",
+    (payload) => {
+      getAllChallenges();
+    }
+  );
+
   const getAllChallenges = async () => {
     try {
       const id = await asyncStorage.getData("ID");
@@ -41,7 +46,7 @@ const CurrentChallenges = (props) => {
           Authorization: authToken,
         },
       });
-      console.log(getAllChallenges.data);
+
       setAllChallenge(getAllChallenges.data.results);
       setCurrentChallenges(getCurrentChallenges.data);
       setPastChallenges(getPastChallenges.data);
@@ -49,11 +54,12 @@ const CurrentChallenges = (props) => {
       console.log(error);
     }
   };
+
   useEffect(() => {
-    if (isFocused) {
-      getAllChallenges();
-    }
-  }, [props, isFocused]);
+    // console.log(didFocusSubscription);
+
+    getAllChallenges();
+  }, [props.navigation.isFocused()]);
 
   const defaultNoChallenge = (currentTab) => {
     switch (currentTab) {
