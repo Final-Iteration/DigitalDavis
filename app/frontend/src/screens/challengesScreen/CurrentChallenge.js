@@ -20,7 +20,7 @@ const CurrentChallenges = (props) => {
   const [allChallenges, setAllChallenge] = useState([]);
   const [pastChallenges, setPastChallenges] = useState([]);
   const [currentChallenges, setCurrentChallenges] = useState([]);
-  const [length, setLength] = useState(0);
+
   const [loading, setLoading] = useState(true);
   const [id, setId] = useState("");
   //to delete: to be REMOVED
