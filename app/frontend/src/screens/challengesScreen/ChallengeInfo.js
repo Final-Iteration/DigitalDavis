@@ -30,9 +30,8 @@ const ChallengeInfo = (props) => {
   const [location, setLocation] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
-  const challenge = props.navigation.state.params.challenge;
-
+  // console.log(props.route);
+  const challenge = props.route.params.challenge;
   useEffect(() => {
     setStatus(challenge.participationStatus);
     setLocation(challenge.location);
@@ -47,6 +46,9 @@ const ChallengeInfo = (props) => {
       setParticipantModal(!participantModal);
     }, 250);
   };
+
+  //   return <View></View>;
+  // };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -121,11 +123,11 @@ const ChallengeInfo = (props) => {
 
         {/* API CALL TO UPDATE PARTICIPATION */}
         <TouchableOpacity
-          disabled={props.navigation.state.params.disableButton}
+          disabled={props.route.params.disableButton}
           style={[
             styles.participatingButton,
             {
-              backgroundColor: props.navigation.state.params.disableButton
+              backgroundColor: props.route.params.disableButton
                 ? "#EBEBE4"
                 : participationStatus
                 ? "#90ee90"

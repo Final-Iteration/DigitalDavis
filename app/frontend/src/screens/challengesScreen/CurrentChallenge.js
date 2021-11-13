@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   useWindowDimensions,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   Text,
   Dimensions,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import ChallengeBox from "./components/ChallengeBox";
 import { TabView, SceneMap } from "react-native-tab-view";
 import { TabBar } from "react-native-tab-view";
@@ -17,13 +18,24 @@ const CurrentChallenges = (props) => {
   const [allChallenges, setAllChallenge] = useState([]);
   const [pastChallenges, setPastChallenges] = useState([]);
   const [currentChallenges, setCurrentChallenges] = useState([]);
-  // const didFocusSubscription = props.navigation.addListener(
-  //   "didFocus",
-  //   (payload) => {
-  //     getAllChallenges();
+  //to delete: to be REMOVED
+  // const del = async () => {
+  //   try {
+  //     const id = await asyncStorage.getData("ID");
+  //     const authToken = await asyncStorage.getData("Authorization");
+  //     const getAllChallenges = await axios.delete(
+  //       "/challenges/618efb56702eb8a36c4d370a",
+  //       {
+  //         headers: {
+  //           id: id,
+  //           Authorization: authToken,
+  //         },
+  //       }
+  //     );
+  //   } catch (err) {
+  //     console.log(err);
   //   }
-  // );
-
+  // };
   const getAllChallenges = async () => {
     try {
       const id = await asyncStorage.getData("ID");
@@ -55,10 +67,15 @@ const CurrentChallenges = (props) => {
     }
   };
 
-  useEffect(() => {
-    // console.log(didFocusSubscription);
-    getAllChallenges();
-  }, [props.navigation.isFocused()]);
+  useFocusEffect(
+    useCallback(() => {
+      getAllChallenges();
+      // del();
+      return () => {
+        setAllChallenge([]);
+      };
+    }, [])
+  );
 
   const defaultNoChallenge = (currentTab) => {
     switch (currentTab) {

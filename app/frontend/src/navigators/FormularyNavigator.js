@@ -1,25 +1,27 @@
 import React from "react";
-import { createStackNavigator } from "react-navigation-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import Formulary from "../screens/formularyScreen/Formulary";
 
 import Header from "../sharedComponent/Header";
+const Stack = createStackNavigator();
 
-const FormularyStack = createStackNavigator(
-  {
-    Formulary: {
-      screen: Formulary,
-      navigationOptions: {
-        header: ({ scene, previous, navigation }) => (
-          <Header title="Formulary" navigation={navigation} />
-        ),
-      },
-    },
-  },
-  {
-    initialRouteName: "Formulary",
-    headerMode: "screen",
-  }
-);
+function MyStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Formulary"
+        component={Formulary}
+        options={{
+          header: ({ scene, previous, navigation }) => (
+            <Header title="Formulary" navigation={navigation} />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 
-export default FormularyStack;
+export default function FormularyNavigator() {
+  return <MyStack />;
+}
