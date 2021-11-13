@@ -15,9 +15,12 @@ services:
     networks:
       - dev_network
   express-api:
-    image: ucd-emp-wellness-api:lts
-    container_name: ucd-emp-wellness-api
-    build: ./mongo-api/
+    image: final_iteration_api_dev:lts
+    hostname: final-iteration
+    container_name: ucd-wellness-api
+    build: 
+      context: ./mongo-api/
+      dockerfile: dockerfile.dev
     environment:
       - "NODE_ENV=development"
       - "PORT=${PORT}"
