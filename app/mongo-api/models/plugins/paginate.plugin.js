@@ -35,7 +35,7 @@ const paginate = (schema) => {
     const limit =
       options.limit && parseInt(options.limit, 50) > 0
         ? parseInt(options.limit, 50)
-        : 10;
+        : 50;
     const page =
       options.page && parseInt(options.page, 10) > 0
         ? parseInt(options.page, 10)
