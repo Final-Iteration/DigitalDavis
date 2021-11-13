@@ -17,8 +17,9 @@ const Tab = createBottomTabNavigator();
 const MainBottomTab = () => {
   return (
     <Tab.Navigator
-      initialRouteName="InsightStack"
+      screenOptions={{ headerShown: false }}
       tabBarOptions={{
+        headerShown: false,
         keyboardHidesTab: true,
         showLabels: false,
         activeTintColor: "#e91e63",
