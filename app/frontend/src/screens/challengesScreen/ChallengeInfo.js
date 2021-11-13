@@ -23,23 +23,29 @@ const ChallengeInfo = (props) => {
   /**
    * @todo: this needs to be changed when we are importing data, should not be set to false
    */
-
   const [participationStatus, setStatus] = useState(false);
   const [participantModal, setParticipantModal] = useState(false);
   const [antButton, setAntButton] = useState(false);
   const [location, setLocation] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  // console.log(props.route);
+  const [participants, setParticipants] = useState([]);
+
   const challenge = props.route.params.challenge;
+  const id = props.route.params.id;
+
   useEffect(() => {
-    setStatus(challenge.participationStatus);
+    setStatus(challenge.participants.includes(id));
     setLocation(challenge.location);
-    setStartDate(challenge.start_date.toString().substring(0, 11));
-    setEndDate(challenge.start_date.toString().substring(0, 11));
+    setParticipants(challenge.participants);
+    let date = challenge.start_date.substring(0, 10).split("-");
+    setStartDate(`Start: ${date[1]}-${date[2]}-${date[0].substring(2)}`);
+    date = challenge.end_date.substring(0, 10).split("-");
+    setEndDate(`End: ${date[1]}-${date[2]}-${date[0].substring(2)}`);
   }, []);
-  console.log("-------------CHALLENGE CLICKED-------------");
-  console.log(challenge.id);
+
+  // console.log("-------------CHALLENGE CLICKED-------------");
+  // console.log(challenge.id);
   const antButtonPressed = () => {
     setTimeout(() => {
       setAntButton(false);
@@ -47,8 +53,6 @@ const ChallengeInfo = (props) => {
     }, 250);
   };
 
-  //   return <View></View>;
-  // };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -61,7 +65,12 @@ const ChallengeInfo = (props) => {
             shadowRadius: 3,
           }}
         >
-          <Image style={styles.image} source={{ uri: challenge.image }} />
+          <Image
+            style={styles.image}
+            source={{
+              uri: "https://images.unsplash.com/photo-1437435409766-a478cc6da81a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mjd8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80",
+            }}
+          />
         </View>
         <View
           style={{
@@ -84,19 +93,19 @@ const ChallengeInfo = (props) => {
               antButtonPressed();
             }}
           >
-            <View style={styles.iconText}>
+            <View style={[styles.iconText, { margin: 5 }]}>
               <Icon
                 name="people-outline"
-                size={25}
+                size={20}
                 style={[antButton ? { color: "white" } : { color: "blue" }]}
               />
               <Text
                 style={[
-                  { left: 5, fontSize: 13, fontWeight: "bold" },
+                  { fontSize: 13, fontWeight: "bold" },
                   antButton ? { color: "white" } : { color: "black" },
                 ]}
               >
-                Attendees
+                {`${challenge.participants.length} Attendees`}
               </Text>
             </View>
           </TouchableOpacity>
@@ -111,13 +120,15 @@ const ChallengeInfo = (props) => {
             />
             <Text style={styles.dateText}>{location}</Text>
           </View>
-          <View style={[styles.iconText]}>
+          <View style={styles.iconText}>
             <Icon name="calendar-outline" size={25} style={{ color: "blue" }} />
-            <Text style={styles.dateText}>{startDate}</Text>
-            <Text style={styles.dateText}>-</Text>
-            <Text style={styles.dateText}>{endDate}</Text>
+            <View>
+              <Text style={styles.dateText}>{startDate}</Text>
+              <Text style={styles.dateText}>{endDate}</Text>
+            </View>
           </View>
         </View>
+
         <Text style={styles.about}>About</Text>
         <Text style={styles.mainDescription}>{challenge.description}</Text>
 
@@ -208,7 +219,7 @@ const ChallengeInfo = (props) => {
             style={styles.modalView}
             showsVerticalScrollIndicator={false}
           >
-            <Participant />
+            <Participant participants={challenge.participants} />
             <TouchableOpacity
               style={{
                 alignSelf: "center",
@@ -229,12 +240,14 @@ const styles = StyleSheet.create({
   dateText: {
     fontSize: 15,
     fontWeight: "500",
-    left: 2,
+    alignSelf: "center",
+    left: 3,
   },
   buttonContainer: {
-    height: 35,
+    // height: 35,
     borderRadius: 10,
-    width: 115,
+
+    // width: 115,
     borderWidth: 0.7,
     borderColor: "blue",
     alignItems: "center",
@@ -269,7 +282,8 @@ const styles = StyleSheet.create({
     top: 10,
     flexDirection: "row",
     marginHorizontal: width / 30,
-    marginVertical: 15,
+    marginVertical: height / 105,
+    // alignSelf: "flex-start",
     justifyContent: "space-between",
   },
   image: {
@@ -292,7 +306,6 @@ const styles = StyleSheet.create({
   },
   about: {
     fontWeight: "300",
-
     fontSize: 25,
     left: 16,
     marginVertical: 7,

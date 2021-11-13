@@ -1,10 +1,12 @@
 //https://reactnavigation.org/docs/auth-flow/
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-//auth stack
+
 import AuthStack from "./AuthNavigator";
-//main stack
 import MainStack from "./Modal";
+
+const asyncStorage = require("../asyncStorage");
+
 const Stack = createStackNavigator();
 const Main = () => {
   return (
@@ -16,12 +18,18 @@ const Main = () => {
         gestureEnabled: false,
       }}
     >
+      <Stack.Screen name="Auth" component={AuthStack} />
       <Stack.Screen
         name="Main"
         component={MainStack}
         options={{ gestureEnabled: false }}
       />
-      <Stack.Screen name="Auth" component={AuthStack} />
+      {/* {asyncStorage.getData("Authorization") === null ||
+      asyncStorage.getData("id") === null ? (
+       
+      ) : (
+
+      )} */}
     </Stack.Navigator>
   );
 };

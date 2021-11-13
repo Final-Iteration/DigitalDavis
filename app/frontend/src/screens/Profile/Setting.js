@@ -58,6 +58,7 @@ const UserProfile = (props) => {
             Authorization: authToken,
           },
         });
+
         const user = res.data;
         const dob = user.dob.split("-");
         dob[2] = dob[2].split("T", 1);

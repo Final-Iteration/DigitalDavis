@@ -1,28 +1,41 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Dimensions } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+const asyncStorage = require("../../../asyncStorage");
 
 const { width, height } = Dimensions.get("window");
 
-const ChallengeBox = ({ image, title, description, status, past }) => {
+const ChallengeBox = ({ challenge }) => {
+  const [id, setId] = useState("");
+
+  useFocusEffect(
+    useCallback(() => {
+      const getId = async () => {
+        const id = await asyncStorage.getData("ID");
+        setId(id);
+      };
+      getId();
+    }, [])
+  );
   return (
     <View style={styles.container}>
       <Image
         style={styles.image}
         source={{
-          uri: image,
+          uri: "https://images.unsplash.com/photo-1437435409766-a478cc6da81a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mjd8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80",
         }}
       ></Image>
       <View style={styles.titleDescriptionContainer}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description}>{description}</Text>
-        {past ? (
-          <Text style={styles.status_text}>Completed</Text>
-        ) : (
-          <Text style={styles.status_text}>
-            {status ? "In Progress" : "Not Participating"}
-          </Text>
-        )}
+        <Text style={styles.title}>{challenge.name}</Text>
+        <Text style={styles.description}>{challenge.description}</Text>
+        <Text style={styles.status_text}>
+          {challenge.participants.includes(id)
+            ? new Date(challenge.end_date) < new Date(Date.now())
+              ? "Completed"
+              : "In Progress"
+            : "Not Participating"}
+        </Text>
       </View>
     </View>
   );

@@ -59,13 +59,6 @@ const UserProfile = (props) => {
       console.log(error.message);
     }
   };
-  // const didFocusSubscription = props.navigation.addListener(
-  //   "didFocus",
-  //   (payload) => {
-  //     console.log("user focused");
-  //     getUserInfo();
-  //   }
-  // );
 
   useEffect(() => {
     getUserInfo();
@@ -75,7 +68,7 @@ const UserProfile = (props) => {
     //remove token from async storage
     asyncStorage.removeData("ID");
     asyncStorage.removeData("Authorization");
-    props.navigation.navigate("Auth");
+    // props.navigation.navigate("Auth");
   };
 
   return (

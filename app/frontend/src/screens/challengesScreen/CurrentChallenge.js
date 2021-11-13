@@ -6,18 +6,22 @@ import {
   FlatList,
   Text,
   Dimensions,
+  View,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import ChallengeBox from "./components/ChallengeBox";
 import { TabView, SceneMap } from "react-native-tab-view";
 import { TabBar } from "react-native-tab-view";
 import axios from "../../axios";
+import Loading from "../../sharedComponent/Loading";
 const asyncStorage = require("../../asyncStorage");
 const { height, width } = Dimensions.get("window");
 const CurrentChallenges = (props) => {
   const [allChallenges, setAllChallenge] = useState([]);
   const [pastChallenges, setPastChallenges] = useState([]);
   const [currentChallenges, setCurrentChallenges] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [id, setId] = useState("");
   //to delete: to be REMOVED
   // const del = async () => {
   //   try {
@@ -39,7 +43,10 @@ const CurrentChallenges = (props) => {
   const getAllChallenges = async () => {
     try {
       const id = await asyncStorage.getData("ID");
+      setId(id);
       const authToken = await asyncStorage.getData("Authorization");
+      console.log(id);
+      console.log(authToken);
       const getAllChallenges = await axios.get("/challenges", {
         headers: {
           id: id,
@@ -62,6 +69,8 @@ const CurrentChallenges = (props) => {
       setAllChallenge(getAllChallenges.data.results);
       setCurrentChallenges(getCurrentChallenges.data);
       setPastChallenges(getPastChallenges.data);
+
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -73,6 +82,7 @@ const CurrentChallenges = (props) => {
       // del();
       return () => {
         setAllChallenge([]);
+        setLoading(true);
       };
     }, [])
   );
@@ -107,6 +117,7 @@ const CurrentChallenges = (props) => {
     } else {
       return (
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={allChallenges}
           renderItem={({ item }) => {
             return (
@@ -114,21 +125,13 @@ const CurrentChallenges = (props) => {
                 activeOpacity={1}
                 onPress={() =>
                   props.navigation.navigate("ChallengeInformation", {
+                    id: id,
                     challenge: item,
                     disableButton: false,
                   })
                 }
               >
-                <ChallengeBox
-                  current={true}
-                  title={item.name}
-                  description={item.description}
-                  image={
-                    // eslint-disable-next-line max-len
-                    "https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ"
-                  }
-                  status={"participating"}
-                />
+                <ChallengeBox challenge={item} />
               </TouchableOpacity>
             );
           }}
@@ -144,6 +147,7 @@ const CurrentChallenges = (props) => {
     } else {
       return (
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={currentChallenges}
           renderItem={({ item }) => {
             return (
@@ -152,19 +156,12 @@ const CurrentChallenges = (props) => {
                 onPress={() =>
                   props.navigation.navigate("ChallengeInformation", {
                     challenge: item,
+                    id: id,
                     disableButton: false,
                   })
                 }
               >
-                <ChallengeBox
-                  current={true}
-                  title={item.name}
-                  description={item.description}
-                  image={
-                    "https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ"
-                  }
-                  status={"participating"}
-                />
+                <ChallengeBox challenge={item} />
               </TouchableOpacity>
             );
           }}
@@ -180,6 +177,7 @@ const CurrentChallenges = (props) => {
     } else {
       return (
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={pastChallenges}
           renderItem={({ item }) => {
             return (
@@ -188,19 +186,12 @@ const CurrentChallenges = (props) => {
                 onPress={() =>
                   props.navigation.navigate("ChallengeInformation", {
                     challenge: item,
+                    id: id,
                     disableButton: true,
                   })
                 }
               >
-                <ChallengeBox
-                  current={true}
-                  title={item.name}
-                  description={item.description}
-                  image={
-                    "https://www.libertytravel.com/sites/default/files/styles/full_size/public/luxury-hero%20%281%29.jpg?itok=eHbThPZQ"
-                  }
-                  status={"participating"}
-                />
+                <ChallengeBox challenge={item} />
               </TouchableOpacity>
             );
           }}
@@ -224,31 +215,37 @@ const CurrentChallenges = (props) => {
   ]);
 
   return (
-    <TabView
-      tabStyle={{ backgroundColor: "red" }}
-      swipeEnabled={false}
-      style={styles.container}
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      renderTabBar={(props) => (
-        <TabBar
-          {...props}
-          style={{ backgroundColor: "#f2f2f2", flex: 0.08 }}
-          indicatorStyle={{ backgroundColor: "#142A4F" }}
-          renderLabel={({ route, focused, color }) => (
-            <Text
-              style={{
-                color: "black",
-                fontSize: width * 0.043,
-              }}
-            >
-              {route.title}
-            </Text>
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <TabView
+          tabStyle={{ backgroundColor: "red" }}
+          swipeEnabled={false}
+          style={styles.container}
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          renderTabBar={(props) => (
+            <TabBar
+              {...props}
+              style={{ backgroundColor: "#f2f2f2", flex: 0.08 }}
+              indicatorStyle={{ backgroundColor: "#142A4F" }}
+              renderLabel={({ route, focused, color }) => (
+                <Text
+                  style={{
+                    color: "black",
+                    fontSize: width * 0.043,
+                  }}
+                >
+                  {route.title}
+                </Text>
+              )}
+            />
           )}
         />
       )}
-    />
+    </>
   );
 };
 const styles = StyleSheet.create({
