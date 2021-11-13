@@ -45,30 +45,26 @@ const CurrentChallenges = (props) => {
       const id = await asyncStorage.getData("ID");
       setId(id);
       const authToken = await asyncStorage.getData("Authorization");
-      console.log(id);
-      console.log(authToken);
+
       const getAllChallenges = await axios.get("/challenges", {
         headers: {
           id: id,
           Authorization: authToken,
         },
       });
-      const getCurrentChallenges = await axios.get("/challenges/active", {
-        headers: {
-          id: id,
-          Authorization: authToken,
-        },
+      allChallenges.map((challenge) => {
+        if (challenge.participants.includes(id)) {
+          setCurrentChallenges((oldArray) => [...oldArray, challenge]);
+        }
+        if (
+          challenge.participants.includes(id) &&
+          new Date(challenge.end_date) < new Date(Date.now())
+        ) {
+          setPastChallenges((oldArray) => [...oldArray, challenge]);
+        }
       });
-      const getPastChallenges = await axios.get("/challenges/past", {
-        headers: {
-          id: id,
-          Authorization: authToken,
-        },
-      });
-      console.log(getAllChallenges.data.results);
+      // console.log(getAllChallenges.data.results);
       setAllChallenge(getAllChallenges.data.results);
-      setCurrentChallenges(getCurrentChallenges.data);
-      setPastChallenges(getPastChallenges.data);
 
       setLoading(false);
     } catch (error) {
@@ -80,8 +76,11 @@ const CurrentChallenges = (props) => {
     useCallback(() => {
       getAllChallenges();
       // del();
+
       return () => {
         setAllChallenge([]);
+        setCurrentChallenges([]);
+        setPastChallenges([]);
         setLoading(true);
       };
     }, [])
