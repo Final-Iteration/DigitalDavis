@@ -22,7 +22,7 @@ const MainBottomTab = () => {
         headerShown: false,
         keyboardHidesTab: true,
         showLabels: false,
-        activeTintColor: "#e91e63",
+        activeTintColor: "#0288d1",
       }}
     >
       <Tab.Screen
