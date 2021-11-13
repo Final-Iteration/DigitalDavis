@@ -41,21 +41,6 @@ const CurrentChallenges = (props) => {
   //     console.log(err);
   //   }
   // };
-  // const getCurAndPastChallenge = (allChallenges) => {
-  //   console.log(allChallenges.length);
-  //   allChallenges.map((challenge) => {
-  //     console.log(challenge.participants);
-  //     if (challenge.participants.includes(id)) {
-  //       setCurrentChallenges((oldArray) => [...oldArray, challenge]);
-  //     }
-  //     if (
-  //       challenge.participants.includes(id) &&
-  //       new Date(challenge.end_date) < new Date(Date.now())
-  //     ) {
-  //       setPastChallenges((oldArray) => [...oldArray, challenge]);
-  //     }
-  //   });
-  // };
 
   const getAllChallenges = async () => {
     try {
