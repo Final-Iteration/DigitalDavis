@@ -15,7 +15,8 @@ const getChallenges = catchAsync(async (req, res) => {
   const filter = pick(req.query, ["name", "start_date"]);
   const options = pick(req.query, ["sortBy", "limit", "page"]);
   const result = await challengeService.queryChallenges(filter, options);
-  res.send(result);
+  const creator = await challengeService.getCreatorWChallenge(req.params.Id);
+  res.send({result, creator});
 });
 
 const getChallenge = catchAsync(async (req, res) => {
@@ -54,6 +55,20 @@ const getAllChallenges = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getParticipants = catchAsync(async (req, res) => { 
+
+});
+
+
+const updateParticipants = catchAsync(async (req, res) => { 
+
+});
+
+const deleteParticipants = catchAsync(async (req, res) => { 
+
+});
+
+
 module.exports = {
   createChallenge,
   getChallenges,
@@ -63,4 +78,7 @@ module.exports = {
   getActiveChallenges,
   getPastChallenges,
   getAllChallenges,
+  getParticipants,
+  updateParticipants,
+  deleteParticipants
 };

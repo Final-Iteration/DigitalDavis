@@ -5,7 +5,7 @@ const ApiError = require("../utils/ApiError");
 
 /**
  * Create a challenge
- * @param {Object} challengeBody
+ * @param {Object} challengeBody, ID
  * @returns {Promise<Challenge>}
  */
 const createChallenge = async (challengeBody, ID) => {
@@ -22,10 +22,6 @@ const createChallenge = async (challengeBody, ID) => {
     end_date: challengeBody.end_date,
     //participants: challengeBody.participants
   };
-  const creator = await User.findOne({ _id: ID });
-  console.log(ID);
-  console.log(creator);
- 
   return Challenge.create(data);
 
   //return Challenge.create(challengeBody);
@@ -51,11 +47,7 @@ const queryChallenges = async (filter, options) => {
  * @returns {Promise<Challenge>}
  */
 const getChallengeById = async (challengeId) => {
-  
-  
   return Challenge.findOne({ _id: challengeId });
-
-
 };
 
 /**
@@ -135,6 +127,16 @@ const allChallenges = async () => {
   return challenges;
 };
 
+const getCreatorWChallenge = async (id) => {
+  const thisChallenge = Challenge.findOne({ id });
+  console.log(thisChallenge);
+  // const thisCreator = User.findOne()
+  // const creator = await User.findOne({ _id: ID });
+  // console.log(ID);
+  // console.log(creator);
+ 
+};
+
 /**
  * Filter challenges with start date > today
  * and end date < today
@@ -152,4 +154,5 @@ module.exports = {
   activeChallenges,
   pastChallenges,
   allChallenges,
+  getCreatorWChallenge
 };
