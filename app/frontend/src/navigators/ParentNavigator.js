@@ -1,11 +1,11 @@
 //https://reactnavigation.org/docs/auth-flow/
 import React from "react";
-import { createSwitchNavigator } from "react-navigation";
+import { createStackNavigator } from "@react-navigation/stack";
 //auth stack
 import AuthStack from "./AuthNavigator";
 //main stack
 import MainStack from "./Modal";
-
+const Stack = createStackNavigator();
 const Main = () => {
   return (
     <Stack.Navigator
@@ -25,18 +25,4 @@ const Main = () => {
     </Stack.Navigator>
   );
 };
-
-export default () => {
-  StatusBar.setBarStyle("dark-content");
-  console.warn = () => {};
-  LogBox.ignoreAllLogs();
-  return (
-    <PaperProvider>
-      <NavigationContainer>
-        <Main />
-      </NavigationContainer>
-      <FlashMessage />
-    </PaperProvider>
-  );
-};
-export default MainNavigator;
+export default Main;
