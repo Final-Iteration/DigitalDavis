@@ -20,6 +20,7 @@ const CurrentChallenges = (props) => {
   const [allChallenges, setAllChallenge] = useState([]);
   const [pastChallenges, setPastChallenges] = useState([]);
   const [currentChallenges, setCurrentChallenges] = useState([]);
+  const [length, setLength] = useState(0);
   const [loading, setLoading] = useState(true);
   const [id, setId] = useState("");
   //to delete: to be REMOVED
@@ -40,19 +41,36 @@ const CurrentChallenges = (props) => {
   //     console.log(err);
   //   }
   // };
+  // const getCurAndPastChallenge = (allChallenges) => {
+  //   console.log(allChallenges.length);
+  //   allChallenges.map((challenge) => {
+  //     console.log(challenge.participants);
+  //     if (challenge.participants.includes(id)) {
+  //       setCurrentChallenges((oldArray) => [...oldArray, challenge]);
+  //     }
+  //     if (
+  //       challenge.participants.includes(id) &&
+  //       new Date(challenge.end_date) < new Date(Date.now())
+  //     ) {
+  //       setPastChallenges((oldArray) => [...oldArray, challenge]);
+  //     }
+  //   });
+  // };
+
   const getAllChallenges = async () => {
     try {
       const id = await asyncStorage.getData("ID");
-      setId(id);
       const authToken = await asyncStorage.getData("Authorization");
-
       const getAllChallenges = await axios.get("/challenges", {
         headers: {
           id: id,
           Authorization: authToken,
         },
       });
-      allChallenges.map((challenge) => {
+      setId(id);
+      setAllChallenge(getAllChallenges.data.results);
+
+      getAllChallenges.data.results.map((challenge) => {
         if (challenge.participants.includes(id)) {
           setCurrentChallenges((oldArray) => [...oldArray, challenge]);
         }
@@ -63,10 +81,9 @@ const CurrentChallenges = (props) => {
           setPastChallenges((oldArray) => [...oldArray, challenge]);
         }
       });
-      // console.log(getAllChallenges.data.results);
-      setAllChallenge(getAllChallenges.data.results);
 
       setLoading(false);
+      return allChallenges;
     } catch (error) {
       console.log(error);
     }
@@ -75,8 +92,6 @@ const CurrentChallenges = (props) => {
   useFocusEffect(
     useCallback(() => {
       getAllChallenges();
-      // del();
-
       return () => {
         setAllChallenge([]);
         setCurrentChallenges([]);
