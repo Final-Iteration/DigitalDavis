@@ -39,6 +39,21 @@ router
   );
 
 router
+  .route("/participants")
+  .get(
+    validate(challengeValidation.getChallenge),
+    challengeController.getParticipants
+  )
+  .patch(
+    validate(challengeValidation.updateChallenge),
+    challengeController.updateParticipants
+  )
+  .delete(
+    validate(challengeValidation.deleteChallenge),
+    challengeController.deleteParticipants
+  );
+
+router
   .route("/:Id")
   .get(auth(),
     validate(challengeValidation.getChallenge),
