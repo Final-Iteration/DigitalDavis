@@ -6,7 +6,7 @@ services:
     container_name: ucd-wellness-api
     build: 
        context: ./mongo-api/
-       dockerfile: prod.Dockerfile
+       dockerfile: dockerfile.prod
     environment:
     - "NODE_ENV=production"
     - "PORT=${PORT}"
