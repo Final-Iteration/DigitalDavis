@@ -139,14 +139,14 @@ const styles = StyleSheet.create({
   signUpButtonGood: {
     color: "white",
     alignSelf: "center",
-    fontSize: 20,
-    marginVertical: height / 70,
+    fontSize: width * 0.05,
+    margin: height / 75,
   },
   signUpButtonBad: {
     color: "grey",
     alignSelf: "center",
-    fontSize: 20,
-    marginVertical: height / 70,
+    fontSize: width * 0.05,
+    margin: height / 75,
   },
   signInView: {
     alignSelf: "center",

@@ -661,12 +661,6 @@ const styles = StyleSheet.create({
     height: "100%",
     borderRadius: 10,
   },
-  closeModalText: {
-    margin: 7,
-    fontSize: 15,
-    marginHorizontal: 20,
-    color: "white",
-  },
   pictureList: {
     alignSelf: "center",
   },
