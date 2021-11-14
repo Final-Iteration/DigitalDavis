@@ -499,7 +499,6 @@ const CreateChallengeScreenTags = (props) => {
             <TextInput
               maxLength={50}
               style={styles.locationBox}
-              autoCapitalize="none"
               autoCorrect={false}
               value={location}
               onChangeText={(text) => {
@@ -607,39 +606,22 @@ const CreateChallengeScreenTags = (props) => {
                 style={styles.modalView}
                 showsVerticalScrollIndicator={false}
               >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    width: "98%",
-                    alignSelf: "center",
-                  }}
-                >
-                  <View style={styles.searchContainer}>
-                    <Icon
-                      name="search"
-                      size={16}
-                      style={{ marginHorizontal: width / 50 }}
-                    />
-                    <TextInput
-                      style={{ width: "85%" }}
-                      value={image}
-                      // marginHorizontal = {width / 50}
-                      placeholder="Search images"
-                      placeholderTextColor="grey"
-                      onChangeText={(text) => {
-                        setImage(text);
-                        searchPhotos(text);
-                      }}
-                    />
-                  </View>
-                  <TouchableOpacity
-                    style={{ right: 0, position: "absolute" }}
-                    onPress={() => setModal(!modal)}
-                  >
-                    <Feather name="x-circle" size={25} />
-                  </TouchableOpacity>
+                <View style={styles.searchContainer}>
+                  <Icon
+                    name="search"
+                    size={width * 0.04}
+                    style={{ marginHorizontal: width / 50, opacity: 0.6 }}
+                  />
+                  <TextInput
+                    style={{ width: "85%" }}
+                    value={image}
+                    placeholder="Search images"
+                    placeholderTextColor="grey"
+                    onChangeText={(text) => {
+                      setImage(text);
+                      searchPhotos(text);
+                    }}
+                  />
                 </View>
                 <FlatList
                   showsVerticalScrollIndicator={false}
@@ -685,40 +667,30 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     color: "white",
   },
-  closeModal: {
-    borderRadius: 5,
-    marginVertical: 7,
-    alignSelf: "center",
-    backgroundColor: "#4997d0",
-  },
   pictureList: {
     alignSelf: "center",
-    marginTop: -5,
   },
   iconStyle: {
     marginHorizontal: 10,
   },
   searchContainer: {
+    alignSelf: "center",
     alignItems: "center",
     flexDirection: "row",
-    borderWidth: 0.3,
+    borderWidth: 1,
     borderRadius: 10,
-    backgroundColor: "#D3D3D3",
     borderColor: "#D3D3D3",
     marginVertical: height / 60,
-    marginHorizontal: width / 30,
-    right: 5,
-    height: 35,
+    height: height / 25,
   },
   modalView: {
-    marginVertical: 100,
+    marginVertical: height / 5,
     backgroundColor: "white",
     borderRadius: 10,
   },
   uploadPictureText: {
-    marginVertical: 10,
-    marginLeft: 10,
-    fontSize: 17,
+    margin: 10,
+    fontSize: width * 0.035,
     alignSelf: "center",
     color: "white",
   },
@@ -727,7 +699,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     bottom: 2,
     borderColor: "#abdcfb",
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
@@ -759,7 +731,6 @@ const styles = StyleSheet.create({
   tagTextContainer: {
     marginTop: height / 20,
     marginHorizontal: width / 20,
-    // marginTop: height / 50
   },
   lineContainer: {
     width: width / 1.1,
@@ -854,7 +825,7 @@ const styles = StyleSheet.create({
   inputLengths: {
     alignSelf: "flex-end",
     marginRight: width / 18,
-    top: height / 80,
+    top: 0.5,
   },
   nameBox: {
     borderRadius: 10,

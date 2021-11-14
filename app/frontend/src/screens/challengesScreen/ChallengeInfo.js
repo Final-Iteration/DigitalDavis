@@ -44,13 +44,58 @@ const ChallengeInfo = (props) => {
     setEndDate(`End: ${date[1]}-${date[2]}-${date[0].substring(2)}`);
   }, []);
 
-  // console.log("-------------CHALLENGE CLICKED-------------");
-  // console.log(challenge.id);
   const antButtonPressed = () => {
     setTimeout(() => {
       setAntButton(false);
       setParticipantModal(!participantModal);
     }, 250);
+  };
+  const addUserToChallenge = async () => {
+    try {
+      // console.log(challenge.id);
+      // TODO: Route should be /challenges/addParticipant/:id
+      const res = await axios.patch(
+        `/challenges/${challenge.id}`,
+        {
+          //TODO: Will need to pass in UserID, and make sure Challenge service is appending this into the challenge
+          //participants: [`${user.id}`]
+          participants: ["Test Participation Axios call"],
+        },
+        {
+          headers: {
+            id: id,
+            Authorization: authToken,
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  const removeUserFromChallenge = async () => {
+    try {
+      // console.log(challenge.id);
+      // TODO: Route should be /challenges/removeParticipant/:id
+      const res = await axios.patch(`/challenges/${challenge.id}`, {
+        //TODO: Will need to pass in UserID, and make sure Challenge service is removing the user from the challenge
+        //participants: [`${user.id}`]
+        participants: ["Test Participation Axios call"],
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  const showMsg = () => {
+    showMessage({
+      icon: "success",
+      position: "top",
+      message: null,
+      type: participationStatus ? "warning" : "success",
+      renderFlashMessageIcon: participationStatus ? UnjoinedBanner : JoinBanner,
+      style: { borderRadius: 15, top: 35, height: 50 },
+      statusBarHeight: 0,
+      floating: true,
+    });
   };
 
   return (
@@ -72,145 +117,98 @@ const ChallengeInfo = (props) => {
             }}
           />
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: height / 50,
-          }}
-        >
-          <Text style={styles.title}>{challenge.name}</Text>
+        <View style={styles.container}>
+          <View style={styles.titleAndAttendeesButton}>
+            <Text style={[styles.title, { width: "65%" }]}>
+              {challenge.name}
+            </Text>
+            <TouchableOpacity
+              style={[
+                styles.buttonContainer,
+                antButton
+                  ? { backgroundColor: "#142A4F" }
+                  : { backgroundColor: "white" },
+              ]}
+              onPress={() => {
+                setAntButton(true);
+                antButtonPressed();
+              }}
+            >
+              <View style={[styles.iconText, { margin: 5 }]}>
+                <Icon
+                  name="people-outline"
+                  size={width * 0.05}
+                  style={[antButton ? { color: "white" } : { color: "blue" }]}
+                />
+                <Text
+                  style={[
+                    { fontSize: 13, fontWeight: "bold" },
+                    antButton ? { color: "white" } : { color: "black" },
+                  ]}
+                >
+                  {`${challenge.participants.length} Attendees`}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.locationTime}>
+            <View style={styles.iconText}>
+              <Icon
+                name="ios-location-outline"
+                size={width * 0.05}
+                style={{ color: "blue" }}
+              />
+              <View style={{ width: width / 2.5 }}>
+                <Text style={styles.dateText}>{location}</Text>
+              </View>
+            </View>
+            <View style={styles.iconText}>
+              <Icon
+                name="calendar-outline"
+                size={25}
+                style={{ color: "blue" }}
+              />
+              <View>
+                <Text style={styles.dateText}>{startDate}</Text>
+                <Text style={styles.dateText}>{endDate}</Text>
+              </View>
+            </View>
+          </View>
+
+          <Text style={styles.about}>About</Text>
+          <Text style={styles.mainDescription}>{challenge.description}</Text>
           <TouchableOpacity
+            disabled={props.route.params.disableButton}
             style={[
-              styles.buttonContainer,
-              antButton
-                ? { backgroundColor: "#142A4F" }
-                : { backgroundColor: "white" },
+              styles.participatingButton,
+              {
+                backgroundColor: props.route.params.disableButton
+                  ? "#EBEBE4"
+                  : participationStatus
+                  ? "#90ee90"
+                  : "#DDDDDD",
+              },
             ]}
             onPress={() => {
-              setAntButton(true);
-              antButtonPressed();
+              /**
+               * Add a user to a challenge and change participationStatus to allow the UI to update accordingly
+               */
+              if (participationStatus == false) {
+                addUserToChallenge();
+                setStatus(!participationStatus);
+              } else {
+                removeUserFromChallenge();
+                setStatus(!participationStatus);
+              }
+              showMsg();
             }}
           >
-            <View style={[styles.iconText, { margin: 5 }]}>
-              <Icon
-                name="people-outline"
-                size={20}
-                style={[antButton ? { color: "white" } : { color: "blue" }]}
-              />
-              <Text
-                style={[
-                  { fontSize: 13, fontWeight: "bold" },
-                  antButton ? { color: "white" } : { color: "black" },
-                ]}
-              >
-                {`${challenge.participants.length} Attendees`}
-              </Text>
-            </View>
+            <Text style={styles.participate}>
+              {participationStatus ? "Participating" : "Participate"}
+            </Text>
           </TouchableOpacity>
         </View>
-
-        <View style={styles.locationTime}>
-          <View style={styles.iconText}>
-            <Icon
-              name="ios-location-outline"
-              size={25}
-              style={{ color: "blue" }}
-            />
-            <Text style={styles.dateText}>{location}</Text>
-          </View>
-          <View style={styles.iconText}>
-            <Icon name="calendar-outline" size={25} style={{ color: "blue" }} />
-            <View>
-              <Text style={styles.dateText}>{startDate}</Text>
-              <Text style={styles.dateText}>{endDate}</Text>
-            </View>
-          </View>
-        </View>
-
-        <Text style={styles.about}>About</Text>
-        <Text style={styles.mainDescription}>{challenge.description}</Text>
-
-        {/* API CALL TO UPDATE PARTICIPATION */}
-        <TouchableOpacity
-          disabled={props.route.params.disableButton}
-          style={[
-            styles.participatingButton,
-            {
-              backgroundColor: props.route.params.disableButton
-                ? "#EBEBE4"
-                : participationStatus
-                ? "#90ee90"
-                : "#DDDDDD",
-            },
-          ]}
-          onPress={() => {
-            const addUserToChallenge = async () => {
-              try {
-                // console.log(challenge.id);
-                // TODO: Route should be /challenges/addParticipant/:id
-                const res = await axios.patch(
-                  `/challenges/${challenge.id}`,
-                  {
-                    //TODO: Will need to pass in UserID, and make sure Challenge service is appending this into the challenge
-                    //participants: [`${user.id}`]
-                    participants: ["Test Participation Axios call"],
-                  },
-                  {
-                    headers: {
-                      id: id,
-                      Authorization: authToken,
-                    },
-                  }
-                );
-              } catch (error) {
-                console.log(error.message);
-              }
-            };
-            const removeUserFromChallenge = async () => {
-              try {
-                // console.log(challenge.id);
-                // TODO: Route should be /challenges/removeParticipant/:id
-                const res = await axios.patch(`/challenges/${challenge.id}`, {
-                  //TODO: Will need to pass in UserID, and make sure Challenge service is removing the user from the challenge
-                  //participants: [`${user.id}`]
-                  participants: ["Test Participation Axios call"],
-                });
-              } catch (error) {
-                console.log(error.message);
-              }
-            };
-
-            /**
-             * Add a user to a challenge and change participationStatus to allow the UI to update accordingly
-             */
-            if (participationStatus == false) {
-              addUserToChallenge();
-              setStatus(!participationStatus);
-            } else {
-              removeUserFromChallenge();
-              setStatus(!participationStatus);
-            }
-            showMessage({
-              icon: "success",
-              position: "top",
-              message: null,
-              type: participationStatus ? "warning" : "success",
-              renderFlashMessageIcon: participationStatus
-                ? UnjoinedBanner
-                : JoinBanner,
-              style: { borderRadius: 15, top: 35, height: 50 },
-              statusBarHeight: 0,
-              floating: true,
-            });
-          }}
-        >
-          <Text style={styles.participate}>
-            {participationStatus ? "Participating" : "Participate"}
-          </Text>
-        </TouchableOpacity>
-        {/* PARTICIPANT MODAL */}
         <Modal
           isVisible={participantModal}
           onBackdropPress={() => setParticipantModal(!participantModal)}
@@ -228,13 +226,24 @@ const ChallengeInfo = (props) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: width / 27,
+  },
+  titleAndAttendeesButton: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    // alignItems: "center",
+    marginTop: height / 50,
+  },
   dateText: {
-    fontSize: 15,
-    fontWeight: "500",
-    alignSelf: "center",
+    fontSize: width * 0.035,
+    fontWeight: "400",
+    alignSelf: "flex-start",
     left: 3,
   },
   buttonContainer: {
+    position: "absolute",
+    right: 0,
     borderRadius: 10,
     borderWidth: 0.7,
     borderColor: "blue",
@@ -244,12 +253,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.5,
     shadowRadius: 1,
-    right: width / 35,
   },
   title: {
-    fontWeight: "500",
-    fontSize: 25,
-    left: 17,
+    fontWeight: "600",
+    fontSize: width * 0.08,
   },
   modalView: {
     marginVertical: height / 5,
@@ -258,19 +265,10 @@ const styles = StyleSheet.create({
   },
   iconText: {
     flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 3,
-  },
-  date: {
-    fontSize: 16,
-    marginVertical: 8,
-    textDecorationLine: "underline",
   },
   locationTime: {
-    top: 10,
+    marginTop: height / 50,
     flexDirection: "row",
-    marginHorizontal: width / 30,
-    marginVertical: height / 105,
     justifyContent: "space-between",
   },
   image: {
@@ -280,22 +278,21 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   mainDescription: {
-    fontSize: 15,
+    fontSize: width * 0.04,
     fontWeight: "300",
-    marginHorizontal: 17,
+    marginTop: height / 50,
   },
   participatingButton: {
+    bottom: height / 100,
+    marginTop: height / 50,
     borderRadius: 8,
     width: width - 30,
-    marginVertical: height / 60,
-    borderRadius: 8,
     alignSelf: "center",
   },
   about: {
+    marginTop: height / 50,
     fontWeight: "300",
-    fontSize: 25,
-    left: 16,
-    marginVertical: 7,
+    fontSize: width * 0.06,
   },
   participate: {
     fontWeight: "500",
