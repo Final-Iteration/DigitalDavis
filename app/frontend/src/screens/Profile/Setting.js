@@ -117,54 +117,65 @@ const UserProfile = (props) => {
         <TouchableOpacity onPress={() => pickImage()}>
           <Avatar.Image
             style={styles.avatar}
-            size={110}
+            size={width / 4}
             source={{
               uri: profilePicture,
             }}
           />
-          <View style={styles.cameraIconView}>
-            <Icon name="camera" size={40} style={styles.cameraIcon} />
-          </View>
         </TouchableOpacity>
         <View style={{ top: -(height / 15) }}>
           <Text style={styles.fullName}>{`${firstName} ${lastName}`}</Text>
           <Text style={styles.title}>{title}</Text>
         </View>
-      </View>
-      <View style={{ backgroundColor: "#f2f2f2" }}>
-        <Field
-          title="First Name"
-          text={firstName}
-          setting={true}
-          callback={setFirstName}
-        />
-        <Field
-          title="Last Name"
-          text={lastName}
-          setting={true}
-          callback={setLastName}
-        />
-        <Field
-          title="Age"
-          text={age.toString()}
-          setting={false}
-          callback={setAge}
-        />
-        <Field
-          title="Date of Birth"
-          text={birthday}
-          setting={true}
-          dob={true}
-          callback={onBirthdateChange}
-        />
-        <Field
-          title="Department"
-          text={department}
-          setting={true}
-          callback={setDepartment}
-        />
-        <Field title="Title" text={title} setting={true} callback={setTitle} />
-        <Field title="Email" text={email} setting={true} callback={setEmail} />
+        <View
+          style={{
+            top: -(height / 15),
+          }}
+        >
+          <Field
+            title="First Name"
+            text={firstName}
+            setting={true}
+            callback={setFirstName}
+          />
+          <Field
+            title="Last Name"
+            text={lastName}
+            setting={true}
+            callback={setLastName}
+          />
+          <Field
+            title="Age"
+            text={age.toString()}
+            setting={false}
+            callback={setAge}
+          />
+          <Field
+            title="Date of Birth"
+            text={birthday}
+            setting={true}
+            dob={true}
+            callback={onBirthdateChange}
+          />
+          <Field
+            title="Department"
+            text={department}
+            setting={true}
+            callback={setDepartment}
+          />
+          <Field
+            title="Title"
+            text={title}
+            setting={true}
+            callback={setTitle}
+          />
+          <Field
+            title="Email"
+            text={email}
+            setting={true}
+            callback={setEmail}
+          />
+        </View>
       </View>
       <TouchableOpacity
         style={styles.saveChangeButton}
@@ -177,42 +188,21 @@ const UserProfile = (props) => {
 };
 const styles = StyleSheet.create({
   saveChangeButton: {
-    textAlign: "center",
-    height: height / 13,
     width: "100%",
     backgroundColor: "#142A4F",
-    borderRadius: 10,
   },
   saveChangeText: {
-    marginVertical: height / 50,
+    marginVertical: 20,
     color: "white",
     fontWeight: "500",
     fontSize: width * 0.05,
     alignSelf: "center",
   },
-  cameraIconView: {
-    alignItems: "center",
-    position: "absolute",
-    alignSelf: "center",
-    height: 110,
-    width: 110,
-    borderRadius: 100,
-    opacity: 0.8,
-    backgroundColor: "grey",
-    top: -60,
-  },
-  cameraIcon: { color: "black", marginVertical: "30%" },
   avatar: {
-    top: -60,
+    top: -50,
     alignSelf: "center",
     tintColor: "grey",
   },
-  uploadBtn: {
-    display: "flex",
-    position: "absolute",
-    alignSelf: "center",
-  },
-
   fullName: {
     fontSize: width * 0.07,
     fontWeight: "500",
@@ -224,10 +214,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   imageView: {
-    top: 0,
+    height: "90%",
     width: "100%",
-    height: height / 4.5,
-    alignItems: "center",
     backgroundColor: "rgba(242,242,242,255)",
   },
   halfImageView: {

@@ -18,7 +18,7 @@ const Field = ({ title, text, setting, callback, dob }) => {
     canEdit = false;
   }
   return (
-    <ScrollView style={styles.parent}>
+    <View style={styles.parent}>
       <View style={{ flexDirection: "row" }}>
         <Text style={styles.fieldTitle}>{title}</Text>
         {setting ? <Text style={styles.changeButton}>Change</Text> : null}
@@ -43,14 +43,13 @@ const Field = ({ title, text, setting, callback, dob }) => {
           />
         )}
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   indivField: {
     borderBottomWidth: 0.5,
-    // MarginTop: height/15,
   },
   fieldTitle: {
     left: 0,
@@ -63,6 +62,7 @@ const styles = StyleSheet.create({
     right: 0,
     position: "absolute",
   },
+
   parent: {
     width: width - 80,
     marginVertical: height / 40,

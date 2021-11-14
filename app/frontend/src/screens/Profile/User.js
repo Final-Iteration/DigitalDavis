@@ -72,38 +72,34 @@ const UserProfile = (props) => {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.imageView}>
-        <View style={styles.halfImageView}></View>
-        <Avatar.Image
-          style={{
-            top: -(height / 15),
-            alignSelf: "center",
-            backgroundColor: "white",
-          }}
-          size={width / 4}
-          source={{
-            uri: profilePicture,
-          }}
-        />
+      <View style={[styles.imageView, { top: height / 15 }]}>
+        <View style={{}}>
+          <Avatar.Image
+            style={{
+              top: -(height / 15),
+              alignSelf: "center",
+              backgroundColor: "white",
+            }}
+            size={width / 4}
+            source={{
+              uri: profilePicture,
+            }}
+          />
+        </View>
         <View style={{ top: -(height / 15) }}>
           <Text style={styles.fullName}>{fullName}</Text>
           <Text style={styles.title}>{title}</Text>
         </View>
+        <View style={{ top: -(height / 15) }}>
+          <Field title="Name" text={fullName} />
+          <Field title="Age" text={age.toString()} />
+          <Field title="Date of Birth" text={birthday} />
+          <Field title="Department" text={department} />
+          <Field title="Title" text={title} />
+          <Field title="Email" text={email} />
+        </View>
       </View>
-      <View
-        style={{
-          alignSelf: "center",
-          backgroundColor: "#f2f2f2",
-          width: width,
-        }}
-      >
-        <Field title="Name" text={fullName} />
-        <Field title="Age" text={age.toString()} />
-        <Field title="Date of Birth" text={birthday} />
-        <Field title="Department" text={department} />
-        <Field title="Title" text={title} />
-        <Field title="Email" text={email} />
-      </View>
+
       <TouchableOpacity style={styles.logOutButton} onPress={() => logout()}>
         <Text style={styles.logOutText}>Log out</Text>
       </TouchableOpacity>
@@ -125,23 +121,16 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   imageView: {
-    top: 0,
     width: "100%",
-    height: height / 4.5,
     alignItems: "center",
     backgroundColor: "rgba(242,242,242,255)",
   },
-  halfImageView: {
-    width: width,
-    height: height / 13,
-    backgroundColor: "#142A4F",
-  },
+
   logOutButton: {
     textAlign: "center",
     height: height / 13,
     width: "100%",
     backgroundColor: "#142A4F",
-    borderRadius: 10,
   },
   logOutText: {
     marginVertical: height / 50,
