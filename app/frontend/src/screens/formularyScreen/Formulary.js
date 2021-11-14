@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
+const { height, width } = Dimensions.get("window");
 const Formulary = (props) => {
   return (
     <View style={styles.container}>
@@ -17,11 +17,11 @@ const Formulary = (props) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: "30%",
-    marginTop: "50%",
+    marginVertical: height / 5,
   },
   gif: {
-    height: "90%",
+    alignSelf: "center",
+    height: "85%",
     width: "100%",
   },
 });
