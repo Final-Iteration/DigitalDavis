@@ -156,7 +156,7 @@ const ChallengeInfo = (props) => {
             <View style={styles.iconText}>
               <Icon
                 name="ios-location-outline"
-                size={width * 0.05}
+                size={width * 0.04}
                 style={{ color: "blue" }}
               />
               <View style={{ width: width / 2.5 }}>
@@ -166,12 +166,16 @@ const ChallengeInfo = (props) => {
             <View style={styles.iconText}>
               <Icon
                 name="calendar-outline"
-                size={25}
+                size={width * 0.04}
                 style={{ color: "blue" }}
               />
               <View>
-                <Text style={styles.dateText}>{startDate}</Text>
-                <Text style={styles.dateText}>{endDate}</Text>
+                <Text style={[styles.dateText, { alignSelf: "flex-end" }]}>
+                  {startDate}
+                </Text>
+                <Text style={[styles.dateText, { alignSelf: "flex-end" }]}>
+                  {endDate}
+                </Text>
               </View>
             </View>
           </View>
