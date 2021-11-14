@@ -6,7 +6,6 @@ import {
   FlatList,
   Text,
   Dimensions,
-  View,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import ChallengeBox from "./components/ChallengeBox";
@@ -46,7 +45,7 @@ const CurrentChallenges = (props) => {
     try {
       const id = await asyncStorage.getData("ID");
       const authToken = await asyncStorage.getData("Authorization");
-      const getAllChallenges = await axios.get("/challenges", {
+      const getAllChallenges = await axios.get("/challenges?limit=10000", {
         headers: {
           id: id,
           Authorization: authToken,
@@ -54,7 +53,6 @@ const CurrentChallenges = (props) => {
       });
       setId(id);
       setAllChallenge(getAllChallenges.data.results);
-
       getAllChallenges.data.results.map((challenge) => {
         if (challenge.participants.includes(id)) {
           setCurrentChallenges((oldArray) => [...oldArray, challenge]);
