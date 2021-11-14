@@ -22,125 +22,10 @@ const CustomHeader = ({
   challenge,
   challengeInfo,
   CreateChallengeTags,
-  CreateChallengeDate,
-  CreateChallengeDescription,
 }) => {
   //get user profile
   useEffect(() => {});
-  const r = () => {
-    if (CreateChallengeTags) {
-      return (
-        <TouchableOpacity
-          style={{
-            left: 5,
-            flexDirection: "row",
-            alignSelf: "center",
-          }}
-        >
-          <Ionicon
-            name="ios-chevron-back-outline"
-            size={30}
-            style={{ color: "#2F80ED", opacity: 0 }}
-          />
-          <Text style={{ opacity: 0 }}>Back</Text>
-        </TouchableOpacity>
-      );
-    } else {
-      return (
-        <TouchableOpacity style={styles.plusButton}>
-          <AntDesign
-            name="plus"
-            size={28}
-            color="black"
-            style={{ opacity: 0 }}
-          />
-        </TouchableOpacity>
-      );
-    }
-  };
 
-  // if (CreateChallengeDescription) {
-  //   return (
-  //     <Appbar.Header
-  //       statusBarHeight={barHeight}
-  //       style={{
-  //         backgroundColor: "#fff",
-  //         elevation: 0,
-  //       }}
-  //     >
-  //       <View style={styles.tagPageContainerGustav}>
-  //         <TouchableOpacity
-  //           onPress={() => {
-  //             navigation.navigate("CreateChallengeDate");
-  //           }}
-  //         >
-  //           <Text style={styles.backButtonGustav}>Back</Text>
-  //         </TouchableOpacity>
-  //         <TouchableOpacity
-  //           onPress={() => {
-  //             navigation.navigate("Challenge");
-  //           }}
-  //         >
-  //           <Text style={styles.nextButtonGustav}>Create</Text>
-  //         </TouchableOpacity>
-  //       </View>
-  //     </Appbar.Header>
-  //   );
-  // } else if (CreateChallengeDate) {
-  //   return (
-  //     <Appbar.Header
-  //       statusBarHeight={barHeight}
-  //       style={{
-  //         backgroundColor: "#fff",
-  //         elevation: 0,
-  //       }}
-  //     >
-  //       <View style={styles.tagPageContainerGustav}>
-  //         <TouchableOpacity
-  //           onPress={() => {
-  //             navigation.navigate("CreateChallengeTags");
-  //           }}
-  //         >
-  //           <Text style={styles.backButtonGustav}>Back</Text>
-  //         </TouchableOpacity>
-  //         <TouchableOpacity
-  //           onPress={() => {
-  //             navigation.navigate("CreateChallengeDescription");
-  //           }}
-  //         >
-  //           <Text style={styles.nextButtonGustav}>Next</Text>
-  //         </TouchableOpacity>
-  //       </View>
-  //     </Appbar.Header>
-  //   );
-  // } else if (CreateChallengeTags) {
-  //   return (
-  //     <Appbar.Header
-  //       statusBarHeight={barHeight}
-  //       style={{
-  //         backgroundColor: "#fff",
-  //         elevation: 0,
-  //       }}
-  //     >
-  //       <View style={styles.tagPageContainerGustav}>
-  //         <TouchableOpacity
-  //           onPress={() => {
-  //             navigation.navigate("Challenge");
-  //           }}
-  //         >
-  //           <Text style={styles.backButtonGustav}>Back</Text>
-  //         </TouchableOpacity>
-  //         <TouchableOpacity
-  //           onPress={() => {
-  //             navigation.navigate("CreateChallengeDate");
-  //           }}
-  //         >
-  //           <Text style={styles.nextButtonGustav}>Next</Text>
-  //         </TouchableOpacity>
-  //       </View>
-  //     </Appbar.Header>
-  //   );
-  // } else
   if (challengeInfo) {
     return (
       <Appbar.Header
@@ -167,7 +52,6 @@ const CustomHeader = ({
             navigation.navigate("Challenge");
           }}
         />
-
         <Appbar.Content
           style={styles.headerStyle}
           title={<Text style={styles.title}>{title}</Text>}
@@ -318,7 +202,7 @@ const CustomHeader = ({
                 </TouchableOpacity>
               );
             } else {
-              return r();
+              return null;
             }
           }}
           onPress={() => navigation.navigate("User")}
@@ -338,14 +222,10 @@ const styles = StyleSheet.create({
     // alignItems: "center",
   },
   title: {
-    fontSize: 25,
+    fontSize: width * 0.06,
     fontWeight: "300",
   },
-  logOutButton: {
-    fontSize: 17,
-    color: "#2F80ED",
-    fontWeight: "500",
-  },
+
   nextButtonGustav: {
     right: width / 20,
     fontSize: 20,
