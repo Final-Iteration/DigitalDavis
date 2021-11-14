@@ -142,7 +142,7 @@ const ChallengeInfo = (props) => {
                 />
                 <Text
                   style={[
-                    { fontSize: 13, fontWeight: "bold" },
+                    { fontSize: 13, fontWeight: "bold", alignSelf: "center" },
                     antButton ? { color: "white" } : { color: "black" },
                   ]}
                 >
