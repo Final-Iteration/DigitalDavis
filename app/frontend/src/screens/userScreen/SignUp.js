@@ -86,7 +86,7 @@ const Signup = (props) => {
       >
         <View style={styles.container}>
           <TextInput
-            autoCapitalize="none"
+            maxLength={30}
             autoCorrect={false}
             style={styles.textInput}
             placeholder="First Name"
@@ -94,7 +94,7 @@ const Signup = (props) => {
             onChangeText={(text) => setFirstName(text)}
           />
           <TextInput
-            autoCapitalize="none"
+            maxLength={30}
             autoCorrect={false}
             style={styles.textInput}
             placeholder="Last Name"
@@ -103,10 +103,10 @@ const Signup = (props) => {
           />
           <TextInput
             style={styles.textInput}
+            maxLength={50}
             placeholder="Email"
             value={email}
             onChangeText={(text) => setEmail(text)}
-            autoCapitalize="none"
             autoCorrect={false}
           />
           <TextInput
@@ -132,7 +132,6 @@ const Signup = (props) => {
             placeholder="Title"
             value={title}
             onChangeText={(text) => setTitle(text)}
-            autoCapitalize="none"
             autoCorrect={false}
           />
           <TextInput
@@ -140,7 +139,6 @@ const Signup = (props) => {
             placeholder="Department"
             value={department}
             onChangeText={(text) => setDepartment(text)}
-            autoCapitalize="none"
             autoCorrect={false}
           />
           <TouchableOpacity
