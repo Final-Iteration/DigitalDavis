@@ -35,6 +35,7 @@ const CustomHeader = ({
         }}
       >
         <Appbar.Action
+          animated={false}
           icon={() => (
             <Ionicon
               name="ios-chevron-back-outline"
@@ -62,6 +63,7 @@ const CustomHeader = ({
         }}
       >
         <Appbar.Action
+          animated={false}
           icon={() => (
             <Ionicon
               name="ios-chevron-back-outline"
@@ -90,6 +92,7 @@ const CustomHeader = ({
       >
         {setting ? (
           <Appbar.Action
+            animated={false}
             style={styles.leftAction}
             icon={() => (
               <Avatar.Image
@@ -145,7 +148,7 @@ const CustomHeader = ({
           animated={false}
           icon={() => (
             <Avatar.Image
-              size={40}
+              size={width * 0.08}
               source={{
                 uri: "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png",
               }}
@@ -168,7 +171,7 @@ const CustomHeader = ({
                   onPress={() => navigation.navigate("CreateChallengeTags")}
                   style={styles.plusButton}
                 >
-                  <AntDesign name="plus" size={25} color="black" />
+                  <AntDesign name="plus" size={width * 0.06} color="black" />
                 </TouchableOpacity>
               );
             } else {
