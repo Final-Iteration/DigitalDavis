@@ -24,7 +24,7 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
 import Modal from "react-native-modal";
 import axios from "../../axios";
 import UnplashImage from "./components/UnplashImage";
-import CreateChallengeBanner from "./components/banners/UnjoinedBanner";
+import CreateChallengeBanner from "./components/banners/CreateChallengeBanner";
 import { showMessage } from "react-native-flash-message";
 
 const asyncStorage = require("../../asyncStorage");

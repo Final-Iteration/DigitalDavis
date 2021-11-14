@@ -26,7 +26,6 @@ const UserProfile = (props) => {
   const [birthday, setBirthday] = useState("");
   const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
-
   function getAge(birthDate) {
     return Math.floor(
       (new Date() - new Date(birthDate).getTime()) / 3.15576e10
@@ -68,7 +67,7 @@ const UserProfile = (props) => {
     //remove token from async storage
     asyncStorage.removeData("ID");
     asyncStorage.removeData("Authorization");
-    // props.navigation.navigate("Auth");
+    props.navigation.navigate("Auth");
   };
 
   return (
