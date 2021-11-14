@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { showMessage } from "react-native-flash-message";
-import JoinBanner from "./components/JoinBanner";
-import UnjoinedBanner from "./components/UnjoinedBanner";
+import JoinBanner from "./components/banners/JoinBanner";
+import UnjoinedBanner from "./components/banners/UnjoinedBanner";
 import Modal from "react-native-modal";
 import Participant from "./components/Participant";
 import axios from "../../axios";
@@ -220,15 +220,6 @@ const ChallengeInfo = (props) => {
             showsVerticalScrollIndicator={false}
           >
             <Participant participants={challenge.participants} />
-            <TouchableOpacity
-              style={{
-                alignSelf: "center",
-                marginVertical: height / 65,
-              }}
-              onPress={() => setParticipantModal(!participantModal)}
-            >
-              <Text style={{ fontSize: 17, color: "blue" }}>Close</Text>
-            </TouchableOpacity>
           </ScrollView>
         </Modal>
       </ScrollView>
@@ -244,10 +235,7 @@ const styles = StyleSheet.create({
     left: 3,
   },
   buttonContainer: {
-    // height: 35,
     borderRadius: 10,
-
-    // width: 115,
     borderWidth: 0.7,
     borderColor: "blue",
     alignItems: "center",
@@ -283,7 +271,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginHorizontal: width / 30,
     marginVertical: height / 105,
-    // alignSelf: "flex-start",
     justifyContent: "space-between",
   },
   image: {

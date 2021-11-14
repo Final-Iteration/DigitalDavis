@@ -49,7 +49,6 @@ const Login = (props) => {
         "Authorization",
         "Bearer " + res.data.tokens.access.token
       );
-      console.log(props.navigation);
       props.navigation.navigate("Main");
       //props.navigation.navigate("Main");
     } catch (error) {

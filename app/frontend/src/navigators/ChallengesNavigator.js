@@ -1,10 +1,10 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
+import CreateChallenge from "../screens/challengesScreen/CreateChallenge";
 import CurrentChallenge from "../screens/challengesScreen/CurrentChallenge";
 import ChallengeInfo from "../screens/challengesScreen/ChallengeInfo";
-import CreateChallengeScreen from "../screens/challengesScreen/CreateChallengeScreen";
-import CreateChallengeScreenTags from "../screens/challengesScreen/CreateChallengeScreenTags";
+
+import CreateChallengeScreenTags from "../screens/challengesScreen/CreateChallenge";
 import Header from "../sharedComponent/Header";
 const Stack = createStackNavigator();
 
@@ -38,21 +38,8 @@ function MyStack() {
         }}
       />
       <Stack.Screen
-        name="CreateChallenge"
-        component={CreateChallengeScreen}
-        options={{
-          header: ({ scene, previous, navigation }) => (
-            <Header
-              createChallenge={true}
-              title="Create Challenge"
-              navigation={navigation}
-            />
-          ),
-        }}
-      />
-      <Stack.Screen
         name="CreateChallengeTags"
-        component={CreateChallengeScreenTags}
+        component={CreateChallenge}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
