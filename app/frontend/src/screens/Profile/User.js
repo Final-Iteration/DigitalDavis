@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(242,242,242,255)",
   },
-
   logOutButton: {
     textAlign: "center",
     height: height / 13,

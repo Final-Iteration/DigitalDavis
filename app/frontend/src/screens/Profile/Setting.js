@@ -127,55 +127,46 @@ const UserProfile = (props) => {
           <Text style={styles.fullName}>{`${firstName} ${lastName}`}</Text>
           <Text style={styles.title}>{title}</Text>
         </View>
-        <View
-          style={{
-            top: -(height / 15),
-          }}
-        >
-          <Field
-            title="First Name"
-            text={firstName}
-            setting={true}
-            callback={setFirstName}
-          />
-          <Field
-            title="Last Name"
-            text={lastName}
-            setting={true}
-            callback={setLastName}
-          />
-          <Field
-            title="Age"
-            text={age.toString()}
-            setting={false}
-            callback={setAge}
-          />
-          <Field
-            title="Date of Birth"
-            text={birthday}
-            setting={true}
-            dob={true}
-            callback={onBirthdateChange}
-          />
-          <Field
-            title="Department"
-            text={department}
-            setting={true}
-            callback={setDepartment}
-          />
-          <Field
-            title="Title"
-            text={title}
-            setting={true}
-            callback={setTitle}
-          />
-          <Field
-            title="Email"
-            text={email}
-            setting={true}
-            callback={setEmail}
-          />
-        </View>
+      </View>
+      <View
+        style={{
+          top: -(height / 15),
+          backgroundColor: "rgba(242,242,242,255)",
+        }}
+      >
+        <Field
+          title="First Name"
+          text={firstName}
+          setting={true}
+          callback={setFirstName}
+        />
+        <Field
+          title="Last Name"
+          text={lastName}
+          setting={true}
+          callback={setLastName}
+        />
+        <Field
+          title="Age"
+          text={age.toString()}
+          setting={false}
+          callback={setAge}
+        />
+        <Field
+          title="Date of Birth"
+          text={birthday}
+          setting={true}
+          dob={true}
+          callback={onBirthdateChange}
+        />
+        <Field
+          title="Department"
+          text={department}
+          setting={true}
+          callback={setDepartment}
+        />
+        <Field title="Title" text={title} setting={true} callback={setTitle} />
+        <Field title="Email" text={email} setting={true} callback={setEmail} />
       </View>
       <TouchableOpacity
         style={styles.saveChangeButton}
@@ -188,11 +179,11 @@ const UserProfile = (props) => {
 };
 const styles = StyleSheet.create({
   saveChangeButton: {
+    top: -(height / 25),
     width: "100%",
     backgroundColor: "#142A4F",
   },
   saveChangeText: {
-    marginVertical: 20,
     color: "white",
     fontWeight: "500",
     fontSize: width * 0.05,
@@ -214,7 +205,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   imageView: {
-    height: "90%",
     width: "100%",
     backgroundColor: "rgba(242,242,242,255)",
   },
