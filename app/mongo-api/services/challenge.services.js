@@ -127,14 +127,17 @@ const allChallenges = async () => {
   return challenges;
 };
 
-const getCreatorWChallenge = async (id) => {
-  const thisChallenge = Challenge.findOne({ id });
-  console.log(thisChallenge);
-  // const thisCreator = User.findOne()
-  // const creator = await User.findOne({ _id: ID });
-  // console.log(ID);
-  // console.log(creator);
- 
+const challengeCreator = async (challengeId) => {
+  const thisChallenge = Challenge.findOne({ id: challengeId });
+  const creatorID = thisChallenge.creator;
+  const creatorInfo = User.findOne({ id: creatorID});
+  console.log(creatorID);
+  return creatorInfo;
+
+
+  const getChallengeById = async (challengeId) => {
+    return Challenge.findOne({ _id: challengeId });
+  };
 };
 
 /**
@@ -154,5 +157,5 @@ module.exports = {
   activeChallenges,
   pastChallenges,
   allChallenges,
-  getCreatorWChallenge
+  challengeCreator
 };

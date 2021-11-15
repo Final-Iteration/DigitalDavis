@@ -24,7 +24,7 @@ const getChallenge = catchAsync(async (req, res) => {
   if (!challenge) {
     throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
   }
-  res.send({challengeInfo: result, creatorInfo: creator});
+  res.send({challengeInfo: challenge, creatorInfo: creator});
   });
 
 const updateChallenge = catchAsync(async (req, res) => {
