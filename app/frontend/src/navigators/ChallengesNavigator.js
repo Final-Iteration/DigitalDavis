@@ -3,14 +3,16 @@ import { createStackNavigator } from "@react-navigation/stack";
 import CreateChallenge from "../screens/challengesScreen/CreateChallenge";
 import CurrentChallenge from "../screens/challengesScreen/CurrentChallenge";
 import ChallengeInfo from "../screens/challengesScreen/ChallengeInfo";
-
-import CreateChallengeScreenTags from "../screens/challengesScreen/CreateChallenge";
 import Header from "../sharedComponent/Header";
 const Stack = createStackNavigator();
 
 function MyStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName="Challenge"
+      mode="modal" // top to bottom instead of left to right
+      headerMode="screen"
+    >
       <Stack.Screen
         name="Challenge"
         component={CurrentChallenge}
@@ -27,15 +29,7 @@ function MyStack() {
       <Stack.Screen
         name="ChallengeInformation"
         component={ChallengeInfo}
-        options={{
-          header: ({ scene, previous, navigation }) => (
-            <Header
-              challengeInfo={true}
-              navigation={navigation}
-              challenge={true}
-            />
-          ),
-        }}
+        options={{ title: null }}
       />
       <Stack.Screen
         name="CreateChallengeTags"
@@ -45,7 +39,6 @@ function MyStack() {
     </Stack.Navigator>
   );
 }
-
 export default function ChallengeNavigator() {
   return <MyStack />;
 }

@@ -24,7 +24,6 @@ const CustomHeader = ({
 }) => {
   //get user profile
   useEffect(() => {});
-
   if (challengeInfo) {
     return (
       <Appbar.Header
