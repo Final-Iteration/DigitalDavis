@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   View,
@@ -7,9 +7,9 @@ import {
   Button,
   TextInput,
   Dimensions,
-  Image,
   ImageBackground,
   TouchableOpacity,
+  Animated,
 } from "react-native";
 import axios from "../../axios";
 
@@ -17,10 +17,18 @@ const asyncStorage = require("../../asyncStorage");
 
 const { width, height } = Dimensions.get("window");
 const imageSource = require("../../../assets/blurredDavis.jpg");
+const loadingImg = require("../../../assets/image_processing.gif");
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 2000,
+    }).start();
+  }, [fadeAnim]);
 
   const blankInputCheck = () => {
     if (email.length === 0 || password.length === 0) {
@@ -58,8 +66,7 @@ const Login = (props) => {
 
   return (
     <ImageBackground style={styles.imageStyle} source={imageSource}>
-      {/* this will be removed! when we have our login API set up*/}
-      <View style={styles.viewMargins}>
+      <Animated.View style={[styles.viewMargins, { opacity: fadeAnim }]}>
         <Text style={styles.login}>Welcome</Text>
         <TextInput
           style={styles.emailPassStyle}
@@ -108,7 +115,7 @@ const Login = (props) => {
           color="white"
           onPress={() => props.navigation.navigate("Main")}
         />
-      </View>
+      </Animated.View>
     </ImageBackground>
   );
 };

@@ -56,6 +56,7 @@
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
     "react-navigation-tabs": "^2.11.1",
+    "rnal": "^0.2.1",
     "unsplash-js": "^7.0.15"
   },
   "devDependencies": {

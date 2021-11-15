@@ -10,7 +10,7 @@ function MyStack() {
   return (
     <Stack.Navigator
       initialRouteName="Challenge"
-      mode="modal" // top to bottom instead of left to right
+      //mode="modal" // top to bottom instead of left to right
       headerMode="screen"
     >
       <Stack.Screen
@@ -32,9 +32,10 @@ function MyStack() {
         options={{ title: null }}
       />
       <Stack.Screen
-        name="CreateChallengeTags"
+        name="CreateChallenge"
         component={CreateChallenge}
         options={{ headerShown: false }}
+        mode="modal" // top to bottom instead of left to right
       />
     </Stack.Navigator>
   );

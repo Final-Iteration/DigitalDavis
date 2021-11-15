@@ -167,7 +167,7 @@ const CustomHeader = ({
             if (challenge) {
               return (
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("CreateChallengeTags")}
+                  onPress={() => navigation.navigate("CreateChallenge")}
                   style={styles.plusButton}
                 >
                   <AntDesign name="plus" size={width * 0.06} color="black" />
