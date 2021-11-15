@@ -158,6 +158,7 @@ const CreateChallengeScreenTags = (props) => {
   const [selectedPhoto, setSelectedPhoto] = useState(
     "https://mpama.com/wp-content/uploads/2017/04/default-image-620x600.jpg"
   ); //url of a single picture chosen by user
+  const [unsplashError, setUnsplashError] = useState("");
 
   const searchPhotos = async (text) => {
     try {
@@ -171,6 +172,7 @@ const CreateChallengeScreenTags = (props) => {
         })
       );
     } catch (err) {
+      setUnsplashError(err);
       console.log(err);
     }
   };
@@ -544,8 +546,7 @@ const CreateChallengeScreenTags = (props) => {
             extraScrollHeight={20}
           >
             <Text style={styles.headerTextDescription}>
-              Give your challenge a name and description.{" "}
-              {process.env.ACCESSKEY}
+              Give your challenge a name and description.
             </Text>
             <Text style={styles.secondHeaderTextDescription}>
               Don't worry about it too much you can change it later.
