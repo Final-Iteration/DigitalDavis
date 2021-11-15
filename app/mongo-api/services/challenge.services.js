@@ -128,10 +128,11 @@ const allChallenges = async () => {
 };
 
 const challengeCreator = async (challengeId) => {
-  const thisChallenge = Challenge.findOne({ id: challengeId });
+  const thisChallenge = await Challenge.findOne({ _id: challengeId });
   const creatorID = thisChallenge.creator;
-  const creatorInfo = User.findOne({ id: creatorID});
+  const creatorInfo = await User.findOne({ _id: creatorID});
   console.log(creatorID);
+
   return creatorInfo;
 };
 
@@ -143,13 +144,15 @@ const getParticipants = async (challengeId) => {
   return participantsInfo;
 };
 
-const updateParticipants = async (challengeId) => {
-  const thisChallenge = Challenge.findOne({ id: challengeId });
-  const people = thisChallenge.participants;
-  const participantsInfo = User.find({ id: people});
-  console.log(people);
-  return participantsInfo;
-};
+const updateParticipants = async (challengeId, userID) => {
+Challenge.update(
+    {"id": challengeId},
+    {"$push":{participants: userID }},
+    function (err, raw) {
+        if (err) return handleError(err);
+        console.log('The raw response from Mongo was ', raw);
+    }
+)};
 
 const deleteParticipants = async (challengeId) => {
   const thisChallenge = Challenge.findOne({ id: challengeId });
