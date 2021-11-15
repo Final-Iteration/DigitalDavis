@@ -133,13 +133,31 @@ const challengeCreator = async (challengeId) => {
   const creatorInfo = User.findOne({ id: creatorID});
   console.log(creatorID);
   return creatorInfo;
-
-
-  const getChallengeById = async (challengeId) => {
-    return Challenge.findOne({ _id: challengeId });
-  };
 };
 
+const getParticipants = async (challengeId) => {
+  const thisChallenge = Challenge.findOne({ id: challengeId });
+  const people = thisChallenge.participants;
+  const participantsInfo = User.find({ id: people});
+  console.log(people);
+  return participantsInfo;
+};
+
+const updateParticipants = async (challengeId) => {
+  const thisChallenge = Challenge.findOne({ id: challengeId });
+  const people = thisChallenge.participants;
+  const participantsInfo = User.find({ id: people});
+  console.log(people);
+  return participantsInfo;
+};
+
+const deleteParticipants = async (challengeId) => {
+  const thisChallenge = Challenge.findOne({ id: challengeId });
+  const people = thisChallenge.participants;
+  const participantsInfo = User.find({ id: people});
+  console.log(people);
+  return participantsInfo;
+};
 /**
  * Filter challenges with start date > today
  * and end date < today
@@ -157,5 +175,6 @@ module.exports = {
   activeChallenges,
   pastChallenges,
   allChallenges,
-  challengeCreator
+  challengeCreator,
+  getParticipants
 };

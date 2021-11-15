@@ -55,6 +55,23 @@ const getAllChallenges = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getParticipants = catchAsync(async (req, res) => {
+  const result = await challengeService.getParticipants(req.params.Id);
+  res.send(result);
+});
+
+const  updateParticipants = catchAsync(async (req, res) => {
+  const result = await challengeService.updateParticipants(req.params.Id);
+  res.send(result);
+});
+
+///////////// TO DO ////////////////////////////////
+const deleteParticipants = catchAsync(async (req, res) => {
+  const result = await challengeService.deleteParticipants(req.params.Id);
+  res.send(result);
+});
+
+
 module.exports = {
   createChallenge,
   getChallenges,
@@ -64,4 +81,7 @@ module.exports = {
   getActiveChallenges,
   getPastChallenges,
   getAllChallenges,
+  getParticipants,
+  updateParticipants,
+  deleteParticipants
 };
