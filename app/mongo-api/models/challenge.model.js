@@ -81,12 +81,12 @@ const challengeSchema = mongoose.Schema({
       message: "End Date must be after start date within 1 year.",
     },
   },
-  // participants: {
-  //   type: [String],
-  //   required: false,
-  //   default: function () {
-  //     return this.creator;
-  //   },
+  participants: [{
+    type: [String],
+    type: Schema.Types.ObjectId, required: true, ref: 'User'
+    //default: function () {
+    //  return this.creator;
+    }],
   // },
 });
 
