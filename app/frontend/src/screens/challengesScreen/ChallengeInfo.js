@@ -236,7 +236,6 @@ const styles = StyleSheet.create({
   titleAndAttendeesButton: {
     flexDirection: "row",
     justifyContent: "space-between",
-    // alignItems: "center",
     marginTop: height / 50,
   },
   dateText: {
