@@ -17,7 +17,6 @@ const asyncStorage = require("../../asyncStorage");
 
 const { width, height } = Dimensions.get("window");
 const imageSource = require("../../../assets/blurredDavis.jpg");
-const loadingImg = require("../../../assets/image_processing.gif");
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
