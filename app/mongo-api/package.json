@@ -16,8 +16,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "config": "^3.3.6",
     "bcryptjs": "^2.4.3",
+    "config": "^3.3.6",
     "dotenv": "^10.0.0",
     "eslint": "^8.0.1",
     "express": "^4.17.1",
