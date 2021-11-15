@@ -178,7 +178,6 @@ const CustomHeader = ({
               return null;
             }
           }}
-          onPress={() => navigation.navigate("User")}
         />
       </Appbar.Header>
     );
