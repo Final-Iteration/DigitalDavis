@@ -20,11 +20,12 @@ const getChallenges = catchAsync(async (req, res) => {
 
 const getChallenge = catchAsync(async (req, res) => {
   const challenge = await challengeService.getChallengeById(req.params.Id);
+  const creator = await challengeService.challengeCreator(req.params.Id);
   if (!challenge) {
     throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
   }
-  res.send(challenge);
-});
+  res.send({challengeInfo: result, creatorInfo: creator});
+  });
 
 const updateChallenge = catchAsync(async (req, res) => {
   const challenge = await challengeService.updateChallengeById(
