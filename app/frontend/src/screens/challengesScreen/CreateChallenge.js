@@ -26,7 +26,6 @@ import axios from "../../axios";
 import UnplashImage from "./components/UnplashImage";
 import CreateChallengeBanner from "./components/banners/CreateChallengeBanner";
 import { showMessage } from "react-native-flash-message";
-
 const asyncStorage = require("../../asyncStorage");
 
 const { width, height } = Dimensions.get("window");
@@ -162,7 +161,6 @@ const CreateChallengeScreenTags = (props) => {
 
   const searchPhotos = async (text) => {
     try {
-      console.log(process.env.ACCESSKEY);
       const response = await axios.get(
         `https://api.unsplash.com/search/photos?client_id=${process.env.ACCESSKEY}&query=${text}&per_page=20`
       );
@@ -546,7 +544,8 @@ const CreateChallengeScreenTags = (props) => {
             extraScrollHeight={20}
           >
             <Text style={styles.headerTextDescription}>
-              Give your challenge a name and description.
+              Give your challenge a name and description.{" "}
+              {process.env.ACCESSKEY}
             </Text>
             <Text style={styles.secondHeaderTextDescription}>
               Don't worry about it too much you can change it later.

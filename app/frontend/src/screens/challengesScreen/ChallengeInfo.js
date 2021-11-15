@@ -151,7 +151,6 @@ const ChallengeInfo = (props) => {
               </View>
             </TouchableOpacity>
           </View>
-
           <View style={styles.locationTime}>
             <View style={styles.iconText}>
               <Icon
