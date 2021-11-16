@@ -12,7 +12,7 @@ import {
   Animated,
 } from "react-native";
 import axios from "../../axios";
-
+import Loading from "../../sharedComponent/Loading";
 const asyncStorage = require("../../asyncStorage");
 
 const { width, height } = Dimensions.get("window");
@@ -21,13 +21,11 @@ const imageSource = require("../../../assets/blurredDavis.jpg");
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 2000,
-    }).start();
-  }, [fadeAnim]);
+    setTimeout(() => setLoading(false), 1200);
+  }, []);
 
   const blankInputCheck = () => {
     if (email.length === 0 || password.length === 0) {
@@ -64,58 +62,64 @@ const Login = (props) => {
   };
 
   return (
-    <ImageBackground style={styles.imageStyle} source={imageSource}>
-      <Animated.View style={[styles.viewMargins, { opacity: fadeAnim }]}>
-        <Text style={styles.login}>Welcome</Text>
-        <TextInput
-          style={styles.emailPassStyle}
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <TextInput
-          style={styles.emailPassStyle}
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry={true}
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <View style={styles.signInView}>
-          <TouchableOpacity onPress={() => blankInputCheck()}>
-            <Text
-              style={
-                email != 0 && password != 0
-                  ? styles.signUpButtonGood
-                  : styles.signUpButtonBad
-              }
-            >
-              Sign In
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.bottomHeader}>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate("ResetPassword")}
-          >
-            <Text style={styles.forgotText}>Forgot Password?</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate("Register")}
-          >
-            <Text style={styles.forgotText}>Sign up</Text>
-          </TouchableOpacity>
-        </View>
-        <Button
-          title="SKIP BUTTON TO MAIN APP"
-          color="white"
-          onPress={() => props.navigation.navigate("Main")}
-        />
-      </Animated.View>
-    </ImageBackground>
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <ImageBackground style={styles.imageStyle} source={imageSource}>
+          <View style={[styles.viewMargins]}>
+            <Text style={styles.login}>Welcome</Text>
+            <TextInput
+              style={styles.emailPassStyle}
+              autoCapitalize="none"
+              autoCorrect={false}
+              placeholder="Email"
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+            />
+            <TextInput
+              style={styles.emailPassStyle}
+              autoCapitalize="none"
+              autoCorrect={false}
+              secureTextEntry={true}
+              placeholder="Password"
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+            />
+            <View style={styles.signInView}>
+              <TouchableOpacity onPress={() => blankInputCheck()}>
+                <Text
+                  style={
+                    email != 0 && password != 0
+                      ? styles.signUpButtonGood
+                      : styles.signUpButtonBad
+                  }
+                >
+                  Sign In
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.bottomHeader}>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate("ResetPassword")}
+              >
+                <Text style={styles.forgotText}>Forgot Password?</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate("Register")}
+              >
+                <Text style={styles.forgotText}>Sign up</Text>
+              </TouchableOpacity>
+            </View>
+            <Button
+              title="SKIP BUTTON TO MAIN APP"
+              color="white"
+              onPress={() => props.navigation.navigate("Main")}
+            />
+          </View>
+        </ImageBackground>
+      )}
+    </>
   );
 };
 const styles = StyleSheet.create({

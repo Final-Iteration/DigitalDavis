@@ -10,7 +10,7 @@ function MyStack() {
   return (
     <Stack.Navigator
       initialRouteName="Challenge"
-      //mode="modal" // top to bottom instead of left to right
+      mode="modal" // top to bottom instead of left to right
       headerMode="screen"
     >
       <Stack.Screen
