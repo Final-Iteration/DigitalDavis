@@ -56,7 +56,7 @@ const getAllChallenges = catchAsync(async (req, res) => {
 });
 
 const getParticipants = catchAsync(async (req, res) => {
-  const result = await challengeService.getParticipants(req.params.Id, );
+  const result = await challengeService.getParticipants(req.params.Id);
   res.send(result);
 });
 
