@@ -4,7 +4,7 @@ const { objectId } = require("./custom.validation");
 const createChallenge = {
   body: Joi.object().keys({
     name: Joi.string().min(5).max(30).trim().required(),
-    creator: Joi.string().required().min(3).max(30).trim(),
+    //creator: Joi.string().required().min(3).max(30).trim(),
     tags: Joi.array()
       .items(
         Joi.string().valid(
@@ -22,7 +22,7 @@ const createChallenge = {
     timestamp: Joi.date().raw(),
     start_date: Joi.date().raw().required(),
     end_date: Joi.date().raw().required(),
-    participants: Joi.array().items(Joi.string()),
+    //participants: Joi.array().items(Joi.string()),
   }),
 };
 
