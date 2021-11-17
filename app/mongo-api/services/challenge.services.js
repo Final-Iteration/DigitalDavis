@@ -143,7 +143,7 @@ const getParticipants = async (challengeId) => {
   console.log(challengeId);
   console.log(people);
   console.log(participantsInfo);
-  //return people;
+  return participantsInfo;
 };
 
 const updateParticipants = async (challengeId, userID) => {
@@ -156,13 +156,15 @@ Challenge.updateOne(
     }
 )};
 
-const deleteParticipants = async (challengeId) => {
-  const thisChallenge = Challenge.findOne({ id: challengeId });
-  const people = thisChallenge.participants;
-  const participantsInfo = User.find({ id: people});
-  console.log(people);
-  return participantsInfo;
-};
+const deleteParticipants = async (challengeId, userID) => {
+  Challenge.updateOne(
+    {"_id": challengeId},
+    {"$pullAll": {participants: userID }},
+    function (err, raw) {
+        if (err) return handleError(err);
+        console.log('The raw response from Mongo was ', raw);
+    }
+  )};
 /**
  * Filter challenges with start date > today
  * and end date < today
@@ -182,5 +184,6 @@ module.exports = {
   allChallenges,
   challengeCreator,
   getParticipants,
-  updateParticipants
+  updateParticipants,
+  deleteParticipants
 };
