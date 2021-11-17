@@ -39,13 +39,13 @@ router
   );
 
 router
-  .route("/participate")
+  .route("/participate/:Id")
   .get(
-    validate(challengeValidation.getChallenge),
+    //validate(challengeValidation.getChallenge),
     challengeController.getParticipants
   )
-  .patch(
-    validate(challengeValidation.updateChallenge),
+  .put(
+    //validate(challengeValidation.updateChallenge),
     challengeController.updateParticipants
   )
   .delete(
