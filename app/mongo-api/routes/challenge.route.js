@@ -49,9 +49,16 @@ router
     challengeController.updateParticipants
   )
   .delete(
-    validate(challengeValidation.deleteChallenge),
+    //validate(challengeValidation.deleteChallenge),
     challengeController.deleteParticipants
   );
+
+  router .route("/unparticipate/:Id")
+  .put(
+    //validate(challengeValidation.deleteChallenge),
+    challengeController.deleteParticipants
+  );
+
 
 router
   .route("/:Id")

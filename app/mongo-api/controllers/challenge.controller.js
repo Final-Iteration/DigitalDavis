@@ -66,9 +66,9 @@ const  updateParticipants = catchAsync(async (req, res) => {
   res.send(result);
 });
 
-///////////// TO DO ////////////////////////////////
 const deleteParticipants = catchAsync(async (req, res) => {
-  const result = await challengeService.deleteParticipants(req.params.Id);
+  const creatorID = req.headers.id;
+  const result = await challengeService.deleteParticipants(req.params.Id, creatorID);
   res.send(result);
 });
 
