@@ -41,17 +41,14 @@ router
 router
   .route("/participate/:Id")
   .get(auth(),
-    //validate(challengeValidation.getChallenge),
     challengeController.getParticipants
   )
   .put(auth(),
-    //validate(challengeValidation.updateChallenge),
     challengeController.updateParticipants
   );
 
   router .route("/unparticipate/:Id")
   .put(auth(),
-    //validate(challengeValidation.deleteChallenge),
     challengeController.deleteParticipants
   );
 
