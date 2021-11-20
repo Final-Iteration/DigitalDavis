@@ -100,21 +100,21 @@ const deleteChallengeById = async (id) => {
  * @param {ObjectStart} Start
  * @returns {Promise<Challenge>}
  */
-const activeChallenges = async () => {
+const activeChallenges = async (userID) => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
   const challenges = await Challenge.find(
-    { end_date: { $gte: rn } } && { start_date: { $lte: rn } }
+    { end_date: { $gte: rn } } && { start_date: { $lte: rn } } && {participants: userID}
   );
   return challenges;
 };
 
-const pastChallenges = async () => {
+const pastChallenges = async (userID) => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
-  const challenges = await Challenge.find({ end_date: { $lte: rn } });
+  const challenges = await Challenge.find({ end_date: { $lte: rn } } && {participants: userID});
   return challenges;
 };
 
