@@ -159,7 +159,7 @@ Challenge.updateOne(
 const deleteParticipants = async (challengeId, userID) => {
   Challenge.updateOne(
     {"_id": challengeId},
-    {"$pullAll": {participants: userID }},
+    {"$pull": {participants: userID }},
     function (err, raw) {
         if (err) return handleError(err);
         console.log('The raw response from Mongo was ', raw);
