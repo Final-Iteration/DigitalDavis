@@ -16,6 +16,7 @@ import UnjoinedBanner from "./components/banners/UnjoinedBanner";
 import Modal from "react-native-modal";
 import Participant from "./components/Participant";
 import axios from "../../axios";
+const asyncStorage = require("../../asyncStorage");
 
 const { width, height } = Dimensions.get("window");
 
@@ -54,6 +55,7 @@ const ChallengeInfo = (props) => {
     try {
       // console.log(challenge.id);
       // TODO: Route should be /challenges/addParticipant/:id
+      const authToken = await asyncStorage.getData("Authorization");
       const res = await axios.patch(
         `/challenges/${challenge.id}`,
         {
