@@ -3,11 +3,11 @@ const connection_string = "mongodb://localhost:27017";
 const testDebugger = require('debug')('app:test');
 
 /**
- * Make the connection to mongoose before running any tests
+ * 
  */
 const setupTestDB = () => {
   beforeAll(async () => {
-    connectMongoose(connection_string);
+    connectMongoose(connection_string,false);
   });
 
   // before running each of the test delete all the items in the collections
@@ -26,8 +26,8 @@ const setupTestDB = () => {
 };
 
 /**
- * @TODO - find how to use default env vars for certificate passing
- * @param {*} uri
+ * 
+ * @param {*} uri 
  */
 async function connectMongoose(uri) {
   try {
