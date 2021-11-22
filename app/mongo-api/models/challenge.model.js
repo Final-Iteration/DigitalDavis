@@ -38,7 +38,7 @@ const challengeSchema = mongoose.Schema({
   description: {
     type: String,
     required: false,
-    maxlength: 150,
+    maxlength: 250,
     trim: true,
     // match: /^([A-Za-z0-9_\\-\\.\\s\\!])+$/,
   },
@@ -55,6 +55,10 @@ const challengeSchema = mongoose.Schema({
     maxlength: 50,
     trim: true,
     // match: '/[A-Za-z0-9_\\-\\.\\s\\!])+$/',
+  },
+  unsplashurl: {
+    type: String,
+    trim: true,
   },
   timestamp: {
     type: Date,

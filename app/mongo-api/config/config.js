@@ -1,5 +1,5 @@
 const path = require('path');
-const dotenv = require('dotenv').config({ path: path.join(__dirname, '../../.env') });
+const dotenv = require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const Joi = require('joi');
 const { Certificate } = require('crypto');
 
