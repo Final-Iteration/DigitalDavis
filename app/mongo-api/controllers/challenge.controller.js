@@ -41,12 +41,12 @@ const deleteChallenge = catchAsync(async (req, res) => {
 });
 
 const getActiveChallenges = catchAsync(async (req, res) => {
-  const result = await challengeService.activeChallenges();
+  const result = await challengeService.activeChallenges(req.headers.id);
   res.send(result);
 });
 
 const getPastChallenges = catchAsync(async (req, res) => {
-  const result = await challengeService.pastChallenges();
+  const result = await challengeService.pastChallenges(req.headers.id);
   res.send(result);
 });
 

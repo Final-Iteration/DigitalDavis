@@ -24,7 +24,6 @@ const createChallenge = async (challengeBody, ID) => {
   };
   return Challenge.create(data);
 
-  //return Challenge.create(challengeBody);
 };
 
 /**
@@ -101,21 +100,21 @@ const deleteChallengeById = async (id) => {
  * @param {ObjectStart} Start
  * @returns {Promise<Challenge>}
  */
-const activeChallenges = async () => {
+const activeChallenges = async (userID) => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
   const challenges = await Challenge.find(
-    { end_date: { $gte: rn } } && { start_date: { $lte: rn } }
+    { end_date: { $gte: rn } } && { start_date: { $lte: rn } } && {participants: userID}
   );
   return challenges;
 };
 
-const pastChallenges = async () => {
+const pastChallenges = async (userID) => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
-  const challenges = await Challenge.find({ end_date: { $lte: rn } });
+  const challenges = await Challenge.find({ end_date: { $lte: rn } } && {participants: userID});
   return challenges;
 };
 
@@ -130,19 +129,14 @@ const allChallenges = async () => {
 const challengeCreator = async (challengeId) => {
   const thisChallenge = await Challenge.findOne({ _id: challengeId });
   const creatorID = thisChallenge.creator;
-  const creatorInfo = await User.findOne({ _id: creatorID });
-  console.log(creatorID);
-
+  const creatorInfo = await User.findOne({ _id: creatorID});
   return creatorInfo;
 };
 
 const getParticipants = async (challengeId) => {
   const thisChallenge = await Challenge.findOne({ _id: challengeId });
   const people = thisChallenge.participants;
-  const participantsInfo = await User.find({ _id: people });
-  console.log(challengeId);
-  console.log(people);
-  console.log(participantsInfo);
+  const participantsInfo = await User.find({ _id: people});
   return participantsInfo;
 };
 
@@ -159,8 +153,8 @@ const updateParticipants = async (challengeId, userID) => {
 
 const deleteParticipants = async (challengeId, userID) => {
   Challenge.updateOne(
-    { _id: challengeId },
-    { $pullAll: { participants: userID } },
+    {"_id": challengeId},
+    {"$pull": {participants: userID }},
     function (err, raw) {
       if (err) return handleError(err);
       console.log("The raw response from Mongo was ", raw);
