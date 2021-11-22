@@ -16,7 +16,6 @@ function start_date_add_days(days) {
 function end_date() {
   const endDate = new Date();
   endDate.setDate(endDate.getDate() + 30);
-  // return new Date(endDate).toISOString();
   return endDate;
 }
 
@@ -63,6 +62,9 @@ const challengeOne = {
   tags: [shuffle(challengeTags)],
   description: faker.random.words(),
   location: faker.address.city(),
+  unsplashurl:
+    // eslint-disable-next-line max-len
+    "https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20",
   timestamp: faker.date.soon(),
   start_date: start_date(),
   end_date: end_date(),
@@ -76,6 +78,9 @@ const challengeTwo = {
   tags: ["Physical", "Spiritual"],
   description: faker.random.words(),
   location: faker.address.city(),
+  unsplashurl:
+    // eslint-disable-next-line max-len
+    "https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20",
   timestamp: faker.date.soon(),
   start_date: start_date_add_days(2),
   end_date: end_date_add_days(2),
@@ -89,9 +94,12 @@ const challengeThree = {
   tags: ["Physical", "Social", "Spiritual"],
   description: faker.random.words(),
   location: faker.address.city(),
+  unsplashurl:
+    // eslint-disable-next-line max-len
+    "https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20",
   timestamp: faker.date.soon(),
-  start_date: start_date_add_days(10),
-  end_date: end_date_add_days(10),
+  start_date: start_date_add_days(9),
+  end_date: end_date_add_days(9),
   participants: [`${faker.name.findName()}`, `${faker.name.findName()}`],
 };
 
