@@ -22,6 +22,7 @@ const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1200);
@@ -41,7 +42,6 @@ const Login = (props) => {
     return regexp.test(email);
   }
   // const apiCall = function --- function will call our database to validate user email and password
-
   const setUserLogin = async () => {
     try {
       const res = await axios.post("/auth/login", {
@@ -58,6 +58,7 @@ const Login = (props) => {
       //props.navigation.navigate("Main");
     } catch (error) {
       console.log(error.message);
+      setError(true);
     }
   };
 
@@ -87,7 +88,7 @@ const Login = (props) => {
               onChangeText={(text) => setPassword(text)}
             />
             <View style={styles.signInView}>
-              <TouchableOpacity onPress={() => blankInputCheck()}>
+              <TouchableOpacity onPress={() => setUserLogin()}>
                 <Text
                   style={
                     email != 0 && password != 0
@@ -99,6 +100,12 @@ const Login = (props) => {
                 </Text>
               </TouchableOpacity>
             </View>
+            {error ? (
+              <Text style={styles.errorText}>
+                Incorrect email or password. Try again.
+              </Text>
+            ) : null}
+
             <View style={styles.bottomHeader}>
               <TouchableOpacity
                 onPress={() => props.navigation.navigate("ResetPassword")}
@@ -111,11 +118,6 @@ const Login = (props) => {
                 <Text style={styles.forgotText}>Sign up</Text>
               </TouchableOpacity>
             </View>
-            <Button
-              title="SKIP BUTTON TO MAIN APP"
-              color="white"
-              onPress={() => props.navigation.navigate("Main")}
-            />
           </View>
         </ImageBackground>
       )}
@@ -123,6 +125,12 @@ const Login = (props) => {
   );
 };
 const styles = StyleSheet.create({
+  errorText: {
+    color: "red",
+    alignSelf: "center",
+    fontSize: width * 0.03,
+    marginVertical: 5,
+  },
   viewMargins: {
     marginTop: height / 5,
   },
