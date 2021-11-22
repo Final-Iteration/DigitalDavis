@@ -110,18 +110,22 @@ web-build/
 # Application 
 app/.expo-shared
 app/.expo-shared/**
-app/mongo-api/certificates/ca-certificate.crt
+
 .vscode/settings.json
-app/mongo-api/certificates/docker-config.json
-app/nohup.out
 
 .env.dev
 .env.prod
+.env.docker.dev
+.env.development
+
+nohup.out
+priv_rsa.pem
+pub_rsa.pem
+ca-certificate.crt
 
 nohup.out
 .env.docker.dev
 .env.development
-
-priv_rsa.pem
 pub_rsa.pem
-app/frontend/src/axios/index.js
+priv_rsa.pem
+ucd-emp-wellness-api.yaml

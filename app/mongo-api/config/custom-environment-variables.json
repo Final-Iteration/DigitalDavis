@@ -20,23 +20,13 @@
       "protocol": "DEV_DATABASE_PROTOCOL",
       "collection": "DEV_DATABASE_COLLECTION",
       "certificate": "CA_CERTIFICATE_PATH"
+    },
+    "jwt": {
+      "secret": "JWT_SECRET",
+      "accessExpirationMinutes": "JWT_ACCESS_EXPIRATION_MINUTES",
+      "refreshExpirationDays": "JWT_REFRESH_EXPIRATION_DAYS",
+      "resetPasswordExpirationMinutes": "JWT_RESET_PASSWORD_EXPIRATION_MINUTES",
+      "verifyEmailExpirationMinutes": "JWT_VERIFY_EMAIL_EXPIRATION_MINUTES"
     }
-  },
-  "docker": {
-    "database": {
-      "host": "DOCKER_DATABASE_HOST",
-      "port": "DOCKER_DATABASE_PORT",
-      "name": "DOCKER_DATABASE_NAME",
-      "protocol": "DOCKER_DATABASE_PROTOCOL",
-      "collection": "DOCKER_DATABASE_COLLECTION",
-      "certificate": "CA_CERTIFICATE_PATH"
-    }
-  },
-  "jwt": {
-    "secret": "JWT_SECRET",
-    "accessExpirationMinutes": "JWT_ACCESS_EXPIRATION_MINUTES",
-    "refreshExpirationDays": "JWT_REFRESH_EXPIRATION_DAYS",
-    "resetPasswordExpirationMinutes": "JWT_RESET_PASSWORD_EXPIRATION_MINUTES",
-    "verifyEmailExpirationMinutes": "JWT_VERIFY_EMAIL_EXPIRATION_MINUTES"
   }
 }

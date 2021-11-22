@@ -6,7 +6,8 @@ const controllerDebugger = require("debug")("app:controllers");
 const challengeService = require("../services/challenge.services");
 
 const createChallenge = catchAsync(async (req, res) => {
-  const challenge = await challengeService.createChallenge(req.body);
+  const creatorID = req.headers.id;
+  const challenge = await challengeService.createChallenge(req.body, creatorID);
   res.status(httpStatus.CREATED).send(challenge);
 });
 
@@ -19,11 +20,12 @@ const getChallenges = catchAsync(async (req, res) => {
 
 const getChallenge = catchAsync(async (req, res) => {
   const challenge = await challengeService.getChallengeById(req.params.Id);
+  const creator = await challengeService.challengeCreator(req.params.Id);
   if (!challenge) {
     throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
   }
-  res.send(challenge);
-});
+  res.send({challengeInfo: challenge, creatorInfo: creator});
+  });
 
 const updateChallenge = catchAsync(async (req, res) => {
   const challenge = await challengeService.updateChallengeById(
@@ -53,6 +55,24 @@ const getAllChallenges = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const getParticipants = catchAsync(async (req, res) => {
+  const result = await challengeService.getParticipants(req.params.Id);
+  res.send(result);
+});
+
+const  updateParticipants = catchAsync(async (req, res) => {
+  const creatorID = req.headers.id;
+  const result = await challengeService.updateParticipants(req.params.Id, creatorID);
+  res.send(result);
+});
+
+const deleteParticipants = catchAsync(async (req, res) => {
+  const creatorID = req.headers.id;
+  const result = await challengeService.deleteParticipants(req.params.Id, creatorID);
+  res.send(result);
+});
+
+
 module.exports = {
   createChallenge,
   getChallenges,
@@ -62,4 +82,7 @@ module.exports = {
   getActiveChallenges,
   getPastChallenges,
   getAllChallenges,
+  getParticipants,
+  updateParticipants,
+  deleteParticipants
 };

@@ -1,19 +1,18 @@
 const mongoose = require("mongoose");
 const faker = require("faker");
 const { User } = require("../../models");
+const { userService } = require("../../services");
 
-const userOne = {
-  _id: "61805068b28159892591bded",
+const userAuthOne = {
   first_name: "Ace",
-  last_name: faker.name.findName(),
+  last_name: "Bob",
   password: "1234567abd",
-  email: faker.internet.email().toLowerCase(),
-  job_title: [`${faker.name.jobTitle()}`],
-  department: faker.commerce.department(),
+  email: "austyn67@yahoo.com",
+  job_title: ["CIO"],
+  department: "IT",
 };
 
-const userTwo = {
-  _id: "61805068b28159892591bded",
+const userAuthTwo = {
   first_name: "Bobbo",
   password: "1234567abd",
   last_name: faker.name.findName(),
@@ -22,8 +21,7 @@ const userTwo = {
   department: faker.commerce.department(),
 };
 
-const userThree = {
-  _id: "61805068b28159892591bded",
+const userAuthThree = {
   first_name: faker.name.findName(),
   last_name: faker.name.findName(),
   password: "1234567abd",
@@ -32,13 +30,15 @@ const userThree = {
   department: faker.commerce.department(),
 };
 
-const insertUsers = async (users) => {
-  await User.insertMany(users.map((user) => ({ ...user })));
+const insertAuthUsers = async (users) => {
+  for (let i = 0; i < users.length; i++) {
+    await userService.createUser(users[i]);
+  }
 };
 
 module.exports = {
-  userOne,
-  userTwo,
-  userThree,
-  insertUsers,
+  userAuthOne,
+  userAuthTwo,
+  userAuthThree,
+  insertAuthUsers,
 };

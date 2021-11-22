@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "UCD wellness app",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "moment": "^2.29.1"
+  },
   "devDependencies": {
     "@babel/eslint-parser": "^7.15.7",
     "eslint": "^7.32.0",

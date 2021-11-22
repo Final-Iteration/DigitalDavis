@@ -4,7 +4,7 @@ const { objectId } = require("./custom.validation");
 const createChallenge = {
   body: Joi.object().keys({
     name: Joi.string().min(5).max(30).trim().required(),
-    creator: Joi.string().min(3).max(30).trim(),
+    //creator: Joi.string().required().min(3).max(30).trim(),
     tags: Joi.array()
       .items(
         Joi.string().valid(
@@ -17,12 +17,13 @@ const createChallenge = {
         )
       )
       .required(),
-    description: Joi.string().max(150).trim(),
+    description: Joi.string().max(250).trim(),
     location: Joi.string().min(1).max(50).trim(),
+    unsplashurl: Joi.string().trim(),
     timestamp: Joi.date().raw(),
     start_date: Joi.date().raw().required(),
     end_date: Joi.date().raw().required(),
-    participants: Joi.array().items(Joi.string()),
+    //participants: Joi.array().items(Joi.string()),
   }),
 };
 
@@ -60,8 +61,9 @@ const updateChallenge = {
           "Spiritual"
         )
       ),
-      description: Joi.string().max(150).trim(),
+      description: Joi.string().max(250).trim(),
       location: Joi.string().min(1).max(50).trim(),
+      unslpashurl: Joi.string().trim(),
       timestamp: Joi.date().raw(),
       start_date: Joi.date().raw(),
       end_date: Joi.date().raw(),
