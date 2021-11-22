@@ -12,13 +12,13 @@ function end_date() {
 
 //Asynchronous code to get the dates
 const getStartDate = async () => {
-  console.log("start_date() ", start_date());
+  // console.log("start_date() ", start_date());
   const start = start_date();
   return start;
 };
 
 const getEndDate = async () => {
-  console.log("end_date() ", end_date());
+  // console.log("end_date() ", end_date());
   const end = end_date();
   return end;
 };
@@ -27,13 +27,13 @@ const getDates = async () => {
   const startDate = getStartDate();
   const endDate = getEndDate();
   const dates = await Promise.all([startDate, endDate]);
-  console.log("dates", dates);
+  // console.log("dates", dates);
   return dates;
 };
 
 const createChallenge = async () => {
   const dates = await getDates();
-  console.log(dates);
+  // console.log(dates);
   const newChallenge = {
     name: "Challenge Name",
     creator: "Sharon",
@@ -43,6 +43,9 @@ const createChallenge = async () => {
     start_date: dates[0],
     end_date: dates[1],
     location: "Davis,Ca",
+    unsplashurl:
+      // eslint-disable-next-line max-len
+      "https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20",
     participants: ["Sharon"],
   };
   return newChallenge;
