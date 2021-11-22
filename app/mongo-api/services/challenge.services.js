@@ -131,7 +131,7 @@ const challengeCreator = async (challengeId) => {
   const thisChallenge = await Challenge.findOne({ _id: challengeId });
   const creatorID = thisChallenge.creator;
   const creatorInfo = await User.findOne({ _id: creatorID });
-  console.log(creatorID);
+  //console.log(creatorID);
 
   return creatorInfo;
 };
@@ -140,9 +140,9 @@ const getParticipants = async (challengeId) => {
   const thisChallenge = await Challenge.findOne({ _id: challengeId });
   const people = thisChallenge.participants;
   const participantsInfo = await User.find({ _id: people });
-  console.log(challengeId);
-  console.log(people);
-  console.log(participantsInfo);
+  // console.log(challengeId);
+  // console.log(people);
+  // console.log(participantsInfo);
   return participantsInfo;
 };
 
