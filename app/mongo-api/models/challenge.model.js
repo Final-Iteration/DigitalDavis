@@ -12,6 +12,7 @@ const modelDebugger = require("debug")("model:startup");
  * @participants a list of names of valid users
  * @tags can only be the following strings  ['Emotional', 'Environmental', 'Intellectual', 'Physical', 'Social', 'Spiritual']
  */
+Schema = mongoose.Schema;
 const challengeSchema = mongoose.Schema({
   name: {
     type: String,
@@ -21,14 +22,7 @@ const challengeSchema = mongoose.Schema({
     trim: true,
     // match: '/[A-Za-z0-9_\\-\\.\\s\\!])+$/',
   },
-  creator: {
-    type: String,
-    required: false,
-    minlength: 3,
-    maxlength: 30,
-    trim: true,
-    // match: /^([A-Za-z0-9_\\-\\.\\s])+$/,
-  },
+  creator: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
   tags: {
     type: [String],
     enum: [
@@ -44,7 +38,7 @@ const challengeSchema = mongoose.Schema({
   description: {
     type: String,
     required: false,
-    maxlength: 150,
+    maxlength: 250,
     trim: true,
     // match: /^([A-Za-z0-9_\\-\\.\\s\\!])+$/,
   },
@@ -61,6 +55,10 @@ const challengeSchema = mongoose.Schema({
     maxlength: 50,
     trim: true,
     // match: '/[A-Za-z0-9_\\-\\.\\s\\!])+$/',
+  },
+  unsplashurl: {
+    type: String,
+    trim: true,
   },
   timestamp: {
     type: Date,
@@ -87,13 +85,8 @@ const challengeSchema = mongoose.Schema({
       message: "End Date must be after start date within 1 year.",
     },
   },
-  participants: {
-    type: [String],
-    required: false,
-    default: function () {
-      return this.creator;
-    },
-  },
+  participants: [{ type: Schema.Types.ObjectId, required: true, ref: 'User', default: function () { return this.creator; }}],
+  // },
 });
 
 // add plugin that converts mongoose to json
@@ -193,5 +186,6 @@ const dateFormater = (date, currentDate) => {
  * @typedef Challenge
  */
 const Challenge = mongoose.model("challenge", challengeSchema);
+//const User = mongoose.model("user", UserSchema);
 
 module.exports = Challenge;

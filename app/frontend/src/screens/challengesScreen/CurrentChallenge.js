@@ -53,7 +53,7 @@ const CurrentChallenges = (props) => {
       });
       setId(id);
       setAllChallenge(getAllChallenges.data.results);
-      console.log(getAllChallenges.data.results[0]);
+      //console.log(getAllChallenges.data.results[0]);
       getAllChallenges.data.results.map((challenge) => {
         if (challenge.participants.includes(id)) {
           setCurrentChallenges((oldArray) => [...oldArray, challenge]);

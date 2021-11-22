@@ -1,10 +1,10 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const validate = require("../middleware/validate");
 const challengeController = require("../controllers/challenge.controller");
 const challengeValidation = require("../validate/challenge.validation");
 const routeDebugger = require("debug")("app:routes");
-const auth = require('../middleware/auth');
+const auth = require("../middleware/auth");
 
 router
   .route("/")
@@ -39,6 +39,24 @@ router
   );
 
 router
+  .route("/participate/:Id")
+  .get(auth(),
+    //validate(challengeValidation.getChallenge),
+    challengeController.getParticipants
+  )
+  .put(auth(),
+    //validate(challengeValidation.updateChallenge),
+    challengeController.updateParticipants
+  );
+
+  router .route("/unparticipate/:Id")
+  .put(auth(),
+    //validate(challengeValidation.deleteChallenge),
+    challengeController.deleteParticipants
+  );
+
+
+router
   .route("/:Id")
   .get(auth(),
     validate(challengeValidation.getChallenge),
@@ -53,6 +71,51 @@ router
     challengeController.deleteChallenge
   );
 
+// router
+//   .route("/")
+//   .post(
+//     validate(challengeValidation.createChallenge),
+//     challengeController.createChallenge
+//   )
+//   .get(
+//     validate(challengeValidation.getChallenges),
+//     challengeController.getChallenges
+//   );
 
+// router
+//   .route("/active")
+//   .get(
+//     validate(challengeValidation.activeChallenges),
+//     challengeController.getActiveChallenges
+//   );
 
-  module.exports = router;
+// router
+//   .route("/past")
+//   .get(
+//     validate(challengeValidation.pastChallenges),
+//     challengeController.getPastChallenges
+//   );
+
+// router
+//   .route("/all")
+//   .get(
+//     validate(challengeValidation.allChallenges),
+//     challengeController.getAllChallenges
+//   );
+
+// router
+//   .route("/:Id")
+//   .get(
+//     validate(challengeValidation.getChallenge),
+//     challengeController.getChallenge
+//   )
+//   .patch(
+//     validate(challengeValidation.updateChallenge),
+//     challengeController.updateChallenge
+//   )
+//   .delete(
+//     validate(challengeValidation.deleteChallenge),
+//     challengeController.deleteChallenge
+//   );
+
+module.exports = router;

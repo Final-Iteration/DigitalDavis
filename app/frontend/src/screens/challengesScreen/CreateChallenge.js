@@ -72,8 +72,6 @@ const CreateChallengeScreenTags = (props) => {
       description: challengeDescription,
       tags: tagsArray,
       location: location,
-      creator: id,
-      participants: [id],
     };
     if (challengeName.trim().length && challengeDescription.trim().length) {
       try {

@@ -5,12 +5,26 @@ const ApiError = require("../utils/ApiError");
 
 /**
  * Create a challenge
- * @param {Object} challengeBody
+ * @param {Object} challengeBody, ID
  * @returns {Promise<Challenge>}
  */
-const createChallenge = async (challengeBody) => {
-  const creator = await User.find();
-  return Challenge.create(challengeBody);
+const createChallenge = async (challengeBody, ID) => {
+  const data = {
+    name: challengeBody.name,
+    creator: ID,
+    tags: challengeBody.tags,
+    description: challengeBody.description,
+    summary: challengeBody.summary,
+    location: challengeBody.location,
+    timestamp: challengeBody.timestamp,
+    start_date: challengeBody.start_date,
+    end_date: challengeBody.end_date,
+    unsplashurl: challengeBody.unsplashurl,
+    //participants: challengeBody.participants
+  };
+  return Challenge.create(data);
+
+  //return Challenge.create(challengeBody);
 };
 
 /**
@@ -113,6 +127,46 @@ const allChallenges = async () => {
   return challenges;
 };
 
+const challengeCreator = async (challengeId) => {
+  const thisChallenge = await Challenge.findOne({ _id: challengeId });
+  const creatorID = thisChallenge.creator;
+  const creatorInfo = await User.findOne({ _id: creatorID });
+  //console.log(creatorID);
+
+  return creatorInfo;
+};
+
+const getParticipants = async (challengeId) => {
+  const thisChallenge = await Challenge.findOne({ _id: challengeId });
+  const people = thisChallenge.participants;
+  const participantsInfo = await User.find({ _id: people });
+  // console.log(challengeId);
+  // console.log(people);
+  // console.log(participantsInfo);
+  return participantsInfo;
+};
+
+const updateParticipants = async (challengeId, userID) => {
+  Challenge.updateOne(
+    { _id: challengeId },
+    { $addToSet: { participants: userID } },
+    function (err, raw) {
+      if (err) return handleError(err);
+      console.log("The raw response from Mongo was ", raw);
+    }
+  );
+};
+
+const deleteParticipants = async (challengeId, userID) => {
+  Challenge.updateOne(
+    { _id: challengeId },
+    { $pullAll: { participants: userID } },
+    function (err, raw) {
+      if (err) return handleError(err);
+      console.log("The raw response from Mongo was ", raw);
+    }
+  );
+};
 /**
  * Filter challenges with start date > today
  * and end date < today
@@ -130,4 +184,8 @@ module.exports = {
   activeChallenges,
   pastChallenges,
   allChallenges,
+  challengeCreator,
+  getParticipants,
+  updateParticipants,
+  deleteParticipants,
 };
