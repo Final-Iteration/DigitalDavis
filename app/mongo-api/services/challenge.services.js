@@ -9,8 +9,7 @@ const ApiError = require("../utils/ApiError");
  * @returns {Promise<Challenge>}
  */
 const createChallenge = async (challengeBody, ID) => {
-  const data = 
-  {
+  const data = {
     name: challengeBody.name,
     creator: ID,
     tags: challengeBody.tags,
@@ -20,6 +19,7 @@ const createChallenge = async (challengeBody, ID) => {
     timestamp: challengeBody.timestamp,
     start_date: challengeBody.start_date,
     end_date: challengeBody.end_date,
+    unsplashurl: challengeBody.unsplashurl,
     //participants: challengeBody.participants
   };
   return Challenge.create(data);
@@ -141,24 +141,26 @@ const getParticipants = async (challengeId) => {
 };
 
 const updateParticipants = async (challengeId, userID) => {
-Challenge.updateOne(
-    {"_id": challengeId},
-    {"$addToSet":{participants: userID }},
+  Challenge.updateOne(
+    { _id: challengeId },
+    { $addToSet: { participants: userID } },
     function (err, raw) {
-        if (err) return handleError(err);
-        console.log('The raw response from Mongo was ', raw);
+      if (err) return handleError(err);
+      console.log("The raw response from Mongo was ", raw);
     }
-)};
+  );
+};
 
 const deleteParticipants = async (challengeId, userID) => {
   Challenge.updateOne(
     {"_id": challengeId},
     {"$pull": {participants: userID }},
     function (err, raw) {
-        if (err) return handleError(err);
-        console.log('The raw response from Mongo was ', raw);
+      if (err) return handleError(err);
+      console.log("The raw response from Mongo was ", raw);
     }
-  )};
+  );
+};
 /**
  * Filter challenges with start date > today
  * and end date < today
@@ -179,5 +181,5 @@ module.exports = {
   challengeCreator,
   getParticipants,
   updateParticipants,
-  deleteParticipants
+  deleteParticipants,
 };

@@ -17,8 +17,9 @@ const createChallenge = {
         )
       )
       .required(),
-    description: Joi.string().max(150).trim(),
+    description: Joi.string().max(250).trim(),
     location: Joi.string().min(1).max(50).trim(),
+    unsplashurl: Joi.string().trim(),
     timestamp: Joi.date().raw(),
     start_date: Joi.date().raw().required(),
     end_date: Joi.date().raw().required(),
@@ -60,8 +61,9 @@ const updateChallenge = {
           "Spiritual"
         )
       ),
-      description: Joi.string().max(150).trim(),
+      description: Joi.string().max(250).trim(),
       location: Joi.string().min(1).max(50).trim(),
+      unslpashurl: Joi.string().trim(),
       timestamp: Joi.date().raw(),
       start_date: Joi.date().raw(),
       end_date: Joi.date().raw(),
