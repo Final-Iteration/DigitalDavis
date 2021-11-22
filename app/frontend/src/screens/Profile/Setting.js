@@ -40,8 +40,7 @@ const UserProfile = (props) => {
   const [birthday, setBirthday] = useState(new Date(Date.now()));
   const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
-  const [id, setId] = useState("");
-  const [token, setToken] = useState("");
+
   function getAge(birthDate) {
     return Math.floor(
       (new Date() - new Date(birthDate).getTime()) / 3.15576e10
@@ -78,7 +77,27 @@ const UserProfile = (props) => {
   //API CALL TO SAVE UPDATED INFO TO DATA BASE
   const saveChange = async () => {
     try {
-      props.navigation.navigate("User");
+      const id = await asyncStorage.getData("ID");
+      const authToken = await asyncStorage.getData("Authorization");
+
+      const body = {
+        first_name: firstName,
+        last_name: lastName,
+        job_title: title,
+        department: department,
+      };
+
+      const res = await axios.patch(`/users/${id}`, body,
+      {
+        headers: {
+          id: id,
+          Authorization: authToken,
+        },
+        params: {
+          Id: id
+        }
+      });
+      console.log(res);
     } catch (err) {
       console.log(err.message);
     }
