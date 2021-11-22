@@ -53,7 +53,7 @@ describe("Challenge model", () => {
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
-    test('should throw a validation error if creator is not a string', async () => {
+    test("should throw a validation error if creator is not a string", async () => {
       newChallenge.creator = 123456;
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
@@ -77,13 +77,13 @@ describe("Challenge model", () => {
 
     /**
      * description tests
-     * 1. description length > 150
+     * 1. description length > 250
      * 2. not a string
      */
 
-    test("should throw a validation error if description length is >150 characters", async () => {
+    test("should throw a validation error if description length is >250 characters", async () => {
       newChallenge.description =
-        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis pa";
+        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.";
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
@@ -101,7 +101,7 @@ describe("Challenge model", () => {
     test("should throw a validation error if summary length is >150 characters", async () => {
       newChallenge.summary =
         // eslint-disable-next-line max-len
-        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis pa';
+        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis pa";
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
@@ -129,6 +129,15 @@ describe("Challenge model", () => {
 
     test("should throw a validation error if location is not a string", async () => {
       newChallenge.location = 123456;
+      await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
+    });
+
+    /**
+     * splashurl tests
+     * 1. not a string
+     */
+    test("should throw a validation error if unsplashurl is not a string", async () => {
+      newChallenge.unsplashurl = 123456;
       await expect(new Challenge(newChallenge).validate()).rejects.toThrow();
     });
 
