@@ -23,21 +23,22 @@ const CurrentChallenges = (props) => {
   const [loading, setLoading] = useState(true);
   const [id, setId] = useState("");
   //to delete: to be REMOVED
+
   // const del = async () => {
-  //   try {
-  //     const id = await asyncStorage.getData("ID");
-  //     const authToken = await asyncStorage.getData("Authorization");
-  //     const getAllChallenges = await axios.delete(
-  //       "/challenges/618efb56702eb8a36c4d370a",
-  //       {
+  //   for (let i = 0; i < ar.length; i++) {
+  //     try {
+  //       const id = await asyncStorage.getData("ID");
+  //       const authToken = await asyncStorage.getData("Authorization");
+  //       await axios.delete(`/challenges/${ar[i]}`, {
   //         headers: {
   //           id: id,
   //           Authorization: authToken,
   //         },
-  //       }
-  //     );
-  //   } catch (err) {
-  //     console.log(err);
+  //       });
+  //       console.log("success");
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
   //   }
   // };
 
@@ -53,7 +54,8 @@ const CurrentChallenges = (props) => {
       });
       setId(id);
       setAllChallenge(getAllChallenges.data.results);
-      //console.log(getAllChallenges.data.results[0]);
+
+      // console.log(getAllChallenges.data.results[allChallenges.length - 1]);
       getAllChallenges.data.results.map((challenge) => {
         if (challenge.participants.includes(id)) {
           setCurrentChallenges((oldArray) => [...oldArray, challenge]);
@@ -76,6 +78,7 @@ const CurrentChallenges = (props) => {
   useFocusEffect(
     useCallback(() => {
       getAllChallenges();
+
       return () => {
         setAllChallenge([]);
         setCurrentChallenges([]);

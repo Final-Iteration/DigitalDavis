@@ -23,7 +23,7 @@ const ChallengeBox = ({ challenge }) => {
       <Image
         style={styles.image}
         source={{
-          uri: "https://images.unsplash.com/photo-1437435409766-a478cc6da81a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mjd8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80",
+          uri: challenge.unsplashurl,
         }}
       ></Image>
       <View style={styles.titleDescriptionContainer}>
