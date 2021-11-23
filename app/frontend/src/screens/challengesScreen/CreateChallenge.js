@@ -65,7 +65,7 @@ const CreateChallengeScreenTags = (props) => {
 
     const id = await asyncStorage.getData("ID");
     const authToken = await asyncStorage.getData("Authorization");
-    const body = {
+    let body = {
       name: challengeName,
       start_date: startDate,
       end_date: endDate,
@@ -87,7 +87,6 @@ const CreateChallengeScreenTags = (props) => {
          * @todo get token for user
          */
 
-        props.navigation.navigate("Challenge");
         showMessage({
           icon: "success",
           position: "top",
@@ -98,6 +97,7 @@ const CreateChallengeScreenTags = (props) => {
           statusBarHeight: 0,
           floating: true,
         });
+        props.navigation.navigate("Challenge");
       } catch (error) {
         console.log(error.message);
       }
