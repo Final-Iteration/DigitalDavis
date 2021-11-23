@@ -72,6 +72,7 @@ const CreateChallengeScreenTags = (props) => {
       description: challengeDescription,
       tags: tagsArray,
       location: location,
+      unsplashurl: selectedPhoto,
     };
     if (challengeName.trim().length && challengeDescription.trim().length) {
       try {
