@@ -16,6 +16,7 @@ import UnjoinedBanner from "./components/banners/UnjoinedBanner";
 import Modal from "react-native-modal";
 import Participant from "./components/Participant";
 import axios from "../../axios";
+import DeleteChallengeBanner from "./components/banners/DeleteChallengeBanner";
 const asyncStorage = require("../../asyncStorage");
 
 const { width, height } = Dimensions.get("window");
@@ -31,6 +32,7 @@ const ChallengeInfo = (props) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [participants, setParticipants] = useState([]);
+  const [deleteFunc, setDeleteFunc] = useState(false);
 
   const challenge = props.route.params.challenge;
   const id = props.route.params.id;
@@ -43,6 +45,9 @@ const ChallengeInfo = (props) => {
     setStartDate(`Start: ${date[1]}-${date[2]}-${date[0].substring(2)}`);
     date = challenge.end_date.substring(0, 10).split("-");
     setEndDate(`End: ${date[1]}-${date[2]}-${date[0].substring(2)}`);
+    if (id === challenge.creator) {
+      setDeleteFunc(true);
+    }
   }, []);
 
   const antButtonPressed = () => {
@@ -99,6 +104,29 @@ const ChallengeInfo = (props) => {
       floating: true,
     });
   };
+  const deleteChallenge = async () => {
+    try {
+      const id = await asyncStorage.getData("ID");
+      const authToken = await asyncStorage.getData("Authorization");
+      await axios.delete(`/challenges/${challenge.id}`, {
+        headers: {
+          id: id,
+          Authorization: authToken,
+        },
+      });
+      showMessage({
+        icon: "success",
+        position: "top",
+        message: null,
+        type: "success",
+        renderFlashMessageIcon: DeleteChallengeBanner,
+        style: { borderRadius: 15, top: 35, height: 50 },
+        statusBarHeight: 0,
+        floating: true,
+      });
+      props.navigation.navigate("Challenge");
+    } catch (err) {}
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -144,7 +172,11 @@ const ChallengeInfo = (props) => {
                 />
                 <Text
                   style={[
-                    { fontSize: 13, fontWeight: "bold", alignSelf: "center" },
+                    {
+                      fontSize: width * 0.032,
+                      fontWeight: "bold",
+                      alignSelf: "center",
+                    },
                     antButton ? { color: "white" } : { color: "black" },
                   ]}
                 >
@@ -180,8 +212,18 @@ const ChallengeInfo = (props) => {
               </View>
             </View>
           </View>
+          <View style={styles.aboutDelete}>
+            <Text style={styles.about}>About</Text>
+            {deleteFunc ? (
+              <TouchableOpacity
+                style={styles.del}
+                onPress={() => deleteChallenge()}
+              >
+                <Text style={styles.deleteText}>Delete</Text>
+              </TouchableOpacity>
+            ) : null}
+          </View>
 
-          <Text style={styles.about}>About</Text>
           <Text style={styles.mainDescription}>{challenge.description}</Text>
           <TouchableOpacity
             disabled={props.route.params.disableButton}
@@ -231,6 +273,31 @@ const ChallengeInfo = (props) => {
 };
 
 const styles = StyleSheet.create({
+  deleteText: {
+    fontSize: width * 0.032,
+    fontWeight: "600",
+    alignSelf: "center",
+    margin: 5,
+    color: "red",
+    opacity: 0.8,
+  },
+  del: {
+    borderRadius: 10,
+    borderWidth: 0.7,
+    borderColor: "red",
+    alignItems: "center",
+    backgroundColor: "white",
+    shadowColor: "#FF0000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+  },
+  aboutDelete: {
+    marginTop: height / 50,
+
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   container: {
     marginHorizontal: width / 27,
   },
@@ -260,7 +327,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "600",
-    fontSize: width * 0.08,
+    fontSize: width * 0.075,
   },
   modalView: {
     marginVertical: height / 5,
@@ -294,7 +361,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   about: {
-    marginTop: height / 50,
     fontWeight: "300",
     fontSize: width * 0.06,
   },
