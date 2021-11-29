@@ -22,25 +22,6 @@ const CurrentChallenges = (props) => {
 
   const [loading, setLoading] = useState(true);
   const [id, setId] = useState("");
-  //to delete: to be REMOVED
-
-  // const del = async () => {
-  //   for (let i = 0; i < ar.length; i++) {
-  //     try {
-  //       const id = await asyncStorage.getData("ID");
-  //       const authToken = await asyncStorage.getData("Authorization");
-  //       await axios.delete(`/challenges/${ar[i]}`, {
-  //         headers: {
-  //           id: id,
-  //           Authorization: authToken,
-  //         },
-  //       });
-  //       console.log("success");
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  // };
 
   const getAllChallenges = async () => {
     try {
@@ -127,7 +108,7 @@ const CurrentChallenges = (props) => {
                 onPress={() =>
                   props.navigation.navigate("ChallengeInformation", {
                     id: id,
-                    challenge: item,
+                    challenge: item.id,
                     disableButton: false,
                   })
                 }

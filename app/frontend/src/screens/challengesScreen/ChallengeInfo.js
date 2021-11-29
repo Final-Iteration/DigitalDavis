@@ -33,21 +33,23 @@ const ChallengeInfo = (props) => {
   const [endDate, setEndDate] = useState("");
   const [participants, setParticipants] = useState([]);
   const [deleteFunc, setDeleteFunc] = useState(false);
+  const [token, setToken] = useState("");
+  const [uID, setUID] = useState("");
 
   const challenge = props.route.params.challenge;
-  const id = props.route.params.id;
 
   useEffect(() => {
-    setStatus(challenge.participants.includes(id));
-    setLocation(challenge.location);
-    setParticipants(challenge.participants);
-    let date = challenge.start_date.substring(0, 10).split("-");
-    setStartDate(`Start: ${date[1]}-${date[2]}-${date[0].substring(2)}`);
-    date = challenge.end_date.substring(0, 10).split("-");
-    setEndDate(`End: ${date[1]}-${date[2]}-${date[0].substring(2)}`);
-    if (id === challenge.creator) {
-      setDeleteFunc(true);
-    }
+    // setStatus(challenge.participants.includes(id));
+    // setLocation(challenge.location);
+    // setParticipants(challenge.participants);
+    // let date = challenge.start_date.substring(0, 10).split("-");
+    // setStartDate(`Start: ${date[1]}-${date[2]}-${date[0].substring(2)}`);
+    // date = challenge.end_date.substring(0, 10).split("-");
+    // setEndDate(`End: ${date[1]}-${date[2]}-${date[0].substring(2)}`);
+    // console.log(challenge.creator);
+    // if (id === challenge.creator) {
+    //   setDeleteFunc(true);
+    // }
   }, []);
 
   const antButtonPressed = () => {
@@ -58,16 +60,12 @@ const ChallengeInfo = (props) => {
   };
   const addUserToChallenge = async () => {
     try {
-      // console.log(challenge.id);
-      // TODO: Route should be /challenges/addParticipant/:id
       const authToken = await asyncStorage.getData("Authorization");
-      const res = await axios.patch(
-        `/challenges/${challenge.id}`,
-        {
-          //TODO: Will need to pass in UserID, and make sure Challenge service is appending this into the challenge
-          //participants: [`${user.id}`]
-          participants: ["Test Participation Axios call"],
-        },
+      const id = await asyncStorage.getData("ID");
+      console.log(challenge);
+      await axios.put(
+        `/challenges/participate$/${challenge}`,
+        {},
         {
           headers: {
             id: id,
@@ -76,20 +74,25 @@ const ChallengeInfo = (props) => {
         }
       );
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
   const removeUserFromChallenge = async () => {
     try {
-      // console.log(challenge.id);
-      // TODO: Route should be /challenges/removeParticipant/:id
-      const res = await axios.patch(`/challenges/${challenge.id}`, {
-        //TODO: Will need to pass in UserID, and make sure Challenge service is removing the user from the challenge
-        //participants: [`${user.id}`]
-        participants: ["Test Participation Axios call"],
-      });
+      const authToken = await asyncStorage.getData("Authorization");
+      const id = await asyncStorage.getData("ID");
+      await axios.put(
+        `/challenges/unparticipate/${challenge}`,
+        {},
+        {
+          headers: {
+            id: id,
+            Authorization: authToken,
+          },
+        }
+      );
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
   const showMsg = () => {
@@ -127,149 +130,149 @@ const ChallengeInfo = (props) => {
       props.navigation.navigate("Challenge");
     } catch (err) {}
   };
+  return <Text>Fuck this shit</Text>;
+  // return (
+  //   <SafeAreaView style={{ flex: 1 }}>
+  //     <ScrollView showsVerticalScrollIndicator={false}>
+  //       <View
+  //         style={{
+  //           borderRadius: 20,
+  //           shadowColor: "#000",
+  //           shadowOffset: { width: 2, height: 3 },
+  //           shadowOpacity: 0.5,
+  //           shadowRadius: 3,
+  //         }}
+  //       >
+  //         <Image
+  //           style={styles.image}
+  //           source={{
+  //             uri: challenge.unsplashurl,
+  //           }}
+  //         />
+  //       </View>
+  //       <View style={styles.container}>
+  //         <View style={styles.titleAndAttendeesButton}>
+  //           <Text style={[styles.title, { width: "65%" }]}>
+  //             {challenge.name}
+  //           </Text>
+  //           <TouchableOpacity
+  //             style={[
+  //               styles.buttonContainer,
+  //               antButton
+  //                 ? { backgroundColor: "#142A4F" }
+  //                 : { backgroundColor: "white" },
+  //             ]}
+  //             onPress={() => {
+  //               setAntButton(true);
+  //               antButtonPressed();
+  //             }}
+  //           >
+  //             <View style={[styles.iconText, { margin: 5 }]}>
+  //               <Icon
+  //                 name="people-outline"
+  //                 size={width * 0.05}
+  //                 style={[antButton ? { color: "white" } : { color: "blue" }]}
+  //               />
+  //               <Text
+  //                 style={[
+  //                   {
+  //                     fontSize: width * 0.032,
+  //                     fontWeight: "bold",
+  //                     alignSelf: "center",
+  //                   },
+  //                   antButton ? { color: "white" } : { color: "black" },
+  //                 ]}
+  //               >
+  //                 {`${challenge.participants.length} Attendees`}
+  //               </Text>
+  //             </View>
+  //           </TouchableOpacity>
+  //         </View>
+  //         <View style={styles.locationTime}>
+  //           <View style={styles.iconText}>
+  //             <Icon
+  //               name="ios-location-outline"
+  //               size={width * 0.04}
+  //               style={{ color: "blue" }}
+  //             />
+  //             <View style={{ width: width / 2.5 }}>
+  //               <Text style={styles.dateText}>{location}</Text>
+  //             </View>
+  //           </View>
+  //           <View style={styles.iconText}>
+  //             <Icon
+  //               name="calendar-outline"
+  //               size={width * 0.04}
+  //               style={{ color: "blue" }}
+  //             />
+  //             <View>
+  //               <Text style={[styles.dateText, { alignSelf: "flex-end" }]}>
+  //                 {startDate}
+  //               </Text>
+  //               <Text style={[styles.dateText, { alignSelf: "flex-end" }]}>
+  //                 {endDate}
+  //               </Text>
+  //             </View>
+  //           </View>
+  //         </View>
+  //         <View style={styles.aboutDelete}>
+  //           <Text style={styles.about}>About</Text>
+  //           {deleteFunc ? (
+  //             <TouchableOpacity
+  //               style={styles.del}
+  //               onPress={() => deleteChallenge()}
+  //             >
+  //               <Text style={styles.deleteText}>Delete</Text>
+  //             </TouchableOpacity>
+  //           ) : null}
+  //         </View>
 
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            borderRadius: 20,
-            shadowColor: "#000",
-            shadowOffset: { width: 2, height: 3 },
-            shadowOpacity: 0.5,
-            shadowRadius: 3,
-          }}
-        >
-          <Image
-            style={styles.image}
-            source={{
-              uri: challenge.unsplashurl,
-            }}
-          />
-        </View>
-        <View style={styles.container}>
-          <View style={styles.titleAndAttendeesButton}>
-            <Text style={[styles.title, { width: "65%" }]}>
-              {challenge.name}
-            </Text>
-            <TouchableOpacity
-              style={[
-                styles.buttonContainer,
-                antButton
-                  ? { backgroundColor: "#142A4F" }
-                  : { backgroundColor: "white" },
-              ]}
-              onPress={() => {
-                setAntButton(true);
-                antButtonPressed();
-              }}
-            >
-              <View style={[styles.iconText, { margin: 5 }]}>
-                <Icon
-                  name="people-outline"
-                  size={width * 0.05}
-                  style={[antButton ? { color: "white" } : { color: "blue" }]}
-                />
-                <Text
-                  style={[
-                    {
-                      fontSize: width * 0.032,
-                      fontWeight: "bold",
-                      alignSelf: "center",
-                    },
-                    antButton ? { color: "white" } : { color: "black" },
-                  ]}
-                >
-                  {`${challenge.participants.length} Attendees`}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.locationTime}>
-            <View style={styles.iconText}>
-              <Icon
-                name="ios-location-outline"
-                size={width * 0.04}
-                style={{ color: "blue" }}
-              />
-              <View style={{ width: width / 2.5 }}>
-                <Text style={styles.dateText}>{location}</Text>
-              </View>
-            </View>
-            <View style={styles.iconText}>
-              <Icon
-                name="calendar-outline"
-                size={width * 0.04}
-                style={{ color: "blue" }}
-              />
-              <View>
-                <Text style={[styles.dateText, { alignSelf: "flex-end" }]}>
-                  {startDate}
-                </Text>
-                <Text style={[styles.dateText, { alignSelf: "flex-end" }]}>
-                  {endDate}
-                </Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.aboutDelete}>
-            <Text style={styles.about}>About</Text>
-            {deleteFunc ? (
-              <TouchableOpacity
-                style={styles.del}
-                onPress={() => deleteChallenge()}
-              >
-                <Text style={styles.deleteText}>Delete</Text>
-              </TouchableOpacity>
-            ) : null}
-          </View>
-
-          <Text style={styles.mainDescription}>{challenge.description}</Text>
-          <TouchableOpacity
-            disabled={props.route.params.disableButton}
-            style={[
-              styles.participatingButton,
-              {
-                backgroundColor: props.route.params.disableButton
-                  ? "#EBEBE4"
-                  : participationStatus
-                  ? "#90ee90"
-                  : "#DDDDDD",
-              },
-            ]}
-            onPress={() => {
-              /**
-               * Add a user to a challenge and change participationStatus to allow the UI to update accordingly
-               */
-              if (participationStatus == false) {
-                addUserToChallenge();
-                setStatus(!participationStatus);
-              } else {
-                removeUserFromChallenge();
-                setStatus(!participationStatus);
-              }
-              showMsg();
-            }}
-          >
-            <Text style={styles.participate}>
-              {participationStatus ? "Participating" : "Participate"}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <Modal
-          isVisible={participantModal}
-          onBackdropPress={() => setParticipantModal(!participantModal)}
-        >
-          <ScrollView
-            style={styles.modalView}
-            showsVerticalScrollIndicator={false}
-          >
-            <Participant participants={challenge.participants} />
-          </ScrollView>
-        </Modal>
-      </ScrollView>
-    </SafeAreaView>
-  );
+  //         <Text style={styles.mainDescription}>{challenge.description}</Text>
+  //         <TouchableOpacity
+  //           disabled={props.route.params.disableButton}
+  //           style={[
+  //             styles.participatingButton,
+  //             {
+  //               backgroundColor: props.route.params.disableButton
+  //                 ? "#EBEBE4"
+  //                 : participationStatus
+  //                 ? "#90ee90"
+  //                 : "#DDDDDD",
+  //             },
+  //           ]}
+  //           onPress={() => {
+  //             /**
+  //              * Add a user to a challenge and change participationStatus to allow the UI to update accordingly
+  //              */
+  //             if (participationStatus == false) {
+  //               addUserToChallenge();
+  //               setStatus(!participationStatus);
+  //             } else {
+  //               removeUserFromChallenge();
+  //               setStatus(!participationStatus);
+  //             }
+  //             showMsg();
+  //           }}
+  //         >
+  //           <Text style={styles.participate}>
+  //             {participationStatus ? "Participating" : "Participate"}
+  //           </Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //       <Modal
+  //         isVisible={participantModal}
+  //         onBackdropPress={() => setParticipantModal(!participantModal)}
+  //       >
+  //         <ScrollView
+  //           style={styles.modalView}
+  //           showsVerticalScrollIndicator={false}
+  //         >
+  //           <Participant participants={challenge.participants} />
+  //         </ScrollView>
+  //       </Modal>
+  //     </ScrollView>
+  //   </SafeAreaView>
+  // );
 };
 
 const styles = StyleSheet.create({
