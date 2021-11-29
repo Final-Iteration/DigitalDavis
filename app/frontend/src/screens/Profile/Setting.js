@@ -57,7 +57,7 @@ const UserProfile = (props) => {
             Authorization: authToken,
           },
         });
-
+        console.log(res.data);
         const user = res.data;
         const dob = user.dob.split("-");
         dob[2] = dob[2].split("T", 1);
@@ -83,26 +83,27 @@ const UserProfile = (props) => {
       const body = {
         first_name: firstName,
         last_name: lastName,
-        job_title: title,
+        job_title: [title],
+        email: email,
+        dob: birthday,
         department: department,
       };
 
-      const res = await axios.patch(`/users/${id}`, body,
-      {
+      const res = await axios.patch(`/users/${id}`, body, {
         headers: {
           id: id,
           Authorization: authToken,
         },
         params: {
-          Id: id
-        }
+          Id: id,
+        },
       });
+
       console.log(res);
+      props.navigation.navigate("User");
     } catch (err) {
       console.log(err.message);
     }
-    //to be removed
-    // props.navigation.navigate("User");
   };
 
   const onBirthdateChange = (event, value) => {

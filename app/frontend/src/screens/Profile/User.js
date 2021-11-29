@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Avatar } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
 import Field from "./components/Field";
 import axios from "../../axios";
 
@@ -59,9 +60,17 @@ const UserProfile = (props) => {
     }
   };
 
-  useEffect(() => {
-    getUserInfo();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getUserInfo();
+      return () => {
+        setFullName("");
+        setTitle("");
+        setDepartment("");
+        setEmail("");
+      };
+    }, [])
+  );
 
   const logout = () => {
     //remove token from async storage
