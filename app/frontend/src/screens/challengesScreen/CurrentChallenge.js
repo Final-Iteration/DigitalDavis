@@ -137,7 +137,7 @@ const CurrentChallenges = (props) => {
                 activeOpacity={1}
                 onPress={() =>
                   props.navigation.navigate("ChallengeInformation", {
-                    challenge: item,
+                    challenge: item.id,
                     id: id,
                     disableButton: false,
                   })
@@ -167,7 +167,7 @@ const CurrentChallenges = (props) => {
                 activeOpacity={1}
                 onPress={() =>
                   props.navigation.navigate("ChallengeInformation", {
-                    challenge: item,
+                    challenge: item.id,
                     id: id,
                     disableButton: true,
                   })
