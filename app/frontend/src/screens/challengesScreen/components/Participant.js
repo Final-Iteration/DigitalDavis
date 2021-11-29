@@ -54,7 +54,7 @@ const Participant = ({ challengeID }) => {
                 <Avatar.Image
                   size={width * 0.1}
                   source={{
-                    uri: "https://64.media.tumblr.com/e749655d8485ee7be52043dfc964e6b5/tumblr_p6pjl4g3lV1x9pn5ho1_1280.jpg",
+                    uri: "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png",
                   }}
                 />
                 <View style={{ left: width * 0.03 }}>
@@ -69,7 +69,7 @@ const Participant = ({ challengeID }) => {
                 >
                   <Icon
                     style={{ opacity: 0.7 }}
-                    size={width * 0.05}
+                    size={width * 0.07}
                     name="email-send-outline"
                   />
                 </TouchableOpacity>
@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
   name: { fontSize: width * 0.045 },
   title: { opacity: 0.6, fontSize: width * 0.03 },
   container: {
-    backgroundColor: "white",
     flexDirection: "row",
     borderBottomWidth: 0.3,
     width: width - 75,
