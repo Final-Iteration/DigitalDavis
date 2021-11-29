@@ -100,6 +100,7 @@ const ChallengeInfo = (props) => {
           },
         }
       );
+      setStatus(!participationStatus);
       showMsg();
     } catch (error) {
       console.log(error);
@@ -117,6 +118,7 @@ const ChallengeInfo = (props) => {
           },
         }
       );
+      setStatus(!participationStatus);
       showMsg();
     } catch (error) {
       console.log(error);
@@ -266,15 +268,10 @@ const ChallengeInfo = (props) => {
               },
             ]}
             onPress={() => {
-              /**
-               * Add a user to a challenge and change participationStatus to allow the UI to update accordingly
-               */
               if (participationStatus == false) {
                 addUserToChallenge();
-                setStatus(!participationStatus);
               } else {
                 removeUserFromChallenge();
-                setStatus(!participationStatus);
               }
             }}
           >
@@ -291,7 +288,7 @@ const ChallengeInfo = (props) => {
             style={styles.modalView}
             showsVerticalScrollIndicator={false}
           >
-            <Participant participants={participants} />
+            <Participant challengeID={challengeID} />
           </ScrollView>
         </Modal>
       </ScrollView>
