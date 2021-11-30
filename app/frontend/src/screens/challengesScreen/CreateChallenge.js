@@ -612,7 +612,7 @@ const CreateChallengeScreenTags = (props) => {
                     style={{ marginHorizontal: width / 50, opacity: 0.6 }}
                   />
                   <TextInput
-                    style={{ width: "85%" }}
+                    style={{ width: width / 1.4 }}
                     value={image}
                     placeholder="Search images"
                     placeholderTextColor="grey"
@@ -622,6 +622,10 @@ const CreateChallengeScreenTags = (props) => {
                     }}
                   />
                 </View>
+                <Text style={styles.unplashCreditText}>
+                  Photos provided by Unsplash
+                </Text>
+
                 <FlatList
                   showsVerticalScrollIndicator={false}
                   showsHorizontalScrollIndicator={false}
@@ -647,6 +651,10 @@ const CreateChallengeScreenTags = (props) => {
 };
 
 const styles = StyleSheet.create({
+  unplashCreditText: {
+    fontSize: width * 0.025,
+    alignSelf: "center",
+  },
   safeAreaViewContainer: {
     flex: 1,
   },
@@ -671,9 +679,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 80,
     borderColor: "#D3D3D3",
-    marginVertical: height / 60,
+    marginVertical: height / 100,
     height: height / 25,
   },
   modalView: {
