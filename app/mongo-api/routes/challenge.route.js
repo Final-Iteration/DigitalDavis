@@ -41,7 +41,7 @@ router
 router
   .route("/participate/:Id")
   .get(auth(),
-    challengeController.getParticipants
+  challengeController.getParticipants
   )
   .put(auth(),
     challengeController.updateParticipants
