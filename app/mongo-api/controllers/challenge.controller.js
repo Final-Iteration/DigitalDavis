@@ -36,7 +36,7 @@ const updateChallenge = catchAsync(async (req, res) => {
 });
 
 const deleteChallenge = catchAsync(async (req, res) => {
-  await challengeService.deleteChallengeById(req.params.Id);
+  await challengeService.deleteChallengeById(req.params.Id, req.headers.id);
   res.status(httpStatus.NO_CONTENT).send();
 });
 
@@ -63,14 +63,24 @@ const getParticipants = catchAsync(async (req, res) => {
 const  updateParticipants = catchAsync(async (req, res) => {
   const creatorID = req.headers.id;
   const result = await challengeService.updateParticipants(req.params.Id, creatorID);
+  if (!result)
+  {
+    throw new ApiError(httpStatus.OK, 'User not added successfully');
+  }
   res.send(result);
 });
+
 
 const deleteParticipants = catchAsync(async (req, res) => {
   const creatorID = req.headers.id;
   const result = await challengeService.deleteParticipants(req.params.Id, creatorID);
+  if (!result)
+  {
+    throw new ApiError(httpStatus.OK, 'User not deleted successfully');
+  }
   res.send(result);
 });
+
 
 
 module.exports = {
