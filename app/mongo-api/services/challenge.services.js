@@ -124,16 +124,18 @@ const activeChallenges = async (userID) => {
   const today = new Date(timeElasped);
   rn = today.toISOString();
   const challenges = await Challenge.find({ end_date: { $gt: rn } } && { start_date: { $lte: rn } });  
-  return  challenges.filter(challenges => (challenges.participants === userID));
+  const result = await challenges.filter(challenges => (challenges.participants == userID));
+  return  result;
 };
 
 const pastChallenges = async (userID) => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
-  console.log(rn);
   const challenges = await Challenge.find({ end_date: { $lt: rn }});
-  return  challenges.filter(challenges => (challenges.participants === userID));
+  const result  =  await challenges.filter(challenges => (challenges.participants == userID));
+  return  result;
+
 };
 
 const allChallenges = async () => {
