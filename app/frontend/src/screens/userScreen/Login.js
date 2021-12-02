@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import { StatusBar } from "expo-status-bar";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  Button,
   TextInput,
   Dimensions,
   ImageBackground,
@@ -12,6 +10,7 @@ import {
 } from "react-native";
 import axios from "../../axios";
 import Loading from "../../sharedComponent/Loading";
+import { Asset } from "expo-asset";
 const asyncStorage = require("../../asyncStorage");
 
 const { width, height } = Dimensions.get("window");
@@ -24,8 +23,14 @@ const Login = (props) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1200);
+    componentWillMount();
   }, []);
+
+  const componentWillMount = async () => {
+    console.log("mouting");
+    await Asset.loadAsync([require("../../../assets/blurredDavis.jpg")]);
+    setLoading(false);
+  };
 
   const blankInputCheck = () => {
     if (email.length === 0 || password.length === 0) {
