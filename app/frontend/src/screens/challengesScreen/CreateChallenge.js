@@ -10,6 +10,7 @@ import {
   ScrollView,
   Image,
   SafeAreaView,
+  ActivityIndicator,
 } from "react-native";
 import { Divider } from "react-native-elements";
 import { ProgressBar, Colors } from "react-native-paper";
@@ -62,7 +63,6 @@ const CreateChallengeScreenTags = (props) => {
         tagsArray.push("Spiritual");
       }
     }
-
     const id = await asyncStorage.getData("ID");
     const authToken = await asyncStorage.getData("Authorization");
     let body = {
@@ -82,11 +82,6 @@ const CreateChallengeScreenTags = (props) => {
             Authorization: authToken,
           },
         });
-
-        /**
-         * @todo get token for user
-         */
-
         showMessage({
           icon: "success",
           position: "top",
@@ -99,32 +94,18 @@ const CreateChallengeScreenTags = (props) => {
         });
         props.navigation.navigate("Challenge");
       } catch (error) {
-        console.log(error.message);
+        if (error.response.status === 500) {
+          setError("Something went wrong, try again later");
+        } else {
+          const err = error.response.data.message.replaceAll('"', "");
+          alert(err);
+        }
       }
     }
   };
-  //   createChallenge();
-
   const [tagsPageActive, setTagsPageActive] = useState(true);
   const [datePageActive, setDatePageActive] = useState(false);
   const [descriptionPageActive, setDescriptionPageActive] = useState(false);
-  const [checkInput, setCheckInput] = useState(false);
-
-  // const inputCheck = () => {
-  //     if (tagsPageActive){
-  //         if (emotionalTag || environmentalTag || intellectualTag || physicalTag || socialTag || spiritualTag){
-  //             setCheckInput(true);
-  //             return checkInput;
-  //         }else{
-  //             setCheckInput(false);
-  //             return checkInput;
-  //         }
-  //     }else if (datePageActive) {
-
-  //     }else if (descriptionPageActive){
-
-  //     }
-  // };
 
   //tags page states
   const [selectAllTags, setSelectAllTags] = useState(false);
@@ -156,11 +137,14 @@ const CreateChallengeScreenTags = (props) => {
   const [imageURL, setImageURL] = useState([]); //list of images returned from unsplash api
   const [selectedPhoto, setSelectedPhoto] = useState(
     "https://mpama.com/wp-content/uploads/2017/04/default-image-620x600.jpg"
-  ); //url of a single picture chosen by user
+  );
   const [unsplashError, setUnsplashError] = useState("");
+  const [completeUnsplash, setCompleteUnplash] = useState(true);
+  const [error, setError] = useState("");
 
   const searchPhotos = async (text) => {
     try {
+      setCompleteUnplash(false);
       const response = await axios.get(
         `https://api.unsplash.com/search/photos?client_id=${process.env.ACCESSKEY}&query=${text}&per_page=20`
       );
@@ -170,9 +154,10 @@ const CreateChallengeScreenTags = (props) => {
           return data.urls.regular;
         })
       );
+
+      setCompleteUnplash(true);
     } catch (err) {
-      setUnsplashError(err);
-      console.log(err);
+      setUnsplashError("Cannot retreive images from Unsplash, try again later");
     }
   };
 
@@ -622,25 +607,39 @@ const CreateChallengeScreenTags = (props) => {
                     }}
                   />
                 </View>
-                <Text style={styles.unplashCreditText}>
-                  Photos provided by Unsplash
-                </Text>
-
-                <FlatList
-                  showsVerticalScrollIndicator={false}
-                  showsHorizontalScrollIndicator={false}
-                  style={styles.pictureList}
-                  data={imageURL}
-                  numColumns={2}
-                  renderItem={({ item }) => (
-                    <UnplashImage
-                      url={item}
-                      setPhoto={setSelectedPhoto}
-                      currentlySelected={selectedPhoto}
+                {unsplashError.length != 0 ? (
+                  <Text style={styles.unplashCreditText}>{unsplashError}</Text>
+                ) : (
+                  <Text style={styles.unplashCreditText}>
+                    Photos provided by Unsplash
+                  </Text>
+                )}
+                {!completeUnsplash ? (
+                  <View
+                    style={{ alignSelf: "center", marginVertical: height / 5 }}
+                  >
+                    <ActivityIndicator
+                      style={{ alignSelf: "center" }}
+                      size="small"
                     />
-                  )}
-                  keyExtractor={(item) => item}
-                />
+                  </View>
+                ) : (
+                  <FlatList
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+                    style={styles.pictureList}
+                    data={imageURL}
+                    numColumns={2}
+                    renderItem={({ item }) => (
+                      <UnplashImage
+                        url={item}
+                        setPhoto={setSelectedPhoto}
+                        currentlySelected={selectedPhoto}
+                      />
+                    )}
+                    keyExtractor={(item) => item}
+                  />
+                )}
               </ScrollView>
             </Modal>
           </KeyboardAwareScrollView>

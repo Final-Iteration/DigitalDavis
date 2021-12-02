@@ -9,7 +9,6 @@ import {
   Dimensions,
   ImageBackground,
   TouchableOpacity,
-  Animated,
 } from "react-native";
 import axios from "../../axios";
 import Loading from "../../sharedComponent/Loading";
@@ -22,7 +21,7 @@ const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1200);
@@ -57,8 +56,11 @@ const Login = (props) => {
       props.navigation.navigate("Main");
       //props.navigation.navigate("Main");
     } catch (error) {
-      console.log(error.message);
-      setError(true);
+      if (error.response.status === 500) {
+        setOtherError("Something went wrong, try again later");
+      } else {
+        setOtherError(error.response.data.message);
+      }
     }
   };
 
@@ -100,10 +102,8 @@ const Login = (props) => {
                 </Text>
               </TouchableOpacity>
             </View>
-            {error ? (
-              <Text style={styles.errorText}>
-                Incorrect email or password. Try again.
-              </Text>
+            {error.length != 0 ? (
+              <Text style={styles.errorText}>{error}</Text>
             ) : null}
 
             <View style={styles.bottomHeader}>

@@ -12,7 +12,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { Avatar } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import axios from "../../../axios";
-import asyncStorage from "../../../asyncStorage";
+const asyncStorage = require("../../../asyncStorage");
 const { height, width } = Dimensions.get("window");
 const Participant = ({ challengeID }) => {
   const [allParticipants, setAllParticipants] = useState([]);
@@ -22,6 +22,7 @@ const Participant = ({ challengeID }) => {
       const getData = async () => {
         const id = await asyncStorage.getData("ID");
         const auth = await asyncStorage.getData("Authorization");
+
         const res = await axios.get(`/challenges/participate/${challengeID}`, {
           headers: { Authorization: auth, id: id },
         });

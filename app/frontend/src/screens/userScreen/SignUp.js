@@ -28,6 +28,7 @@ const Signup = (props) => {
   const [passwordError, setPasswordError] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
   const [open, setOpen] = useState(false);
+  const [otherError, setOtherError] = useState("");
   const signup = () => {
     if (
       firstName.length === 0 ||
@@ -62,7 +63,11 @@ const Signup = (props) => {
           );
           props.navigation.navigate("Main");
         } catch (error) {
-          console.log(error.message);
+          if (error.response.status === 500) {
+            setOtherError("Something went wrong, try again later");
+          } else {
+            setOtherError(error.response.data.message);
+          }
         }
       };
       setUserSignup();
@@ -164,6 +169,9 @@ const Signup = (props) => {
           ) : null}
           {passwordError ? (
             <Text style={styles.errorText}>Password does not match</Text>
+          ) : null}
+          {otherError.length != 0 ? (
+            <Text style={styles.errorText}>{otherError}</Text>
           ) : null}
           <View style={styles.signUpView}>
             <TouchableOpacity onPress={() => signup()}>
