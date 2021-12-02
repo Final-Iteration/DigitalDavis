@@ -29,7 +29,6 @@ const UserProfile = (props) => {
   const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-
   function getAge(birthDate) {
     return Math.floor(
       (new Date() - new Date(birthDate).getTime()) / 3.15576e10
