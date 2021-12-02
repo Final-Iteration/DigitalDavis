@@ -77,7 +77,6 @@ const ChallengeInfo = (props) => {
   useFocusEffect(
     useCallback(() => {
       getChallengeInfo();
-
       return () => {};
     }, [c])
   );
