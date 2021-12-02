@@ -90,6 +90,10 @@ const UserProfile = (props) => {
         setError("Please enter a valid email address");
         throw new Error();
       }
+      if (title.length === 0) {
+        setError("Title cannot be empty");
+        throw new Error();
+      }
 
       const id = await asyncStorage.getData("ID");
       const authToken = await asyncStorage.getData("Authorization");
