@@ -27,7 +27,7 @@ const Login = (props) => {
   }, []);
 
   const componentWillMount = async () => {
-    console.log("mouting");
+    console.log("mounting");
     await Asset.loadAsync([require("../../../assets/blurredDavis.jpg")]);
     setLoading(false);
   };
