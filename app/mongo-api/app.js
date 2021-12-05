@@ -1,7 +1,7 @@
 const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
 // const compression = require('compression');
-// const cors = require('cors');
+const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const express = require('express');
@@ -14,6 +14,13 @@ const { jwtStrategy } = require('./config/passport');
 const appDebugger = require('debug')('app:startup');
 
 const app = express();
+
+
+app.use(
+  cors ({
+    origin: "*"
+  })
+);
 
 // set Morgan
 if (process.env.NODE_ENV === 'development') {
@@ -35,10 +42,6 @@ app.use(mongoSanitize());
 
 // gzip compression
 // app.use(compression());
-
-// enable cors
-//  app.use(cors());
-//  app.options('*', cors());
 
 // jwt authentication
 //require('./middleware/auth')(passport);
