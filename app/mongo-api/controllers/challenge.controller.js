@@ -24,8 +24,8 @@ const getChallenge = catchAsync(async (req, res) => {
   if (!challenge) {
     throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
   }
-  res.send({challengeInfo: challenge, creatorInfo: creator});
-  });
+  res.send({ challengeInfo: challenge, creatorInfo: creator });
+});
 
 const updateChallenge = catchAsync(async (req, res) => {
   const challenge = await challengeService.updateChallengeById(
@@ -60,28 +60,29 @@ const getParticipants = catchAsync(async (req, res) => {
   res.send(result);
 });
 
-const  updateParticipants = catchAsync(async (req, res) => {
+const updateParticipants = catchAsync(async (req, res) => {
   const creatorID = req.headers.id;
-  const result = await challengeService.updateParticipants(req.params.Id, creatorID);
-  if (!result)
-  {
-    throw new ApiError(httpStatus.OK, 'User not added successfully');
+  const result = await challengeService.updateParticipants(
+    req.params.Id,
+    creatorID
+  );
+  if (!result) {
+    throw new ApiError(httpStatus.OK, "User not added successfully");
   }
   res.send(result);
 });
-
 
 const deleteParticipants = catchAsync(async (req, res) => {
   const creatorID = req.headers.id;
-  const result = await challengeService.deleteParticipants(req.params.Id, creatorID);
-  if (!result)
-  {
-    throw new ApiError(httpStatus.OK, 'User not deleted successfully');
+  const result = await challengeService.deleteParticipants(
+    req.params.Id,
+    creatorID
+  );
+  if (!result) {
+    throw new ApiError(httpStatus.OK, "User not deleted successfully");
   }
   res.send(result);
 });
-
-
 
 module.exports = {
   createChallenge,
@@ -94,5 +95,5 @@ module.exports = {
   getAllChallenges,
   getParticipants,
   updateParticipants,
-  deleteParticipants
+  deleteParticipants,
 };

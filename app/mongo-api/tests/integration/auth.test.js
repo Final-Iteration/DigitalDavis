@@ -95,16 +95,14 @@ describe("Auth routes", () => {
       });
     });
 
-    test.skip("LOGOUT: should return 200 and logout the user", async () => {
+    test("LOGOUT: should return 204 and logout the user", async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
 
-      //get the refresh token
-      console.log("\nLOGGOUT: userOneAccessTokenTest ", userOneAccessTokenTest);
       const res = await request(app)
         .post("/api/auth/logout")
-        .send({ refreshToken: userOneAccessTokenTest })
+        .send({ refreshToken: userOneAccessTokenTest.refresh.token })
         .expect(httpStatus.NO_CONTENT);
     });
   });
