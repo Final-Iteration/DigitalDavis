@@ -1,11 +1,11 @@
 //https://reactnavigation.org/docs/auth-flow/
-import React, { useEffect, useState } from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import React, { useEffect, useState } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import AuthStack from "./AuthNavigator";
-import MainStack from "./Modal";
+import AuthStack from './AuthNavigator';
+import MainStack from './Modal';
 
-const asyncStorage = require("../asyncStorage");
+const asyncStorage = require('../asyncStorage');
 
 const Stack = createStackNavigator();
 const Main = () => {

@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const faker = require("faker");
-const { Challenge } = require("../../models");
-const challengeService = require("../../services/challenge.services");
+const mongoose = require('mongoose');
+const faker = require('faker');
+const { Challenge } = require('../../models');
+const challengeService = require('../../services/challenge.services');
 
 function start_date() {
   const startDate = new Date();
@@ -27,12 +27,12 @@ function end_date_add_days(days) {
 }
 
 const challengeTags = [
-  "Emotional",
-  "Environmental",
-  "Intellectual",
-  "Physical",
-  "Social",
-  "Spiritual",
+  'Emotional',
+  'Environmental',
+  'Intellectual',
+  'Physical',
+  'Social',
+  'Spiritual',
 ];
 /**
  * Returns the first element in the challengeTags array after the array has been shuffled
@@ -58,14 +58,14 @@ function shuffle(array) {
 
 const challengeOne = {
   _id: mongoose.Types.ObjectId(),
-  name: "A Running Challenge",
+  name: 'A Running Challenge',
   creator: mongoose.Types.ObjectId(),
   tags: [shuffle(challengeTags)],
   description: faker.random.words(),
   location: faker.address.city(),
   unsplashurl:
     // eslint-disable-next-line max-len
-    "https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20",
+    'https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20',
   timestamp: faker.date.soon(),
   start_date: start_date_add_days(1),
   end_date: end_date_add_days(1),
@@ -73,14 +73,14 @@ const challengeOne = {
 
 const challengeTwo = {
   _id: mongoose.Types.ObjectId(),
-  name: "Bouncing Challenge",
+  name: 'Bouncing Challenge',
   creator: mongoose.Types.ObjectId(),
-  tags: ["Physical", "Spiritual"],
+  tags: ['Physical', 'Spiritual'],
   description: faker.random.words(),
   location: faker.address.city(),
   unsplashurl:
     // eslint-disable-next-line max-len
-    "https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20",
+    'https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20',
   timestamp: faker.date.soon(),
   start_date: start_date_add_days(2),
   end_date: end_date_add_days(2),
@@ -88,14 +88,14 @@ const challengeTwo = {
 
 const challengeThree = {
   _id: mongoose.Types.ObjectId(),
-  name: "CatWalking Challenge",
+  name: 'CatWalking Challenge',
   creator: mongoose.Types.ObjectId(),
-  tags: ["Physical", "Social", "Spiritual"],
+  tags: ['Physical', 'Social', 'Spiritual'],
   description: faker.random.words(),
   location: faker.address.city(),
   unsplashurl:
     // eslint-disable-next-line max-len
-    "https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20",
+    'https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20',
   timestamp: faker.date.soon(),
   start_date: start_date_add_days(3),
   end_date: end_date_add_days(3),

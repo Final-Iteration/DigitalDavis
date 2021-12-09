@@ -1,6 +1,6 @@
-const { toJSON, paginate } = require("./plugins");
-const mongoose = require("mongoose");
-const modelDebugger = require("debug")("model:startup");
+const { toJSON, paginate } = require('./plugins');
+const mongoose = require('mongoose');
+const modelDebugger = require('debug')('model:startup');
 
 /**
  * @function challengeSchema
@@ -25,12 +25,12 @@ const challengeSchema = mongoose.Schema({
   tags: {
     type: [String],
     enum: [
-      "Emotional",
-      "Environmental",
-      "Intellectual",
-      "Physical",
-      "Social",
-      "Spiritual",
+      'Emotional',
+      'Environmental',
+      'Intellectual',
+      'Physical',
+      'Social',
+      'Spiritual',
     ],
     required: false,
   },
@@ -71,7 +71,7 @@ const challengeSchema = mongoose.Schema({
       validator: function (date) {
         return validateStartDate(date);
       },
-      message: "Start Date cannot be in the past",
+      message: 'Start Date cannot be in the past',
     },
   },
   end_date: {
@@ -81,10 +81,19 @@ const challengeSchema = mongoose.Schema({
       validator: function (date) {
         return validateEndDate(this.start_date, date);
       },
-      message: "End Date must be after start date within 1 year.",
+      message: 'End Date must be after start date within 1 year.',
     },
   },
-  participants: [{ type: Schema.Types.ObjectId, required: true, ref: 'User', default: function () { return this.creator; }}],
+  participants: [
+    {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+      default: function () {
+        return this.creator;
+      },
+    },
+  ],
 });
 
 // add plugin that converts mongoose to json
@@ -156,16 +165,16 @@ const validateStartDate = (startDate) => {
  */
 const dateFormater = (date, currentDate) => {
   let number = parseInt(
-    "" +
+    '' +
       date.getFullYear() +
-      (date.getMonth() + 1 > 9 ? "" : 0) +
+      (date.getMonth() + 1 > 9 ? '' : 0) +
       (date.getMonth() + 1) +
-      (date.getUTCDate() > 9 ? "" : 0) +
+      (date.getUTCDate() > 9 ? '' : 0) +
       (currentDate ? date.getDate() : date.getUTCDate()),
     10
   );
 
-  modelDebugger("TYPEOF date", typeof number);
+  modelDebugger('TYPEOF date', typeof number);
   return number;
 };
 // const dateFormater = (date, currentDate) => {
@@ -183,7 +192,7 @@ const dateFormater = (date, currentDate) => {
 /**
  * @typedef Challenge
  */
-const Challenge = mongoose.model("challenge", challengeSchema);
+const Challenge = mongoose.model('challenge', challengeSchema);
 //const User = mongoose.model("user", UserSchema);
 
 module.exports = Challenge;

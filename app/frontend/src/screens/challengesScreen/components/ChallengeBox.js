@@ -1,18 +1,18 @@
-import React, { useState, useCallback } from "react";
-import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Dimensions } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
-const asyncStorage = require("../../../asyncStorage");
+import React, { useState, useCallback } from 'react';
+import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Dimensions } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+const asyncStorage = require('../../../asyncStorage');
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 
 const ChallengeBox = ({ challenge }) => {
-  const [id, setId] = useState("");
+  const [id, setId] = useState('');
 
   useFocusEffect(
     useCallback(() => {
       const getId = async () => {
-        const id = await asyncStorage.getData("ID");
+        const id = await asyncStorage.getData('ID');
         setId(id);
       };
       getId();
@@ -32,9 +32,9 @@ const ChallengeBox = ({ challenge }) => {
         <Text style={styles.status_text}>
           {challenge.participants.includes(id)
             ? new Date(challenge.end_date) < new Date(Date.now())
-              ? "Completed"
-              : "In Progress"
-            : "Not Participating"}
+              ? 'Completed'
+              : 'In Progress'
+            : 'Not Participating'}
         </Text>
       </View>
     </View>
@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   container: {
-    flexDirection: "column",
-    alignItems: "flex-start",
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     marginHorizontal: height / 50,
   },
   image: {
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     marginVertical: height / 65,
   },
   title: {
-    fontWeight: "300",
+    fontWeight: '300',
     fontSize: width * 0.06,
   },
 

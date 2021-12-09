@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   Text,
@@ -6,10 +6,10 @@ import {
   Dimensions,
   TextInput,
   ScrollView,
-} from "react-native";
-import DatePicker from "@react-native-community/datetimepicker";
+} from 'react-native';
+import DatePicker from '@react-native-community/datetimepicker';
 
-const { height, width } = Dimensions.get("window");
+const { height, width } = Dimensions.get('window');
 const Field = ({ title, text, setting, callback, dob }) => {
   let canEdit;
   if (setting) {
@@ -19,7 +19,7 @@ const Field = ({ title, text, setting, callback, dob }) => {
   }
   return (
     <View style={styles.parent}>
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: 'row' }}>
         <Text style={styles.fieldTitle}>{title}</Text>
         {setting ? <Text style={styles.changeButton}>Change</Text> : null}
       </View>
@@ -60,14 +60,14 @@ const styles = StyleSheet.create({
     fontSize: width * 0.045,
     opacity: 0.5,
     right: 0,
-    position: "absolute",
+    position: 'absolute',
   },
 
   parent: {
     width: width - 80,
     marginVertical: height / 40,
-    flexDirection: "column",
-    alignSelf: "center",
+    flexDirection: 'column',
+    alignSelf: 'center',
   },
 });
 export default Field;

@@ -1,16 +1,16 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { View, Image, Dimensions, StyleSheet } from "react-native";
+import { View, Image, Dimensions, StyleSheet } from 'react-native';
 
 //bottom tab
-import ChallengeStack from "./ChallengesNavigator";
-import FormularyStack from "./FormularyNavigator";
-import InsightStack from "./InsightsNavigator";
-import KnowledgeStack from "./KnowledgeNavigator";
-import SearchStack from "./SearchNavigator";
+import ChallengeStack from './ChallengesNavigator';
+import FormularyStack from './FormularyNavigator';
+import InsightStack from './InsightsNavigator';
+import KnowledgeStack from './KnowledgeNavigator';
+import SearchStack from './SearchNavigator';
 
-const { height, width } = Dimensions.get("window");
+const { height, width } = Dimensions.get('window');
 
 const Tab = createBottomTabNavigator();
 
@@ -22,18 +22,18 @@ const MainBottomTab = () => {
         headerShown: false,
         keyboardHidesTab: true,
         showLabels: false,
-        activeTintColor: "#0288d1",
+        activeTintColor: '#0288d1',
       }}
     >
       <Tab.Screen
         name="InsightStack"
         component={InsightStack}
         options={{
-          tabBarLabel: "Insights",
+          tabBarLabel: 'Insights',
           tabBarIcon: ({}) => (
             <View>
               <Image
-                source={require("../../assets/InsightsLogo.png")}
+                source={require('../../assets/InsightsLogo.png')}
                 style={styles.image}
               />
             </View>
@@ -44,11 +44,11 @@ const MainBottomTab = () => {
         name="Formulary"
         component={FormularyStack}
         options={{
-          tabBarLabel: "Formulary",
+          tabBarLabel: 'Formulary',
           tabBarIcon: ({}) => (
             <View>
               <Image
-                source={require("../../assets/FormularyLogo.png")}
+                source={require('../../assets/FormularyLogo.png')}
                 style={styles.image}
               />
             </View>
@@ -59,11 +59,11 @@ const MainBottomTab = () => {
         name="SearchStack"
         component={SearchStack}
         options={{
-          tabBarLabel: "Search",
+          tabBarLabel: 'Search',
           tabBarIcon: ({}) => (
             <View>
               <Image
-                source={require("../../assets/SearchLogo.png")}
+                source={require('../../assets/SearchLogo.png')}
                 style={styles.image}
               />
             </View>
@@ -74,11 +74,11 @@ const MainBottomTab = () => {
         name="Challenge"
         component={ChallengeStack}
         options={{
-          tabBarLabel: "Challenge",
+          tabBarLabel: 'Challenge',
           tabBarIcon: ({}) => (
             <View>
               <Image
-                source={require("../../assets/ChallengeLogo.png")}
+                source={require('../../assets/ChallengeLogo.png')}
                 style={styles.image}
               />
             </View>
@@ -89,11 +89,11 @@ const MainBottomTab = () => {
         name="KnowledgeStack"
         component={KnowledgeStack}
         options={{
-          tabBarLabel: "Knowledge",
+          tabBarLabel: 'Knowledge',
           tabBarIcon: ({}) => (
             <View>
               <Image
-                source={require("../../assets/KnowledgeLogo.png")}
+                source={require('../../assets/KnowledgeLogo.png')}
                 style={styles.image}
               />
             </View>

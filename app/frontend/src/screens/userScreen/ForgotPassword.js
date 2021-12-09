@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import axios from "../../axios";
+import axios from '../../axios';
 
 const { width, height } = Dimensions.get('window');
 
@@ -24,10 +24,9 @@ const ForgotPassword = (props) => {
     return regexp.test(email);
   }
 
-
   const resetPassword = async () => {
     try {
-      const res = await axios.post("/auth/forgot-password", {
+      const res = await axios.post('/auth/forgot-password', {
         email: email,
       });
       console.log(res.data);

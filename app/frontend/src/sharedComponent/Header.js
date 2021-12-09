@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 import {
   Text,
   StyleSheet,
   TouchableOpacity,
   Dimensions,
   View,
-} from "react-native";
+} from 'react-native';
 
-import Icon from "react-native-vector-icons/AntDesign";
-import Ionicon from "react-native-vector-icons/Ionicons";
-import { Feather, AntDesign } from "@expo/vector-icons";
-import { Appbar, Avatar } from "react-native-paper";
-const { height, width } = Dimensions.get("window");
+import Icon from 'react-native-vector-icons/AntDesign';
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import { Feather, AntDesign } from '@expo/vector-icons';
+import { Appbar, Avatar } from 'react-native-paper';
+const { height, width } = Dimensions.get('window');
 const barHeight = 37;
 const CustomHeader = ({
   navigation,
@@ -29,7 +29,7 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: "#fff",
+          backgroundColor: '#fff',
           elevation: 0,
         }}
       >
@@ -39,11 +39,11 @@ const CustomHeader = ({
             <Ionicon
               name="ios-chevron-back-outline"
               size={width * 0.05}
-              style={{ color: "#2F80ED" }}
+              style={{ color: '#2F80ED' }}
             />
           )}
           onPress={() => {
-            navigation.navigate("Challenge");
+            navigation.navigate('Challenge');
           }}
         />
         <Appbar.Content
@@ -57,7 +57,7 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: "#1d3679",
+          backgroundColor: '#1d3679',
           elevation: -1,
         }}
       >
@@ -67,11 +67,11 @@ const CustomHeader = ({
             <Ionicon
               name="ios-chevron-back-outline"
               size={width * 0.05}
-              style={{ color: "#2F80ED" }}
+              style={{ color: '#2F80ED' }}
             />
           )}
           onPress={() => {
-            navigation.navigate("Login");
+            navigation.navigate('Login');
           }}
         />
         <Appbar.Content
@@ -85,7 +85,7 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: "#142A4F",
+          backgroundColor: '#142A4F',
           elevation: 0,
         }}
       >
@@ -95,14 +95,14 @@ const CustomHeader = ({
             style={styles.leftAction}
             icon={() => (
               <Avatar.Image
-                style={{ alignSelf: "center" }}
+                style={{ alignSelf: 'center' }}
                 size={width * 0.07}
                 source={{
-                  uri: "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png",
+                  uri: 'https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png',
                 }}
               />
             )}
-            onPress={() => navigation.navigate("User")}
+            onPress={() => navigation.navigate('User')}
           />
         ) : (
           <Appbar.Action
@@ -112,10 +112,10 @@ const CustomHeader = ({
               <Icon
                 name="setting"
                 size={width * 0.07}
-                style={{ color: "white" }}
+                style={{ color: 'white' }}
               />
             )}
-            onPress={() => navigation.navigate("Setting")}
+            onPress={() => navigation.navigate('Setting')}
           />
         )}
         <Appbar.Content
@@ -138,7 +138,7 @@ const CustomHeader = ({
       <Appbar.Header
         statusBarHeight={barHeight}
         style={{
-          backgroundColor: "#fff",
+          backgroundColor: '#fff',
           elevation: 0,
         }}
       >
@@ -149,15 +149,15 @@ const CustomHeader = ({
             <Avatar.Image
               size={width * 0.08}
               source={{
-                uri: "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png",
+                uri: 'https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png',
               }}
             />
           )}
-          onPress={() => navigation.navigate("User")}
+          onPress={() => navigation.navigate('User')}
         />
 
         <Appbar.Content
-          style={[styles.headerStyle]}
+          style={styles.headerStyle}
           title={<Text style={styles.title}>{title}</Text>}
         />
         <Appbar.Action
@@ -167,7 +167,7 @@ const CustomHeader = ({
             if (challenge) {
               return (
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("CreateChallenge")}
+                  onPress={() => navigation.navigate('CreateChallenge')}
                   style={styles.plusButton}
                 >
                   <AntDesign name="plus" size={width * 0.06} color="black" />
@@ -185,7 +185,7 @@ const CustomHeader = ({
 const styles = StyleSheet.create({
   title: {
     fontSize: width * 0.06,
-    fontWeight: "300",
+    fontWeight: '300',
   },
   leftAction: {
     left: width / 28,

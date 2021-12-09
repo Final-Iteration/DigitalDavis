@@ -1,6 +1,6 @@
-const httpStatus = require("http-status");
-const User = require("../models/user.model");
-const ApiError = require("../utils/ApiError");
+const httpStatus = require('http-status');
+const User = require('../models/user.model');
+const ApiError = require('../utils/ApiError');
 
 /**
  * Create a User
@@ -9,7 +9,7 @@ const ApiError = require("../utils/ApiError");
  */
 const createUser = async (UserBody) => {
   if (await User.isEmailTaken(UserBody.email)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
   return User.create(UserBody);
 };
@@ -64,7 +64,7 @@ const getUserByName = async (first_name) => {
 const updateUserById = async (id, updateBody) => {
   const User = await getUserById({ _id: id });
   if (!User) {
-    throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
   //ERROR "User.isEmailTaken is not a function" even though it is a function
   //I can't figure this out
@@ -87,7 +87,7 @@ const updateUserById = async (id, updateBody) => {
 const deleteUserById = async (id) => {
   const User = await getUserById({ _id: id });
   if (!User) {
-    throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
   await User.remove();
   return User;

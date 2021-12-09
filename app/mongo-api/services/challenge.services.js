@@ -1,7 +1,7 @@
-const httpStatus = require("http-status");
-const Challenge = require("../models/challenge.model");
-const User = require("../models/user.model");
-const ApiError = require("../utils/ApiError");
+const httpStatus = require('http-status');
+const Challenge = require('../models/challenge.model');
+const User = require('../models/user.model');
+const ApiError = require('../utils/ApiError');
 
 /**
  * Create a challenge
@@ -47,7 +47,7 @@ const queryChallenges = async (filter, options) => {
 const getChallengeById = async (challengeId) => {
   const challenge = await Challenge.findOne({ _id: challengeId });
   if (!challenge) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
+    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
   }
   return challenge;
 };
@@ -70,13 +70,13 @@ const getChallengeByName = async (name) => {
 const updateChallengeById = async (id, challengeBody) => {
   const challenge = await getChallengeById({ _id: id });
   if (!challenge) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
+    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
   }
   if (
     challengeBody.email &&
     (await Challenge.isEmailTaken(challengeBody.email, id))
   ) {
-    throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
     Object.assign(challenge, challengeBody);
     await challenge.save();
     return challenge;
@@ -102,13 +102,13 @@ const updateChallengeById = async (id, challengeBody) => {
 const deleteChallengeById = async (challengeID, userID) => {
   const challenge = await getChallengeById({ _id: challengeID });
   if (!challenge) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
+    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
   }
   if (userID == challenge.creator) {
     await challenge.remove();
     // return challenge;
   } else if (userID == challenge.creator) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, "UNAUTHORIZED");
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'UNAUTHORIZED');
   }
 };
 

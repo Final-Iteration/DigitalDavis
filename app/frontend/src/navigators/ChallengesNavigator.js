@@ -1,9 +1,9 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import CreateChallenge from "../screens/challengesScreen/CreateChallenge";
-import CurrentChallenge from "../screens/challengesScreen/CurrentChallenge";
-import ChallengeInfo from "../screens/challengesScreen/ChallengeInfo";
-import Header from "../sharedComponent/Header";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import CreateChallenge from '../screens/challengesScreen/CreateChallenge';
+import CurrentChallenge from '../screens/challengesScreen/CurrentChallenge';
+import ChallengeInfo from '../screens/challengesScreen/ChallengeInfo';
+import Header from '../sharedComponent/Header';
 const Stack = createStackNavigator();
 
 function MyStack() {

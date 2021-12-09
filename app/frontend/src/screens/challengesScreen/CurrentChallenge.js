@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   useWindowDimensions,
   StyleSheet,
@@ -6,28 +6,28 @@ import {
   FlatList,
   Text,
   Dimensions,
-} from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
-import ChallengeBox from "./components/ChallengeBox";
-import { TabView, SceneMap } from "react-native-tab-view";
-import { TabBar } from "react-native-tab-view";
-import axios from "../../axios";
-import Loading from "../../sharedComponent/Loading";
-const asyncStorage = require("../../asyncStorage");
-const { height, width } = Dimensions.get("window");
+} from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import ChallengeBox from './components/ChallengeBox';
+import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabBar } from 'react-native-tab-view';
+import axios from '../../axios';
+import Loading from '../../sharedComponent/Loading';
+const asyncStorage = require('../../asyncStorage');
+const { height, width } = Dimensions.get('window');
 const CurrentChallenges = (props) => {
   const [allChallenges, setAllChallenge] = useState([]);
   const [pastChallenges, setPastChallenges] = useState([]);
   const [currentChallenges, setCurrentChallenges] = useState([]);
 
   const [loading, setLoading] = useState(true);
-  const [id, setId] = useState("");
+  const [id, setId] = useState('');
 
   const getAllChallenges = async () => {
     try {
-      const id = await asyncStorage.getData("ID");
-      const authToken = await asyncStorage.getData("Authorization");
-      const getAllChallenges = await axios.get("/challenges?limit=10000", {
+      const id = await asyncStorage.getData('ID');
+      const authToken = await asyncStorage.getData('Authorization');
+      const getAllChallenges = await axios.get('/challenges?limit=10000', {
         headers: {
           id: id,
           Authorization: authToken,
@@ -71,19 +71,19 @@ const CurrentChallenges = (props) => {
 
   const defaultNoChallenge = (currentTab) => {
     switch (currentTab) {
-      case "All":
+      case 'All':
         return (
           <Text style={styles.defaultText}>
             There is currently no active challenges to display
           </Text>
         );
-      case "Current":
+      case 'Current':
         return (
           <Text style={styles.defaultText}>
             You are not currently participating in any challenges
           </Text>
         );
-      case "Past":
+      case 'Past':
         return (
           <Text style={styles.defaultText}>
             You have not completed any challenges
@@ -95,7 +95,7 @@ const CurrentChallenges = (props) => {
   const FirstRoute = () => {
     //if there is no challenges to display
     if (allChallenges.length === 0) {
-      return defaultNoChallenge("All");
+      return defaultNoChallenge('All');
     } else {
       return (
         <FlatList
@@ -106,7 +106,7 @@ const CurrentChallenges = (props) => {
               <TouchableOpacity
                 activeOpacity={1}
                 onPress={() =>
-                  props.navigation.navigate("ChallengeInformation", {
+                  props.navigation.navigate('ChallengeInformation', {
                     id: id,
                     challenge: item.id,
                     disableButton: false,
@@ -125,7 +125,7 @@ const CurrentChallenges = (props) => {
 
   const SecondRoute = () => {
     if (currentChallenges.length === 0) {
-      return defaultNoChallenge("Current");
+      return defaultNoChallenge('Current');
     } else {
       return (
         <FlatList
@@ -136,7 +136,7 @@ const CurrentChallenges = (props) => {
               <TouchableOpacity
                 activeOpacity={1}
                 onPress={() =>
-                  props.navigation.navigate("ChallengeInformation", {
+                  props.navigation.navigate('ChallengeInformation', {
                     challenge: item.id,
                     id: id,
                     disableButton: false,
@@ -155,7 +155,7 @@ const CurrentChallenges = (props) => {
 
   const ThirdRoute = () => {
     if (pastChallenges.length === 0) {
-      return defaultNoChallenge("Past");
+      return defaultNoChallenge('Past');
     } else {
       return (
         <FlatList
@@ -166,7 +166,7 @@ const CurrentChallenges = (props) => {
               <TouchableOpacity
                 activeOpacity={1}
                 onPress={() =>
-                  props.navigation.navigate("ChallengeInformation", {
+                  props.navigation.navigate('ChallengeInformation', {
                     challenge: item.id,
                     id: id,
                     disableButton: true,
@@ -191,9 +191,9 @@ const CurrentChallenges = (props) => {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "first", title: "Active" },
-    { key: "second", title: "Current" },
-    { key: "third", title: "Past" },
+    { key: 'first', title: 'Active' },
+    { key: 'second', title: 'Current' },
+    { key: 'third', title: 'Past' },
   ]);
 
   return (
@@ -202,7 +202,7 @@ const CurrentChallenges = (props) => {
         <Loading />
       ) : (
         <TabView
-          tabStyle={{ backgroundColor: "red" }}
+          tabStyle={{ backgroundColor: 'red' }}
           swipeEnabled={false}
           style={styles.container}
           navigationState={{ index, routes }}
@@ -211,12 +211,12 @@ const CurrentChallenges = (props) => {
           renderTabBar={(props) => (
             <TabBar
               {...props}
-              style={{ backgroundColor: "#f2f2f2", flex: 0.08 }}
-              indicatorStyle={{ backgroundColor: "#142A4F" }}
+              style={{ backgroundColor: '#f2f2f2', flex: 0.08 }}
+              indicatorStyle={{ backgroundColor: '#142A4F' }}
               renderLabel={({ route, focused, color }) => (
                 <Text
                   style={{
-                    color: "black",
+                    color: 'black',
                     fontSize: width * 0.043,
                   }}
                 >
@@ -232,11 +232,11 @@ const CurrentChallenges = (props) => {
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f2f2f2",
+    backgroundColor: '#f2f2f2',
   },
   defaultText: {
-    marginVertical: "50%",
-    alignSelf: "center",
+    marginVertical: '50%',
+    alignSelf: 'center',
     fontSize: width * 0.04,
   },
 });

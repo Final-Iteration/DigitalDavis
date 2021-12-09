@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -11,60 +11,60 @@ import {
   Image,
   SafeAreaView,
   ActivityIndicator,
-} from "react-native";
-import { Divider } from "react-native-elements";
-import { ProgressBar, Colors } from "react-native-paper";
-import { Feather } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import Icon from "react-native-vector-icons/Fontisto";
-import RNDateTimePicker from "@react-native-community/datetimepicker";
-import Modal from "react-native-modal";
-import axios from "../../axios";
-import UnplashImage from "./components/UnplashImage";
-import CreateChallengeBanner from "./components/banners/CreateChallengeBanner";
-import { showMessage } from "react-native-flash-message";
-const asyncStorage = require("../../asyncStorage");
+} from 'react-native';
+import { Divider } from 'react-native-elements';
+import { ProgressBar, Colors } from 'react-native-paper';
+import { Feather } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Icon from 'react-native-vector-icons/Fontisto';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
+import Modal from 'react-native-modal';
+import axios from '../../axios';
+import UnplashImage from './components/UnplashImage';
+import CreateChallengeBanner from './components/banners/CreateChallengeBanner';
+import { showMessage } from 'react-native-flash-message';
+const asyncStorage = require('../../asyncStorage');
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 
 const CreateChallengeScreenTags = (props) => {
   const createChallenge = async () => {
     const tagsArray = [];
     if (selectAllTags == true) {
       tagsArray.push(
-        "Emotional",
-        "Environmental",
-        "Intellectual",
-        "Physical",
-        "Social",
-        "Spiritual"
+        'Emotional',
+        'Environmental',
+        'Intellectual',
+        'Physical',
+        'Social',
+        'Spiritual'
       );
     } else {
       if (emotionalTag == true) {
-        tagsArray.push("Emotional");
+        tagsArray.push('Emotional');
       }
       if (environmentalTag == true) {
-        tagsArray.push("Environmental");
+        tagsArray.push('Environmental');
       }
       if (intellectualTag == true) {
-        tagsArray.push("Intellectual");
+        tagsArray.push('Intellectual');
       }
       if (physicalTag == true) {
-        tagsArray.push("Physical");
+        tagsArray.push('Physical');
       }
       if (socialTag == true) {
-        tagsArray.push("Social");
+        tagsArray.push('Social');
       }
       if (spiritualTag == true) {
-        tagsArray.push("Spiritual");
+        tagsArray.push('Spiritual');
       }
     }
-    const id = await asyncStorage.getData("ID");
-    const authToken = await asyncStorage.getData("Authorization");
+    const id = await asyncStorage.getData('ID');
+    const authToken = await asyncStorage.getData('Authorization');
     let body = {
       name: challengeName,
       start_date: startDate,
@@ -76,28 +76,28 @@ const CreateChallengeScreenTags = (props) => {
     };
     if (challengeName.trim().length && challengeDescription.trim().length) {
       try {
-        const res = await axios.post("/challenges", body, {
+        const res = await axios.post('/challenges', body, {
           headers: {
             id: id,
             Authorization: authToken,
           },
         });
         showMessage({
-          icon: "success",
-          position: "top",
+          icon: 'success',
+          position: 'top',
           message: null,
-          type: "success",
+          type: 'success',
           renderFlashMessageIcon: CreateChallengeBanner,
           style: { borderRadius: 15, top: 35, height: 50 },
           statusBarHeight: 0,
           floating: true,
         });
-        props.navigation.navigate("Challenge");
+        props.navigation.navigate('Challenge');
       } catch (error) {
         if (error.response.status === 500) {
-          setError("Something went wrong, try again later");
+          setError('Something went wrong, try again later');
         } else {
-          const err = error.response.data.message.replaceAll('"', "");
+          const err = error.response.data.message.replaceAll('"', '');
           alert(err);
         }
       }
@@ -120,7 +120,7 @@ const CreateChallengeScreenTags = (props) => {
   const [open, setOpen] = useState(true);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState('');
   const [locationLength, setLocationLength] = useState(50);
 
   const textInputCount = (text) => {
@@ -130,17 +130,17 @@ const CreateChallengeScreenTags = (props) => {
   //description page states and methods
   const [nameLength, setInputLength] = useState(30);
   const [descriptionLength, setDescriptionLength] = useState(250);
-  const [challengeName, setChallengeName] = useState("");
-  const [challengeDescription, setChallengeDescription] = useState("");
+  const [challengeName, setChallengeName] = useState('');
+  const [challengeDescription, setChallengeDescription] = useState('');
   const [modal, setModal] = useState(false);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState('');
   const [imageURL, setImageURL] = useState([]); //list of images returned from unsplash api
   const [selectedPhoto, setSelectedPhoto] = useState(
-    "https://mpama.com/wp-content/uploads/2017/04/default-image-620x600.jpg"
+    'https://mpama.com/wp-content/uploads/2017/04/default-image-620x600.jpg'
   );
-  const [unsplashError, setUnsplashError] = useState("");
+  const [unsplashError, setUnsplashError] = useState('');
   const [completeUnsplash, setCompleteUnplash] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const searchPhotos = async (text) => {
     try {
@@ -157,12 +157,12 @@ const CreateChallengeScreenTags = (props) => {
 
       setCompleteUnplash(true);
     } catch (err) {
-      setUnsplashError("Cannot retreive images from Unsplash, try again later");
+      setUnsplashError('Cannot retreive images from Unsplash, try again later');
     }
   };
 
   const textInputCounts = (prop, text) => {
-    if (prop == "name") {
+    if (prop == 'name') {
       setInputLength(30 - text.length);
     } else {
       setDescriptionLength(250 - text.length);
@@ -170,12 +170,12 @@ const CreateChallengeScreenTags = (props) => {
   };
 
   const [challengeTags, setChallengeTags] = useState([
-    { tagName: "Emotional", id: "1" },
-    { tagName: "Environmental", id: "2" },
-    { tagName: "Intellectual", id: "3" },
-    { tagName: "Physical", id: "4" },
-    { tagName: "Social", id: "5" },
-    { tagName: "Spiritual", id: "6" },
+    { tagName: 'Emotional', id: '1' },
+    { tagName: 'Environmental', id: '2' },
+    { tagName: 'Intellectual', id: '3' },
+    { tagName: 'Physical', id: '4' },
+    { tagName: 'Social', id: '5' },
+    { tagName: 'Spiritual', id: '6' },
   ]);
 
   const toggleAll = () => {
@@ -203,7 +203,7 @@ const CreateChallengeScreenTags = (props) => {
         <View style={styles.tagPageContainerGustav}>
           <TouchableOpacity
             onPress={() => {
-              props.navigation.navigate("Challenge");
+              props.navigation.navigate('Challenge');
             }}
           >
             <Text style={styles.backButtonGustav}>Back</Text>
@@ -253,7 +253,7 @@ const CreateChallengeScreenTags = (props) => {
                 style={styles.iconStyle}
                 name="chevron-with-circle-down"
                 size={24}
-                color={selectAllTags ? "#0288d1" : "black"}
+                color={selectAllTags ? '#0288d1' : 'black'}
               />
               <Text
                 style={
@@ -273,7 +273,7 @@ const CreateChallengeScreenTags = (props) => {
                 style={styles.iconStyle}
                 name="hearto"
                 size={24}
-                color={emotionalTag ? "#0288d1" : "black"}
+                color={emotionalTag ? '#0288d1' : 'black'}
               />
               <Text
                 style={
@@ -295,7 +295,7 @@ const CreateChallengeScreenTags = (props) => {
                 style={styles.iconStyle}
                 name="flower-tulip-outline"
                 size={24}
-                color={environmentalTag ? "#0288d1" : "black"}
+                color={environmentalTag ? '#0288d1' : 'black'}
               />
               <Text
                 style={
@@ -317,7 +317,7 @@ const CreateChallengeScreenTags = (props) => {
                 style={styles.iconStyle}
                 name="book"
                 size={24}
-                color={intellectualTag ? "#0288d1" : "black"}
+                color={intellectualTag ? '#0288d1' : 'black'}
               />
               <Text
                 style={
@@ -337,7 +337,7 @@ const CreateChallengeScreenTags = (props) => {
                 style={styles.iconStyle}
                 name="ios-basketball-outline"
                 size={24}
-                color={physicalTag ? "#0288d1" : "black"}
+                color={physicalTag ? '#0288d1' : 'black'}
               />
               <Text
                 style={
@@ -357,7 +357,7 @@ const CreateChallengeScreenTags = (props) => {
                 style={styles.iconStyle}
                 name="md-people-outline"
                 size={24}
-                color={socialTag ? "#0288d1" : "black"}
+                color={socialTag ? '#0288d1' : 'black'}
               />
               <Text
                 style={
@@ -375,7 +375,7 @@ const CreateChallengeScreenTags = (props) => {
                 style={styles.iconStyle}
                 name="ios-bonfire-outline"
                 size={24}
-                color={spiritualTag ? "#0288d1" : "black"}
+                color={spiritualTag ? '#0288d1' : 'black'}
               />
               <Text
                 style={
@@ -426,7 +426,7 @@ const CreateChallengeScreenTags = (props) => {
         <KeyboardAwareScrollView
           enableOnAndroid={true}
           showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps={"always"}
+          keyboardShouldPersistTaps={'always'}
           extraScrollHeight={30}
         >
           <Text style={styles.headerText}>
@@ -436,7 +436,7 @@ const CreateChallengeScreenTags = (props) => {
             style={{
               top: height / 15,
               height: 150,
-              justifyContent: "space-between",
+              justifyContent: 'space-between',
             }}
           >
             <View style={styles.dateDropDown}>
@@ -447,7 +447,7 @@ const CreateChallengeScreenTags = (props) => {
                 style={styles.datePickerStyle}
                 testID="dateTimePicker"
                 value={startDate}
-                mode={"date"}
+                mode={'date'}
                 is24Hour={true}
                 display="default"
                 onChange={(event, selectedDate) => {
@@ -465,7 +465,7 @@ const CreateChallengeScreenTags = (props) => {
                 style={styles.datePickerStyle}
                 testID="dateTimePicker"
                 value={endDate}
-                mode={"date"}
+                mode={'date'}
                 is24Hour={true}
                 display="default"
                 onChange={(event, selectedDate) => {
@@ -526,7 +526,7 @@ const CreateChallengeScreenTags = (props) => {
           <KeyboardAwareScrollView
             enableOnAndroid={true}
             showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps={"always"}
+            keyboardShouldPersistTaps={'always'}
             extraScrollHeight={20}
           >
             <Text style={styles.headerTextDescription}>
@@ -551,7 +551,7 @@ const CreateChallengeScreenTags = (props) => {
                 <Feather
                   name="external-link"
                   size={17}
-                  color={"white"}
+                  color={'white'}
                   style={{ marginRight: 10 }}
                 />
               </TouchableOpacity>
@@ -564,7 +564,7 @@ const CreateChallengeScreenTags = (props) => {
               value={challengeName}
               onChangeText={(text) => {
                 setChallengeName(text);
-                textInputCounts("name", text);
+                textInputCounts('name', text);
               }}
             />
             <Text style={styles.inputLengths}>{nameLength}</Text>
@@ -577,7 +577,7 @@ const CreateChallengeScreenTags = (props) => {
               value={challengeDescription}
               onChangeText={(text) => {
                 setChallengeDescription(text);
-                textInputCounts("", text);
+                textInputCounts('', text);
               }}
             />
             <Text style={styles.inputLengths}>{descriptionLength}</Text>
@@ -616,10 +616,10 @@ const CreateChallengeScreenTags = (props) => {
                 )}
                 {!completeUnsplash ? (
                   <View
-                    style={{ alignSelf: "center", marginVertical: height / 5 }}
+                    style={{ alignSelf: 'center', marginVertical: height / 5 }}
                   >
                     <ActivityIndicator
-                      style={{ alignSelf: "center" }}
+                      style={{ alignSelf: 'center' }}
                       size="small"
                     />
                   </View>
@@ -652,7 +652,7 @@ const CreateChallengeScreenTags = (props) => {
 const styles = StyleSheet.create({
   unplashCreditText: {
     fontSize: width * 0.025,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   safeAreaViewContainer: {
     flex: 1,
@@ -663,66 +663,66 @@ const styles = StyleSheet.create({
     marginHorizontal: width / 25,
   },
   challengePhoto: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     borderRadius: 10,
   },
   pictureList: {
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   iconStyle: {
     marginHorizontal: 10,
   },
   searchContainer: {
-    alignSelf: "center",
-    alignItems: "center",
-    flexDirection: "row",
+    alignSelf: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
     borderWidth: 1,
     borderRadius: 80,
-    borderColor: "#D3D3D3",
+    borderColor: '#D3D3D3',
     marginVertical: height / 100,
     height: height / 25,
   },
   modalView: {
     marginVertical: height / 5,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 10,
   },
   uploadPictureText: {
     margin: 10,
     fontSize: width * 0.035,
-    alignSelf: "center",
-    color: "white",
+    alignSelf: 'center',
+    color: 'white',
   },
   uploadPictureContainer: {
-    position: "absolute",
-    alignSelf: "center",
+    position: 'absolute',
+    alignSelf: 'center',
     bottom: 2,
-    borderColor: "#abdcfb",
+    borderColor: '#abdcfb',
     borderWidth: 0.5,
     borderRadius: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   nextButtonInvalid: {
     right: width / 20,
     fontSize: 20,
-    color: "#BEBEBE",
+    color: '#BEBEBE',
   },
   nextButtonValid: {
     right: width / 20,
     fontSize: 20,
-    color: "#0288d1",
+    color: '#0288d1',
   },
   backButtonGustav: {
     left: width / 20,
     fontSize: 20,
-    color: "#0288d1",
+    color: '#0288d1',
   },
   tagPageContainerGustav: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     bottom: height / 60,
   },
   pageContainer: {
@@ -739,44 +739,44 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 22,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginHorizontal: width / 25,
     top: height / 50,
   },
   tagNotSelectedText: {
     fontSize: 18,
-    fontWeight: "300",
+    fontWeight: '300',
     marginTop: height / 30,
     paddingHorizontal: width / 20,
   },
   tagSelectedText: {
     fontSize: 18,
-    fontWeight: "300",
+    fontWeight: '300',
     marginTop: height / 30,
     paddingHorizontal: width / 20,
-    color: "#0288d1",
+    color: '#0288d1',
   },
   iconTextConainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   iconStyle: {
     marginTop: height / 30,
   },
   headerTextDate: {
     fontSize: 22,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginHorizontal: width / 25,
     top: height / 50,
   },
   datesText: {
     fontSize: 22,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     top: 6,
   },
   location: {
     top: height / 10,
     marginHorizontal: width / 25,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   locationBox: {
     borderRadius: 10,
@@ -784,7 +784,7 @@ const styles = StyleSheet.create({
     height: height / 20,
     borderWidth: width / 300,
     padding: width / 50,
-    borderColor: "#D3D3D3",
+    borderColor: '#D3D3D3',
     marginTop: height / 45,
   },
   containerDatesAndDescription: {
@@ -792,14 +792,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   locationLength: {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
     marginRight: width / 18,
     top: height / 80,
   },
   dateDropDown: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginHorizontal: width / 25,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   datePickerStyle: {
     height: 45,
@@ -807,23 +807,23 @@ const styles = StyleSheet.create({
   },
   headerTextDescription: {
     fontSize: 22,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginHorizontal: width / 25,
     marginTop: height / 50,
   },
   secondHeaderTextDescription: {
     marginHorizontal: width / 25,
-    fontWeight: "300",
+    fontWeight: '300',
     marginTop: height / 20,
   },
   nameAndDescriptionText: {
     fontSize: 22,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginHorizontal: width / 25,
     marginTop: height / 20,
   },
   inputLengths: {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
     marginRight: width / 18,
     top: 0.5,
   },
@@ -834,7 +834,7 @@ const styles = StyleSheet.create({
     marginHorizontal: width / 25,
     borderWidth: width / 300,
     padding: width / 50,
-    borderColor: "#D3D3D3",
+    borderColor: '#D3D3D3',
     marginTop: height / 50,
   },
   descriptionBox: {
@@ -844,7 +844,7 @@ const styles = StyleSheet.create({
     marginHorizontal: width / 25,
     borderWidth: width / 300,
     padding: width / 50,
-    borderColor: "#D3D3D3",
+    borderColor: '#D3D3D3',
     marginTop: height / 50,
   },
 });

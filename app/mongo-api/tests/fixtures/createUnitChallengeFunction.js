@@ -1,13 +1,13 @@
-const testDebugger = require("debug")("app:test");
-const mongoose = require("mongoose");
-const faker = require("faker");
+const testDebugger = require('debug')('app:test');
+const mongoose = require('mongoose');
+const faker = require('faker');
 const challengeTags = [
-  "Emotional",
-  "Environmental",
-  "Intellectual",
-  "Physical",
-  "Social",
-  "Spiritual",
+  'Emotional',
+  'Environmental',
+  'Intellectual',
+  'Physical',
+  'Social',
+  'Spiritual',
 ];
 
 /**
@@ -85,7 +85,7 @@ const createChallenge = async () => {
     location: faker.address.city().substring(0, 30),
     unsplashurl:
       // eslint-disable-next-line max-len
-      "https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20",
+      'https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20',
     timestamp: faker.date.recent(),
     start_date: dates[0],
     end_date: dates[1],

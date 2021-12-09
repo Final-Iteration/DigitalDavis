@@ -1,9 +1,9 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import Knowledge from "../screens/knowledgeScreen/Knowledge";
+import Knowledge from '../screens/knowledgeScreen/Knowledge';
 
-import Header from "../sharedComponent/Header";
+import Header from '../sharedComponent/Header';
 
 const Stack = createStackNavigator();
 

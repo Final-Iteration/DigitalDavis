@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Image, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
-const { height, width } = Dimensions.get("window");
-import Icon from "react-native-vector-icons/FontAwesome";
+import React, { useState } from 'react';
+import { Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+const { height, width } = Dimensions.get('window');
+import Icon from 'react-native-vector-icons/FontAwesome';
 const UnplashImage = ({ url, setPhoto, currentlySelected }) => {
   return (
     <TouchableOpacity
@@ -22,20 +22,20 @@ const UnplashImage = ({ url, setPhoto, currentlySelected }) => {
 const styles = StyleSheet.create({
   chosen: {
     margin: 5,
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     right: 0,
   },
   container: {
-    alignSelf: "center",
+    alignSelf: 'center',
     margin: 7,
     width: width / 2.5,
     height: height - 700,
   },
   image: {
     borderRadius: 10,
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
   },
 });
 export default UnplashImage;

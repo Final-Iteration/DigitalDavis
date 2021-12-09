@@ -1,34 +1,34 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-} from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
-import { Avatar } from "react-native-paper";
-import Field from "./components/Field";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import * as ImagePicker from "expo-image-picker";
-const asyncStorage = require("../../asyncStorage");
-import axios from "../../axios";
-import { showMessage } from "react-native-flash-message";
-import SaveChangeBanner from "./components/SaveChangeBanner";
+} from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { Avatar } from 'react-native-paper';
+import Field from './components/Field';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import * as ImagePicker from 'expo-image-picker';
+const asyncStorage = require('../../asyncStorage');
+import axios from '../../axios';
+import { showMessage } from 'react-native-flash-message';
+import SaveChangeBanner from './components/SaveChangeBanner';
 
-const { height, width } = Dimensions.get("window");
+const { height, width } = Dimensions.get('window');
 const UserProfile = (props) => {
   const [profilePicture, setProfilePicture] = useState(
-    "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png"
+    'https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png'
   );
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [title, setTitle] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [title, setTitle] = useState('');
   const [age, setAge] = useState(0);
   const [birthday, setBirthday] = useState(new Date(Date.now()));
-  const [department, setDepartment] = useState("");
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [department, setDepartment] = useState('');
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
   function getAge(birthDate) {
     return Math.floor(
       (new Date() - new Date(birthDate).getTime()) / 3.15576e10
@@ -43,8 +43,8 @@ const UserProfile = (props) => {
 
   const getUserInfo = async () => {
     try {
-      const id = await asyncStorage.getData("ID");
-      const authToken = await asyncStorage.getData("Authorization");
+      const id = await asyncStorage.getData('ID');
+      const authToken = await asyncStorage.getData('Authorization');
       const res = await axios.get(`/users/${id}`, {
         headers: {
           id: id,
@@ -52,8 +52,8 @@ const UserProfile = (props) => {
         },
       });
       const user = res.data;
-      const dob = user.dob.split("-");
-      dob[2] = dob[2].split("T", 1);
+      const dob = user.dob.split('-');
+      dob[2] = dob[2].split('T', 1);
       setFirstName(user.first_name);
       setLastName(user.last_name);
       setTitle(user.job_title[0]);
@@ -71,11 +71,11 @@ const UserProfile = (props) => {
       getUserInfo();
 
       return () => {
-        setFirstName("");
-        setLastName("");
-        setTitle("");
-        setDepartment("");
-        setEmail("");
+        setFirstName('');
+        setLastName('');
+        setTitle('');
+        setDepartment('');
+        setEmail('');
         setBirthday(new Date(Date.now()));
         setAge(0);
       };
@@ -86,16 +86,16 @@ const UserProfile = (props) => {
   const saveChange = async () => {
     try {
       if (!validateEmail(email)) {
-        setError("Please enter a valid email address");
+        setError('Please enter a valid email address');
         throw new Error();
       }
       if (title.length === 0) {
-        setError("Title cannot be empty");
+        setError('Title cannot be empty');
         throw new Error();
       }
 
-      const id = await asyncStorage.getData("ID");
-      const authToken = await asyncStorage.getData("Authorization");
+      const id = await asyncStorage.getData('ID');
+      const authToken = await asyncStorage.getData('Authorization');
       const body = {
         first_name: firstName,
         last_name: lastName,
@@ -116,21 +116,21 @@ const UserProfile = (props) => {
       });
 
       showMessage({
-        icon: "success",
-        position: "top",
+        icon: 'success',
+        position: 'top',
         message: null,
-        type: "success",
+        type: 'success',
         renderFlashMessageIcon: SaveChangeBanner,
         style: { borderRadius: 15, top: 35, height: 50 },
         statusBarHeight: 0,
         floating: true,
       });
-      props.navigation.navigate("User");
+      props.navigation.navigate('User');
     } catch (error) {
       if (error.response.status === 500) {
-        setError("Something went wrong, try again later");
+        setError('Something went wrong, try again later');
       } else {
-        const err = error.response.data.message.replaceAll('"', "");
+        const err = error.response.data.message.replaceAll('"', '');
         setError(err);
       }
     }
@@ -158,7 +158,7 @@ const UserProfile = (props) => {
       enableOnAndroid={true}
       extraHeight={120}
       showsVerticalScrollIndicator={false}
-      keyboardShouldPersistTaps={"always"}
+      keyboardShouldPersistTaps={'always'}
     >
       <View style={styles.imageView}>
         <View style={styles.halfImageView}></View>
@@ -179,7 +179,7 @@ const UserProfile = (props) => {
       <View
         style={{
           top: -(height / 15),
-          backgroundColor: "rgba(242,242,242,255)",
+          backgroundColor: 'rgba(242,242,242,255)',
         }}
       >
         <Field
@@ -231,45 +231,45 @@ const UserProfile = (props) => {
 };
 const styles = StyleSheet.create({
   errorText: {
-    color: "red",
-    alignSelf: "center",
+    color: 'red',
+    alignSelf: 'center',
     fontSize: width * 0.03,
     marginVertical: 5,
   },
   saveChangeButton: {
     top: -(height / 25),
-    width: "100%",
-    backgroundColor: "#142A4F",
+    width: '100%',
+    backgroundColor: '#142A4F',
   },
   saveChangeText: {
-    color: "white",
-    fontWeight: "500",
+    color: 'white',
+    fontWeight: '500',
     fontSize: width * 0.05,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   avatar: {
     top: -50,
-    alignSelf: "center",
-    tintColor: "grey",
+    alignSelf: 'center',
+    tintColor: 'grey',
   },
   fullName: {
     fontSize: width * 0.07,
-    fontWeight: "500",
-    alignSelf: "center",
+    fontWeight: '500',
+    alignSelf: 'center',
   },
   title: {
     fontSize: width * 0.05,
-    fontWeight: "500",
-    alignSelf: "center",
+    fontWeight: '500',
+    alignSelf: 'center',
   },
   imageView: {
-    width: "100%",
-    backgroundColor: "rgba(242,242,242,255)",
+    width: '100%',
+    backgroundColor: 'rgba(242,242,242,255)',
   },
   halfImageView: {
     width: width,
     height: height / 13,
-    backgroundColor: "#142A4F",
+    backgroundColor: '#142A4F',
   },
 });
 export default UserProfile;

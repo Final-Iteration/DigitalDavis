@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
-const request = require("supertest");
-const httpStatus = require("http-status");
-const app = require("../../../mongo-api/app");
-const setupTestDB = require("../utils/setupTestDB");
-const { Challenge } = require("../../models");
-const getChallenge = require("../fixtures/createChallengeFunctions");
+const request = require('supertest');
+const httpStatus = require('http-status');
+const app = require('../../../mongo-api/app');
+const setupTestDB = require('../utils/setupTestDB');
+const { Challenge } = require('../../models');
+const getChallenge = require('../fixtures/createChallengeFunctions');
 const {
   challengeOne,
   challengeTwo,
@@ -12,16 +12,16 @@ const {
   insertChallengesSkipValidation,
   insertChallengesParticipateUser,
   challengeThree,
-} = require("../fixtures/challenge.fixture");
-const { createTokenOne } = require("../fixtures/createTokenFunction");
-const { deleteOne } = require("../../models/challenge.model");
-const testDebugger = require("debug")("app:test");
+} = require('../fixtures/challenge.fixture');
+const { createTokenOne } = require('../fixtures/createTokenFunction');
+const { deleteOne } = require('../../models/challenge.model');
+const testDebugger = require('debug')('app:test');
 
 setupTestDB();
 
-describe("Challenge routes", () => {
-  describe("GET /all", () => {
-    test("should return 200 and return ALL the challenges", async () => {
+describe('Challenge routes', () => {
+  describe('GET /all', () => {
+    test('should return 200 and return ALL the challenges', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
@@ -33,8 +33,8 @@ describe("Challenge routes", () => {
       );
       await insertChallengesSkipValidation(
         [challengeOne],
-        ["2021-10-28T00:00:00.000Z"],
-        ["2021-10-30T00:00:00.000Z"]
+        ['2021-10-28T00:00:00.000Z'],
+        ['2021-10-30T00:00:00.000Z']
       ); //makes challenge one in the past and skips validation so this is possible
       await insertChallengesParticipateUser([challengeOne], UserAuthOne._id);
 
@@ -89,8 +89,8 @@ describe("Challenge routes", () => {
     });
   });
 
-  describe("GET /past", () => {
-    test("should return 200 and return the past challenges", async () => {
+  describe('GET /past', () => {
+    test('should return 200 and return the past challenges', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
@@ -105,8 +105,8 @@ describe("Challenge routes", () => {
       );
       await insertChallengesSkipValidation(
         [challengeOne],
-        ["2021-10-28T00:00:00.000Z"],
-        ["2021-10-30T00:00:00.000Z"]
+        ['2021-10-28T00:00:00.000Z'],
+        ['2021-10-30T00:00:00.000Z']
       );
       await insertChallengesParticipateUser([challengeOne], UserAuthOne._id);
 
@@ -129,14 +129,14 @@ describe("Challenge routes", () => {
         unsplashurl: challengeOne.unsplashurl,
         participants: expect.anything(),
         timestamp: expect.anything(),
-        start_date: "2021-10-28T00:00:00.000Z",
-        end_date: "2021-10-30T00:00:00.000Z",
+        start_date: '2021-10-28T00:00:00.000Z',
+        end_date: '2021-10-30T00:00:00.000Z',
       });
     });
   });
 
-  describe("GET /active", () => {
-    test("should return 200 and return the active challenges", async () => {
+  describe('GET /active', () => {
+    test('should return 200 and return the active challenges', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
@@ -146,12 +146,12 @@ describe("Challenge routes", () => {
       await insertChallengesSkipValidation(
         [challengeOne, challengeTwo, challengeThree],
         [
-          "2021-10-28T00:00:00.000Z",
-          "2021-10-28T00:00:00.000Z",
-          "2021-10-28T00:00:00.000Z",
+          '2021-10-28T00:00:00.000Z',
+          '2021-10-28T00:00:00.000Z',
+          '2021-10-28T00:00:00.000Z',
         ],
         [
-          "2021-11-01T00:00:00.000Z",
+          '2021-11-01T00:00:00.000Z',
           challengeTwo.end_date,
           challengeThree.end_date,
         ]
@@ -180,7 +180,7 @@ describe("Challenge routes", () => {
         unsplashurl: challengeTwo.unsplashurl,
         participants: expect.anything(),
         timestamp: expect.anything(),
-        start_date: "2021-10-28T00:00:00.000Z",
+        start_date: '2021-10-28T00:00:00.000Z',
         end_date: new Date(challengeTwo.end_date).toISOString(),
       });
       expect(res.body[1]).toEqual({
@@ -193,13 +193,13 @@ describe("Challenge routes", () => {
         participants: expect.anything(),
         unsplashurl: challengeThree.unsplashurl,
         timestamp: expect.anything(),
-        start_date: "2021-10-28T00:00:00.000Z",
+        start_date: '2021-10-28T00:00:00.000Z',
         end_date: new Date(challengeThree.end_date).toISOString(),
       });
     });
   });
 
-  describe("PUT /participate/:Id", () => {
+  describe('PUT /participate/:Id', () => {
     test("should return 200 and successfully update the Challenge's participants if data is ok", async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
@@ -218,7 +218,7 @@ describe("Challenge routes", () => {
     });
   });
 
-  describe("GET /participate/:Id", () => {
+  describe('GET /participate/:Id', () => {
     test("should return 200 and successfully retrieve the Challenge's participants if data is ok", async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
@@ -237,7 +237,7 @@ describe("Challenge routes", () => {
     });
   });
 
-  describe("PUT /unparticipate/:Id", () => {
+  describe('PUT /unparticipate/:Id', () => {
     test("should return 200 and successfully update the Challenge's participants if data is ok", async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
@@ -256,7 +256,7 @@ describe("Challenge routes", () => {
     });
   });
 
-  describe("POST /api/challenges", () => {
+  describe('POST /api/challenges', () => {
     let newChallenge;
 
     beforeAll(() => {
@@ -265,13 +265,13 @@ describe("Challenge routes", () => {
       });
     });
 
-    test("should return 201 and successfully create new Challenge if data is ok", async () => {
+    test('should return 201 and successfully create new Challenge if data is ok', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
 
       const res = await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -310,7 +310,7 @@ describe("Challenge routes", () => {
       });
     });
 
-    test("should return 400 error if start date > end date", async () => {
+    test('should return 400 error if start date > end date', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
@@ -320,7 +320,7 @@ describe("Challenge routes", () => {
       newChallenge.start_date = endDate;
 
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -329,7 +329,7 @@ describe("Challenge routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 400 error if start date < current date", async () => {
+    test('should return 400 error if start date < current date', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
@@ -339,7 +339,7 @@ describe("Challenge routes", () => {
       newChallenge.start_date = pastDate;
 
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -348,7 +348,7 @@ describe("Challenge routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 400 error if end date < current date", async () => {
+    test('should return 400 error if end date < current date', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
@@ -358,7 +358,7 @@ describe("Challenge routes", () => {
       newChallenge.end_date = pastDate;
 
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -367,14 +367,14 @@ describe("Challenge routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 400 error if name length is more than 30 characters", async () => {
+    test('should return 400 error if name length is more than 30 characters', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
-      newChallenge.name = "Lorem ipsum dolor sit amet, con";
+      newChallenge.name = 'Lorem ipsum dolor sit amet, con';
 
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -383,14 +383,14 @@ describe("Challenge routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 400 error if name length is less than 5 characters", async () => {
+    test('should return 400 error if name length is less than 5 characters', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
-      newChallenge.name = "Lor";
+      newChallenge.name = 'Lor';
 
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -399,14 +399,14 @@ describe("Challenge routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 400 error if creator length is less than 3 characters", async () => {
+    test('should return 400 error if creator length is less than 3 characters', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
-      newChallenge.creator = "L";
+      newChallenge.creator = 'L';
 
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -415,14 +415,14 @@ describe("Challenge routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 400 error if creator length is more than 30 characters", async () => {
+    test('should return 400 error if creator length is more than 30 characters', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
-      newChallenge.creator = "Lorem ipsum dolor sit amethdubj con";
+      newChallenge.creator = 'Lorem ipsum dolor sit amethdubj con';
 
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -432,14 +432,14 @@ describe("Challenge routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 400 error if tags are incorrect", async () => {
+    test('should return 400 error if tags are incorrect', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
-      newChallenge.tags = ["NOT CORRECT", "SOCIAL"];
+      newChallenge.tags = ['NOT CORRECT', 'SOCIAL'];
 
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -449,14 +449,14 @@ describe("Challenge routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 400 error if timestamp is null", async () => {
+    test('should return 400 error if timestamp is null', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       newChallenge.timestamp = null;
 
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -466,15 +466,15 @@ describe("Challenge routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 400 error if description length is more than 250 characters", async () => {
+    test('should return 400 error if description length is more than 250 characters', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       newChallenge.description =
-        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.";
+        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium.';
 
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -483,14 +483,14 @@ describe("Challenge routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 400 error if summary length is more than 150 characters", async () => {
+    test('should return 400 error if summary length is more than 150 characters', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       newChallenge.summary =
-        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis pa";
+        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis pa';
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -499,14 +499,14 @@ describe("Challenge routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 400 error if location length is less than 1 characters", async () => {
+    test('should return 400 error if location length is less than 1 characters', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
-      newChallenge.location = "";
+      newChallenge.location = '';
 
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -515,15 +515,15 @@ describe("Challenge routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 400 error if location length is more than 50 characters", async () => {
+    test('should return 400 error if location length is more than 50 characters', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       newChallenge.location =
-        "Lorem ipsum dolor sit amet, consectetuer adipiscing";
+        'Lorem ipsum dolor sit amet, consectetuer adipiscing';
 
       await request(app)
-        .post("/api/challenges")
+        .post('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -533,15 +533,15 @@ describe("Challenge routes", () => {
     });
   }); //end of POST
 
-  describe("GET /api/challenges", () => {
-    test("should return 200 and apply the default query options", async () => {
+  describe('GET /api/challenges', () => {
+    test('should return 200 and apply the default query options', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       await insertChallenges([challengeOne, challengeTwo, challengeThree]);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -586,14 +586,14 @@ describe("Challenge routes", () => {
       });
     });
 
-    test("should correctly apply filter on name field", async () => {
+    test('should correctly apply filter on name field', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       await insertChallenges([challengeOne, challengeTwo]);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -613,16 +613,16 @@ describe("Challenge routes", () => {
       expect(res.body.results[0].id).toBe(challengeOne._id.toHexString());
     });
 
-    test("should correctly apply filter on start_date field", async () => {
+    test('should correctly apply filter on start_date field', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       await insertChallenges([challengeOne, challengeTwo]);
 
-      testDebugger("\n challengeOne.start_date", challengeOne.start_date);
+      testDebugger('\n challengeOne.start_date', challengeOne.start_date);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -643,19 +643,19 @@ describe("Challenge routes", () => {
     });
 
     // eslint-disable-next-line max-len
-    test("should correctly sort the returned array if descending sort param by name is specified", async () => {
+    test('should correctly sort the returned array if descending sort param by name is specified', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       await insertChallenges([challengeOne, challengeTwo]);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
         })
-        .query({ sortBy: "name:desc" })
+        .query({ sortBy: 'name:desc' })
         .send()
         .expect(httpStatus.OK);
 
@@ -672,19 +672,19 @@ describe("Challenge routes", () => {
     });
 
     // eslint-disable-next-line max-len
-    test("should correctly sort the returned array if descending sort param  by start date is specified", async () => {
+    test('should correctly sort the returned array if descending sort param  by start date is specified', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       await insertChallenges([challengeOne, challengeTwo]);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
         })
-        .query({ sortBy: "start_date:desc" })
+        .query({ sortBy: 'start_date:desc' })
         .send()
         .expect(httpStatus.OK);
 
@@ -701,19 +701,19 @@ describe("Challenge routes", () => {
       expect(res.body.results[1].id).toBe(challengeOne._id.toHexString());
     });
 
-    test("should sort returned array if ascending sort param by name specified", async () => {
+    test('should sort returned array if ascending sort param by name specified', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       await insertChallenges([challengeOne, challengeTwo]);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
         })
-        .query({ sortBy: "name:asc" })
+        .query({ sortBy: 'name:asc' })
         .send()
         .expect(httpStatus.OK);
 
@@ -731,20 +731,20 @@ describe("Challenge routes", () => {
     });
 
     // eslint-disable-next-line max-len
-    test("should correctly sort the returned array if ascending sort param  by start date is specified", async () => {
+    test('should correctly sort the returned array if ascending sort param  by start date is specified', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       await insertChallenges([challengeOne, challengeTwo]);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
         })
 
-        .query({ sortBy: "start_date:asc" })
+        .query({ sortBy: 'start_date:asc' })
         .send()
         .expect(httpStatus.OK);
 
@@ -762,19 +762,19 @@ describe("Challenge routes", () => {
     });
 
     // eslint-disable-next-line max-len
-    test("should correctly sort the returned array if multiple sorting criteria are specified", async () => {
+    test('should correctly sort the returned array if multiple sorting criteria are specified', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       await insertChallenges([challengeOne, challengeTwo]);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
         })
-        .query({ sortBy: "location:desc,name:asc" })
+        .query({ sortBy: 'location:desc,name:asc' })
         .send()
         .expect(httpStatus.OK);
 
@@ -802,14 +802,14 @@ describe("Challenge routes", () => {
       });
     });
 
-    test("should limit returned array if limit param is specified", async () => {
+    test('should limit returned array if limit param is specified', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       await insertChallenges([challengeOne, challengeTwo, challengeThree]);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -830,14 +830,14 @@ describe("Challenge routes", () => {
       expect(res.body.results[1].id).toBe(challengeTwo._id.toHexString());
     });
 
-    test("should return the correct page if page and limit params are specified", async () => {
+    test('should return the correct page if page and limit params are specified', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       await insertChallenges([challengeOne, challengeTwo, challengeThree]);
 
       const res = await request(app)
-        .get("/api/challenges")
+        .get('/api/challenges')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -858,8 +858,8 @@ describe("Challenge routes", () => {
     });
   });
 
-  describe("GET /api/challenges/:challengeId", () => {
-    test("should return 200 and the challenge object if data is ok", async () => {
+  describe('GET /api/challenges/:challengeId', () => {
+    test('should return 200 and the challenge object if data is ok', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
@@ -889,7 +889,7 @@ describe("Challenge routes", () => {
       });
     });
 
-    test("should return 401 error if access token is missing", async () => {
+    test('should return 401 error if access token is missing', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
@@ -901,14 +901,14 @@ describe("Challenge routes", () => {
         .expect(httpStatus.UNAUTHORIZED);
     });
 
-    test("should return 400 error if challengeId is not a valid mongo id", async () => {
+    test('should return 400 error if challengeId is not a valid mongo id', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       await insertChallenges([challengeOne]);
 
       await request(app)
-        .get("/api/challenges/invalidId")
+        .get('/api/challenges/invalidId')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -918,8 +918,8 @@ describe("Challenge routes", () => {
     });
   });
 
-  describe("DELETE /api/challenges/:challengeId", () => {
-    test("should return 204 if data is ok", async () => {
+  describe('DELETE /api/challenges/:challengeId', () => {
+    test('should return 204 if data is ok', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
@@ -939,7 +939,7 @@ describe("Challenge routes", () => {
       expect(dbChallenge).toBeNull();
     });
 
-    test("should return 401 error if access token is missing", async () => {
+    test('should return 401 error if access token is missing', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
@@ -951,14 +951,14 @@ describe("Challenge routes", () => {
         .expect(httpStatus.UNAUTHORIZED);
     });
 
-    test("should return 400 error if challengeId is not a valid mongo id", async () => {
+    test('should return 400 error if challengeId is not a valid mongo id', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
       await insertChallenges([challengeOne]);
 
       await request(app)
-        .delete("/api/challenges/invalidId")
+        .delete('/api/challenges/invalidId')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -967,7 +967,7 @@ describe("Challenge routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 404 error if challenge already is not found", async () => {
+    test('should return 404 error if challenge already is not found', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];

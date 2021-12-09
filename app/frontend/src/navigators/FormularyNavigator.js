@@ -1,9 +1,9 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import Formulary from "../screens/formularyScreen/Formulary";
+import Formulary from '../screens/formularyScreen/Formulary';
 
-import Header from "../sharedComponent/Header";
+import Header from '../sharedComponent/Header';
 const Stack = createStackNavigator();
 
 function MyStack() {

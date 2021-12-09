@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -6,27 +6,27 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
-} from "react-native";
-import { Avatar } from "react-native-paper";
-import { useFocusEffect } from "@react-navigation/native";
-import Field from "./components/Field";
-import axios from "../../axios";
+} from 'react-native';
+import { Avatar } from 'react-native-paper';
+import { useFocusEffect } from '@react-navigation/native';
+import Field from './components/Field';
+import axios from '../../axios';
 
-const asyncStorage = require("../../asyncStorage");
+const asyncStorage = require('../../asyncStorage');
 
-const { height, width } = Dimensions.get("window");
+const { height, width } = Dimensions.get('window');
 
 const UserProfile = (props) => {
   //userEffect to fetch current user
   const [profilePicture, setProfilePicture] = useState(
-    "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png"
+    'https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png'
   );
-  const [fullName, setFullName] = useState("");
-  const [title, setTitle] = useState("");
+  const [fullName, setFullName] = useState('');
+  const [title, setTitle] = useState('');
   const [age, setAge] = useState(0);
-  const [birthday, setBirthday] = useState("");
-  const [department, setDepartment] = useState("");
-  const [email, setEmail] = useState("");
+  const [birthday, setBirthday] = useState('');
+  const [department, setDepartment] = useState('');
+  const [email, setEmail] = useState('');
   function getAge(birthDate) {
     return Math.floor(
       (new Date() - new Date(birthDate).getTime()) / 3.15576e10
@@ -35,8 +35,8 @@ const UserProfile = (props) => {
 
   const getUserInfo = async () => {
     try {
-      const id = await asyncStorage.getData("ID");
-      const authToken = await asyncStorage.getData("Authorization");
+      const id = await asyncStorage.getData('ID');
+      const authToken = await asyncStorage.getData('Authorization');
       const res = await axios.get(`/users/${id}`, {
         headers: {
           id: id,
@@ -46,7 +46,7 @@ const UserProfile = (props) => {
       const user = res.data;
       const dob = new Date(user.dob);
       // setProfilePicture(profile.profilePicture);
-      setFullName(user.first_name + " " + user.last_name);
+      setFullName(user.first_name + ' ' + user.last_name);
       setTitle(user.job_title[0]);
       setDepartment(user.department);
       setEmail(user.email);
@@ -64,19 +64,19 @@ const UserProfile = (props) => {
     useCallback(() => {
       getUserInfo();
       return () => {
-        setFullName("");
-        setTitle("");
-        setDepartment("");
-        setEmail("");
+        setFullName('');
+        setTitle('');
+        setDepartment('');
+        setEmail('');
       };
     }, [])
   );
 
   const logout = () => {
     //remove token from async storage
-    asyncStorage.removeData("ID");
-    asyncStorage.removeData("Authorization");
-    props.navigation.navigate("Auth");
+    asyncStorage.removeData('ID');
+    asyncStorage.removeData('Authorization');
+    props.navigation.navigate('Auth');
   };
 
   return (
@@ -86,8 +86,8 @@ const UserProfile = (props) => {
           <Avatar.Image
             style={{
               top: -(height / 15),
-              alignSelf: "center",
-              backgroundColor: "white",
+              alignSelf: 'center',
+              backgroundColor: 'white',
             }}
             size={width / 4}
             source={{
@@ -117,35 +117,35 @@ const UserProfile = (props) => {
 };
 const styles = StyleSheet.create({
   column: {
-    flexDirection: "column",
+    flexDirection: 'column',
   },
   fullName: {
     fontSize: width * 0.07,
-    fontWeight: "500",
-    alignSelf: "center",
+    fontWeight: '500',
+    alignSelf: 'center',
   },
   title: {
     fontSize: width * 0.05,
-    fontWeight: "500",
-    alignSelf: "center",
+    fontWeight: '500',
+    alignSelf: 'center',
   },
   imageView: {
-    width: "100%",
-    alignItems: "center",
-    backgroundColor: "rgba(242,242,242,255)",
+    width: '100%',
+    alignItems: 'center',
+    backgroundColor: 'rgba(242,242,242,255)',
   },
   logOutButton: {
-    textAlign: "center",
+    textAlign: 'center',
     height: height / 13,
-    width: "100%",
-    backgroundColor: "#142A4F",
+    width: '100%',
+    backgroundColor: '#142A4F',
   },
   logOutText: {
     marginVertical: height / 50,
-    color: "white",
-    fontWeight: "500",
+    color: 'white',
+    fontWeight: '500',
     fontSize: width * 0.05,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
 });
 export default UserProfile;

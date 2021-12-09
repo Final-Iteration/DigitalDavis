@@ -3,10 +3,10 @@ const {
   userAuthTwo,
   insertAuthUsers,
   userAuthThree,
-} = require("../fixtures/userAuth.fixture");
-const { generateAuthTokens } = require("../../services/token.services");
-const userService = require("../../services/user.services");
-const setupTestDB = require("../utils/setupTestDB");
+} = require('../fixtures/userAuth.fixture');
+const { generateAuthTokens } = require('../../services/token.services');
+const userService = require('../../services/user.services');
+const setupTestDB = require('../utils/setupTestDB');
 
 //createTokens
 //imitates the register() in the auth controller

@@ -1,7 +1,7 @@
-const validator = require("validator");
-const { toJSON, paginate } = require("./plugins");
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const validator = require('validator');
+const { toJSON, paginate } = require('./plugins');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 // schema
 const userSchema = mongoose.Schema({
@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema({
     maxlength: 50,
     validate(value) {
       if (!validator.isEmail(value)) {
-        throw new Error("Invalid email");
+        throw new Error('Invalid email');
       }
     },
   },
@@ -96,7 +96,7 @@ userSchema.methods.passwordMatch = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-userSchema.pre("save", async function (next) {
+userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 10);
   next();
@@ -106,7 +106,7 @@ userSchema.pre("save", async function (next) {
  * @typedef User
  * determines collection name to be "user"
  */
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model('user', userSchema);
 // const UserTest = mongoose.model("user_test", userSchema);
 
 /**

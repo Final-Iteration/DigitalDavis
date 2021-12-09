@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 function start_date() {
   const startDate = new Date();
@@ -44,16 +44,16 @@ const getDates = async () => {
 const createChallenge = async () => {
   const dates = await getDates();
   const newChallenge = {
-    name: "Challenge Name",
-    tags: ["Emotional", "Spiritual"],
-    timestamp: "2021-10-25T04:22:04.212Z",
-    description: "jump 2000, million-times.",
+    name: 'Challenge Name',
+    tags: ['Emotional', 'Spiritual'],
+    timestamp: '2021-10-25T04:22:04.212Z',
+    description: 'jump 2000, million-times.',
     start_date: dates[0],
     end_date: dates[1],
-    location: "Davis,Ca",
+    location: 'Davis,Ca',
     unsplashurl:
       // eslint-disable-next-line max-len
-      "https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20",
+      'https://api.unsplash.com/search/photos?client_id=dKCwWRS0lpMlSl94mWFd5cY_PuVdooRGl8fdAEc7Xnc&query=dog&per_page=20',
   };
   return newChallenge;
 };

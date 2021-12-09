@@ -1,10 +1,10 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 
 //user Profile
-import ProfileStack from "./ProfileNavigator";
+import ProfileStack from './ProfileNavigator';
 //bottom tab
-import TabStack from "./MainBottomTab";
+import TabStack from './MainBottomTab';
 
 const Stack = createStackNavigator();
 function MyStack() {

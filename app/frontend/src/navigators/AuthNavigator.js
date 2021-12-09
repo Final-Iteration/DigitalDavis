@@ -1,10 +1,10 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import Login from "../screens/userScreen/Login";
-import Signup from "../screens/userScreen/SignUp";
-import ForgotPassword from "../screens/userScreen/ForgotPassword";
-import Header from "../sharedComponent/Header";
+import Login from '../screens/userScreen/Login';
+import Signup from '../screens/userScreen/SignUp';
+import ForgotPassword from '../screens/userScreen/ForgotPassword';
+import Header from '../sharedComponent/Header';
 
 const Stack = createStackNavigator();
 function MyStack() {
@@ -31,7 +31,7 @@ function MyStack() {
         component={ForgotPassword}
         options={{
           headerShown: true,
-          title: "Reset Password",
+          title: 'Reset Password',
         }}
       />
     </Stack.Navigator>

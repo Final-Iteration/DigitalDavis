@@ -1,9 +1,9 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import Settings from "../screens/Profile/Setting";
-import Profile from "../screens/Profile/User";
-import Header from "../sharedComponent/Header";
+import Settings from '../screens/Profile/Setting';
+import Profile from '../screens/Profile/User';
+import Header from '../sharedComponent/Header';
 
 const Stack = createStackNavigator();
 function ProfileStack() {
@@ -16,7 +16,7 @@ function ProfileStack() {
           header: ({ scene, previous, navigation }) => (
             <Header title="Profile" navigation={navigation} profile={true} />
           ),
-          cardStyle: { backgroundColor: "#142A4F" },
+          cardStyle: { backgroundColor: '#142A4F' },
         }}
       />
       <Stack.Screen
@@ -26,7 +26,7 @@ function ProfileStack() {
           header: ({ scene, previous, navigation }) => (
             <Header title="Settings" navigation={navigation} setting={true} />
           ),
-          cardStyle: { backgroundColor: "#142A4F" },
+          cardStyle: { backgroundColor: '#142A4F' },
         }}
       />
     </Stack.Navigator>

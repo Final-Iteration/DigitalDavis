@@ -15,10 +15,9 @@ const appDebugger = require('debug')('app:startup');
 
 const app = express();
 
-
 app.use(
-  cors ({
-    origin: "*"
+  cors({
+    origin: '*',
   })
 );
 

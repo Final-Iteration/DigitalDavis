@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -8,19 +8,19 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
-} from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/Ionicons";
-import { showMessage } from "react-native-flash-message";
-import JoinBanner from "./components/banners/JoinBanner";
-import UnjoinedBanner from "./components/banners/UnjoinedBanner";
-import Modal from "react-native-modal";
-import Participant from "./components/Participant";
-import axios from "../../axios";
-import DeleteChallengeBanner from "./components/banners/DeleteChallengeBanner";
-const asyncStorage = require("../../asyncStorage");
+} from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { showMessage } from 'react-native-flash-message';
+import JoinBanner from './components/banners/JoinBanner';
+import UnjoinedBanner from './components/banners/UnjoinedBanner';
+import Modal from 'react-native-modal';
+import Participant from './components/Participant';
+import axios from '../../axios';
+import DeleteChallengeBanner from './components/banners/DeleteChallengeBanner';
+const asyncStorage = require('../../asyncStorage');
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 
 const ChallengeInfo = (props) => {
   /**
@@ -29,25 +29,25 @@ const ChallengeInfo = (props) => {
   const [participationStatus, setStatus] = useState(false);
   const [participantModal, setParticipantModal] = useState(false);
   const [antButton, setAntButton] = useState(false);
-  const [location, setLocation] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [location, setLocation] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [participants, setParticipants] = useState([]);
   const [deleteFunc, setDeleteFunc] = useState(false);
-  const [token, setToken] = useState("");
-  const [uID, setUID] = useState("");
+  const [token, setToken] = useState('');
+  const [uID, setUID] = useState('');
   const [c, setC] = useState();
-  const [cName, setCName] = useState("");
-  const [cDescription, setCDescription] = useState("");
+  const [cName, setCName] = useState('');
+  const [cDescription, setCDescription] = useState('');
   const [cNumOfParticipants, setCNumOfParticipants] = useState(0);
-  const [cImage, setCImage] = useState("");
+  const [cImage, setCImage] = useState('');
 
   const challengeID = props.route.params.challenge;
 
   const getChallengeInfo = async () => {
     try {
-      const id = await asyncStorage.getData("ID");
-      const t = await asyncStorage.getData("Authorization");
+      const id = await asyncStorage.getData('ID');
+      const t = await asyncStorage.getData('Authorization');
       setUID(id);
       setToken(t);
       const res = await axios.get(`/challenges/${challengeID}`, {
@@ -62,9 +62,9 @@ const ChallengeInfo = (props) => {
       setStatus(challenge.participants.includes(id));
       setLocation(challenge.location);
       setParticipants(challenge.participants);
-      let date = challenge.start_date.substring(0, 10).split("-");
+      let date = challenge.start_date.substring(0, 10).split('-');
       setStartDate(`Start: ${date[1]}-${date[2]}-${date[0].substring(2)}`);
-      date = challenge.end_date.substring(0, 10).split("-");
+      date = challenge.end_date.substring(0, 10).split('-');
       setEndDate(`End: ${date[1]}-${date[2]}-${date[0].substring(2)}`);
 
       if (id === challenge.creator) {
@@ -125,10 +125,10 @@ const ChallengeInfo = (props) => {
   };
   const showMsg = () => {
     showMessage({
-      icon: "success",
-      position: "top",
+      icon: 'success',
+      position: 'top',
       message: null,
-      type: participationStatus ? "warning" : "success",
+      type: participationStatus ? 'warning' : 'success',
       renderFlashMessageIcon: participationStatus ? UnjoinedBanner : JoinBanner,
       style: { borderRadius: 15, top: 35, height: 50 },
       statusBarHeight: 0,
@@ -137,8 +137,8 @@ const ChallengeInfo = (props) => {
   };
   const deleteChallenge = async () => {
     try {
-      const id = await asyncStorage.getData("ID");
-      const authToken = await asyncStorage.getData("Authorization");
+      const id = await asyncStorage.getData('ID');
+      const authToken = await asyncStorage.getData('Authorization');
       await axios.delete(`/challenges/${challengeID}`, {
         headers: {
           id: id,
@@ -146,16 +146,16 @@ const ChallengeInfo = (props) => {
         },
       });
       showMessage({
-        icon: "success",
-        position: "top",
+        icon: 'success',
+        position: 'top',
         message: null,
-        type: "success",
+        type: 'success',
         renderFlashMessageIcon: DeleteChallengeBanner,
         style: { borderRadius: 15, top: 35, height: 50 },
         statusBarHeight: 0,
         floating: true,
       });
-      props.navigation.navigate("Challenge");
+      props.navigation.navigate('Challenge');
     } catch (err) {}
   };
   // return <Text>Fuck this shit</Text>;
@@ -165,7 +165,7 @@ const ChallengeInfo = (props) => {
         <View
           style={{
             borderRadius: 20,
-            shadowColor: "#000",
+            shadowColor: '#000',
             shadowOffset: { width: 2, height: 3 },
             shadowOpacity: 0.5,
             shadowRadius: 3,
@@ -180,13 +180,13 @@ const ChallengeInfo = (props) => {
         </View>
         <View style={styles.container}>
           <View style={styles.titleAndAttendeesButton}>
-            <Text style={[styles.title, { width: "65%" }]}>{cName}</Text>
+            <Text style={[styles.title, { width: '65%' }]}>{cName}</Text>
             <TouchableOpacity
               style={[
                 styles.buttonContainer,
                 antButton
-                  ? { backgroundColor: "#142A4F" }
-                  : { backgroundColor: "white" },
+                  ? { backgroundColor: '#142A4F' }
+                  : { backgroundColor: 'white' },
               ]}
               onPress={() => {
                 setAntButton(true);
@@ -197,16 +197,16 @@ const ChallengeInfo = (props) => {
                 <Icon
                   name="people-outline"
                   size={width * 0.05}
-                  style={[antButton ? { color: "white" } : { color: "blue" }]}
+                  style={antButton ? { color: 'white' } : { color: 'blue' }}
                 />
                 <Text
                   style={[
                     {
                       fontSize: width * 0.032,
-                      fontWeight: "bold",
-                      alignSelf: "center",
+                      fontWeight: 'bold',
+                      alignSelf: 'center',
                     },
-                    antButton ? { color: "white" } : { color: "black" },
+                    antButton ? { color: 'white' } : { color: 'black' },
                   ]}
                 >
                   {`${cNumOfParticipants} Attendees`}
@@ -219,7 +219,7 @@ const ChallengeInfo = (props) => {
               <Icon
                 name="ios-location-outline"
                 size={width * 0.04}
-                style={{ color: "blue" }}
+                style={{ color: 'blue' }}
               />
               <View style={{ width: width / 2.5 }}>
                 <Text style={styles.dateText}>{location}</Text>
@@ -229,13 +229,13 @@ const ChallengeInfo = (props) => {
               <Icon
                 name="calendar-outline"
                 size={width * 0.04}
-                style={{ color: "blue" }}
+                style={{ color: 'blue' }}
               />
               <View>
-                <Text style={[styles.dateText, { alignSelf: "flex-end" }]}>
+                <Text style={[styles.dateText, { alignSelf: 'flex-end' }]}>
                   {startDate}
                 </Text>
-                <Text style={[styles.dateText, { alignSelf: "flex-end" }]}>
+                <Text style={[styles.dateText, { alignSelf: 'flex-end' }]}>
                   {endDate}
                 </Text>
               </View>
@@ -260,10 +260,10 @@ const ChallengeInfo = (props) => {
               styles.participatingButton,
               {
                 backgroundColor: props.route.params.disableButton
-                  ? "#EBEBE4"
+                  ? '#EBEBE4'
                   : participationStatus
-                  ? "#90ee90"
-                  : "#DDDDDD",
+                  ? '#90ee90'
+                  : '#DDDDDD',
               },
             ]}
             onPress={() => {
@@ -275,7 +275,7 @@ const ChallengeInfo = (props) => {
             }}
           >
             <Text style={styles.participate}>
-              {participationStatus ? "Participating" : "Participate"}
+              {participationStatus ? 'Participating' : 'Participate'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -298,19 +298,19 @@ const ChallengeInfo = (props) => {
 const styles = StyleSheet.create({
   deleteText: {
     fontSize: width * 0.032,
-    fontWeight: "600",
-    alignSelf: "center",
+    fontWeight: '600',
+    alignSelf: 'center',
     margin: 5,
-    color: "red",
+    color: 'red',
     opacity: 0.8,
   },
   del: {
     borderRadius: 10,
     borderWidth: 0.7,
-    borderColor: "red",
-    alignItems: "center",
-    backgroundColor: "white",
-    shadowColor: "#FF0000",
+    borderColor: 'red',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    shadowColor: '#FF0000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.5,
     shadowRadius: 1,
@@ -318,62 +318,62 @@ const styles = StyleSheet.create({
   aboutDelete: {
     marginTop: height / 50,
 
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   container: {
     marginHorizontal: width / 27,
   },
   titleAndAttendeesButton: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: height / 50,
   },
   dateText: {
     fontSize: width * 0.035,
-    fontWeight: "400",
-    alignSelf: "flex-start",
+    fontWeight: '400',
+    alignSelf: 'flex-start',
     left: 3,
   },
   buttonContainer: {
-    position: "absolute",
+    position: 'absolute',
     right: 0,
     borderRadius: 10,
     borderWidth: 0.7,
-    borderColor: "blue",
-    alignItems: "center",
-    backgroundColor: "white",
-    shadowColor: "#000",
+    borderColor: 'blue',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.5,
     shadowRadius: 1,
   },
   title: {
-    fontWeight: "600",
+    fontWeight: '600',
     fontSize: width * 0.075,
   },
   modalView: {
     marginVertical: height / 5,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 10,
   },
   iconText: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   locationTime: {
     marginTop: height / 50,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   image: {
     width: width - 7,
     height: width - 7,
-    alignSelf: "center",
+    alignSelf: 'center',
     borderRadius: 20,
   },
   mainDescription: {
     fontSize: width * 0.04,
-    fontWeight: "300",
+    fontWeight: '300',
     marginTop: height / 50,
   },
   participatingButton: {
@@ -381,16 +381,16 @@ const styles = StyleSheet.create({
     marginTop: height / 50,
     borderRadius: 8,
     width: width - 30,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   about: {
-    fontWeight: "300",
+    fontWeight: '300',
     fontSize: width * 0.06,
   },
   participate: {
-    fontWeight: "500",
+    fontWeight: '500',
     margin: 15,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
 });
 

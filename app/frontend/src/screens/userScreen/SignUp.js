@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,30 +7,30 @@ import {
   TextInput,
   Dimensions,
   ImageBackground,
-} from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Asset } from "expo-asset";
-import axios from "../../axios";
-import Loading from "../../sharedComponent/Loading";
+} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Asset } from 'expo-asset';
+import axios from '../../axios';
+import Loading from '../../sharedComponent/Loading';
 
-const imageSource = require("../../../assets/blurredDavis.jpg");
-const asyncStorage = require("../../asyncStorage");
-const { height, width } = Dimensions.get("window");
+const imageSource = require('../../../assets/blurredDavis.jpg');
+const asyncStorage = require('../../asyncStorage');
+const { height, width } = Dimensions.get('window');
 
 const Signup = (props) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [title, setTitle] = useState("");
-  const [department, setDepartment] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [title, setTitle] = useState('');
+  const [department, setDepartment] = useState('');
   const [fillError, setFillError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
   const [open, setOpen] = useState(false);
-  const [otherError, setOtherError] = useState("");
+  const [otherError, setOtherError] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Signup = (props) => {
       //post request to database
       const setUserSignup = async () => {
         try {
-          const res = await axios.post("/auth/register", {
+          const res = await axios.post('/auth/register', {
             first_name: firstName,
             last_name: lastName,
             email: email,
@@ -63,15 +63,15 @@ const Signup = (props) => {
             job_title: title,
             password: password,
           });
-          await asyncStorage.storeData("ID", res.data.user.id);
+          await asyncStorage.storeData('ID', res.data.user.id);
           await asyncStorage.storeData(
-            "Authorization",
-            "Bearer " + res.data.tokens.access.token
+            'Authorization',
+            'Bearer ' + res.data.tokens.access.token
           );
-          props.navigation.navigate("Main");
+          props.navigation.navigate('Main');
         } catch (error) {
           if (error.response.status === 500) {
-            setOtherError("Something went wrong, try again later");
+            setOtherError('Something went wrong, try again later');
           } else {
             setOtherError(error.response.data.message);
           }
@@ -82,14 +82,14 @@ const Signup = (props) => {
   };
 
   const componentWillMount = async () => {
-    console.log("mouting");
-    await Asset.loadAsync([require("../../../assets/blurredDavis.jpg")]);
+    console.log('mouting');
+    await Asset.loadAsync([require('../../../assets/blurredDavis.jpg')]);
     setLoading(false);
   };
 
   const onChange = (event, value) => {
     setDate(value);
-    if (Platform.OS === "android") {
+    if (Platform.OS === 'android') {
       setOpen(false);
     }
   };
@@ -104,7 +104,7 @@ const Signup = (props) => {
             enableOnAndroid={true}
             extraHeight={100}
             showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps={"always"}
+            keyboardShouldPersistTaps={'always'}
           >
             <View style={styles.container}>
               <TextInput
@@ -206,42 +206,42 @@ const Signup = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "space-between",
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     marginHorizontal: width / 15,
     marginVertical: height / 25,
   },
   dateInput: {
     height: height / 16,
     borderRadius: 10,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: '#F6F6F6',
     marginBottom: height / 40,
     padding: height / 70,
     fontSize: width * 0.04,
-    flexDirection: "row",
-    alignItems: "flex-start",
+    flexDirection: 'row',
+    alignItems: 'flex-start',
   },
   DOBText: {
     fontSize: width * 0.04,
     top: 2,
-    color: "#A9A9A9",
+    color: '#A9A9A9',
   },
   datePickerStyle: {
     height: height / 18,
     width: 120,
     right: 3,
     top: 3,
-    position: "absolute",
+    position: 'absolute',
   },
   errorText: {
-    color: "red",
-    alignSelf: "center",
+    color: 'red',
+    alignSelf: 'center',
     fontSize: width * 0.03,
     bottom: 5,
   },
   signUpButton: {
-    color: "white",
-    alignSelf: "center",
+    color: 'white',
+    alignSelf: 'center',
     fontSize: width * 0.05,
     margin: 10,
   },
@@ -249,16 +249,16 @@ const styles = StyleSheet.create({
     right: 0,
   },
   signUpView: {
-    alignSelf: "center",
+    alignSelf: 'center',
     height: height / 19,
-    width: "85%",
-    backgroundColor: "#142A4F",
+    width: '85%',
+    backgroundColor: '#142A4F',
     borderRadius: 10,
   },
   textInput: {
     height: height / 16,
     borderRadius: 10,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: '#F6F6F6',
     marginBottom: height / 40,
     padding: height / 70,
     fontSize: width * 0.04,

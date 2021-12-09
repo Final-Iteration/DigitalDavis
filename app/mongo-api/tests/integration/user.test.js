@@ -1,29 +1,29 @@
 /* eslint-disable no-undef */
-const request = require("supertest");
-const faker = require("faker");
-const httpStatus = require("http-status");
-const app = require("../../../mongo-api/app");
+const request = require('supertest');
+const faker = require('faker');
+const httpStatus = require('http-status');
+const app = require('../../../mongo-api/app');
 //Need to replace this with our own DB
-const setupTestDB = require("../utils/setupTestDB");
-const { User } = require("../../models");
+const setupTestDB = require('../utils/setupTestDB');
+const { User } = require('../../models');
 const {
   createTokenOne,
   createUserTwo,
   createTokenTwo,
   createTokenThree,
-} = require("../fixtures/createTokenFunction");
+} = require('../fixtures/createTokenFunction');
 
-const { userOne, userTwo } = require("../fixtures/user.fixture");
-const { userService } = require("../../services");
+const { userOne, userTwo } = require('../fixtures/user.fixture');
+const { userService } = require('../../services');
 
 /**
  * used to setup test db
  */
 setupTestDB();
 
-describe("User routes", () => {
-  describe("GET /api/users/:userId", () => {
-    test("should return 200 and the user object if data is ok", async () => {
+describe('User routes', () => {
+  describe('GET /api/users/:userId', () => {
+    test('should return 200 and the user object if data is ok', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       str = JSON.stringify(userOneAccessTokenTest, null, 4);
@@ -50,7 +50,7 @@ describe("User routes", () => {
       });
     });
 
-    test("should return 401 error if access token is missing", async () => {
+    test('should return 401 error if access token is missing', async () => {
       const UserAuthTwo = await createUserTwo();
 
       await request(app)
@@ -59,13 +59,13 @@ describe("User routes", () => {
         .expect(httpStatus.UNAUTHORIZED);
     });
 
-    test("should return 400 error if userId is not a valid mongo id", async () => {
+    test('should return 400 error if userId is not a valid mongo id', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
 
       await request(app)
-        .get("/api/users/invalidId")
+        .get('/api/users/invalidId')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -74,7 +74,7 @@ describe("User routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 404 error if user is not found", async () => {
+    test('should return 404 error if user is not found', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
@@ -90,8 +90,8 @@ describe("User routes", () => {
     });
   });
 
-  describe("DELETE /api/users/:userId", () => {
-    test("should return 204 if data is ok", async () => {
+  describe('DELETE /api/users/:userId', () => {
+    test('should return 204 if data is ok', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
@@ -109,7 +109,7 @@ describe("User routes", () => {
       expect(dbUser).toBeNull();
     });
 
-    test("should return 401 error if access token is missing", async () => {
+    test('should return 401 error if access token is missing', async () => {
       const result = await createUserTwo();
       const UserAuthTwo = result;
       await request(app)
@@ -118,13 +118,13 @@ describe("User routes", () => {
         .expect(httpStatus.UNAUTHORIZED);
     });
 
-    test("should return 400 error if userId is not a valid mongo id", async () => {
+    test('should return 400 error if userId is not a valid mongo id', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
 
       await request(app)
-        .delete("/api/users/invalidId")
+        .delete('/api/users/invalidId')
         .set({
           Authorization: `Bearer ${userOneAccessTokenTest.access.token}`,
           ID: UserAuthOne._id,
@@ -133,7 +133,7 @@ describe("User routes", () => {
         .expect(httpStatus.BAD_REQUEST);
     });
 
-    test("should return 404 error if user already is not found", async () => {
+    test('should return 404 error if user already is not found', async () => {
       const UserTokenArray = await createTokenOne();
       const userOneAccessTokenTest = UserTokenArray[0];
       const UserAuthOne = UserTokenArray[1];
