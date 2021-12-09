@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const request = require('supertest');
 const httpStatus = require('http-status');
-const app = require('../../../mongo-api/app');
+const app = require('../../../api/app');
 const setupTestDB = require('../utils/setupTestDB');
 const { Challenge } = require('../../models');
 const getChallenge = require('../fixtures/createChallengeFunctions');

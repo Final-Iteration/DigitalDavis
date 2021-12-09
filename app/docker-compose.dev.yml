@@ -3,7 +3,7 @@ services:
   mongo-database:
     image: ucd-emp-wellness-db:lts
     container_name: ucd-emp-wellness-db
-    build: ./mongo-db/
+    build: ./database/
     environment:
       - PUID=1000
       - PGID=1000
@@ -19,7 +19,7 @@ services:
     hostname: final-iteration
     container_name: ucd-wellness-api
     build: 
-      context: ./mongo-api/
+      context: ./api/
       dockerfile: dockerfile.dev
     environment:
       - "NODE_ENV=development"
@@ -35,7 +35,7 @@ services:
     ports:
       - "3005:3005"
     volumes:
-      - ./mongo-api:/usr/src/app
+      - ./api:/usr/src/app
       - api_node_modules:/usr/src/cache
     restart: unless-stopped
     networks:

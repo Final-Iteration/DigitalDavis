@@ -5,7 +5,7 @@ services:
     hostname: final-iteration
     container_name: ucd-wellness-api
     build: 
-       context: ./mongo-api/
+       context: ./api/
        dockerfile: dockerfile.prod
     environment:
     - "NODE_ENV=production"

@@ -1,7 +1,7 @@
 const request = require('supertest');
 const httpStatus = require('http-status');
 const faker = require('faker');
-const app = require('../../../mongo-api/app');
+const app = require('../../../api/app');
 const setupTestDB = require('../utils/setupTestDB');
 const testDebugger = require('debug')('app:test');
 const { User } = require('../../models');

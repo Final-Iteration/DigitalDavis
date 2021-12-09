@@ -2,7 +2,7 @@
 const request = require('supertest');
 const faker = require('faker');
 const httpStatus = require('http-status');
-const app = require('../../../mongo-api/app');
+const app = require('../../../api/app');
 //Need to replace this with our own DB
 const setupTestDB = require('../utils/setupTestDB');
 const { User } = require('../../models');
