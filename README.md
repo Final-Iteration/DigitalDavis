@@ -48,7 +48,11 @@
 3. From /app/mongo-api/
 4. ``` npm install ```
 
-### Starting the Frontend 
+### Updating .env vars 
+1. Add new .env file to /app/mongo-api/
+2. Inside of /app/mongo-api/config/ add .env via dotenv package
+
+### Building the Frontend with Expo
 1. From the /app/frontend dir
 2. ``` npm start ```
 
@@ -61,10 +65,6 @@
 1. Select Production docker compose file
 2. ```docker-compose -f docker-compose.prod.yml --project-name final_iteration --env-file ./mongo-api/.env up --no-deps --build --remove-orphans express-api```
 3. Follow the steps from you cloud provider to push an image to a container registry
-
-### Updating .env vars 
-1. Add new .env file to /app/mongo-api/
-2. Inside of /app/mongo-api/config/ add .env via dotenv package
 
 ### Running Tests with JEST
 1. Database must be started
