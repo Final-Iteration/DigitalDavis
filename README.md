@@ -101,5 +101,5 @@ Final Iteration - California State University, Sacramento - CS Senior Project Te
 ## API
 Forked from [hagopj13/node-express-boilerplate](https://github.com/hagopj13/node-express-boilerplate)
 
-## Known issues
+## Known Issues
 1. Frontend cannot be built with expo in a emulated environment - Requires Native CLI
