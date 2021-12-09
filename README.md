@@ -1,7 +1,7 @@
 # UCD Digital Davis Initiative - Nirvana
 
 ### Developers 
-Final Iteration - California State Univeristy, Sacramento - CS Senior Project Team
+Final Iteration - California State University, Sacramento - CS Senior Project Team
 
 ## Project Homepage
 [Nirvana](https://fi-nirvana.netlify.app/)
@@ -14,7 +14,7 @@ Final Iteration - California State Univeristy, Sacramento - CS Senior Project Te
 - [Docker](https://www.docker.com/products/docker-desktop)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-## Installing Dependancies with NPM
+## Installing Dependencies with NPM
 1. From /app/frontend/
 2. ```npm install ```
 3. From /app/mongo-api/
@@ -99,4 +99,4 @@ Final Iteration - California State Univeristy, Sacramento - CS Senior Project Te
 Forked from [hagopj13/node-express-boilerplate](https://github.com/hagopj13/node-express-boilerplate)
 
 ## Known issues
-1. Frontend cannot be built with expo in a emulated enviroment - Requires Native CLI
+1. Frontend cannot be built with expo in a emulated environment - Requires Native CLI
