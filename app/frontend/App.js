@@ -1,11 +1,14 @@
 import React from "react";
 import { StatusBar, LogBox } from "react-native";
-import { createAppContainer } from "react-navigation";
+
 import MainNavigator from "./src/navigators/ParentNavigator";
 import { Provider as PaperProvider } from "react-native-paper";
 import FlashMessage from "react-native-flash-message";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 LogBox.ignoreAllLogs();
-const App = createAppContainer(MainNavigator);
+
+const Stack = createStackNavigator();
 
 export default () => {
   StatusBar.setBarStyle("dark-content");
@@ -13,7 +16,9 @@ export default () => {
   LogBox.ignoreAllLogs();
   return (
     <PaperProvider>
-      <App />
+      <NavigationContainer>
+        <MainNavigator />
+      </NavigationContainer>
       <FlashMessage />
     </PaperProvider>
   );

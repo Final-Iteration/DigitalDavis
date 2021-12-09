@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import axios from "../../axios";
 
 const { width, height } = Dimensions.get('window');
 
@@ -23,7 +24,20 @@ const ForgotPassword = (props) => {
     return regexp.test(email);
   }
 
+
+  const resetPassword = async () => {
+    try {
+      const res = await axios.post("/auth/forgot-password", {
+        email: email,
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const resetPasswordAlert = () => {
+    resetPassword();
     Alert.alert(
       'Reset Password',
       `An email has been sent to ${email}. Click the link included in that message to reset your password.`,

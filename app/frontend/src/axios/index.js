@@ -1,6 +1,6 @@
 import axios from "axios";
 
-
+// DIGITAL_API_KEY = process.env.REACT_APP_API_DIGITAL_ACCESS_KEY;
 export default axios.create({
-  baseURL: " http://4f2f-2601-204-e780-d390-136-5fc7-e2e4-2172.ngrok.io/api"
-})
+  baseURL: "https://uc-davis-wellness-dk24p.ondigitalocean.app/api/",
+});

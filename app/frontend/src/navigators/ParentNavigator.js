@@ -1,20 +1,36 @@
 //https://reactnavigation.org/docs/auth-flow/
-import React from 'react';
-import { createSwitchNavigator } from 'react-navigation';
+import React, { useEffect, useState } from "react";
+import { createStackNavigator } from "@react-navigation/stack";
 
-//auth stack
-import AuthStack from './AuthNavigator';
-//main stack
-import MainStack from './Modal';
+import AuthStack from "./AuthNavigator";
+import MainStack from "./Modal";
 
-const MainNavigator = createSwitchNavigator(
-  {
-    Auth: AuthStack,
-    Main: MainStack,
-  },
-  {
-    initialRouteName: 'Auth',
-  }
-);
+const asyncStorage = require("../asyncStorage");
 
-export default MainNavigator;
+const Stack = createStackNavigator();
+const Main = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName="Auth"
+      screenOptions={{
+        headerShown: false,
+        headerLeft: null,
+        gestureEnabled: false,
+      }}
+    >
+      <Stack.Screen name="Auth" component={AuthStack} />
+      <Stack.Screen
+        name="Main"
+        component={MainStack}
+        options={{ gestureEnabled: false }}
+      />
+      {/* {asyncStorage.getData("Authorization") === null ||
+      asyncStorage.getData("id") === null ? (
+       
+      ) : (
+
+      )} */}
+    </Stack.Navigator>
+  );
+};
+export default Main;

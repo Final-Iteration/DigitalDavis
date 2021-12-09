@@ -1,30 +1,41 @@
-import React from 'react';
-import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Dimensions } from 'react-native';
+import React, { useState, useCallback } from "react";
+import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Dimensions } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+const asyncStorage = require("../../../asyncStorage");
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
-const ChallengeBox = ({ image, title, description, status, past }) => {
+const ChallengeBox = ({ challenge }) => {
+  const [id, setId] = useState("");
+
+  useFocusEffect(
+    useCallback(() => {
+      const getId = async () => {
+        const id = await asyncStorage.getData("ID");
+        setId(id);
+      };
+      getId();
+    }, [])
+  );
   return (
-    // data passed in should contain:
-    //image uri, challenge title, description, status
     <View style={styles.container}>
       <Image
         style={styles.image}
         source={{
-          uri: image,
+          uri: challenge.unsplashurl,
         }}
       ></Image>
       <View style={styles.titleDescriptionContainer}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description}>{description}</Text>
-        {past ? (
-          <Text style={styles.status_text}>Completed</Text>
-        ) : (
-          <Text style={styles.status_text}>
-            {status ? 'In Progress' : 'Not Participating'}
-          </Text>
-        )}
+        <Text style={styles.title}>{challenge.name}</Text>
+        <Text style={styles.description}>{challenge.description}</Text>
+        <Text style={styles.status_text}>
+          {challenge.participants.includes(id)
+            ? new Date(challenge.end_date) < new Date(Date.now())
+              ? "Completed"
+              : "In Progress"
+            : "Not Participating"}
+        </Text>
       </View>
     </View>
   );
@@ -33,27 +44,25 @@ const ChallengeBox = ({ image, title, description, status, past }) => {
 const styles = StyleSheet.create({
   status_text: {
     opacity: 0.5,
-    marginLeft: 17,
   },
   container: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    flexDirection: "column",
+    alignItems: "flex-start",
+    marginHorizontal: height / 50,
   },
   image: {
     borderRadius: 8,
     width: width / 1.1,
     height: height / 4,
-    margin: 17,
+    marginVertical: height / 65,
   },
   title: {
-    fontWeight: '300',
-    fontSize: 25,
-    marginLeft: 17,
+    fontWeight: "300",
+    fontSize: width * 0.06,
   },
 
   description: {
-    fontSize: 16,
-    marginLeft: 17,
+    fontSize: width * 0.035,
     opacity: 0.8,
   },
   titleDescriptionContainer: {

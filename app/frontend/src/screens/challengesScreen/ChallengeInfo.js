@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -8,108 +8,157 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
-  FlatList,
-  ActivityIndicator,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
-import TagPill from "./components/TagPill";
 import { showMessage } from "react-native-flash-message";
-import JoinBanner from "./components/JoinBanner";
-import UnjoinedBanner from "./components/UnjoinedBanner";
+import JoinBanner from "./components/banners/JoinBanner";
+import UnjoinedBanner from "./components/banners/UnjoinedBanner";
 import Modal from "react-native-modal";
 import Participant from "./components/Participant";
-import axios from "axios";
-import MapView, { Marker } from "react-native-maps";
-import MapViewDirections from "react-native-maps-directions";
-import * as Location from "expo-location";
-const GOOGLE_API_KEY = "AIzaSyBJCM6WfGIUpdIxDYp3fjSHgGPZLvrUgNM";
-const MAP_QUEST_KEY = "HrX8Ag2remRQH5v0FIcYe7xk7d9Y775u";
+import axios from "../../axios";
+import DeleteChallengeBanner from "./components/banners/DeleteChallengeBanner";
+const asyncStorage = require("../../asyncStorage");
+
 const { width, height } = Dimensions.get("window");
-const LATITUD_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUD_DELTA + width / height;
 
 const ChallengeInfo = (props) => {
   /**
    * @todo: this needs to be changed when we are importing data, should not be set to false
    */
-
   const [participationStatus, setStatus] = useState(false);
   const [participantModal, setParticipantModal] = useState(false);
-  const [mapModal, setMapModal] = useState(false);
-  const [dateModal, setDateModal] = useState(false);
-  const [locationButton, setLocationButton] = useState(false);
-  const [dateButton, setDateButton] = useState(false);
   const [antButton, setAntButton] = useState(false);
-  const [origin, setOrigin] = useState({
-    latitude: 0,
-    longitude: 0,
-    latitudeDelta: 0,
-    longitudeDelta: 0,
-  });
-  const [destination, setDestination] = useState({ latitude: 0, longitude: 0 });
-  const [showMap, setShowMap] = useState(false);
+  const [location, setLocation] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [participants, setParticipants] = useState([]);
+  const [deleteFunc, setDeleteFunc] = useState(false);
+  const [token, setToken] = useState("");
+  const [uID, setUID] = useState("");
+  const [c, setC] = useState();
+  const [cName, setCName] = useState("");
+  const [cDescription, setCDescription] = useState("");
+  const [cNumOfParticipants, setCNumOfParticipants] = useState(0);
+  const [cImage, setCImage] = useState("");
 
-  const challenge = props.navigation.state.params.challenge;
+  const challengeID = props.route.params.challenge;
 
-  useEffect(() => {
-    setStatus(challenge.participationStatus);
-    const getUserLocation = async () => {
-      try {
-        //user location
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== "granted") {
-          setErrorMsg("Permission to access location was denied");
-          return;
-        }
-        let location = await Location.getCurrentPositionAsync({});
+  const getChallengeInfo = async () => {
+    try {
+      const id = await asyncStorage.getData("ID");
+      const t = await asyncStorage.getData("Authorization");
+      setUID(id);
+      setToken(t);
+      const res = await axios.get(`/challenges/${challengeID}`, {
+        headers: { Authorization: t, id: id },
+      });
+      const challenge = res.data.challengeInfo;
+      setC(challenge);
+      setCImage(challenge.unsplashurl);
+      setCName(challenge.name);
+      setCDescription(challenge.description);
+      setCNumOfParticipants(challenge.participants.length);
+      setStatus(challenge.participants.includes(id));
+      setLocation(challenge.location);
+      setParticipants(challenge.participants);
+      let date = challenge.start_date.substring(0, 10).split("-");
+      setStartDate(`Start: ${date[1]}-${date[2]}-${date[0].substring(2)}`);
+      date = challenge.end_date.substring(0, 10).split("-");
+      setEndDate(`End: ${date[1]}-${date[2]}-${date[0].substring(2)}`);
 
-        setOrigin({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-          latitudeDelta: LATITUD_DELTA,
-          longitudeDelta: LONGITUDE_DELTA,
-        });
-
-        //challenge address location
-
-        const longLat = await axios.get(
-          `http://www.mapquestapi.com/geocoding/v1/address?location=${challenge.location}&key=${MAP_QUEST_KEY}`
-        );
-        const result = longLat.data.results[0].locations[0].displayLatLng;
-        setDestination({ latitude: result.lat, longitude: result.lng });
-
-        setShowMap(true);
-      } catch (err) {
-        console.log(err);
+      if (id === challenge.creator) {
+        setDeleteFunc(true);
       }
-    };
-
-    getUserLocation();
-  }, []);
-
-  // console.log(challenge);
-
-  // let day = challenge.start_date.toString();
-  // day = day.substring(0, day.indexOf("T"));
-  let day = "09/40/20";
-  const locationButtonPressed = () => {
-    setTimeout(() => {
-      setLocationButton(false);
-      setMapModal(!mapModal);
-    }, 250);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const dateButtonPressed = () => {
-    setTimeout(() => {
-      setDateButton(false);
-      setDateModal(!dateModal);
-    }, 250);
-  };
+  useFocusEffect(
+    useCallback(() => {
+      getChallengeInfo();
+      return () => {};
+    }, [c])
+  );
+
   const antButtonPressed = () => {
     setTimeout(() => {
       setAntButton(false);
       setParticipantModal(!participantModal);
     }, 250);
   };
+  const addUserToChallenge = async () => {
+    try {
+      await axios.put(
+        `/challenges/participate/${challengeID}`,
+        {},
+        {
+          headers: {
+            id: uID,
+            Authorization: token,
+          },
+        }
+      );
+      setStatus(!participationStatus);
+      showMsg();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const removeUserFromChallenge = async () => {
+    try {
+      await axios.put(
+        `/challenges/unparticipate/${challengeID}`,
+        {},
+        {
+          headers: {
+            id: uID,
+            Authorization: token,
+          },
+        }
+      );
+      setStatus(!participationStatus);
+      showMsg();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const showMsg = () => {
+    showMessage({
+      icon: "success",
+      position: "top",
+      message: null,
+      type: participationStatus ? "warning" : "success",
+      renderFlashMessageIcon: participationStatus ? UnjoinedBanner : JoinBanner,
+      style: { borderRadius: 15, top: 35, height: 50 },
+      statusBarHeight: 0,
+      floating: true,
+    });
+  };
+  const deleteChallenge = async () => {
+    try {
+      const id = await asyncStorage.getData("ID");
+      const authToken = await asyncStorage.getData("Authorization");
+      await axios.delete(`/challenges/${challengeID}`, {
+        headers: {
+          id: id,
+          Authorization: authToken,
+        },
+      });
+      showMessage({
+        icon: "success",
+        position: "top",
+        message: null,
+        type: "success",
+        renderFlashMessageIcon: DeleteChallengeBanner,
+        style: { borderRadius: 15, top: 35, height: 50 },
+        statusBarHeight: 0,
+        floating: true,
+      });
+      props.navigation.navigate("Challenge");
+    } catch (err) {}
+  };
+  // return <Text>Fuck this shit</Text>;
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -122,87 +171,16 @@ const ChallengeInfo = (props) => {
             shadowRadius: 3,
           }}
         >
-          <Image style={styles.image} source={{ uri: challenge.image }} />
-        </View>
-
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <Text style={styles.title}>{challenge.name}</Text>
-          <FlatList
-            style={{
-              left: 35,
-              height: 35,
-              marginRight: 50,
-              alignSelf: "center",
+          <Image
+            style={styles.image}
+            source={{
+              uri: cImage,
             }}
-            contentContainerStyle={{
-              flexDirection: "row",
-            }}
-            data={challenge.tags}
-            renderItem={({ item }) => <TagPill tag={item} />}
-            keyExtractor={(item) => item}
           />
-          {/* </View> */}
-        </ScrollView>
-        <View style={{ marginHorizontal: width / 100, marginVertical: 10 }}>
-          <View style={styles.locationTime}>
-            <TouchableOpacity
-              style={[
-                styles.buttonContainer,
-                locationButton
-                  ? { backgroundColor: "#142A4F" }
-                  : { backgroundColor: "white" },
-              ]}
-              onPress={() => {
-                setLocationButton(true);
-                locationButtonPressed();
-              }}
-            >
-              <View style={styles.iconText}>
-                <Icon
-                  name="ios-location-outline"
-                  size={25}
-                  style={[
-                    locationButton ? { color: "white" } : { color: "blue" },
-                  ]}
-                />
-                <Text
-                  style={[
-                    { left: 5, fontSize: 13, fontWeight: "bold" },
-                    locationButton ? { color: "white" } : { color: "black" },
-                  ]}
-                >
-                  Location
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.buttonContainer,
-                dateButton
-                  ? { backgroundColor: "#142A4F" }
-                  : { backgroundColor: "white" },
-              ]}
-              onPress={() => {
-                setDateButton(true);
-                dateButtonPressed();
-              }}
-            >
-              <View style={styles.iconText}>
-                <Icon
-                  name="calendar-outline"
-                  size={25}
-                  style={[dateButton ? { color: "white" } : { color: "blue" }]}
-                />
-                <Text
-                  style={[
-                    { left: 5, fontSize: 13, fontWeight: "bold" },
-                    dateButton ? { color: "white" } : { color: "black" },
-                  ]}
-                >
-                  Date
-                </Text>
-              </View>
-            </TouchableOpacity>
+        </View>
+        <View style={styles.container}>
+          <View style={styles.titleAndAttendeesButton}>
+            <Text style={[styles.title, { width: "65%" }]}>{cName}</Text>
             <TouchableOpacity
               style={[
                 styles.buttonContainer,
@@ -215,63 +193,92 @@ const ChallengeInfo = (props) => {
                 antButtonPressed();
               }}
             >
-              <View style={styles.iconText}>
+              <View style={[styles.iconText, { margin: 5 }]}>
                 <Icon
                   name="people-outline"
-                  size={25}
+                  size={width * 0.05}
                   style={[antButton ? { color: "white" } : { color: "blue" }]}
                 />
                 <Text
                   style={[
-                    { left: 5, fontSize: 13, fontWeight: "bold" },
+                    {
+                      fontSize: width * 0.032,
+                      fontWeight: "bold",
+                      alignSelf: "center",
+                    },
                     antButton ? { color: "white" } : { color: "black" },
                   ]}
                 >
-                  Attendees
+                  {`${cNumOfParticipants} Attendees`}
                 </Text>
               </View>
             </TouchableOpacity>
           </View>
-        </View>
-        <View style={{ marginVertical: 12, bottom: 10 }}>
-          <Text style={styles.about}>About</Text>
-          <Text style={styles.mainDescription}>{challenge.description}</Text>
-        </View>
+          <View style={styles.locationTime}>
+            <View style={styles.iconText}>
+              <Icon
+                name="ios-location-outline"
+                size={width * 0.04}
+                style={{ color: "blue" }}
+              />
+              <View style={{ width: width / 2.5 }}>
+                <Text style={styles.dateText}>{location}</Text>
+              </View>
+            </View>
+            <View style={styles.iconText}>
+              <Icon
+                name="calendar-outline"
+                size={width * 0.04}
+                style={{ color: "blue" }}
+              />
+              <View>
+                <Text style={[styles.dateText, { alignSelf: "flex-end" }]}>
+                  {startDate}
+                </Text>
+                <Text style={[styles.dateText, { alignSelf: "flex-end" }]}>
+                  {endDate}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.aboutDelete}>
+            <Text style={styles.about}>About</Text>
+            {deleteFunc ? (
+              <TouchableOpacity
+                style={styles.del}
+                onPress={() => deleteChallenge()}
+              >
+                <Text style={styles.deleteText}>Delete</Text>
+              </TouchableOpacity>
+            ) : null}
+          </View>
 
-        {/* API CALL TO UPDATE PARTICIPATION */}
-        <TouchableOpacity
-          disabled={props.navigation.state.params.disableButton}
-          style={[
-            styles.participatingButton,
-            {
-              backgroundColor: props.navigation.state.params.disableButton
-                ? "#EBEBE4"
-                : participationStatus
-                ? "#90ee90"
-                : "#DDDDDD",
-            },
-          ]}
-          onPress={() => {
-            setStatus(!participationStatus);
-            showMessage({
-              icon: "success",
-              position: "top",
-              message: null,
-              type: participationStatus ? "warning" : "success",
-              renderFlashMessageIcon: participationStatus
-                ? UnjoinedBanner
-                : JoinBanner,
-              style: { borderRadius: 15, top: 35, height: 50 },
-              statusBarHeight: 0,
-              floating: true,
-            });
-          }}
-        >
-          <Text style={styles.participate}>
-            {participationStatus ? "Participating" : "Participate"}
-          </Text>
-        </TouchableOpacity>
-        {/* PARTICIPANT MODAL */}
+          <Text style={styles.mainDescription}>{cDescription}</Text>
+          <TouchableOpacity
+            disabled={props.route.params.disableButton}
+            style={[
+              styles.participatingButton,
+              {
+                backgroundColor: props.route.params.disableButton
+                  ? "#EBEBE4"
+                  : participationStatus
+                  ? "#90ee90"
+                  : "#DDDDDD",
+              },
+            ]}
+            onPress={() => {
+              if (participationStatus == false) {
+                addUserToChallenge();
+              } else {
+                removeUserFromChallenge();
+              }
+            }}
+          >
+            <Text style={styles.participate}>
+              {participationStatus ? "Participating" : "Participate"}
+            </Text>
+          </TouchableOpacity>
+        </View>
         <Modal
           isVisible={participantModal}
           onBackdropPress={() => setParticipantModal(!participantModal)}
@@ -280,70 +287,58 @@ const ChallengeInfo = (props) => {
             style={styles.modalView}
             showsVerticalScrollIndicator={false}
           >
-            <Participant />
-            <TouchableOpacity
-              style={{
-                alignSelf: "center",
-                marginVertical: 15,
-              }}
-              onPress={() => setParticipantModal(!participantModal)}
-            >
-              <Text style={{ fontSize: 17, color: "blue" }}>Close</Text>
-            </TouchableOpacity>
+            <Participant challengeID={challengeID} />
           </ScrollView>
         </Modal>
-
-        {/* MAP MODAL */}
-
-        <Modal
-          isVisible={mapModal}
-          onBackdropPress={() => setMapModal(!mapModal)}
-        >
-          {showMap ? (
-            <MapView
-              followUserLocation={true}
-              zoomEnabled={true}
-              style={[
-                {
-                  height: 500,
-                  width: 372,
-                },
-                styles.modalView,
-              ]}
-              initialRegion={origin}
-            >
-              <Marker coordinate={origin} />
-              <Marker
-                coordinate={destination}
-                title={"Location"}
-                description={challenge.location}
-              />
-              <MapViewDirections
-                destination={destination}
-                origin={origin}
-                apikey={GOOGLE_API_KEY}
-                strokeWidth={3}
-                strokeColor="red"
-              />
-            </MapView>
-          ) : (
-            <View>
-              <ActivityIndicator size="large" color="#0000ff" />
-            </View>
-          )}
-        </Modal>
-
-        {/* MODALS END */}
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    height: 35,
+  deleteText: {
+    fontSize: width * 0.032,
+    fontWeight: "600",
+    alignSelf: "center",
+    margin: 5,
+    color: "red",
+    opacity: 0.8,
+  },
+  del: {
     borderRadius: 10,
-    width: 115,
+    borderWidth: 0.7,
+    borderColor: "red",
+    alignItems: "center",
+    backgroundColor: "white",
+    shadowColor: "#FF0000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+  },
+  aboutDelete: {
+    marginTop: height / 50,
+
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  container: {
+    marginHorizontal: width / 27,
+  },
+  titleAndAttendeesButton: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: height / 50,
+  },
+  dateText: {
+    fontSize: width * 0.035,
+    fontWeight: "400",
+    alignSelf: "flex-start",
+    left: 3,
+  },
+  buttonContainer: {
+    position: "absolute",
+    right: 0,
+    borderRadius: 10,
     borderWidth: 0.7,
     borderColor: "blue",
     alignItems: "center",
@@ -355,31 +350,19 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "600",
-    fontSize: 33,
-    left: 17,
+    fontSize: width * 0.075,
   },
   modalView: {
-    marginVertical: 200,
+    marginVertical: height / 5,
     backgroundColor: "white",
     borderRadius: 10,
   },
   iconText: {
     flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "center",
-    marginVertical: 3,
   },
-  date: {
-    fontSize: 16,
-    marginVertical: 8,
-    textDecorationLine: "underline",
-  },
-
   locationTime: {
-    top: 10,
+    marginTop: height / 50,
     flexDirection: "row",
-    marginHorizontal: 17,
-    marginVertical: 15,
     justifyContent: "space-between",
   },
   image: {
@@ -389,24 +372,20 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   mainDescription: {
-    top: 10,
-    fontSize: 15,
+    fontSize: width * 0.04,
     fontWeight: "300",
-    marginHorizontal: 17,
+    marginTop: height / 50,
   },
   participatingButton: {
+    bottom: height / 100,
+    marginTop: height / 50,
     borderRadius: 8,
     width: width - 30,
-    marginVertical: 11,
-    borderRadius: 8,
     alignSelf: "center",
   },
   about: {
     fontWeight: "300",
-
-    fontSize: 25,
-    left: 16,
-    marginVertical: 7,
+    fontSize: width * 0.06,
   },
   participate: {
     fontWeight: "500",

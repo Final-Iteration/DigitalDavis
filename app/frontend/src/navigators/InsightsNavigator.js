@@ -1,25 +1,28 @@
-import React from 'react';
-import { createStackNavigator } from 'react-navigation-stack';
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import Insights from '../screens/insightsScreen/Insights';
+import Insights from "../screens/insightsScreen/Insights";
 
-import Header from '../sharedComponent/Header';
+import Header from "../sharedComponent/Header";
 
-const InsightStack = createStackNavigator(
-  {
-    Insight: {
-      screen: Insights,
-      navigationOptions: {
-        header: ({ scene, previous, navigation }) => (
-          <Header title="Insights" navigation={navigation} />
-        ),
-      },
-    },
-  },
-  {
-    initialRouteName: 'Insight',
-    headerMode: 'screen',
-  }
-);
+const Stack = createStackNavigator();
 
-export default InsightStack;
+function MyStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Insight"
+        component={Insights}
+        options={{
+          header: ({ scene, previous, navigation }) => (
+            <Header title="Insights" navigation={navigation} />
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+export default function InsightNavigator() {
+  return <MyStack />;
+}
