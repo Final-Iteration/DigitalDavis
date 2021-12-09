@@ -1,7 +1,7 @@
 # UCD Digital Davis Initiative - Nirvana
 
 <img src="https://fi-nirvana.netlify.app/static/media/logo.524f9483.png" align="right"
-     alt="Lotus logo by Freepik" width="140" height="120">
+     alt="Lotus logo by Freepik" width="145" height="120">
 
 ## Developers 
 Final Iteration - California State University, Sacramento - CS Senior Project Team
