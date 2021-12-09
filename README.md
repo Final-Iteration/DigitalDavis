@@ -3,9 +3,6 @@
 <img src="https://fi-nirvana.netlify.app/static/media/logo.524f9483.png" align="right"
      alt="Lotus logo by Freepik" width="145" height="120">
 
-## Developers 
-Final Iteration - California State University, Sacramento - CS Senior Project Team
-
 ## Project Homepage
 [Nirvana](https://fi-nirvana.netlify.app/)
 
@@ -88,7 +85,8 @@ Final Iteration - California State University, Sacramento - CS Senior Project Te
     │   └───validate
     └───mongo-db
 ```
-## Authors
+## Developers 
+Final Iteration - California State University, Sacramento - CS Senior Project Team
 1. **Akasha Stallworth**: [Github](https://github.com/akxsha) - [LinkedIn](https://www.linkedin.com/in/akasha-stallworth-75a458160/)
 2. **Daniel Olsen**: [Github](https://github.com/BotOlsen) - [LinkedIn](https://www.linkedin.com/in/olsend/)
 3. **Dennis Worley Jr.**: [Github](https://github.com/dennisw95) - [LinkedIn](https://www.linkedin.com/in/dennis-worley-jr-4ab98b187/)
