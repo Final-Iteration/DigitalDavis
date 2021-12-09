@@ -7,6 +7,6 @@
 
 ## Run the testing command in the terminal
 
-1. ` run npm test`
+1. ` npm run test`
 
 ## You should see all tests passed and some tests skipped.

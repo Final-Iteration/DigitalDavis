@@ -5,14 +5,7 @@ const tokenService = require("../../services/token.services");
 const { userOne, userTwo, userThree } = require("./user.fixture");
 const getToken = require("../fixtures/createTokenFunction");
 
-// const userOneAccessToken = await getToken();
-// const accessTokenExpires = moment().add(config.jwt.accessExpirationMinutes, 'minutes');
-// const userTwoAccessToken = tokenService.generateToken(userTwo._id, accessTokenExpires, tokenTypes.ACCESS);
-// const userThreeAccessToken = tokenService.generateToken(userThree._id, accessTokenExpires, tokenTypes.ACCESS);
-// const userOneAccessToken = tokenService.generateToken(userOne._id, accessTokenExpires, tokenTypes.ACCESS);
-
 module.exports = {
   userOneAccessToken,
-  // userTwoAccessToken,
-  // userThreeAccessToken,
+
 };
