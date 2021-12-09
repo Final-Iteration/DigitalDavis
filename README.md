@@ -1,5 +1,5 @@
-# Digital Davis 
-## California State Univeristy - Computer Science Senior Project
+# UCD Digital Davis Initiative 
+### California State Univeristy - Computer Science Senior Project
 ###### Forked from [hagopj13/node-express-boilerplate](https://github.com/hagopj13/node-express-boilerplate)
 
 ## Prerequisites
