@@ -5,7 +5,7 @@
 ## Prerequisites
 - [MongoDB](https://gist.github.com/nrollr/9f523ae17ecdbb50311980503409aeb3)
 - [Node](https://nodejs.org/en/download/) ^14.17.6
-- [npm](https://nodejs.org/en/download/package-manager/)
+- [NPM](https://nodejs.org/en/download/package-manager/)
 - [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install)
 - [Docker](https://www.docker.com/products/docker-desktop)
 - [Docker-Compose](https://docs.docker.com/compose/install/)
