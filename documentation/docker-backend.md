@@ -15,10 +15,10 @@ docker network create --subnet 172.23.0.0/16 dev_network
 ### Build and Start the Database
 ###### (Must be built before the API)
 ```bash
- docker-compose -f docker-compose.docker-dev.yml --project-name final_iteration --env-file ./mongo-api/.env up --no-deps --build -d --remove-orphans mongo-database 
+ docker-compose -f docker-compose.dev.yml --project-name final_iteration --env-file ./mongo-api/.env up --no-deps --build -d --remove-orphans mongo-database
 ```
 ### Build and Start the API
 ###### (Can be rebuilt without )
 ```bash
- docker-compose -f docker-compose.docker-dev.yml --project-name final_iteration --env-file ./mongo-api/.env up --no-deps --build --remove-orphans express-api 
+    docker-compose -f docker-compose.dev.yml --project-name final_iteration --env-file ./mongo-api/.env up --no-deps --build --remove-orphans express-api
 ```
