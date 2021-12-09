@@ -1,5 +1,5 @@
 # UCD Digital Davis Initiative 
-### California State Univeristy - Computer Science Senior Project
+### California State Univeristy, Sacramento - CSc Senior Project
 ###### Forked from [hagopj13/node-express-boilerplate](https://github.com/hagopj13/node-express-boilerplate)
 
 ## Prerequisites
