@@ -96,7 +96,7 @@ Final Iteration - California State Univeristy, Sacramento - CS Senior Project Te
 8. Sharon Fitzpatrick: [Github](https://github.com/2320sharon) - [LinkedIn](https://www.linkedin.com/in/sharon-fitzpatrick-9088b31b3)
 
 ## API
-###### Forked from [hagopj13/node-express-boilerplate](https://github.com/hagopj13/node-express-boilerplate)
+Forked from [hagopj13/node-express-boilerplate](https://github.com/hagopj13/node-express-boilerplate)
 
 ## Known issues
 1. Frontend cannot be built with expo in a emulated enviroment - Requires Native CLI
