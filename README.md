@@ -1,6 +1,7 @@
 # UCD Digital Davis Initiative - Nirvana
-### California State Univeristy, Sacramento - CSc Senior Project
-###### Forked from [hagopj13/node-express-boilerplate](https://github.com/hagopj13/node-express-boilerplate)
+
+### Developers 
+Final Iteration - California State Univeristy, Sacramento - CS Senior Project Team
 
 ## Project Website
 [Nirvana](https://fi-nirvana.netlify.app/)
@@ -9,10 +10,9 @@
 - [MongoDB](https://gist.github.com/nrollr/9f523ae17ecdbb50311980503409aeb3)
 - [Node](https://nodejs.org/en/download/) ^14.17.6
 - [NPM](https://nodejs.org/en/download/package-manager/)
-- [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install)
+- [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install)
 - [Docker](https://www.docker.com/products/docker-desktop)
-- [Docker-Compose](https://docs.docker.com/compose/install/)
-
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Installing Dependancies with NPM
 1. From /app/frontend/
@@ -42,7 +42,6 @@
 1. Database must be started
 2. From  /app/mongo-api/
 3. ``` npm run test ```
-
 
 ## Package Structure
 ```
@@ -95,6 +94,9 @@
 6. Manh Sy: [Github](https://github.com/Manhsy) - [LinkedIn](https://www.linkedin.com/in/manh-sy/)
 7. Sahira Rizvi: [Github](https://github.com/sahirar) - [LinkedIn](https://www.linkedin.com/in/sahira-rizvi/)
 8. Sharon Fitzpatrick: [Github](https://github.com/2320sharon) - [LinkedIn](https://www.linkedin.com/in/sharon-fitzpatrick-9088b31b3)
+
+## API
+###### Forked from [hagopj13/node-express-boilerplate](https://github.com/hagopj13/node-express-boilerplate)
 
 ## Known issues
 1. Frontend cannot be built with expo in a emulated enviroment - Requires Native CLI
