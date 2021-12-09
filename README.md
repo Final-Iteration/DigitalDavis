@@ -7,12 +7,12 @@
 [Nirvana](https://fi-nirvana.netlify.app/)
 
 ## Prerequisites
-- [MongoDB](https://gist.github.com/nrollr/9f523ae17ecdbb50311980503409aeb3)
+- [MongoDB](https://gist.github.com/nrollr/9f523ae17ecdbb50311980503409aeb3) ^5.0
 - [Node](https://nodejs.org/en/download/) ^14.17.6
 - [NPM](https://nodejs.org/en/download/package-manager/)
 - [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install)
 - [Docker](https://www.docker.com/products/docker-desktop)
-- [Docker Compose](https://docs.docker.com/compose/install/)
+- [Docker Compose](https://docs.docker.com/compose/install/) ^3.8
 
 ## Installing Dependencies with NPM
 1. From /app/frontend/
