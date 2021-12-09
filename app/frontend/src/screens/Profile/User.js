@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -6,87 +6,109 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
-} from 'react-native';
-import { Avatar } from 'react-native-paper';
-import Field from './components/Field';
-import { Feather } from '@expo/vector-icons';
+} from "react-native";
+import { Avatar } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
+import Field from "./components/Field";
+import axios from "../../axios";
 
-//expect API call return
-const profile = {
-  profilePicture:
-    'https://i1.sndcdn.com/avatars-000321245778-5wxb1g-t500x500.jpg',
-  fullName: 'Keisuka Nakagawa',
-  userName: 'Keisuka N.',
-  title: 'Software Engineer',
-  age: '26',
-  birthDate: new Date(),
-  department: 'Psychiatry and Behavioral Sciences',
-  gender: 'Male',
-  email: 'drknakagawa@ucdavis.edu',
-};
-const { height, width } = Dimensions.get('window');
+const asyncStorage = require("../../asyncStorage");
+
+const { height, width } = Dimensions.get("window");
+
 const UserProfile = (props) => {
   //userEffect to fetch current user
-  const [username, setUsername] = useState('');
-  const [profilePicture, setProfilePicture] = useState('A');
-  const [fullName, setFullName] = useState('');
-  const [title, setTitle] = useState('');
-  const [age, setAge] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [department, setDepartment] = useState('');
-  const [gender, setGender] = useState('');
-  const [email, setEmail] = useState('');
+  const [profilePicture, setProfilePicture] = useState(
+    "https://www.clipartkey.com/mpngs/m/146-1461473_default-profile-picture-transparent.png"
+  );
+  const [fullName, setFullName] = useState("");
+  const [title, setTitle] = useState("");
+  const [age, setAge] = useState(0);
+  const [birthday, setBirthday] = useState("");
+  const [department, setDepartment] = useState("");
+  const [email, setEmail] = useState("");
+  function getAge(birthDate) {
+    return Math.floor(
+      (new Date() - new Date(birthDate).getTime()) / 3.15576e10
+    );
+  }
 
-  const dob = profile.birthDate.toString().split(' ');
-  useEffect(() => {
-    setUsername(profile.userName);
-    setProfilePicture(profile.profilePicture);
-    setFullName(profile.fullName);
-    setTitle(profile.title);
-    setAge(profile.age);
-    setDepartment(profile.department);
-    setGender(profile.gender);
-    setEmail(profile.email);
-    setBirthday(`${dob[1]} ${dob[2]} ${dob[3]}`);
-  }, []);
+  const getUserInfo = async () => {
+    try {
+      const id = await asyncStorage.getData("ID");
+      const authToken = await asyncStorage.getData("Authorization");
+      const res = await axios.get(`/users/${id}`, {
+        headers: {
+          id: id,
+          Authorization: authToken,
+        },
+      });
+      const user = res.data;
+      const dob = new Date(user.dob);
+      // setProfilePicture(profile.profilePicture);
+      setFullName(user.first_name + " " + user.last_name);
+      setTitle(user.job_title[0]);
+      setDepartment(user.department);
+      setEmail(user.email);
+      setBirthday(
+        `${dob.getMonth() + 1}/${dob.getDate()}/${dob.getFullYear()}`
+      );
+
+      setAge(getAge(user.dob));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      getUserInfo();
+      return () => {
+        setFullName("");
+        setTitle("");
+        setDepartment("");
+        setEmail("");
+      };
+    }, [])
+  );
 
   const logout = () => {
     //remove token from async storage
-    props.navigation.navigate('Auth');
+    asyncStorage.removeData("ID");
+    asyncStorage.removeData("Authorization");
+    props.navigation.navigate("Auth");
   };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.imageView}>
-        <View style={styles.halfImageView}></View>
-        <Avatar.Image
-          style={{ top: -60, alignSelf: 'center' }}
-          size={110}
-          source={{
-            uri: profilePicture,
-          }}
-        />
-        <View style={{ top: -50 }}>
+      <View style={[styles.imageView, { top: height / 15 }]}>
+        <View style={{}}>
+          <Avatar.Image
+            style={{
+              top: -(height / 15),
+              alignSelf: "center",
+              backgroundColor: "white",
+            }}
+            size={width / 4}
+            source={{
+              uri: profilePicture,
+            }}
+          />
+        </View>
+        <View style={{ top: -(height / 15) }}>
           <Text style={styles.fullName}>{fullName}</Text>
           <Text style={styles.title}>{title}</Text>
         </View>
+        <View style={{ top: -(height / 15) }}>
+          <Field title="Name" text={fullName} />
+          <Field title="Age" text={age.toString()} />
+          <Field title="Date of Birth" text={birthday} />
+          <Field title="Department" text={department} />
+          <Field title="Title" text={title} />
+          <Field title="Email" text={email} />
+        </View>
       </View>
-      <View
-        style={{
-          alignSelf: 'center',
-          backgroundColor: '#f2f2f2',
-          width: width,
-        }}
-      >
-        <Field title="Username" text={username} />
-        <Field title="Age" text={age} />
-        <Field title="Department" text={department} />
-        <Field title="Birth Date" text={birthday} />
-        <Field title="Title" text={title} />
-        <Field title="Department" text={department} />
-        <Field title="Email" text={email} />
-        <Field title="Gender" text={gender} />
-      </View>
+
       <TouchableOpacity style={styles.logOutButton} onPress={() => logout()}>
         <Text style={styles.logOutText}>Log out</Text>
       </TouchableOpacity>
@@ -95,43 +117,35 @@ const UserProfile = (props) => {
 };
 const styles = StyleSheet.create({
   column: {
-    flexDirection: 'column',
+    flexDirection: "column",
   },
   fullName: {
-    fontSize: 27,
-    fontWeight: '500',
-    alignSelf: 'center',
+    fontSize: width * 0.07,
+    fontWeight: "500",
+    alignSelf: "center",
   },
   title: {
-    fontSize: 18,
-    fontWeight: '500',
-    alignSelf: 'center',
+    fontSize: width * 0.05,
+    fontWeight: "500",
+    alignSelf: "center",
   },
   imageView: {
-    top: 0,
-    width: '100%',
-    height: 210,
-    alignItems: 'center',
-    backgroundColor: 'rgba(242,242,242,255)',
-  },
-  halfImageView: {
-    width: width,
-    height: 163 / 2,
-    backgroundColor: '#142A4F',
+    width: "100%",
+    alignItems: "center",
+    backgroundColor: "rgba(242,242,242,255)",
   },
   logOutButton: {
-    textAlign: 'center',
-    height: 75,
-    width: '100%',
-    backgroundColor: '#142A4F',
-    borderRadius: 10,
+    textAlign: "center",
+    height: height / 13,
+    width: "100%",
+    backgroundColor: "#142A4F",
   },
   logOutText: {
-    marginVertical: 12,
-    color: 'white',
-    fontWeight: '500',
-    fontSize: 18,
-    alignSelf: 'center',
+    marginVertical: height / 50,
+    color: "white",
+    fontWeight: "500",
+    fontSize: width * 0.05,
+    alignSelf: "center",
   },
 });
 export default UserProfile;

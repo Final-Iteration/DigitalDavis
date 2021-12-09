@@ -1,7 +1,7 @@
 const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
 // const compression = require('compression');
-// const cors = require('cors');
+const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const express = require('express');
@@ -10,9 +10,17 @@ const challengesRoute = require('./routes/challenge.route');
 const usersRoute = require('./routes/user.route');
 const authRoute = require('./routes/auth.route');
 const passport = require('passport');
+const { jwtStrategy } = require('./config/passport');
 const appDebugger = require('debug')('app:startup');
 
 const app = express();
+
+
+app.use(
+  cors ({
+    origin: "*"
+  })
+);
 
 // set Morgan
 if (process.env.NODE_ENV === 'development') {
@@ -35,13 +43,10 @@ app.use(mongoSanitize());
 // gzip compression
 // app.use(compression());
 
-// enable cors
-//  app.use(cors());
-//  app.options('*', cors());
-
 // jwt authentication
-require('./middleware/auth')(passport);
+//require('./middleware/auth')(passport);
 app.use(passport.initialize());
+passport.use('jwt', jwtStrategy);
 
 // limit repeated failed requests to auth endpoints
 // if (config.env === 'production') {

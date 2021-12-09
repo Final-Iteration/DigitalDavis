@@ -12,6 +12,13 @@ const signup = {
     }),
 };
 
+const forgotPassword = {
+    body: Joi.object().keys({
+        email: Joi.string().required().min(3).max(30).trim(), //Add function to validate email
+    }),
+};
+
 module.exports = {
     signup,
+    forgotPassword,
 }

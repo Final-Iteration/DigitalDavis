@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,33 +7,39 @@ import {
   TextInput,
   Dimensions,
   ImageBackground,
-  Button,
-} from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-// import DatePicker from 'react-native-datepicker';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import axios from '../../axios';
+} from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Asset } from "expo-asset";
+import axios from "../../axios";
+import Loading from "../../sharedComponent/Loading";
 
+const imageSource = require("../../../assets/blurredDavis.jpg");
+const asyncStorage = require("../../asyncStorage");
+const { height, width } = Dimensions.get("window");
 
-const { height, width } = Dimensions.get('window');
-const imageSource = require('../../../assets/blurredDavis.jpg');
 const Signup = (props) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [title, setTitle] = useState('');
-  const [department, setDepartment] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [title, setTitle] = useState("");
+  const [department, setDepartment] = useState("");
   const [fillError, setFillError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
   const [open, setOpen] = useState(false);
+  const [otherError, setOtherError] = useState("");
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    componentWillMount();
+  }, []);
   const signup = () => {
-    // const [signupInformation, setUserSignupInformation] = useState([]);
-
     if (
-      name.length === 0 ||
+      firstName.length === 0 ||
+      lastName.length === 0 ||
       email.length === 0 ||
       password.length === 0 ||
       title.length === 0 ||
@@ -46,220 +52,216 @@ const Signup = (props) => {
       setPasswordError(true);
     } else {
       //post request to database
-
       const setUserSignup = async () => {
-        date.toString();
         try {
-          
-          const res = await axios.post('/users', {
-            first_name: name,
-            last_name: name,
+          const res = await axios.post("/auth/register", {
+            first_name: firstName,
+            last_name: lastName,
             email: email,
-            dob: date.toString(),
+            dob: date,
             department: department,
             job_title: title,
-            password: password
+            password: password,
           });
-          
-          /** 
-           * @todo get token for user 
-           */
-          console.log(res.data);
-          props.navigation.navigate('Main');
-        } catch (error) {          
-          console.log(error.message);
+          await asyncStorage.storeData("ID", res.data.user.id);
+          await asyncStorage.storeData(
+            "Authorization",
+            "Bearer " + res.data.tokens.access.token
+          );
+          props.navigation.navigate("Main");
+        } catch (error) {
+          if (error.response.status === 500) {
+            setOtherError("Something went wrong, try again later");
+          } else {
+            setOtherError(error.response.data.message);
+          }
         }
-      }
-
+      };
       setUserSignup();
-      // Check token 
-      
     }
   };
+
+  const componentWillMount = async () => {
+    console.log("mouting");
+    await Asset.loadAsync([require("../../../assets/blurredDavis.jpg")]);
+    setLoading(false);
+  };
+
   const onChange = (event, value) => {
-    if (value) {
-      setDate(value);
+    setDate(value);
+    if (Platform.OS === "android") {
+      setOpen(false);
     }
-    setOpen(false);
   };
-  const getDate = () => {
-    let d = date.toString().split(' ');
-    return `${d[1]} ${d[2]} ${d[3]}`;
-  };
+
   return (
-    <ImageBackground style={styles.imageStyle} source={imageSource}>
-      <KeyboardAwareScrollView
-        enableOnAndroid={true}
-        extraHeight={100}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps={'always'}
-      >
-        <TextInput
-          autoCapitalize="none"
-          autoCorrect={false}
-          style={styles.textInput}
-          placeholder="Name"
-          value={name}
-          onChangeText={(text) => setName(text)}
-        />
-        <TextInput
-          style={styles.textInput}
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        <TextInput
-          style={styles.textInput}
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry={true}
-        />
-        <TextInput
-          style={styles.textInput}
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChangeText={(text) => setConfirmPassword(text)}
-          secureTextEntry={true}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-
-        <TextInput
-          style={styles.textInput}
-          placeholder="Title"
-          value={title}
-          onChangeText={(text) => setTitle(text)}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        <TextInput
-          style={styles.textInput}
-          placeholder="Department"
-          value={department}
-          onChangeText={(text) => setDepartment(text)}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-
-        <TouchableOpacity
-          onPress={() => {
-            setOpen(!open);
-          }}
-          style={styles.dateInput}
-        >
-          <Text style={styles.DOBText}>
-            {`Date of Birth: ${Platform.OS === 'ios' ? '' : getDate()}`}
-          </Text>
-          {Platform.OS === 'ios' ? (
-            <DateTimePicker
-              style={styles.datePickerStyle}
-              display="default"
-              mode="date" //The enum of date, datetime and time
-              value={date} //initial date from state
-              format="MM-DD-YYYY"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              onDateChange={(date) => {
-                setDate(date);
-              }}
-            />
-          ) : (
-            open && (
-              <DateTimePicker
-                style={styles.datePickerStyle}
-                mode={'date'} //The enum of date, datetime and time
-                display={Platform.OS === 'ios' ? 'spinner' : 'spinner'}
-                value={date} //initial date from state
-                format="MM-DD-YYYY"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                onChange={onChange}
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <ImageBackground style={styles.imageStyle} source={imageSource}>
+          <KeyboardAwareScrollView
+            enableOnAndroid={true}
+            extraHeight={100}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps={"always"}
+          >
+            <View style={styles.container}>
+              <TextInput
+                maxLength={30}
+                autoCorrect={false}
+                style={styles.textInput}
+                placeholder="First Name"
+                value={firstName}
+                onChangeText={(text) => setFirstName(text)}
               />
-            )
-          )}
-        </TouchableOpacity>
-        {fillError ? (
-          <Text style={styles.errorText}>Fill out all info</Text>
-        ) : null}
-        {passwordError ? (
-          <Text style={styles.errorText}>Password does not match</Text>
-        ) : null}
-        <View style={styles.signUpView}>
-          <TouchableOpacity onPress={() => signup()}>
-            <Text style={styles.signUpButton}>Sign Up</Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAwareScrollView>
-    </ImageBackground>
+              <TextInput
+                maxLength={30}
+                autoCorrect={false}
+                style={styles.textInput}
+                placeholder="Last Name"
+                value={lastName}
+                onChangeText={(text) => setLastName(text)}
+              />
+              <TextInput
+                style={styles.textInput}
+                maxLength={50}
+                placeholder="Email"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                autoCorrect={false}
+              />
+              <TextInput
+                style={styles.textInput}
+                placeholder="Password"
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+                autoCapitalize="none"
+                autoCorrect={false}
+                secureTextEntry={true}
+              />
+              <TextInput
+                style={styles.textInput}
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChangeText={(text) => setConfirmPassword(text)}
+                secureTextEntry={true}
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              <TextInput
+                style={styles.textInput}
+                placeholder="Title"
+                value={title}
+                onChangeText={(text) => setTitle(text)}
+                autoCorrect={false}
+              />
+              <TextInput
+                style={styles.textInput}
+                placeholder="Department"
+                value={department}
+                onChangeText={(text) => setDepartment(text)}
+                autoCorrect={false}
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  setOpen(!open);
+                }}
+                style={styles.dateInput}
+              >
+                <Text style={styles.DOBText}>{`Date of Birth: `}</Text>
+                <DateTimePicker
+                  style={styles.datePickerStyle}
+                  display="default"
+                  mode="date" //The enum of date, datetime and time
+                  value={date} //initial date from state
+                  format="MM-DD-YYYY"
+                  confirmBtnText="Confirm"
+                  cancelBtnText="Cancel"
+                  onChange={onChange}
+                />
+              </TouchableOpacity>
+              {fillError ? (
+                <Text style={styles.errorText}>Fill out all info</Text>
+              ) : null}
+              {passwordError ? (
+                <Text style={styles.errorText}>Password does not match</Text>
+              ) : null}
+              {otherError.length != 0 ? (
+                <Text style={styles.errorText}>{otherError}</Text>
+              ) : null}
+              <View style={styles.signUpView}>
+                <TouchableOpacity onPress={() => signup()}>
+                  <Text style={styles.signUpButton}>Sign Up</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </KeyboardAwareScrollView>
+        </ImageBackground>
+      )}
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  dateInput: {
-    height: 55,
-    borderRadius: 10,
-    backgroundColor: '#F6F6F6',
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
     marginHorizontal: width / 15,
+    marginVertical: height / 25,
+  },
+  dateInput: {
+    height: height / 16,
+    borderRadius: 10,
+    backgroundColor: "#F6F6F6",
     marginBottom: height / 40,
     padding: height / 70,
-    fontSize: 18,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    fontSize: width * 0.04,
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   DOBText: {
-    fontSize: 18,
+    fontSize: width * 0.04,
     top: 2,
-    color: '#A9A9A9',
+    color: "#A9A9A9",
   },
   datePickerStyle: {
-    height: 45,
+    height: height / 18,
     width: 120,
-    right: 5,
-    top: 5,
-    position: 'absolute',
+    right: 3,
+    top: 3,
+    position: "absolute",
   },
   errorText: {
-    color: 'red',
-    alignSelf: 'center',
-    fontSize: 15,
+    color: "red",
+    alignSelf: "center",
+    fontSize: width * 0.03,
     bottom: 5,
   },
-  titleButton: {
-    alignSelf: 'center',
-    width: 343,
-    flexDirection: 'row',
-    bottom: 20,
-  },
-
   signUpButton: {
-    color: 'white',
-    alignSelf: 'center',
-    fontSize: 20,
-    marginVertical: 10,
+    color: "white",
+    alignSelf: "center",
+    fontSize: width * 0.05,
+    margin: 10,
   },
   login: {
     right: 0,
   },
   signUpView: {
-    alignSelf: 'center',
-    height: 51,
-    width: 343,
-    backgroundColor: '#142A4F',
+    alignSelf: "center",
+    height: height / 19,
+    width: "85%",
+    backgroundColor: "#142A4F",
     borderRadius: 10,
   },
   textInput: {
-    height: 55,
+    height: height / 16,
     borderRadius: 10,
-    backgroundColor: '#F6F6F6',
-    marginHorizontal: width / 15,
+    backgroundColor: "#F6F6F6",
     marginBottom: height / 40,
     padding: height / 70,
-    fontSize: 18,
+    fontSize: width * 0.04,
   },
   imageStyle: {
     height: height,

@@ -1,73 +1,45 @@
 import React from "react";
-import { createStackNavigator } from "react-navigation-stack";
-
-import CurrentChallenges from "../screens/challengesScreen/CurrentChallenge";
+import { createStackNavigator } from "@react-navigation/stack";
+import CreateChallenge from "../screens/challengesScreen/CreateChallenge";
+import CurrentChallenge from "../screens/challengesScreen/CurrentChallenge";
 import ChallengeInfo from "../screens/challengesScreen/ChallengeInfo";
-import CreateChallengeScreen from "../screens/challengesScreen/CreateChallengeScreen";
-import CreateChallengeScreenTags from "../screens/challengesScreen/CreateChallengeScreenTags";
-import CreateChallengeDate from "../screens/challengesScreen/CreateChallengeDate";
-import CreateChallengeDescription from "../screens/challengesScreen/CreateChallengeDescription";
-
 import Header from "../sharedComponent/Header";
+const Stack = createStackNavigator();
 
-const ChallengeStack = createStackNavigator({
-  Challenge: {
-    screen: CurrentChallenges,
-    navigationOptions: {
-      header: ({ scene, previous, navigation }) => (
-        <Header title="Challenges" navigation={navigation} challenge={true} />
-      ),
-    },
-  },
-
-  ChallengeInformation: {
-    screen: ChallengeInfo,
-    navigationOptions: {
-      header: ({ scene, previous, navigation }) => (
-        <Header challengeInfo={true} navigation={navigation} challenge={true} />
-      ),
-    },
-  },
-  CreateChallenge: {
-    screen: CreateChallengeScreen,
-    navigationOptions: {
-      header: ({ scene, previous, navigation }) => (
-        <Header
-          createChallenge={true}
-          title="Create Challenge"
-          navigation={navigation}
-        />
-      ),
-    },
-  },
-  CreateChallengeTags: {
-    screen: CreateChallengeScreenTags,
-    navigationOptions: {
-      header: ({ scene, previous, navigation }) => (
-        <Header
-          CreateChallengeTags={true}
-          // title="CreateChallengeTags"
-          navigation={navigation}
-        />
-      ),
-    },
-  },
-  CreateChallengeDate: {
-    screen: CreateChallengeDate,
-    navigationOptions: {
-      header: ({ scene, previous, navigation }) => (
-        <Header CreateChallengeDate={true} navigation={navigation} />
-      ),
-    },
-  },
-  CreateChallengeDescription: {
-    screen: CreateChallengeDescription,
-    navigationOptions: {
-      header: ({ scene, previous, navigation }) => (
-        <Header CreateChallengeDescription={true} navigation={navigation} />
-      ),
-    },
-  },
-});
-
-export default ChallengeStack;
+function MyStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Challenge"
+      mode="modal" // top to bottom instead of left to right
+      headerMode="screen"
+    >
+      <Stack.Screen
+        name="Challenge"
+        component={CurrentChallenge}
+        options={{
+          header: ({ scene, previous, navigation }) => (
+            <Header
+              title="Challenges"
+              navigation={navigation}
+              challenge={true}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="ChallengeInformation"
+        component={ChallengeInfo}
+        options={{ title: null }}
+      />
+      <Stack.Screen
+        name="CreateChallenge"
+        component={CreateChallenge}
+        options={{ headerShown: false }}
+        mode="modal" // top to bottom instead of left to right
+      />
+    </Stack.Navigator>
+  );
+}
+export default function ChallengeNavigator() {
+  return <MyStack />;
+}

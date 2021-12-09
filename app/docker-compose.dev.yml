@@ -1,8 +1,7 @@
-version: "3.8"
+version: "3.9"
 services:
   mongo-database:
     image: ucd-emp-wellness-db:lts
-    # hostname: localhost
     container_name: ucd-emp-wellness-db
     build: ./mongo-db/
     environment:
@@ -16,20 +15,23 @@ services:
     networks:
       - dev_network
   express-api:
-    image: ucd-emp-wellness-api:lts
-    # hostname: localhost
-    container_name: ucd-emp-wellness-api
-    build: ./mongo-api/
+    image: final_iteration_api_dev:lts
+    hostname: final-iteration
+    container_name: ucd-wellness-api
+    build: 
+      context: ./mongo-api/
+      dockerfile: dockerfile.dev
     environment:
       - "NODE_ENV=development"
-      - "EXPRESS_API_PORT=${EXPRESS_API_PORT}"
-      - "CA_CERTIFICATE_PATH=${CA_CERTIFICATE_PATH}"
-      - "DEV_DATABASE_HOST=${DEV_DATABASE_HOST}"
-      - "DEV_DATABASE_PORT=${DEV_DATABASE_PORT}"
-      - "DEV_DATABASE_NAME=${DEV_DATABASE_NAME}"
-      - "DEV_DATABASE_PROTOCOL=${DEV_DATABASE_PROTOCOL}"
-      - "DEV_DATABASE_COLLECTION=${DEV_DATABASE_COLLECTION}"
+      - "PORT=${PORT}"
+      - "MONGODB_URL_DEV=${MONGODB_URL_DEV}"
       - "DEBUG=${DEBUG}"
+      - "JWT_SECRET=${JWT_SECRET}"
+      - "JWT_ACCESS_EXPIRATION_MINUTES=${JWT_ACCESS_EXPIRATION_MINUTES}"
+      - "JWT_REFRESH_EXPIRATION_DAYS=${JWT_REFRESH_EXPIRATION_DAYS}"
+      - "JWT_RESET_PASSWORD_EXPIRATION_MINUTES=${JWT_RESET_PASSWORD_EXPIRATION_MINUTES}"
+      - "JWT_VERIFY_EMAIL_EXPIRATION_MINUTES=${JWT_VERIFY_EMAIL_EXPIRATION_MINUTES}"
+      - "CERTIFICATE=${CERTIFICATE}"
     ports:
       - "3005:3005"
     volumes:

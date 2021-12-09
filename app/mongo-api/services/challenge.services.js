@@ -1,19 +1,28 @@
-const httpStatus = require('http-status');
-const Challenge = require('../models/challenge.model');
-const User = require('../models/user.model');
-const ApiError = require('../utils/ApiError');
+const httpStatus = require("http-status");
+const Challenge = require("../models/challenge.model");
+const User = require("../models/user.model");
+const ApiError = require("../utils/ApiError");
 
 /**
  * Create a challenge
- * @param {Object} challengeBody
+ * @param {Object} challengeBody, ID
  * @returns {Promise<Challenge>}
  */
-const createChallenge = async (challengeBody, ) => {
-  const creator = await User.find()
-  if (await Challenge.isNameTaken(challengeBody.name)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
-  }
-  return Challenge.create(challengeBody);
+const createChallenge = async (challengeBody, ID) => {
+  const data = {
+    name: challengeBody.name,
+    creator: ID,
+    tags: challengeBody.tags,
+    description: challengeBody.description,
+    summary: challengeBody.summary,
+    location: challengeBody.location,
+    timestamp: challengeBody.timestamp,
+    start_date: challengeBody.start_date,
+    end_date: challengeBody.end_date,
+    unsplashurl: challengeBody.unsplashurl,
+    //participants: challengeBody.participants
+  };
+  return Challenge.create(data);
 };
 
 /**
@@ -36,7 +45,11 @@ const queryChallenges = async (filter, options) => {
  * @returns {Promise<Challenge>}
  */
 const getChallengeById = async (challengeId) => {
-  return Challenge.findOne({ _id : challengeId});
+  const challenge = await Challenge.findOne({ _id: challengeId });
+  if (!challenge) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
+  }
+  return challenge;
 };
 
 /**
@@ -44,33 +57,41 @@ const getChallengeById = async (challengeId) => {
  * @param {string} name
  * @returns {Promise<Challenge>}
  */
- const getChallengeByName = async (name) => {
+const getChallengeByName = async (name) => {
   return Challenge.findOne({ name });
 };
 
 /**
  * Update challenge by id
  * @param {ObjectId} id
- * @param {Object} updateBody
+ * @param {Object} challengeBody
  * @returns {Promise<Challenge>}
  */
-const updateChallengeById = async (id, updateBody) => {
-  const challenge = await getChallengeById({ _id : id});
+const updateChallengeById = async (id, challengeBody) => {
+  const challenge = await getChallengeById({ _id: id });
   if (!challenge) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
+    throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
   }
   if (
-    updateBody.email &&
-    (await Challenge.isEmailTaken(updateBody.email, id))
+    challengeBody.email &&
+    (await Challenge.isEmailTaken(challengeBody.email, id))
   ) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
-    if (await Challenge.isNameTaken(updateBody.name)) {
-      throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
-    }
-    Object.assign(challenge, updateBody);
+    throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
+    Object.assign(challenge, challengeBody);
     await challenge.save();
     return challenge;
   }
+  const data = {
+    name: challengeBody.name,
+    tags: challengeBody.tags,
+    description: challengeBody.description,
+    summary: challengeBody.summary,
+    location: challengeBody.location,
+    timestamp: challengeBody.timestamp,
+    start_date: challengeBody.start_date,
+    end_date: challengeBody.end_date,
+  };
+  return Challenge.update(data);
 };
 
 /**
@@ -78,13 +99,17 @@ const updateChallengeById = async (id, updateBody) => {
  * @param {ObjectId} Id
  * @returns {Promise<Challenge>}
  */
-const deleteChallengeById = async (id) => {
-  const challenge = await getChallengeById({ _id : id});
+const deleteChallengeById = async (challengeID, userID) => {
+  const challenge = await getChallengeById({ _id: challengeID });
   if (!challenge) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Challenge not found');
+    throw new ApiError(httpStatus.NOT_FOUND, "Challenge not found");
   }
-  await challenge.remove();
-  return challenge;
+  if (userID == challenge.creator) {
+    await challenge.remove();
+    // return challenge;
+  } else if (userID == challenge.creator) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, "UNAUTHORIZED");
+  }
 };
 
 /**
@@ -93,38 +118,78 @@ const deleteChallengeById = async (id) => {
  * @param {ObjectStart} Start
  * @returns {Promise<Challenge>}
  */
-const activeChallenges = async () => {
+const activeChallenges = async (userID) => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
-  const challenges = await Challenge.find( { end_date: {$gte: rn} } && {start_date: {$lte: rn}} ); 
-  return challenges;
+  const challenges = await Challenge.find({
+    $and: [{ end_date: { $gte: rn } }, { start_date: { $lte: rn } }],
+  });
+
+  const result = await challenges.filter(
+    (challenges) => challenges.participants == userID
+  );
+  return result;
 };
 
-
-const pastChallenges = async () => {
+const pastChallenges = async (userID) => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
-  const challenges = await Challenge.find( {end_date: {$lte: rn}} ); 
-  return challenges;
+  const challenges = await Challenge.find({ end_date: { $lt: rn } });
+  const result = await challenges.filter(
+    (challenges) => challenges.participants == userID
+  );
+  return result;
 };
 
 const allChallenges = async () => {
   const timeElasped = Date.now();
   const today = new Date(timeElasped);
   rn = today.toISOString();
-  const challenges = await Challenge.find( {} || {end_date: {$gte: rn}} ); 
+  const challenges = await Challenge.find({} || { end_date: { $gte: rn } });
   return challenges;
 };
 
+const challengeCreator = async (challengeId) => {
+  const thisChallenge = await Challenge.findOne({ _id: challengeId });
+  const creatorID = thisChallenge.creator;
+  const creatorInfo = await User.findOne({ _id: creatorID });
+  return creatorInfo;
+};
+
+const getParticipants = async (challengeId) => {
+  const thisChallenge = await Challenge.findOne({ _id: challengeId });
+  const people = thisChallenge.participants;
+  const participantsInfo = await User.find({ _id: people });
+  return participantsInfo;
+};
+
+const updateParticipants = async (challengeId, userID) => {
+  Challenge.updateOne(
+    { _id: challengeId },
+    { $addToSet: { participants: userID } },
+    function (err, raw) {
+      if (err) return handleError(err);
+    }
+  );
+};
+
+const deleteParticipants = async (challengeId, userID) => {
+  Challenge.updateOne(
+    { _id: challengeId },
+    { $pull: { participants: userID } },
+    function (err, raw) {
+      if (err) return handleError(err);
+    }
+  );
+};
 /**
  * Filter challenges with start date > today
  * and end date < today
  * @param {ObjectStart} Start
  * @returns {Promise<Challenge>}
  */
-
 
 module.exports = {
   createChallenge,
@@ -135,5 +200,9 @@ module.exports = {
   deleteChallengeById,
   activeChallenges,
   pastChallenges,
-  allChallenges
+  allChallenges,
+  challengeCreator,
+  getParticipants,
+  updateParticipants,
+  deleteParticipants,
 };

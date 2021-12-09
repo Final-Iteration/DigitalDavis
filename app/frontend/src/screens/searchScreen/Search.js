@@ -1,20 +1,29 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-
+import React from "react";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
+const { height, width } = Dimensions.get("window");
 const Search = (props) => {
   return (
-    <View>
-      <Text style={{ alignSelf: 'center' }}>This is the Search screen</Text>
-      <Button
-        title="searched search"
-        onPress={() => {
-          props.navigation.navigate('SearchedSearch');
-        }}
-      />
+    <View style={styles.container}>
+      <View>
+        <Image
+          style={styles.gif}
+          source={require("../../../assets/output-onlinegiftools.gif")}
+        />
+      </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    marginVertical: height / 5,
+  },
+  gif: {
+    alignSelf: "center",
+    height: "85%",
+    width: "100%",
+  },
+});
 
 export default Search;
