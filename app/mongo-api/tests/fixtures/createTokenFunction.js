@@ -8,10 +8,12 @@ const { generateAuthTokens } = require('../../services/token.services');
 const userService = require('../../services/user.services');
 const setupTestDB = require('../utils/setupTestDB');
 
-//createTokens
-//imitates the register() in the auth controller
-//1. creates a user in the DB
-//2. creates an auth token based on the user inserted into the DB. The full token is also inserted into the DB
+/**
+* createTokens
+* imitates the register() in the auth controller
+* 1. creates a user in the DB
+* 2. creates an auth token based on the user inserted into the DB. The full token is also inserted into the DB
+*/
 const createTokenOne = async () => {
   try {
     const user = await userService.createUser(userAuthOne);

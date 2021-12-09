@@ -106,7 +106,6 @@ const deleteChallengeById = async (challengeID, userID) => {
   }
   if (userID == challenge.creator) {
     await challenge.remove();
-    // return challenge;
   } else if (userID == challenge.creator) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'UNAUTHORIZED');
   }

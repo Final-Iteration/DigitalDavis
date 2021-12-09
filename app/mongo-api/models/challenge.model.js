@@ -39,21 +39,18 @@ const challengeSchema = mongoose.Schema({
     required: false,
     maxlength: 250,
     trim: true,
-    // match: /^([A-Za-z0-9_\\-\\.\\s\\!])+$/,
   },
   summary: {
     type: String,
     required: false,
     maxlength: 150,
     trim: true,
-    // match: /^([A-Za-z0-9_\\-\\.\\s\\!])+$/,
   },
   location: {
     type: String,
     minlength: 1,
     maxlength: 50,
     trim: true,
-    // match: '/[A-Za-z0-9_\\-\\.\\s\\!])+$/',
   },
   unsplashurl: {
     type: String,
@@ -177,22 +174,9 @@ const dateFormater = (date, currentDate) => {
   modelDebugger('TYPEOF date', typeof number);
   return number;
 };
-// const dateFormater = (date, currentDate) => {
-//   return parseInt(
-//     '' +
-//       date.getFullYear() +
-//       (date.getMonth() + 1 > 9 ? '' : 0) +
-//       (date.getMonth() + 1) +
-//       (date.getUTCDate() > 9 ? '' : 0) +
-//       (currentDate ? date.getDate() : date.getUTCDate()),
-//     10
-//   );
-// };
 
 /**
  * @typedef Challenge
  */
 const Challenge = mongoose.model('challenge', challengeSchema);
-//const User = mongoose.model("user", UserSchema);
-
 module.exports = Challenge;

@@ -45,7 +45,6 @@ const UserProfile = (props) => {
       });
       const user = res.data;
       const dob = new Date(user.dob);
-      // setProfilePicture(profile.profilePicture);
       setFullName(user.first_name + ' ' + user.last_name);
       setTitle(user.job_title[0]);
       setDepartment(user.department);

@@ -158,7 +158,7 @@ const ChallengeInfo = (props) => {
       props.navigation.navigate('Challenge');
     } catch (err) {}
   };
-  // return <Text>Fuck this shit</Text>;
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>

@@ -44,7 +44,6 @@ const ForgotPassword = (props) => {
         {
           text: 'OK',
           onPress: () => props.navigation.navigate('Login'),
-          // blankEmailCheck()
         },
       ]
     );

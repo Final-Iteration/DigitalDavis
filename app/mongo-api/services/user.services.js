@@ -66,14 +66,7 @@ const updateUserById = async (id, updateBody) => {
   if (!User) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  //ERROR "User.isEmailTaken is not a function" even though it is a function
-  //I can't figure this out
-  // if (await User.isEmailTaken(updateBody.email)) {
-  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
-  // }
-  // if (updateBody.email && (await User.isEmailTaken(updateBody.email, id))) {
-  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
-  // }
+
   Object.assign(User, updateBody);
   await User.save();
   return User;

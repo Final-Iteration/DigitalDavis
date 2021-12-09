@@ -1,5 +1,4 @@
 const nodemailer = require('nodemailer');
-//const config = require('../config/config');
 
 const transport = nodemailer.createTransport({
   service: 'outlook',

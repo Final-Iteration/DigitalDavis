@@ -1,4 +1,4 @@
-//not in use
+//not implemented in current build
 
 const rateLimit = require('express-rate-limit');
 

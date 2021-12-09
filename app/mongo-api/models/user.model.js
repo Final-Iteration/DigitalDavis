@@ -38,7 +38,6 @@ const userSchema = mongoose.Schema({
   dob: {
     type: Date,
     required: false,
-    // validate: [validateDOB, 'Please enter a correct date'],
   },
   job_title: {
     type: [String],
@@ -68,24 +67,12 @@ userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
   return !!user;
 };
 
-//@TODO Fix this function @Daniel
-/**validateEmail
- * validate the email with a regex expression.
- * Returns:
- *  true: if email meets regex
- *  false: if email fails regex
- */
+
 var validateEmail = async function (email) {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return re.test(email);
 };
 
-/**
- * validate DOB to ensure user enters date in correct format
- */
-//validateDOB = async function (dob) {
-
-//};
 
 /**
  * Check if password is correct password
@@ -107,10 +94,9 @@ userSchema.pre('save', async function (next) {
  * determines collection name to be "user"
  */
 const User = mongoose.model('user', userSchema);
-// const UserTest = mongoose.model("user_test", userSchema);
 
 /**
  * @todo Test if this works
  */
 module.exports = User;
-// module.exports = UserTest;
+

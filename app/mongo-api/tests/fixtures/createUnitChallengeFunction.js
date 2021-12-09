@@ -47,12 +47,10 @@ function end_date() {
 //Asynchronous code to get the dates
 const getStartDate = async () => {
   const start = start_date_add_days(3);
-  // const start = start_date();
   return start;
 };
 
 const getEndDate = async () => {
-  // const end = end_date();
   const end = end_date_add_days(3);
   return end;
 };
