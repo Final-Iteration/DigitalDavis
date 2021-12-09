@@ -89,14 +89,14 @@ Final Iteration - California State University, Sacramento - CS Senior Project Te
     └───mongo-db
 ```
 ## Authors
-1. Akasha Stallworth: [Github](https://github.com/akxsha) - [LinkedIn](https://www.linkedin.com/in/akasha-stallworth-75a458160/)
-2. Daniel Olsen: [Github](https://github.com/BotOlsen) - [LinkedIn](https://www.linkedin.com/in/olsend/)
-3. Dennis Worley: [Github](https://github.com/dennisw95) - [LinkedIn](https://www.linkedin.com/in/dennis-worley-jr-4ab98b187/)
-4. Gustav Boyd: [Github](https://github.com/gustavboyd) - [LinkedIn](https://www.linkedin.com/in/gustav-boyd/)
-5. Joshua Poe: [Github](https://github.com/icarus44-zer0) - [LinkedIn](https://www.linkedin.com/in/joshua-poe/)
-6. Manh Sy: [Github](https://github.com/Manhsy) - [LinkedIn](https://www.linkedin.com/in/manh-sy/)
-7. Sahira Rizvi: [Github](https://github.com/sahirar) - [LinkedIn](https://www.linkedin.com/in/sahira-rizvi/)
-8. Sharon Fitzpatrick: [Github](https://github.com/2320sharon) - [LinkedIn](https://www.linkedin.com/in/sharon-fitzpatrick-9088b31b3)
+1. **Akasha Stallworth**: [Github](https://github.com/akxsha) - [LinkedIn](https://www.linkedin.com/in/akasha-stallworth-75a458160/)
+2. **Daniel Olsen**: [Github](https://github.com/BotOlsen) - [LinkedIn](https://www.linkedin.com/in/olsend/)
+3. **Dennis Worley Jr.**: [Github](https://github.com/dennisw95) - [LinkedIn](https://www.linkedin.com/in/dennis-worley-jr-4ab98b187/)
+4. **Gustav Boyd**: [Github](https://github.com/gustavboyd) - [LinkedIn](https://www.linkedin.com/in/gustav-boyd/)
+5. **Joshua Poe**: [Github](https://github.com/icarus44-zer0) - [LinkedIn](https://www.linkedin.com/in/joshua-poe/)
+6. **Manh Sy**: [Github](https://github.com/Manhsy) - [LinkedIn](https://www.linkedin.com/in/manh-sy/)
+7. **Sahira Rizvi**: [Github](https://github.com/sahirar) - [LinkedIn](https://www.linkedin.com/in/sahira-rizvi/)
+8. **Sharon Fitzpatrick**: [Github](https://github.com/2320sharon) - [LinkedIn](https://www.linkedin.com/in/sharon-fitzpatrick-9088b31b3)
 
 ## API
 Forked from [hagopj13/node-express-boilerplate](https://github.com/hagopj13/node-express-boilerplate)
