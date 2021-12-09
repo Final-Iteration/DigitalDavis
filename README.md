@@ -83,6 +83,15 @@
     │   └───validate
     └───mongo-db
 ```
+## Author
+Akasha Stallworth: (Github)[https://github.com/akxsha] (LinkedIn)[https://www.linkedin.com/in/akasha-stallworth-75a458160/]
+Daniel Olsen: (Github)[https://github.com/BotOlsen] (LinkedIn)[https://www.linkedin.com/in/olsend/]
+Dennis Worley: (Github)[https://github.com/dennisw95] (LinkedIn)[https://www.linkedin.com/in/dennis-worley-jr-4ab98b187/]
+Gustav Boyd: (Github)[https://github.com/gustavboyd] (LinkedIn)[https://www.linkedin.com/in/gustav-boyd/]
+Joshua Poe: (Github)[https://github.com/icarus44-zer0] (LinkedIn)[https://www.linkedin.com/in/joshua-poe/]
+Manh Sy: (Github)[https://github.com/Manhsy] (LinkedIn)[https://www.linkedin.com/in/manh-sy/]
+Sahira Rizvi: (Github)[https://github.com/sahirar] (LinkedIn)[https://www.linkedin.com/in/sahira-rizvi/]
+Sharon Fitzpatrick: (Github)[https://github.com/2320sharon] (LinkedIn)[https://www.linkedin.com/in/sharon-fitzpatrick-9088b31b3]
 
 ## Known issues
 1. Frontend cannot be built with expo in a emulated enviroment - Requires Native CLI
