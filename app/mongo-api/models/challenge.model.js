@@ -20,7 +20,6 @@ const challengeSchema = mongoose.Schema({
     minlength: 5,
     maxlength: 30,
     trim: true,
-    // match: '/[A-Za-z0-9_\\-\\.\\s\\!])+$/',
   },
   creator: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
   tags: {
@@ -86,7 +85,6 @@ const challengeSchema = mongoose.Schema({
     },
   },
   participants: [{ type: Schema.Types.ObjectId, required: true, ref: 'User', default: function () { return this.creator; }}],
-  // },
 });
 
 // add plugin that converts mongoose to json
