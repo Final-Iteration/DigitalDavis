@@ -3,7 +3,7 @@
 <img src="https://fi-nirvana.netlify.app/static/media/logo.524f9483.png" align="right"
      alt="Lotus logo by Freepik" width="140" height="120">
 
-### Developers 
+## Developers 
 Final Iteration - California State University, Sacramento - CS Senior Project Team
 
 ## Project Homepage
