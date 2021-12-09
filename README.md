@@ -3,7 +3,7 @@
 ### Developers 
 Final Iteration - California State Univeristy, Sacramento - CS Senior Project Team
 
-## Project Website
+## Project Homepage
 [Nirvana](https://fi-nirvana.netlify.app/)
 
 ## Prerequisites
