@@ -9,9 +9,10 @@
 ## Prerequisites
 - [MongoDB](https://gist.github.com/nrollr/9f523ae17ecdbb50311980503409aeb3) ^5.0
 - [Node](https://nodejs.org/en/download/) ^14.17.6
-- [NPM](https://nodejs.org/en/download/package-manager/)
+- [NPM](https://nodejs.org/en/download/package-manager/) ^6.14.15
 - [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install)
-- [Docker](https://www.docker.com/products/docker-desktop)
+- [Ubuntu](https://ubuntu.com/wsl) ^18.04.6 LTS
+- [Docker](https://www.docker.com/products/docker-desktop) ^20.10.8
 - [Docker Compose](https://docs.docker.com/compose/install/) ^3.8
 
 ## Installing Dependencies with NPM
