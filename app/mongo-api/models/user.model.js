@@ -67,12 +67,10 @@ userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
   return !!user;
 };
 
-
 var validateEmail = async function (email) {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return re.test(email);
 };
-
 
 /**
  * Check if password is correct password
@@ -99,4 +97,3 @@ const User = mongoose.model('user', userSchema);
  * @todo Test if this works
  */
 module.exports = User;
-
