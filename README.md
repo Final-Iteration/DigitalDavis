@@ -1,10 +1,11 @@
 # UCD Digital Davis Initiative - Nirvana
 
-<img src="https://fi-nirvana.netlify.app/static/media/logo.524f9483.png" align="right"
-     alt="Lotus logo by Freepik" width="145" height="120">
+![UCD_works_12](https://user-images.githubusercontent.com/61564689/156504609-99b55ab8-a175-439e-be41-b74b3d99e7e9.png)
 
 ## Project Homepage
 [Nirvana](https://fi-nirvana.netlify.app/)
+<img src="https://fi-nirvana.netlify.app/static/media/logo.524f9483.png" align="right"
+     alt="Lotus logo by Freepik" width="145" height="120">
 
 ## Prerequisites
 - [MongoDB](https://gist.github.com/nrollr/9f523ae17ecdbb50311980503409aeb3) ^5.0
